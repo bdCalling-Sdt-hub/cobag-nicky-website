@@ -6,7 +6,10 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: { 
+    extend: {
+      colors: {
+        primary: "#161d6f", 
+      },
       backgroundColor:{
         primary: "#161d6f", 
       }

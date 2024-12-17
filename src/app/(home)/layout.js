@@ -11,7 +11,7 @@ export default function Layout({ children }) {
             </Head>
             <body>
                 <Header></Header>
-                <div className='md:mt-28 mt-20'>
+                <div className='md:mt-[108px] mt-20'>
                     {children}
                 </div>
             </body>

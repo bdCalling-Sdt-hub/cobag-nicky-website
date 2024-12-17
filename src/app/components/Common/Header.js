@@ -29,7 +29,7 @@ const Header = () => {
             <ul className='hidden md:flex items-center gap-10'>
                 <li>
                     <Link
-                        className={`font-semibold ${isActive('/') ? 'bg-primary text-white py-2 px-3 rounded-full' : 'text-black'}`}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/') ? 'bg-primary text-white ' : 'text-black'}`}
                         href={'/'}
                     >
                         I travel
@@ -37,7 +37,7 @@ const Header = () => {
                 </li>
                 <li>
                     <Link
-                        className={`font-semibold ${isActive('/send') ? 'text-blue-500' : 'text-black'}`}
+                       className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/s') ? 'bg-primary text-white ' : 'text-black'}`}
                         href={'/send'}
                     >
                         I send
@@ -45,7 +45,7 @@ const Header = () => {
                 </li>
                 <li>
                     <Link
-                        className={`font-semibold ${isActive('/shop') ? 'text-blue-500' : 'text-black'}`}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/d') ? 'bg-primary text-white ' : 'text-black'}`}
                         href={'/shop'}
                     >
                         I shop
