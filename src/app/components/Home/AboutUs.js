@@ -5,10 +5,10 @@ import { FaArrowRight } from "react-icons/fa6";
 const AboutUs = () => {
     return (
         <div className='py-20 bg-[#f7f7fc]'>
-            <h2 className='text-center md:text-5xl text-3xl text-primary font-semibold'>Who can I sell my unused kilos to?</h2>
+            <h2 data-aos="fade-up" data-aos-duration="300" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Who can I sell my unused kilos to?</h2>
             <div className='flex justify-center items-center flex-wrap mt-10 gap-10 md:px-0 px-5'>
 
-                <div className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
+                <div data-aos="fade-up" data-aos-duration="500" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
                     {/* Image with Overlay */}
                     <div className="relative overflow-hidden">
                         {/* Image */}
@@ -35,7 +35,7 @@ const AboutUs = () => {
 
                 </div>
 
-                <div className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
+                <div data-aos="fade-up" data-aos-duration="800" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
                     {/* Image with Overlay */}
                     <div className="relative overflow-hidden">
                         {/* Image */}

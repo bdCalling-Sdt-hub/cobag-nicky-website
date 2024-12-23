@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from '../components/Common/Header';
+import Footer from '../components/Common/Footer';
 
 export default function Layout({ children }) {
     return (
@@ -14,6 +15,7 @@ export default function Layout({ children }) {
                 <div className='md:mt-[108px] mt-20'>
                     {children}
                 </div>
+                <Footer></Footer>
             </body>
         </html>
     );

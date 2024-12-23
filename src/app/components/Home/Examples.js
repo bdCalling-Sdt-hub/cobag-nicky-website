@@ -4,12 +4,12 @@ const Examples = () => {
     return (
         <div className='bg-[#f6f6fb] py-20 '>
             <div className='py-20'>
-                <h2 className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of shipments</h2>
+                <h2 data-aos="fade-in" data-aos-duration="500" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of shipments</h2>
                 <div className='mt-10 md:w-[80%] w-[90%] mx-auto grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 items-center'>
-                    <div>
+                    <div data-aos="fade-in" data-aos-duration="800">
                         <img className='w-full md:w-[80%]' src="/Images/Landingpage/Home_Examples.png" alt="" />
                     </div>
-                    <div className='bg-white p-10 rounded-xl shadow-md w-full'>
+                    <div data-aos="fade-in" data-aos-duration="800" className='bg-white p-10 rounded-xl shadow-md w-full'>
                         <div className='flex items-center gap-5'>
                             <div className='w-14 h-14 flex items-center justify-center bg-primary rounded-full'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -88,10 +88,10 @@ const Examples = () => {
 
 
             <div className='py-20'>
-                <h2 className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of purchases</h2>
-                <div className='mt-10 md:w-[80%] w-[90%] mx-auto grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 items-center'>
+                <h2 data-aos="fade-in" data-aos-duration="800" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of purchases</h2>
+                <div  className='mt-10 md:w-[80%] w-[90%] mx-auto grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 items-center'>
 
-                    <div className='bg-white p-10 rounded-xl shadow-md w-full'>
+                    <div data-aos="fade-in" data-aos-duration="800" className='bg-white p-10 rounded-xl shadow-md w-full'>
                         <div className='flex items-center gap-5'>
                             <div className='w-14 h-14 flex items-center justify-center bg-primary rounded-full'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -150,7 +150,7 @@ const Examples = () => {
 
                     </div>
 
-                    <div className='flex items-center justify-end'>
+                    <div data-aos="fade-in" data-aos-duration="800" className='flex items-center justify-end'>
                         <img className='w-full md:w-[80%]' src="/Images/Landingpage/Home_Examples_2.png" alt="" />
                     </div>
 

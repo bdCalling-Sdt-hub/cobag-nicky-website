@@ -44,9 +44,9 @@ const Hero = () => {
                                 {/* Play Button */}
                                 <button
                                     onClick={handlePlayClick}
-                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-lg"
+                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#eeeeee73] p-5 rounded-full shadow-lg"
                                 >
-                                    <CiPlay1 className='text-3xl' />
+                                    <CiPlay1 className='text-4xl text-white' />
                                 </button>
                             </div>
                         ) : (
