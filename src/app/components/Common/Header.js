@@ -24,20 +24,20 @@ const Header = () => {
     };
 
     return (
-        <div className='fixed top-0 left-0 w-full bg-white flex items-center justify-between md:px-20 px-5 py-4 shadow-lg z-10'>
+        <div className='fixed top-0 left-0 w-full bg-white flex items-center justify-between md:px-20 px-5 py-4 shadow-sm z-10'>
             {/* Navigation Links */}
             <ul className='hidden md:flex items-center gap-10'>
                 <li>
                     <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/'}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/itravel') ? 'bg-primary text-white ' : 'text-black'}`}
+                        href={'/itravel'}
                     >
                         I travel
                     </Link>
                 </li>
                 <li>
                     <Link
-                       className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/s') ? 'bg-primary text-white ' : 'text-black'}`}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/s') ? 'bg-primary text-white ' : 'text-black'}`}
                         href={'/send'}
                     >
                         I send
@@ -54,7 +54,8 @@ const Header = () => {
             </ul>
 
             {/* Logo Section */}
-            <div className='w-[100px] md:w-[200px] hidden md:block cursor-pointer'>
+            <Link href={'/'} className='w-[100px] md:w-[200px] hidden md:block cursor-pointer'>
+
                 <Image
                     src="/Images/logo.svg"
                     alt="Company Logo"
@@ -62,10 +63,11 @@ const Header = () => {
                     height={100}
                     layout="responsive"
                 />
-            </div>
+            </Link>
 
             {/* User Icon Section */}
-            <div className='md:w-14 w-10 cursor-pointer'>
+            <div className=' cursor-pointer flex items-center gap-3'>
+                <Link href={'/ourconcept'} className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-10 min-w-48 py-3 rounded-md font-semibold text-primary border-[1px]'>Our Concept</Link>
                 <Image
                     src="/Images/header-user.svg"
                     alt="User Icon"
@@ -75,7 +77,8 @@ const Header = () => {
                 />
             </div>
 
-            <div className='w-[100px] md:w-[200px] block md:hidden cursor-pointer'>
+            <div className='  md:hidden cursor-pointer flex items-center gap-3'>
+                <Link href={'/ourconcept'} className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 px-10 min-w-48 rounded-md font-semibold text-primary border-[1px]'>Our Concept</Link>
                 <Image
                     src="/Images/logo.svg"
                     alt="Company Logo"
@@ -105,8 +108,8 @@ const Header = () => {
                 <ul>
                     <li>
                         <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/') ? 'bg-primary text-white' : ''}`}
-                            href={'/'}
+                            className={`block text-black font-semibold py-2 px-4 ${isActive('/itravel') ? 'bg-primary text-white' : ''}`}
+                            href={'/itravel'}
                         >
                             I travel
                         </Link>
