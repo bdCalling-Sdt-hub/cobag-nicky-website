@@ -37,16 +37,16 @@ const Header = () => {
                 </li>
                 <li>
                     <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/s') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/send'}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/isend') ? 'bg-primary text-white ' : 'text-black'}`}
+                        href={'/isend'}
                     >
                         I send
                     </Link>
                 </li>
                 <li>
                     <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/d') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/shop'}
+                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/ishop') ? 'bg-primary text-white ' : 'text-black'}`}
+                        href={'/ishop'}
                     >
                         I shop
                     </Link>
@@ -116,16 +116,16 @@ const Header = () => {
                     </li>
                     <li>
                         <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/send') ? 'bg-primary text-white' : ''}`}
-                            href={'/send'}
+                            className={`block text-black font-semibold py-2 px-4 ${isActive('/isend') ? 'bg-primary text-white' : ''}`}
+                            href={'/isend'}
                         >
                             I send
                         </Link>
                     </li>
                     <li>
                         <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/shop') ? 'bg-primary text-white' : ''}`}
-                            href={'/shop'}
+                            className={`block text-black font-semibold py-2 px-4 ${isActive('/ishop') ? 'bg-primary text-white' : ''}`}
+                            href={'/ishop'}
                         >
                             I shop
                         </Link>

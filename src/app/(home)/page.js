@@ -15,6 +15,6 @@ const Page = () => {
             <DetailsInfo />
         </div>
     );
-}
+} 
 
 export default Page;

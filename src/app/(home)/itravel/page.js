@@ -11,6 +11,8 @@ import { Space, TimePicker } from 'antd';
 import { LuPlane } from 'react-icons/lu';
 import { PiTrainLight } from "react-icons/pi";
 import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
+import Courier from '@/app/components/ITravel/Courier';
+import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
 
 
 
@@ -115,7 +117,7 @@ const Page = () => {
         setLargeVlaue(largeVlaue - 1)
     }
 
-
+    
 
 
 
@@ -751,7 +753,11 @@ const Page = () => {
                     </div>
                 </div>
             </div>
+
             <HalfEmptyLuggage />
+            <Courier />
+            <ITravelVideoSection />
+            
         </div>
     );
 };
