@@ -125,12 +125,12 @@ const Page = () => {
     return (
         <div>
             <div className={` duration-500 ${activeTab === 1 ? 'bg-[url("/Images/Itravel/travel-plane-1.png")] ' : 'bg-[url("/Images/Itravel/travel-tran-1.png")] '}  bg-cover bg-center h-auto w-full `}>
-                <div className='w-full h-full bg-[#0000008e] py-10 '>
-                    <div className='flex flex-col items-center justify-center py-10 text-center text-white'>
-                        <h2 className='text-5xl font-semibold mb-3'>
+                <div className='w-full h-full bg-[#0000008e] lg:py-10 py-5 '>
+                    <div className='flex flex-col items-center justify-center lg:py-10 py-5 lg:px-0 px-5 text-center text-white'>
+                        <h2 className='lg:text-5xl text-3xl font-semibold mb-3'>
                             Offer your journey, Make your luggage profitable.
                         </h2>
-                        <p className='text-xl'>
+                        <p className='lg:text-xl'>
                             Resell your unused kilos and turn your trips into <br /> lucrative opportunities.
                         </p>
                     </div>
@@ -757,7 +757,7 @@ const Page = () => {
             <HalfEmptyLuggage />
             <Courier />
             <ITravelVideoSection />
-            
+
         </div>
     );
 };

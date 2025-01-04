@@ -6,8 +6,8 @@ import { GoAlert, GoLaw } from 'react-icons/go';
 
 const HalfEmptyLuggage = () => {
     return (
-        <div className='w-[90%] mx-auto py-20'>
-            <div className='w-2/4 mx-auto text-center my-10'>
+        <div className='w-[90%] mx-auto md:py-20 py-10'>
+            <div className='md:w-2/4 mx-auto text-center my-10'>
                 <h2 className='md:text-4xl text-3xl font-semibold text-primary'>Are you leaving with half-empty luggage?</h2>
                 <p className='mt-3 font-semibold text-[#737373]'>Don’t let those unused kilos go to waste! With Cobag, every available kilo becomes an opportunity to generate revenue. Make your trips profitable by offering them to shippers or buyers. Transform an ordinary flight into a lucrative trip.</p>
             </div>
@@ -53,7 +53,7 @@ const HalfEmptyLuggage = () => {
                 </div>
             </div>
 
-            <div className='mt-20 grid grid-cols-4 gap-10'>
+            <div className='mt-20 grid md:grid-cols-2 xl:grid-cols-4 gap-10'>
                 <div className='shadow-lg rounded-lg p-10'>
                     <img src="/Images/Itravel/item-1.png" alt="" />
                     <h2 className='text-primary text-xl font-semibold my-5'>Make your travels profitable</h2>
@@ -91,12 +91,12 @@ const HalfEmptyLuggage = () => {
             </div>
 
 
-            <div className='w-[70%] mx-auto '>
+            <div className='lg:w-[70%] mx-auto '>
                 <h2 className='text-center text-4xl font-semibold text-primary my-10'>Multiple senders, more earnings!</h2>
-                <div className='grid grid-cols-2 gap-10'>
+                <div className='grid lg:grid-cols-2 gap-10'>
                     <div>
 
-                        <div className='bg-gradient-to-tl from-[#C7FFD8] to-primary rounded-lg w-full flex items-center justify-center p-10'>
+                        <div className='bg-gradient-to-tl from-[#C7FFD8] to-primary rounded-lg w-full flex items-center justify-center lg:p-10 p-5'>
                             <div className='bg-[#47474727] backdrop-blur-lg rounded-lg px-8 py-14 w-full  flex items-center justify-center'>
                                 <p className='text-white text-xl'>Why limit yourself to just one package? With Cobag, your available kilos can be distributed among multiple senders. You maximize your income in a single trip while helping multiple people send their packages. Every kilo counts, and every mission earns you more.</p>
                             </div>
@@ -124,7 +124,7 @@ const HalfEmptyLuggage = () => {
                 </div>
             </div>
 
-         
+
 
         </div>
     );

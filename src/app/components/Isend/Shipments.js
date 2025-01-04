@@ -3,8 +3,8 @@ import React from 'react';
 const Shipments = () => {
     return (
         <div className='bg-[#f7f7fc]'>
-            <div className='py-10 w-[80%] mx-auto '>
-                <div className='w-2/4 mx-auto text-center mb-10'>
+            <div className='py-10 lg:w-[80%] w-[90%] mx-auto '>
+                <div className='lg:w-2/4 mx-auto text-center mb-10'>
                     <h2 className='md:text-4xl text-3xl font-semibold text-primary'>Why choose CoBag for your shipments?</h2>
                 </div>
 
@@ -49,7 +49,7 @@ const Shipments = () => {
                     </div>
                 </div>
 
-                <div className='mt-20 grid grid-cols-3 gap-5'>
+                <div className='mt-20 grid md:grid-cols-2 xl:grid-cols-3 gap-5'>
                     <div className='shadow-lg rounded-lg p-10'>
                         <img src="/Images/Isend/shipments-icon-3.png" alt="" />
                         <h2 className='text-primary text-xl font-semibold my-5'>Unique solution</h2>

@@ -2,137 +2,120 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
-
 const Header = () => {
-    const [currentPath, setCurrentPath] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
 
-    useEffect(() => {
-        // Set the current path when the component mounts (client-side)
-        setCurrentPath(window.location.pathname);
-    }, []); // This will run only once after the component mounts
+    const pathname = usePathname(); // Get the current route path
 
     // Function to check if a link is active
-    const isActive = (path) => currentPath === path;
+    const isActive = (path) => {
+        // Normalize both the current path and link path for accurate matching
+        return pathname === path || pathname?.startsWith(path);
+    };
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen); // Toggle the menu state
     };
 
     return (
-        <div className='fixed top-0 left-0 w-full bg-white flex items-center justify-between md:px-20 px-5 py-4 shadow-sm z-10'>
+        <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20 py-6 z-[99999]">
             {/* Navigation Links */}
-            <ul className='hidden md:flex items-center gap-10'>
-                <li>
-                    <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/itravel') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/itravel'}
-                    >
-                        I travel
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/isend') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/isend'}
-                    >
-                        I send
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive('/ishop') ? 'bg-primary text-white ' : 'text-black'}`}
-                        href={'/ishop'}
-                    >
-                        I shop
-                    </Link>
-                </li>
+            <ul className="hidden md:flex items-center gap-10">
+                {['/itravel', '/isend', '/ishop'].map((path, index) => (
+                    <li key={index}>
+                        <Link
+                            className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive(path) ? 'bg-primary text-white' : 'text-black'
+                                }`}
+                            href={path}
+                        >
+                            {path === '/itravel' ? 'I travel' : path === '/isend' ? 'I send' : 'I shop'}
+                        </Link>
+                    </li>
+                ))}
             </ul>
 
-            {/* Logo Section */}
-            <Link href={'/'} className='w-[100px] md:w-[200px] hidden md:block cursor-pointer'>
-
+            {/* Logo Section (Always Visible) */}
+            <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
                 <Image
                     src="/Images/logo.svg"
                     alt="Company Logo"
-                    width={200}
-                    height={100}
+                    width={150}
+                    height={75}
                     layout="responsive"
                 />
             </Link>
 
-            {/* User Icon Section */}
-            <div className=' cursor-pointer flex items-center gap-3'>
-                <Link href={'/ourconcept'} className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-10 min-w-48 py-3 rounded-md font-semibold text-primary border-[1px]'>Our Concept</Link>
-                <Image
-                    src="/Images/header-user.svg"
-                    alt="User Icon"
-                    width={1200}
-                    height={800}
-                    layout="responsive"
-                />
-            </div>
-
-            <div className='  md:hidden cursor-pointer flex items-center gap-3'>
-                <Link href={'/ourconcept'} className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 px-10 min-w-48 rounded-md font-semibold text-primary border-[1px]'>Our Concept</Link>
-                <Image
-                    src="/Images/logo.svg"
-                    alt="Company Logo"
-                    width={200}
-                    height={100}
-                    layout="responsive"
-                />
+            {/* User Icon Section (Always Visible) */}
+            <div className="flex items-center gap-3">
+                <Link
+                    href={'/ourconcept'}
+                    className="hidden md:block bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-2 rounded-md font-semibold text-primary border"
+                >
+                    Our Concept
+                </Link>
+                <Link href={'/dashboard'}>
+                    <Image
+                        src="/Images/header-user.svg"
+                        alt="User Icon"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
+                    />
+                </Link>
             </div>
 
             {/* Mobile Navigation Button */}
-            <div className='md:hidden flex items-center'>
-                <button onClick={toggleMenu} className="p-2 border rounded-full text-black">
-                    {
-                        !isMenuOpen ?
-                            <IoMenu className='text-3xl' />
-                            :
-                            <RxCross2 className='text-3xl' />
-                    }
-                </button>
-            </div>
+            <button
+                onClick={toggleMenu}
+                className="p-2 border rounded-full text-black md:hidden"
+            >
+                {!isMenuOpen ? <IoMenu className="text-3xl" /> : <RxCross2 className="text-3xl" />}
+            </button>
 
-            {/* Mobile Menu (only visible if isMenuOpen is true) */}
+            {/* Mobile Menu */}
             <div
-                className={`md:hidden absolute top-20 right-0 w-[80%] bg-white shadow-lg py-4 transition-transform duration-300 ${isMenuOpen ? 'transform translate-x-0' : 'transform translate-x-full'}`}
+                className={`md:hidden absolute top-20 right-0 w-full bg-white shadow-lg py-4 px-5 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                    }`}
                 style={{ height: '100vh' }}
             >
-                <ul>
-                    <li>
-                        <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/itravel') ? 'bg-primary text-white' : ''}`}
-                            href={'/itravel'}
-                        >
-                            I travel
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/isend') ? 'bg-primary text-white' : ''}`}
-                            href={'/isend'}
-                        >
-                            I send
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            className={`block text-black font-semibold py-2 px-4 ${isActive('/ishop') ? 'bg-primary text-white' : ''}`}
-                            href={'/ishop'}
-                        >
-                            I shop
-                        </Link>
-                    </li>
+                <ul className="space-y-4">
+                    {['/itravel', '/isend', '/ishop'].map((path, index) => (
+                        <li key={index}>
+                            <Link
+                                className={`block font-semibold py-2 px-4 rounded-md ${isActive(path) ? 'bg-primary text-white' : 'text-black'
+                                    }`}
+                                href={path}
+                                onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                            >
+                                {path === '/itravel' ? 'I travel' : path === '/isend' ? 'I send' : 'I shop'}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
+
+                {/* Mobile User Section */}
+                <div className="mt-10 flex flex-col items-center gap-3">
+                    <Link
+                        href={'/ourconcept'}
+                        className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] w-full text-center py-2 rounded-md font-semibold text-primary border"
+                    >
+                        Our Concept
+                    </Link>
+                    {/* <Image
+                        src="/Images/header-user.svg"
+                        alt="User Icon"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
+                    /> */}
+                </div>
             </div>
-        </div>
+        </header>
     );
 };
 

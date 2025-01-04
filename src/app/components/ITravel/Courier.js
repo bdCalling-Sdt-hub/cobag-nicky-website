@@ -3,7 +3,7 @@ import React from 'react';
 const Courier = () => {
     return (
         <div className='bg-[#f6f6fb]'>
-            <div className='w-[70%] mx-auto py-20'>
+            <div className='lg:w-[70%] w-[90%] mx-auto py-20'>
                 <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>What is it like to be a courier with Cobag?</h2>
                 <div className='grid lg:grid-cols-3 grid-cols-1 gap-5 mt-10' >
                     <div className='bg-white p-10 rounded-xl flex flex-col justify-center items-center'>

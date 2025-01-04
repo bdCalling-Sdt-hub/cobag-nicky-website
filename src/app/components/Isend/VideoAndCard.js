@@ -8,8 +8,8 @@ const VideoAndCard = () => {
 
 
             <div className='bg-[#f9fafb]'>
-                <div className='w-[90%] mx-auto py-20'>
-                    <div className='relative mt-10 flex justify-center'>
+                <div className='w-[90%] mx-auto lg:py-20 py-10'>
+                    <div className='relative lg:mt-10 flex justify-center'>
                         <iframe className='rounded-lg' width="560" height="315" src="https://www.youtube.com/embed/EH3vGeqeIAo?si=fekxRrdvghHIDvEK" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const VideoAndCard = () => {
                     <p className='text-[#000000b2]'>Benefit from comprehensive coverage with CoBag insurance, protecting your parcels up to €1000 in case of any incident. Travel with peace of mind, your shipments are secure.</p>
                 </div>
             </div>
-            
+
         </div>
     );
 }

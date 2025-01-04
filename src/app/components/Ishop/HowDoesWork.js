@@ -7,7 +7,7 @@ const HowDoesWork = () => {
     return (
         <div className='py-32'>
             <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center mb-16'>How does it work?</h2>
-            <div className='w-[80%] mx-auto  grid lg:grid-cols-4 grid-cols-1 gap-10 items-start'>
+            <div className='lg:w-[80%] w-[90%] mx-auto  grid lg:grid-cols-4 grid-cols-1 gap-10 items-start'>
                 <div className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 border-2 border-primary text-primary flex items-center justify-center rounded-lg'>
                         <IoSearchOutline className='text-2xl ' />
@@ -40,10 +40,10 @@ const HowDoesWork = () => {
 
 
 
-            <div className='w-[80%] mx-auto pt-28'>
+            <div className='lg:w-[80%] w-[90%] mx-auto pt-28'>
                 <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>The advantages of CoBag</h2>
                 <p className='text-[#000000b2] text-center mt-2' >An innovative solution for your international purchases</p>
-                <div className='mt-20 grid grid-cols-4 gap-5'>
+                <div className='mt-20 grid xl:grid-cols-4 md:grid-cols-2 gap-5'>
                     <div className='shadow-lg rounded-lg p-10'>
                         <img src="/Images/Ishop/card-icon-1.png" alt="" />
                         <h2 className='text-primary text-xl font-semibold my-5'>Fast delivery</h2>

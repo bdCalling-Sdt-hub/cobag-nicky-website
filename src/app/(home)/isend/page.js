@@ -375,7 +375,7 @@ const Page = () => {
                     <div className='mb-5'>
                         <h2 className="block mb-2 font-semibold">  Package size   </h2>
 
-                        <div className='grid grid-cols-3 gap-5'>
+                        <div className='grid lg:grid-cols-3 gap-5'>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
                                 <h3 className='text-xl font-semibold'>S (small)</h3>
                                 <p className='my-3'>Documents, small packages</p>
@@ -550,7 +550,7 @@ const Page = () => {
                     <div>
                         <h2>Package size</h2>
 
-                        <div className='grid grid-cols-3 gap-5'>
+                        <div className='grid lg:grid-cols-3 gap-5'>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
                                 <h3 className='text-xl font-semibold'>S (small)</h3>
                                 <p className='my-3'>Documents, small packages</p>
@@ -620,17 +620,17 @@ const Page = () => {
             >
                 {/* Tabs Navigation */}
                 <div className="bg-[#0505055e] min-h-[100vh] p-5">
-                    <div className="w-2/4 mx-auto text-center my-10">
-                        <h2 className="text-4xl font-semibold text-white">
+                    <div className="lg:w-2/4 mx-auto text-center my-10">
+                        <h2 className="lg:text-4xl text-2xl font-semibold text-white">
                             Your package delivered internationally in just a few hours
                         </h2>
-                        <p className="mt-3 font-normal text-[#ffffff] text-xl">
+                        <p className="mt-3 font-normal text-[#ffffff] lg:text-xl">
                             Thanks to CoBag: In a few hours, your package crosses the world. A first
                             for international
                         </p>
                     </div>
 
-                    <div className="w-2/4 mx-auto bg-[#ffffff91] backdrop-blur-lg rounded-xl p-5">
+                    <div className="lg:w-2/4 mx-auto bg-[#ffffff91] backdrop-blur-lg rounded-xl p-5">
                         <h2 className="font-semibold text-primary mb-3">Transport Mode</h2>
                         <div className="flex justify-center mb-5 gap-5">
                             {tabs.map((tab, index) => (

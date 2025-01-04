@@ -7,7 +7,7 @@ const ITravelVideoSection = () => {
     return (
         <div className=''>
             <div className='bg-[#f9fafb]'>
-                <div className='w-[90%] mx-auto py-20'>
+                <div className='w-[90%] mx-auto lg:py-20 py-10'>
                     <div className='relative mt-10 flex justify-center'>
                         <iframe className='rounded-lg' width="560" height="315" src="https://www.youtube.com/embed/EH3vGeqeIAo?si=fekxRrdvghHIDvEK" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                     </div>

@@ -37,19 +37,19 @@ const Page = () => {
             <div className='bg-[url("/Images/Ishop/banner.png")] w-full min-h-[80vh] bg-cover bg-center'>
                 <div>
                     <div className='bg-[#000d1a8a] min-h-[80vh] py-20'>
-                        <div className='w-2/4 mx-auto text-center'>
+                        <div className='lg:w-2/4 mx-auto text-center'>
                             <h1 className='md:text-4xl text-3xl font-semibold text-white'>
                                 World purchases in your basket
                             </h1>
-                            <p className='text-white text-xl mt-5'>
+                            <p className='text-white lg:text-xl lg:mt-5 mt-3'>
                                 What you can't find at home, our travel couriers bring it to you thanks to Cobag!
                                 Access the world.
                             </p>
                         </div>
 
-                        <form className="w-2/4 mx-auto mt-10 bg-[#ffffffab] backdrop-blur-lg p-10 rounded-lg" onSubmit={handleSubmit}>
+                        <form className="lg:w-2/4 w-11/12 mx-auto mt-10 bg-[#ffffffab] backdrop-blur-lg lg:p-10 p-5 rounded-lg" onSubmit={handleSubmit}>
                             <div className="mb-5">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
                                     <div>
                                         <label className="block mb-2 font-semibold">City of purchase</label>
