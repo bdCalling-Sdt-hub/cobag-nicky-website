@@ -10,7 +10,7 @@ const Shipments = () => {
 
 
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
-                    <div className="overflow-hidden rounded-lg relative group">
+                    <div data-aos="fade-up" data-aos-duration="300" className="overflow-hidden rounded-lg relative group">
                         {/* Background Image with Overlay */}
                         <div className="bg-[url('/Images/isend-shipments-2.png')] w-full h-[350px] bg-cover bg-center bg-[#f7f7fc] group-hover:scale-105 duration-300 ease-in-out relative">
                             {/* Overlay */}
@@ -28,7 +28,7 @@ const Shipments = () => {
                         </div>
                     </div>
 
-                    <div className="overflow-hidden rounded-lg relative group">
+                    <div data-aos="fade-up" data-aos-duration="600" className="overflow-hidden rounded-lg relative group">
                         {/* Background Image with Overlay */}
                         <div className="bg-[url('/Images/isend-shipments-1.png')] w-full h-[350px] bg-cover bg-center bg-[#f7f7fc] group-hover:scale-105 duration-300 ease-in-out relative">
                             {/* Overlay */}
@@ -50,17 +50,17 @@ const Shipments = () => {
                 </div>
 
                 <div className='mt-20 grid md:grid-cols-2 xl:grid-cols-3 gap-5'>
-                    <div className='shadow-lg rounded-lg p-10'>
+                    <div data-aos="fade-up" data-aos-duration="300" className='shadow-lg rounded-lg p-10'>
                         <img src="/Images/Isend/shipments-icon-3.png" alt="" />
                         <h2 className='text-primary text-xl font-semibold my-5'>Unique solution</h2>
                         <p>Take advantage of an innovative platform that combines speed, economy and security to revolutionize your international shipments.</p>
                     </div>
-                    <div className='shadow-lg rounded-lg p-10'>
+                    <div data-aos="fade-up" data-aos-duration="500" className='shadow-lg rounded-lg p-10'>
                         <img src="/Images/Isend/shipments-icon-2.png" alt="" />
                         <h2 className='text-primary text-xl font-semibold my-5'>Personalized delivery</h2>
                         <p>Your beneficiary receives the package in complete confidence, directly at the airport, at the train station or in a secure locker, according to your needs.</p>
                     </div>
-                    <div className='shadow-lg rounded-lg p-10'>
+                    <div data-aos="fade-up" data-aos-duration="700" className='shadow-lg rounded-lg p-10'>
                         <img src="/Images/Isend/shipments-icon-1.png" alt="" />
                         <h2 className='text-primary text-xl font-semibold my-5'>Simplicity and flexibility</h2>
                         <p>A wide choice of routes to ship your packages according to your needs, with simple and intuitive management via our site.</p>

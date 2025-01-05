@@ -18,28 +18,28 @@ const VideoAndCard = () => {
 
 
             <div className='w-[90%] mx-auto py-20 grid lg:grid-cols-4 grid-cols-1 gap-5 items-start'>
-                <div className='text-center flex flex-col items-center justify-center'>
+                <div data-aos="fade-up" data-aos-duration="300" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <FiUserCheck className='text-2xl ' />
                     </div>
                     <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Identity verified</h2>
                     <p className='text-[#000000b2]'>All users are verified, including senders, buyers and travelers, with ticket validation to ensure a reliable and secure service.</p>
                 </div>
-                <div className='text-center flex flex-col items-center justify-center'>
+                <div data-aos="fade-up" data-aos-duration="500" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <CiLock className='text-2xl ' />
                     </div>
                     <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Secure payment</h2>
                     <p className='text-[#000000b2]'>Payments are held until delivery is confirmed, ensuring a safe and transparent transaction</p>
                 </div>
-                <div className='text-center flex flex-col items-center justify-center'>
+                <div data-aos="fade-up" data-aos-duration="700" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <CiClock2 className='text-2xl ' />
                     </div>
                     <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Security code</h2>
                     <p className='text-[#000000b2]'>Two 4-digit codes secure each step: upon handover and delivery, guaranteeing maximum traceability and security.</p>
                 </div>
-                <div className='text-center flex flex-col items-center justify-center'>
+                <div data-aos="fade-up" data-aos-duration="900" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <FiShield className='text-2xl ' />
                     </div>

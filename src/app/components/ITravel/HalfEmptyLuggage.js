@@ -14,7 +14,7 @@ const HalfEmptyLuggage = () => {
 
 
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
-                <div className="overflow-hidden rounded-lg relative group">
+                <div data-aos="fade-up" data-aos-duration="300" className="overflow-hidden rounded-lg relative group">
                     {/* Background Image with Overlay */}
                     <div className="bg-[url('/Images/Itravel/half-empty-laggage-1.png')] w-full h-[300px] bg-cover bg-center bg-[#f7f7fc] group-hover:scale-105 duration-300 ease-in-out relative">
                         {/* Overlay */}
@@ -32,7 +32,7 @@ const HalfEmptyLuggage = () => {
                     </div>
                 </div>
 
-                <div className="overflow-hidden rounded-lg relative group">
+                <div data-aos="fade-up" data-aos-duration="500" className="overflow-hidden rounded-lg relative group">
                     {/* Background Image with Overlay */}
                     <div className="bg-[url('/Images/Itravel/half-empty-laggage-2.png')] w-full h-[300px] bg-cover bg-center bg-[#f7f7fc] group-hover:scale-105 duration-300 ease-in-out relative">
                         {/* Overlay */}
@@ -54,22 +54,22 @@ const HalfEmptyLuggage = () => {
             </div>
 
             <div className='mt-20 grid md:grid-cols-2 xl:grid-cols-4 gap-10'>
-                <div className='shadow-lg rounded-lg p-10'>
+                <div data-aos="fade-up" data-aos-duration="500" className='shadow-lg rounded-lg p-10'>
                     <img src="/Images/Itravel/item-1.png" alt="" />
                     <h2 className='text-primary text-xl font-semibold my-5'>Make your travels profitable</h2>
                     <p>Turn your unused pounds into income while helping those in need. Earn while traveling usefully.</p>
                 </div>
-                <div className='shadow-lg rounded-lg p-10'>
+                <div data-aos="fade-up" data-aos-duration="500" className='shadow-lg rounded-lg p-10'>
                     <img src="/Images/Itravel/item-2.png" alt="" />
                     <h2 className='text-primary text-xl font-semibold my-5'>Promote mutual aid</h2>
                     <p>Help individuals send their parcels or collect essential purchases. Mutual aid, at the heart of each journey.</p>
                 </div>
-                <div className='shadow-lg rounded-lg p-10'>
+                <div data-aos="fade-up" data-aos-duration="500" className='shadow-lg rounded-lg p-10'>
                     <img src="/Images/Itravel/item-3.png" alt="" />
                     <h2 className='text-primary text-xl font-semibold my-5'>Contribute to a revolution</h2>
                     <p>Be part of a new model where every unused piece of luggage brings needs and solutions closer together. You change the rules.</p>
                 </div>
-                <div className='shadow-lg rounded-lg p-10'>
+                <div data-aos="fade-up" data-aos-duration="500" className='shadow-lg rounded-lg p-10'>
                     <img src="/Images/Itravel/item-4.png" alt="" />
                     <h2 className='text-primary text-xl font-semibold my-5'>Ecological impact</h2>
                     <p>Optimize your existing journeys to reduce carbon impact. Traveling usefully means traveling responsibly.</p>
@@ -94,7 +94,7 @@ const HalfEmptyLuggage = () => {
             <div className='lg:w-[70%] mx-auto '>
                 <h2 className='text-center text-4xl font-semibold text-primary my-10'>Multiple senders, more earnings!</h2>
                 <div className='grid lg:grid-cols-2 gap-10'>
-                    <div>
+                    <div data-aos="zoom-in" data-aos-duration="300">
 
                         <div className='bg-gradient-to-tl from-[#C7FFD8] to-primary rounded-lg w-full flex items-center justify-center lg:p-10 p-5'>
                             <div className='bg-[#47474727] backdrop-blur-lg rounded-lg px-8 py-14 w-full  flex items-center justify-center'>
@@ -115,7 +115,7 @@ const HalfEmptyLuggage = () => {
                         </div>
 
                     </div>
-                    <div className="bg-[url('/Images/Itravel/all-bags.png')] bg-no-repeat bg-cover bg-center min-h-[50vh] flex items-end rounded-lg">
+                    <div data-aos="zoom-in" data-aos-duration="300" className="bg-[url('/Images/Itravel/all-bags.png')] bg-no-repeat bg-cover bg-center min-h-[50vh] flex items-end rounded-lg">
                         <div className='bg-[#ffffff] m-5 p-5  rounded-lg flex  items-center justify-center gap-5'>
                             <GoLaw className='text-5xl text-primary' />
                             <p className='font-semibold text-primary'>This maximizes your revenue and makes it easy for more people to send their packages.</p>

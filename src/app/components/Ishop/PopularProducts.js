@@ -6,7 +6,7 @@ const PopularProducts = () => {
         <div className='bg-[#f6f6fb] py-20'>
             <div className='lg:w-[80%] w-[90%] mx-auto grid md:grid-cols-2 xl:grid-cols-3 gap-10'>
 
-                <div className='shadow-xl rounded-2xl overflow-hidden'>
+                <div data-aos="fade-up" data-aos-duration="300" className='shadow-xl rounded-2xl overflow-hidden'>
                     <div className='bg-[url("/Images/Ishop/Card_image_1.jpg")] w-full min-h-[300px] bg-cover bg-center]  '>
                         <div className='min-h-[300px] w-full bg-[#0000007a] flex items-end'>
                             <div className='p-5 text-white'>
@@ -20,7 +20,7 @@ const PopularProducts = () => {
                     </div>
                 </div>
 
-                <div className='shadow-xl rounded-2xl overflow-hidden'>
+                <div data-aos="fade-up" data-aos-duration="500" className='shadow-xl rounded-2xl overflow-hidden'>
                     <div className='bg-[url("/Images/Ishop/Card_image_3.jpg")] w-full min-h-[300px] bg-cover bg-center]  '>
                         <div className='min-h-[300px] w-full bg-[#0000007a] flex items-end'>
                             <div className='p-5 text-white'>
@@ -34,7 +34,7 @@ const PopularProducts = () => {
                     </div>
                 </div>
 
-                <div className='shadow-xl rounded-2xl overflow-hidden'>
+                <div data-aos="fade-up" data-aos-duration="700" className='shadow-xl rounded-2xl overflow-hidden'>
                     <div className='bg-[url("/Images/Ishop/Card_image_2.jpg")] w-full min-h-[300px] bg-cover bg-center]  '>
                         <div className='min-h-[300px] w-full bg-[#0000007a] flex items-end'>
                             <div className='p-5 text-white'>

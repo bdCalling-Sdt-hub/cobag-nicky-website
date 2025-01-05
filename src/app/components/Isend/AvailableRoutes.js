@@ -16,7 +16,7 @@ const AvailableRoutes = () => {
 
                 {
                     [...Array(4)].map((_, index) => (
-                        <div key={index} className='shadow-lg rounded-lg  p-10 my-5'>
+                        <div data-aos="fade-up" data-aos-duration="300" key={index} className='shadow-lg rounded-lg  p-10 my-5'>
                             <div className='flex flex-wrap items-center justify-between '>
                                 <div className='flex items-center text-primary gap-3 font-medium'>
                                     <div className='w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg'>

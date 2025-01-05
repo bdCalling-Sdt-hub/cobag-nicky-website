@@ -196,7 +196,7 @@ const Page = () => {
 
                     {
                         [...Array(5)].map((_, index) => (
-                            <div key={index} className='py-10 border-b-2 border-gray-200 flex items-start gap-3'>
+                            <div data-aos="fade-up" data-aos-duration="500" key={index} className='py-10 border-b-2 border-gray-200 flex items-start gap-3'>
                                 <img src="/Images/Isend/availableRoutesUser.png" alt="" />
                                 <div>
                                     <div className=''>

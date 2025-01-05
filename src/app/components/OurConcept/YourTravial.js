@@ -5,7 +5,7 @@ import { LuPlane } from "react-icons/lu";
 const YourTravial = () => {
     return (
         <div className='bg-primary text-white flex  items-center justify-between'>
-            <div className='md:py-20 py-10 md:px-48 px-5 md:max-w-[60%]'>
+            <div data-aos="fade-up" data-aos-duration="500" className='md:py-20 py-10 md:px-48 px-5 md:max-w-[60%]'>
                 <h2 className='flex items-center gap-2 md:text-5xl text-3xl font-semibold'><LuPlane /> Are you a traveler?</h2>
                 <div>
                     <p className='my-5 leading-[1.8]'>Emma has a direct flight from Paris to New York, an approximately 8-hour journey. In her suitcase, 10 kg of unused space.</p>
@@ -23,7 +23,7 @@ const YourTravial = () => {
                 <h2><span className='font-semibold'>Are you traveling?</span> Your luggage becomes a valuable asset. Earn money simply by sharing your unused space.</h2>
                 <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 px-10 text-primary font-semibold rounded-md mt-10 '>Learn more</button>
             </div>
-            <div className='md:block hidden'>
+            <div data-aos="fade-up" data-aos-duration="800" className='md:block hidden'>
                 <img className='max-w-[700px]' src="/Images/Ourconcept/image.png" alt="" />
             </div>
         </div>
