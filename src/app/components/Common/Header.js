@@ -33,7 +33,7 @@ const Header = () => {
                                 }`}
                             href={path}
                         >
-                            {path === '/itravel' ? 'I travel' : path === '/isend' ? 'I send' : 'I shop'}
+                            {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send' : 'I shop'}
                         </Link>
                     </li>
                 ))}
@@ -58,7 +58,7 @@ const Header = () => {
                 >
                     Our Concept
                 </Link>
-                <Link href={'/dashboard'}>
+                <Link href={'/dashboard/profile'}>
                     <Image
                         src="/Images/header-user.svg"
                         alt="User Icon"
@@ -74,7 +74,7 @@ const Header = () => {
                 onClick={toggleMenu}
                 className="p-2 border rounded-full text-black md:hidden"
             >
-                {!isMenuOpen ? <IoMenu className="text-3xl" /> : <RxCross2 className="text-3xl" />}
+                {!isMenuOpen ? <IoMenu className="md:text-3xl text-xl" /> : <RxCross2 className="md:text-3xl text-xl" />}
             </button>
 
             {/* Mobile Menu */}
@@ -92,7 +92,7 @@ const Header = () => {
                                 href={path}
                                 onClick={() => setIsMenuOpen(false)} // Close menu on link click
                             >
-                                {path === '/itravel' ? 'I travel' : path === '/isend' ? 'I send' : 'I shop'}
+                                {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send' : 'I shop'}
                             </Link>
                         </li>
                     ))}

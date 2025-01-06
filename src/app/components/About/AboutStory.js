@@ -1,10 +1,71 @@
 import Link from 'next/link';
 import React from 'react';
+import { BsFillBoxSeamFill } from 'react-icons/bs';
+import { FaArrowRightLong } from 'react-icons/fa6';
+import { LuPlane, LuShoppingBag } from 'react-icons/lu';
 
 const AboutStory = () => {
     return (
-        <div className='bg-[#f7f7fc]'>
-            <div className='flex items-start w-[90%] mx-auto gap-10 '>
+        <div className=''>
+            <div className='my-20 lg:w-[60%] w-[90%] mx-auto'>
+
+                <div className='grid lg:grid-cols-2 gap-10 items-center my-10'>
+                    <img className='lg:w-4/5 rounded-lg lg:order-1 order-2' src="/Images/about/about-1.png" alt="" />
+                    <div className='flex items-start gap-5 lg:order-2 order-1'>
+                        <div className='bg-[#f6f6fb] min-w-14 min-h-14 rounded flex items-center justify-center'>
+                            <LuPlane className='text-2xl text-primary' />
+                        </div>
+                        <div>
+                            <h2 className='text-3xl font-semibold text-primary mb-3'>The birth of an idea</h2>
+                            <p className='leading-[1.5] text-gray-500'>The founder of CoBag got the idea for his startup while traveling. On the way there, he had luggage full to bursting, between souvenirs and gifts and couldn't take everything. But on the way back, his suitcases were empty... and yet, he had already paid for all that unused, wasted space.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='grid lg:grid-cols-2 gap-10 items-center my-10'>
+                    <div className='flex items-start gap-5'>
+                        <div className='bg-[#f6f6fb] min-w-14 min-h-14 rounded flex items-center justify-center'>
+                            <BsFillBoxSeamFill className='text-2xl text-primary' />
+                        </div>
+                        <div>
+                            <h2 className='text-3xl font-semibold text-primary mb-3'>Revolutionary</h2>
+                            <p className='leading-[1.5] text-gray-500'>That's when the idea came to him: Why not share this unused space with other people? A simple but effective solution to use the free space of luggage intelligently, reducing the number of planes and trucks on the road, and therefore the carbon footprint. An innovative, ecological and extremely fast solution: in just a few hours, the time of a direct flight, a package crosses the world for delivery even more express than express.</p>
+                        </div>
+                    </div>
+                    <img className='lg:w-4/5 rounded-lg' src="/Images/about/about-2.png" alt="" />
+                </div>
+
+                <div className='grid lg:grid-cols-2 gap-10 items-center my-10'>
+                    <img className='lg:w-4/5 rounded-lg lg:order-1 order-2' src="/Images/about/about-3.png" alt="" />
+                    <div className='flex items-start gap-5 lg:order-2 order-1'>
+                        <div className='bg-[#f6f6fb] min-w-14 min-h-14 rounded flex items-center justify-center'>
+                            <LuShoppingBag className='text-2xl text-primary' />
+                        </div>
+                        <div>
+                            <h2 className='text-3xl font-semibold text-primary mb-3'>But not only that</h2>
+                            <p className='leading-[1.5] text-gray-500'>But that's not all: during the trip, the founder also noticed another need. Not everyone has relatives or friends traveling internationally to bring back rare or exclusive products. With CoBag, travelers can now buy and bring back products from all over the world for those who need them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='bg-[#f7f7fc] md:py-32 mx-auto py-20 flex items-center justify-center  border-b-[1px] border-white'>
+                <div data-aos="zoom-in" data-aos-duration="500" className='text-center md:px-0 px-5 w-2/3 '>
+                    <h2 className='md:text-5xl text-3xl font-semibold text-primary'>Join the CoBag revolution today and travel smart with your luggage!</h2>
+
+                    <div className='flex items-center justify-center mt-8'>
+                        <button className='bg-primary py-3 px-10 text-white font-semibold rounded-lg flex items-center gap-2 justify-center'>Start <FaArrowRightLong className='text-xl' /></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default AboutStory;
+
+
+
+{/* <div className='flex items-start w-[90%] mx-auto gap-10 '>
                 <div className='py-20 bg-white min-w-[300px] sticky top-[108px] left-0 px-10 min-h-full'>
                     <img className='w-[250px]' src="/Images/about/about_story.png" alt="" />
                     <ul className="list-disc font-semibold capitalize pl-5 my-10 min-h-[60vh]">
@@ -126,9 +187,4 @@ const AboutStory = () => {
                         </ul>
                     </section>
                 </div>
-            </div>
-        </div>
-    );
-}
-
-export default AboutStory;
+</div> */}
