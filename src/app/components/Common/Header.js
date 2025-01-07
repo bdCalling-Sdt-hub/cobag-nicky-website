@@ -53,10 +53,10 @@ const Header = () => {
             {/* User Icon Section (Always Visible) */}
             <div className="flex items-center gap-3">
                 <Link
-                    href={'/ourconcept'}
-                    className="hidden md:block bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-2 rounded-md font-semibold text-primary border"
+                    href={'/commission'}
+                    className="hidden md:block bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border"
                 >
-                    Our Concept
+                    0% Commission
                 </Link>
                 <Link href={'/dashboard/profile'}>
                     <Image

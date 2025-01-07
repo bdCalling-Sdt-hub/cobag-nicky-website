@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
+import Link from 'next/link';
+import { IoInformationCircle } from 'react-icons/io5';
 
 const DoseItWork = () => {
 
@@ -33,6 +35,9 @@ const DoseItWork = () => {
                     <span className='absolute -top-2 -left-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center'>3</span>
                 </div>
             </div>
+            <Link href={'/ourconcept'} className='flex items-center justify-center mt-20'>
+                <button className='bg-primary text-white py-3 px-8 rounded-xl flex items-center gap-2 justify-center'> <IoInformationCircle className='text-xl' /> Learn More</button>
+            </Link>
 
         </div>
     );

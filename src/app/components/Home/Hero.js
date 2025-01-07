@@ -63,7 +63,7 @@ const Hero = () => {
                             ></iframe>
                         )}
                         <div className='my-5 grid grid-cols-1 md:grid-cols-2 gap-5'>
-                            <button className='bg-gradient-to-r from-[#161D6F] to-[#0B2F9F] py-3 rounded-md font-semibold text-white flex items-center justify-center gap-2'><GoPackage className='text-xl' /> Post an ad</button>
+                            <button className='bg-gradient-to-r from-[#161D6F] to-[#0B2F9F] py-3 rounded-md font-semibold text-white flex items-center justify-center gap-2'><GoPackage className='text-xl' /> Sell my unused kilos</button>
                             <button className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 rounded-md font-semibold text-primary border-[1px] flex items-center justify-center gap-2">
                                 <IoSearchOutline className='text-xl' />
                                 Search for a traveler

@@ -547,6 +547,7 @@ const Page = () => {
                             )
                         }
                     </div>
+                    
                     <div>
                         <h2>Package size</h2>
 

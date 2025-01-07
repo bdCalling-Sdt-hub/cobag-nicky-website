@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from "react-icons/fa6";
 
@@ -28,7 +29,10 @@ const AboutUs = () => {
                     <div className='p-5'>
                         <h3 className='text-primary font-semibold text-xl'>For those who want to send parcels worldwide with lightning delivery.</h3>
                         <p className='my-10'>By selling your unused kilos, users can ship their parcels as fast as the duration of your flight. Say goodbye to endless postal delays: with Cobag, you become the immediate solution for express and reliable deliveries across the globe.</p>
-                        <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
+                        <Link href={'/ourconcept'}>
+                            <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
+                        </Link>
+
                     </div>
 
 
@@ -55,7 +59,9 @@ const AboutUs = () => {
                     <div className='p-5'>
                         <h3 className='text-primary font-semibold text-xl'>For those who wish to purchase rare products abroad</h3>
                         <p className='my-10'>Unobtainable products , limited editions , local exclusives : your journeys become their direct access. You buy for them the products they cannot get at home. With Cobag, you make the inaccessible possible</p>
-                        <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
+                        <Link href={'/ourconcept'}>
+                            <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
+                        </Link>
                     </div>
 
 

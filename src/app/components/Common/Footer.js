@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <div className='bg-primary text-white '>
             <div className='w-[90%] mx-auto '>
-                <div className='grid xl:grid-cols-5 md:grid-cols-3 sm:grid grid-cols-1 gap-10 justify-start items-start py-10'>
+                <div className='grid xl:grid-cols-6 md:grid-cols-3 sm:grid grid-cols-1 gap-10 justify-start items-start py-10'>
                     <div>
                         <img src="/Images/LogoWhite.png" alt="" />
                         <p className='text-justify mt-5 leading-7'>CoBag connects individuals: some resell their unused kilos, while others take advantage of it to send, receive, or transport at a lower cost and with complete simplicity, benefiting from delivery in just a few hours worldwide.</p>
@@ -27,20 +27,28 @@ const Footer = () => {
                                 </svg>
                                 <span className='underline'>support@cobag.com</span>
                             </li>
-                            <li className='flex gap-3 mt-3'>
+                            <Link href={'/faq'} className='flex gap-3 mt-3'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M3.21167 12C3.21167 7.52166 3.21167 5.28249 4.60291 3.89124C5.99416 2.5 8.23333 2.5 12.7117 2.5C17.19 2.5 19.4292 2.5 20.8205 3.89124C22.2117 5.28249 22.2117 7.52166 22.2117 12C22.2117 16.4783 22.2117 18.7175 20.8205 20.1088C19.4292 21.5 17.19 21.5 12.7117 21.5C8.23333 21.5 5.99416 21.5 4.60291 20.1088C3.21167 18.7175 3.21167 16.4783 3.21167 12ZM12.7117 7.75C12.0213 7.75 11.4617 8.30964 11.4617 9C11.4617 9.41421 11.1259 9.75 10.7117 9.75C10.2975 9.75 9.96167 9.41421 9.96167 9C9.96167 7.48122 11.1928 6.25 12.7117 6.25C14.2305 6.25 15.4617 7.48122 15.4617 9C15.4617 9.54628 15.3016 10.0576 15.0254 10.4867C14.8525 10.7554 14.6504 11.012 14.464 11.2436L14.3634 11.3683L14.3633 11.3683L14.3633 11.3684C14.2087 11.5598 14.0667 11.7355 13.9355 11.9158C13.612 12.3605 13.4617 12.6947 13.4617 13V13.5C13.4617 13.9142 13.1259 14.25 12.7117 14.25C12.2975 14.25 11.9617 13.9142 11.9617 13.5V13C11.9617 12.2007 12.3541 11.5398 12.7226 11.0332C12.8783 10.8193 13.049 10.6082 13.2041 10.4163L13.2041 10.4162L13.2953 10.3033C13.4805 10.0731 13.6381 9.87067 13.7641 9.67497L13.7641 9.67489C13.8891 9.4807 13.9617 9.25002 13.9617 9C13.9617 8.30964 13.402 7.75 12.7117 7.75ZM12.7039 16C12.1516 16 11.7039 16.4477 11.7039 17C11.7039 17.5523 12.1516 18 12.7039 18H12.7129C13.2651 18 13.7129 17.5523 13.7129 17C13.7129 16.4477 13.2651 16 12.7129 16H12.7039Z" fill="#E7E7EC" />
                                 </svg>
-                                FAQ
-                            </li>
+                                <span className=' hover:border-b-2 hover:border-white'>FAQ</span>
+                            </Link>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="text-3xl font-semibold">Quick links</h3>
+                        <ul className='mt-10'>
+                            <Link href={'/usecase'} className='my-5 block hover:underline'>How to use CoBag?</Link>
+                            <Link href={'/faq'} className='my-5 block hover:underline'>FAQ</Link>
+                            <Link href={'/about'} className='my-5 block hover:underline'>About</Link>
                         </ul>
                     </div>
                     <div>
                         <h3 className="text-3xl font-semibold">Traveler</h3>
                         <ul className='mt-10'>
-                            <li className='my-5'>Propose a route</li>
-                            <li className='my-5'>Traveler rates</li>
-                            <li className='my-5'>Traveler FAQ</li>
+                            <Link href={'/'} className='my-5 block'>Propose a route</Link>
+                            <Link href={'/'} className='my-5 block'>Traveler rates</Link>
+                            <Link href={'/faq'} className='my-5 block'>Traveler FAQ</Link>
                         </ul>
                     </div>
                     <div>
@@ -61,9 +69,8 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr className='' />
-                <div className='flex justify-between items-center gap-5 flex-wrap py-10'>
+                <div className='flex justify-center items-center gap-5 flex-wrap py-10'>
                     <span>© 2024 CoBag. All rights reserved.</span>
-                    <Link className='hover:underline' href={'/about'}>About Co<span className='font-semibold'>B</span>ag</Link>
                 </div>
             </div>
         </div>
