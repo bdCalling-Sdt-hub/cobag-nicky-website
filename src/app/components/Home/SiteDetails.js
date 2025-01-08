@@ -4,15 +4,17 @@ import { FaArrowRightLong } from 'react-icons/fa6';
 const SiteDetails = () => {
     return (
         <div >
-            <div data-aos="fade-up" data-aos-duration="300" className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
+            <div className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
                 <h1 className='md:text-4xl text-3xl font-semibold text-primary'>CARPOOLING CO-LOCATION CO-WORKING</h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
-                <img className='w-96' src="/Images/logo.svg" alt="" />
+                <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
+                    <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/logo.svg" alt="" />
+                </div>
                 <h2>As you will have understood, the principle of CoBag is simple: <span className='font-semibold text-primary'>Sharing</span></h2>
                 <h2>Sharing what?<span className='font-semibold text-primary'>Sharing luggage</span></h2>
             </div>
 
-{/*=========== cards ============ */}
+            {/*=========== cards ============ */}
 
             <div className='w-[60%] mx-auto'>
                 <div data-aos="fade-up" data-aos-duration="500" className='grid grid-cols-2 items-center gap-10 my-32'>

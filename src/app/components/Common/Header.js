@@ -25,7 +25,7 @@ const Header = () => {
     return (
         <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20 py-6 z-[99999]">
             {/* Navigation Links */}
-            <ul className="hidden md:flex items-center gap-10">
+            <ul className="hidden md:flex items-center gap-5">
                 {['/itravel', '/isend', '/ishop'].map((path, index) => (
                     <li key={index}>
                         <Link
@@ -33,7 +33,7 @@ const Header = () => {
                                 }`}
                             href={path}
                         >
-                            {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send' : 'I shop'}
+                            {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send a package' : 'I shop worldwilde'}
                         </Link>
                     </li>
                 ))}

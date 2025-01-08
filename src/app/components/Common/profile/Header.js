@@ -94,7 +94,7 @@ const Header = () => {
                                         <img className='w-10 rounded-full' src="/Images/Isend/availableRoutesUser.png" alt="" />
                                         <div>
                                             <p className='font-semibold'>John Doe</p>
-                                            <p className='text-sm'>sent you a message</p>
+                                            <p className='text-sm'>Resive a new message</p>
                                         </div>
                                     </div>
                                     <p className='text-primary cursor-pointer'>10/05/2024</p>

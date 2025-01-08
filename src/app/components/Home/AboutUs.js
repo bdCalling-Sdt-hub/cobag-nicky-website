@@ -9,13 +9,13 @@ const AboutUs = () => {
             <h2 data-aos="fade-up" data-aos-duration="300" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Who can I sell my unused kilos to?</h2>
             <div className='flex justify-center items-center flex-wrap mt-10 gap-10 md:px-0 px-5'>
 
-                <div data-aos="fade-up" data-aos-duration="500" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
+                <div data-aos="fade-up" data-aos-duration="700" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
                     {/* Image with Overlay */}
                     <div className="relative overflow-hidden">
                         {/* Image */}
                         <img
-                            className="w-full h-full object-cover"
-                            src="/Images/Landingpage/home_about.jpg"
+                            className="w-full max-h-[280px] object-cover"
+                            src="/Images/Landingpage/home_about2.png"
                             alt="Delivery"
                         />
                         {/* Overlay */}
@@ -28,7 +28,7 @@ const AboutUs = () => {
 
                     <div className='p-5'>
                         <h3 className='text-primary font-semibold text-xl'>For those who want to send parcels worldwide with lightning delivery.</h3>
-                        <p className='my-10'>By selling your unused kilos, users can ship their parcels as fast as the duration of your flight. Say goodbye to endless postal delays: with Cobag, you become the immediate solution for express and reliable deliveries across the globe.</p>
+                        <p className='my-10 text-gray-500'>By selling your unused kilos, users can ship their parcels as fast as the duration of your flight. Say goodbye to endless postal delays: with Cobag, you become the immediate solution for express and reliable deliveries across the globe.</p>
                         <Link href={'/ourconcept'}>
                             <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
                         </Link>
@@ -39,12 +39,12 @@ const AboutUs = () => {
 
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="800" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
+                <div data-aos="fade-up" data-aos-duration="900" className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white">
                     {/* Image with Overlay */}
                     <div className="relative overflow-hidden">
                         {/* Image */}
                         <img
-                            className="w-full h-full object-cover"
+                            className="w-full max-h-[280px] object-cover"
                             src="/Images/Landingpage/home_about.jpg"
                             alt="Delivery"
                         />
@@ -58,7 +58,7 @@ const AboutUs = () => {
 
                     <div className='p-5'>
                         <h3 className='text-primary font-semibold text-xl'>For those who wish to purchase rare products abroad</h3>
-                        <p className='my-10'>Unobtainable products , limited editions , local exclusives : your journeys become their direct access. You buy for them the products they cannot get at home. With Cobag, you make the inaccessible possible</p>
+                        <p className='my-10 text-gray-500'>Unobtainable products , limited editions , local exclusives : your journeys become their direct access. You buy for them the products they cannot get at home. With Cobag, you make the inaccessible possible</p>
                         <Link href={'/ourconcept'}>
                             <button className='bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2'>Learn more <FaArrowRight /></button>
                         </Link>
