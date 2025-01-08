@@ -58,6 +58,10 @@ const Header = () => {
                 >
                     0% Commission
                 </Link>
+
+                <Link href={'/'}>
+                    <button  className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
+                </Link>
                 <Link href={'/dashboard/profile'}>
                     <Image
                         src="/Images/header-user.svg"
@@ -67,6 +71,7 @@ const Header = () => {
                         className="rounded-full"
                     />
                 </Link>
+
             </div>
 
             {/* Mobile Navigation Button */}
@@ -101,11 +106,12 @@ const Header = () => {
                 {/* Mobile User Section */}
                 <div className="mt-10 flex flex-col items-center gap-3">
                     <Link
-                        href={'/ourconcept'}
+                        href={'/commission'}
                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] w-full text-center py-2 rounded-md font-semibold text-primary border"
                     >
-                        Our Concept
+                         0% Commission
                     </Link>
+                    
                     {/* <Image
                         src="/Images/header-user.svg"
                         alt="User Icon"

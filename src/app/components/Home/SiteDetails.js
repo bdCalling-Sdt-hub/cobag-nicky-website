@@ -5,7 +5,7 @@ const SiteDetails = () => {
     return (
         <div >
             <div className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
-                <h1 className='md:text-4xl text-3xl font-semibold text-primary'>CARPOOLING CO-LOCATION CO-WORKING</h1>
+                <h1 className='md:text-4xl text-3xl font-semibold text-primary'>CARPOOLING <span className='text-[#0b2f9f]'>CO-LOCATION</span> <span className='text-[#2563eb]'>CO-WORKING</span></h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
                 <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
                     <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/logo.svg" alt="" />
@@ -16,8 +16,8 @@ const SiteDetails = () => {
 
             {/*=========== cards ============ */}
 
-            <div className='w-[60%] mx-auto'>
-                <div data-aos="fade-up" data-aos-duration="500" className='grid grid-cols-2 items-center gap-10 my-32'>
+            <div className='lg:w-[60%] w-[90%] mx-auto'>
+                <div data-aos="fade-up" data-aos-duration="500" className='grid lg:grid-cols-2 items-center gap-10 my-32'>
                     <div>
                         <h2 className='text-2xl font-semibold text-primary'>CoBag reimburses your luggage</h2>
                         <p className='my-5'>Resell your <span className='font-semibold text-primary '>unused kilos</span> in your suitcases and <span className='text-blue-600'>earn money </span>on every plane or train trip</p>
@@ -33,7 +33,7 @@ const SiteDetails = () => {
                     </div>
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="500" className='grid grid-cols-2 items-center gap-10 my-32'>
+                <div data-aos="fade-up" data-aos-duration="500" className='grid lg:grid-cols-2 items-center gap-10 my-32'>
                     <div>
                         <h2 className='text-2xl font-semibold text-primary'>Take everything with you without leaving your belongings at the door</h2>
                         <p className='my-5 text-primary'>What if your excess luggage had a place in other people's suitcases? Team up with another CoBag traveler</p>
@@ -64,7 +64,7 @@ const SiteDetails = () => {
                     </div>
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="500" className='grid grid-cols-2 items-center gap-10 my-32'>
+                <div data-aos="fade-up" data-aos-duration="500" className='grid lg:grid-cols-2 items-center gap-10 my-32'>
                     <div>
                         <h2 className='text-2xl font-semibold text-primary'>Access products from around the world, without borders</h2>
                         <p className='my-5 text-primary'>The whole world at your fingertips, thanks to our travel couriers</p>
@@ -95,7 +95,7 @@ const SiteDetails = () => {
                     </div>
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="500" className='grid grid-cols-2 items-center gap-10 my-32'>
+                <div data-aos="fade-up" data-aos-duration="500" className='grid lg:grid-cols-2 items-center gap-10 my-32'>
                     <div>
                         <h2 className='text-2xl font-semibold text-primary'>Faster delivery than express</h2>
                         <p className='my-5 text-primary'>Benefit from the ultra-speed of a direct flight for sending your parcels internationally</p>
