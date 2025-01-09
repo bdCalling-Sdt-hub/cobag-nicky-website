@@ -89,7 +89,7 @@ const Header = () => {
                     <div>
                         {
                             [...Array(5)].map((_, index) => (
-                                <div key={index} onClick={handleMessageShowHide} className='flex justify-between cursor-pointer  p-5 hover:bg-gray-200'>
+                                <Link href={`/message/${index + 1}`} key={index} onClick={handleMessageShowHide} className='flex justify-between cursor-pointer  p-5 hover:bg-gray-200'>
                                     <div className='flex items-center gap-3'>
                                         <img className='w-10 rounded-full' src="/Images/Isend/availableRoutesUser.png" alt="" />
                                         <div>
@@ -98,7 +98,7 @@ const Header = () => {
                                         </div>
                                     </div>
                                     <p className='text-primary cursor-pointer'>10/05/2024</p>
-                                </div>
+                                </Link>
                             ))
                         }
 
