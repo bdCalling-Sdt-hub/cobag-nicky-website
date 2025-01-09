@@ -10,12 +10,14 @@ export default function Layout({ children }) {
                 <title>Message</title>
             </Head>
             <body>
-                <div className='flex items-start'>
-                    <div className='w-96 border-r border-gray-400'>
+                <div className='flex h-screen overflow-hidden'>
+                    <div className='min-w-96 border-r border-gray-400 overflow-y-scroll'>
                         <AllUserMessage />
                     </div>
-                    <div className=''>
-                        {children}
+                    <div className='w-full'>
+                        <div className='fixed top-0 left-0 md:relative h-screen md:h-auto'>
+                            {children}
+                        </div>
                     </div>
                 </div>
             </body>

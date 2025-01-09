@@ -10,9 +10,9 @@ const AllUserMessage = () => {
     return (
         <div className="">
             {/* Logo */}
-            <div className="border-b border-gray-400">
+            <Link href="/dashboard/profile" className="border-b border-gray-400">
                 <img className="w-1/2 mx-auto py-5" src="/Images/logo.svg" alt="Logo" />
-            </div>
+            </Link>
 
             {/* Header */}
             <div className="p-5 border-b border-gray-100">
