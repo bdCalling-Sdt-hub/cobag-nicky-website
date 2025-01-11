@@ -15,7 +15,6 @@ const Page = () => {
             <DoseItWork />
             <Examples />
             <DetailsInfo />
-
         </div>
     );
 } 

@@ -25,10 +25,6 @@ const Page = () => {
 
 
 
-
-
-
-
     const [fileList, setFileList] = useState(false);
     const [payModalVisible, setPayModalVisible] = useState(false); // Modal visibility state for Pay Now
     const handleTotalCost = () => {
@@ -286,7 +282,7 @@ const Page = () => {
 
             {/* Modal for Pay Now */}
             <Modal
-                visible={payModalVisible}
+                open={payModalVisible}
                 onOk={handlePayOk}
                 onCancel={handlePayCancel}
                 footer={false}

@@ -1,5 +1,4 @@
 'use client'; // Ensure this is a client-side component
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,7 +9,6 @@ import { RxCross2 } from "react-icons/rx";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
-
     const pathname = usePathname(); // Get the current route path
 
     // Function to check if a link is active
@@ -104,15 +102,19 @@ const Header = () => {
                 style={{ height: '100vh' }}
             >
                 <ul className="space-y-4">
-                    {['/itravel', '/isend', '/ishop'].map((path, index) => (
+                    {[
+                        { path: '/itravel', label: 'I want to sell my kilos' },
+                        { path: '/isend', label: 'I want to send a parcel' },
+                        { path: '/ishop', label: 'I want to have my excess baggage transported' },
+                        { path: '/isend', label: 'I want to buy abroad' }  // Updated unique path
+                    ].map((item, index) => (
                         <li key={index}>
                             <Link
-                                className={`block font-semibold py-2 px-4 rounded-md ${isActive(path) ? 'bg-primary text-white' : 'text-black'
-                                    }`}
-                                href={path}
-                                onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block ${isActive(item.path) ? '' : 'text-black'}`}
+                                href={item.path}
+                                onClick={() => setIsMenuOpen(false)}
                             >
-                                {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send' : 'I shop'}
+                                {item.label}
                             </Link>
                         </li>
                     ))}
@@ -122,6 +124,7 @@ const Header = () => {
                 <div className="mt-10 flex flex-col items-center gap-3">
                     <Link
                         href={'/commission'}
+                        onClick={() => setIsMenuOpen(false)}
                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] w-full text-center py-2 rounded-md font-semibold text-primary border"
                     >
                         0% Commission
