@@ -12,6 +12,7 @@ import { LuFileText, LuWallet } from 'react-icons/lu';
 import { MdOutlineArrowOutward, MdOutlineEmail, MdOutlinePhone } from 'react-icons/md';
 import { UploadOutlined } from '@ant-design/icons';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { BsSend } from 'react-icons/bs';
 
 
 const Page = () => {
@@ -389,7 +390,13 @@ const Page = () => {
 
 
             <section id='documents' className='my-10 p-5 bg-white rounded-lg'>
-                <h2 className='text-2xl font-semibold text-primary mb-5'>Ethan documents</h2>
+                <div className='flex items-center justify-between'>
+                    <h2 className='text-2xl font-semibold text-primary mb-5'>Ethan documents</h2>
+                    <div className='flex items-center gap-2'>
+                        <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-1 px-6 rounded-full'>Verified</span>
+                        <button className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>Send <BsSend /> </button>
+                    </div>
+                </div>
 
 
                 <div className='my-5'>
@@ -404,9 +411,9 @@ const Page = () => {
                                 <span>Added on: 2024-03-14</span>
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-2 px-5 rounded-full'>Vefiry</span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
@@ -428,9 +435,9 @@ const Page = () => {
                                 <span>Added on: 2024-03-14</span>
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <span className='text-[#ffd344] bg-[#ffd34431] font-semibold py-2 px-5 rounded-full'>On hold</span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
@@ -452,9 +459,9 @@ const Page = () => {
                                 <span>Added on: 2024-03-14</span>
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-2 px-5 rounded-full'>Vefiry</span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
