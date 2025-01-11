@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { FaArrowRight, FaChevronRight } from 'react-icons/fa6';
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
@@ -26,19 +27,33 @@ const Header = () => {
         <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20 py-6 z-[99999]">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
-                {['/itravel', '/isend', '/ishop'].map((path, index) => (
-                    <li key={index}>
-                        <Link
-                            className={`font-semibold hover:bg-slate-200 hover:text-primary py-3 px-5 rounded-full ${isActive(path) ? 'bg-primary text-white' : 'text-black'
-                                }`}
-                            href={path}
-                        >
-                            {path === '/itravel' ? 'I sell my kilos' : path === '/isend' ? 'I send a package' : 'I shop worldwilde'}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+                <li>What do you want to do?</li>
+                <li className="relative group cursor-pointer">
+                    <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-5 py-3 px-5 rounded-full navbar-item-hover z-[9999]'>
+                        <FaChevronRight className='group-hover:hidden text-white z-[9999] ' />
+                        <FaArrowRight className='hidden group-hover:block text-white z-[9999] ' />
+                        Discover our services
+                    </span>
 
+                    <ul className="absolute hidden group-hover:block top-12 left-0 bg-white shadow-md rounded-md min-w-96">
+                        {[
+                            { path: '/itravel', label: 'I want to sell my kilos' },
+                            { path: '/isend', label: 'I want to send a parcel' },
+                            { path: '/ishop', label: 'I want to have my excess baggage transported' },
+                            { path: '/isend', label: 'I want to buy abroad' }  // Updated unique path
+                        ].map((item, index) => (
+                            <li key={index}>
+                                <Link
+                                    className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block ${isActive(item.path) ? '' : 'text-black'}`}
+                                    href={item.path}
+                                >
+                                    {item.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+            </ul>
             {/* Logo Section (Always Visible) */}
             <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
                 <Image
@@ -60,7 +75,7 @@ const Header = () => {
                 </Link>
 
                 <Link href={'/'}>
-                    <button  className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
+                    <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
                 </Link>
                 <Link href={'/dashboard/profile'}>
                     <Image
@@ -109,9 +124,9 @@ const Header = () => {
                         href={'/commission'}
                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] w-full text-center py-2 rounded-md font-semibold text-primary border"
                     >
-                         0% Commission
+                        0% Commission
                     </Link>
-                    
+
                     {/* <Image
                         src="/Images/header-user.svg"
                         alt="User Icon"

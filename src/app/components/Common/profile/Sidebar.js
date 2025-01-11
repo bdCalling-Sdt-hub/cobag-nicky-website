@@ -8,11 +8,13 @@ import { LuUserRound, LuWallet } from 'react-icons/lu';
 import { GrDocumentText, GrUserSettings } from "react-icons/gr";
 import { MdLogout, MdOutlineSettingsSuggest, MdTimeline } from 'react-icons/md';
 import { RiSettingsFill } from 'react-icons/ri';
-import { FaBusinessTime } from 'react-icons/fa6';
-import { GoQuestion } from 'react-icons/go';
+import { FaBusinessTime, FaRegUser } from 'react-icons/fa6';
+import { GoCreditCard, GoQuestion } from 'react-icons/go';
 import { FiMessageSquare } from 'react-icons/fi';
 import { Button, message, Modal } from 'antd';
 import { RxCross2 } from 'react-icons/rx';
+import { LiaBusinessTimeSolid } from "react-icons/lia";
+
 
 
 const Sidebar = ({ setIsSidebarOpen }) => {
@@ -95,14 +97,14 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             className={`flex items-center cursor-pointer justify-between gap-3 py-3 px-5 rounded-md font-semibold ${isActive('/dashboard/profile') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                 }`}
                         >
-                            <LuUserRound className="text-2xl" /> My Profile <IoIosArrowDown />
+                            <div className='flex items-center gap-3'><LuUserRound className="text-2xl" /> My Profile</div> <IoIosArrowDown />
 
 
                         </div>
                         {
                             showSubmenu && (
                                 <div className="bg-white py-3  rounded-md">
-                                    <Link onClick={hadnleHideSidebar} className='py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/profile'}><CiUser className='text-xl' /> Profile Info</Link>
+                                    <Link onClick={hadnleHideSidebar} className='py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/profile'}><FaRegUser className='text-xl' /> Profile Info</Link>
                                     <Link onClick={hadnleHideSidebar} className='py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/profile#documents'}><GrDocumentText className='text-xl' /> Documents</Link>
                                     <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2  ' href={'/dashboard/profile#preferences'}><MdOutlineSettingsSuggest className='text-xl' /> Preferences</Link>
                                     {/* <Link className='block py-2 w-full hover:bg-slate-100 px-3 rounded font-semibold' href={'/dashboard/profile'}>Edit</Link>
@@ -120,7 +122,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             className={`flex items-center cursor-pointer justify-between gap-3 py-3 px-5 rounded-md font-semibold ${isActive('/dashboard/wallet') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                 }`}
                         >
-                            <LuWallet className="text-2xl" /> Wallet <IoIosArrowDown />
+                            <div className='flex items-center gap-3'> <LuWallet className="text-2xl" /> Wallet </div> <IoIosArrowDown />
 
 
                         </div>
@@ -128,7 +130,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             showWallet && (
                                 <div className="bg-white py-3  rounded-md">
                                     <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet'}><LuWallet className="text-xl" /> Wallet</Link>
-                                    <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#bankCard'}><CiCreditCard1 className="text-xl" /> Bank Card</Link>
+                                    <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#bankCard'}><GoCreditCard className="text-xl" /> Bank Card</Link>
                                     <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#transaction'}><MdTimeline className="text-xl" /> transaction</Link>
 
                                 </div>
@@ -144,9 +146,9 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                         >
                             <span
 
-                                className={`flex items-center cursor-pointer gap-5 blcok w-full p-3 rounded-md font-semibold ${isActive('/dashboard/reservation') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
+                                className={`flex items-center cursor-pointer gap-5 blcok w-full p-3 px-5  rounded-md font-semibold ${isActive('/dashboard/reservation') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                     }`}
-                                onClick={hadnleHideSidebar}> <FaBusinessTime className="text-2xl" /> Reservations</span>
+                                onClick={hadnleHideSidebar}> <div className='flex items-center gap-3'> <LiaBusinessTimeSolid className="text-2xl" /> Reservations </div></span>
                             {/* <IoIosArrowDown /> */}
 
                         </Link>
@@ -170,7 +172,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             className={`flex items-center cursor-pointer justify-between gap-3 py-3 px-5 rounded-md font-semibold ${isActive('/dashboard/settings') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                 }`}
                         >
-                            <LuWallet className="text-2xl" /> Settings <IoIosArrowDown />
+                            <div className='flex items-center gap-3'><LuWallet className="text-2xl" /> Settings </div> <IoIosArrowDown />
 
 
                         </div>
@@ -191,7 +193,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             className={`flex items-center cursor-pointer justify-between gap-3 py-3 px-5 rounded-md font-semibold ${isActive('/dashboard/support') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                 }`}
                         >
-                            <GoQuestion className="text-2xl" /> Support <IoIosArrowDown />
+                            <div className='flex items-center gap-3'> <GoQuestion className="text-2xl" /> Support </div><IoIosArrowDown />
 
 
                         </div>
