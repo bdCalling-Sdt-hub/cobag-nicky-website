@@ -1,21 +1,58 @@
-import React from 'react';
-import { CiClock2, CiLock } from 'react-icons/ci';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { CiClock2, CiLock, CiPlay1 } from 'react-icons/ci';
 import { FiShield, FiUserCheck } from 'react-icons/fi';
 
 const VideoAndCard = () => {
+
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const handlePlayClick = () => {
+        setIsPlaying(true); // Set isPlaying to true when the play button is clicked
+    };
+
     return (
         <div>
 
 
-            <div className='bg-[#f9fafb]'>
-                <div className='w-[90%] mx-auto lg:py-20 py-10'>
-                    <div className='relative lg:mt-10 flex justify-center'>
-                        <iframe className='rounded-lg' width="560" height="315" src="https://www.youtube.com/embed/EH3vGeqeIAo?si=fekxRrdvghHIDvEK" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                    </div>
+            <div className='relative mt-10 flex justify-center'>
+                <div className=" md:-bottom-60 -bottom-0 md:w-[50%]">
+                    {/* Thumbnail or Video Player */}
+                    {!isPlaying ? (
+                        <div className="relative">
+                            <div>
+                                <Image
+                                    width={300}
+                                    height={200}
+                                    src="/Images/Landingpage/Hero_Video-thambnel.png" // Thumbnail image path
+                                    alt="Video Thumbnail"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            {/* Play Button */}
+                            <button
+                                onClick={handlePlayClick}
+                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#eeeeee73] p-5 rounded-full shadow-lg"
+                            >
+                                <CiPlay1 className='text-4xl text-white' />
+                            </button>
+                        </div>
+                    ) : (
+                        // When the play button is clicked, show YouTube video iframe
+                        <iframe
+
+                            className='w-[100%] xl:h-[600px] md:h-[400px] h-[300px]'
+
+                            src="https://www.youtube.com/embed/zFDpdKIQ5LU?autoplay=1" // Correct embed URL format
+                            title="YouTube video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    )}
+
                 </div>
             </div>
-
-
 
             <div className='w-[90%] mx-auto py-20 grid lg:grid-cols-4 grid-cols-1 gap-5 items-start'>
                 <div data-aos="fade-up" data-aos-duration="300" className='text-center flex flex-col items-center justify-center'>

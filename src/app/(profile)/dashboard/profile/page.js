@@ -13,6 +13,7 @@ import { MdOutlineArrowOutward, MdOutlineEmail, MdOutlinePhone } from 'react-ico
 import { UploadOutlined } from '@ant-design/icons';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsSend } from 'react-icons/bs';
+import { FiAlertTriangle } from 'react-icons/fi';
 
 
 const Page = () => {
@@ -475,6 +476,12 @@ const Page = () => {
                     <div className='min-w-10'>
                         <GoInfo className='text-2xl min-w-10' />
                     </div> To be able to use all CoBag services you must provide these documents. They will be verified within 24-48 hours.
+                </div>
+
+                <div className='p-5 mt-5 bg-[#F989251A] text-[#F98925] flex items-center gap-2 rounded-md'>
+                    <div className='min-w-10'>
+                        <FiAlertTriangle className='text-2xl min-w-10' />
+                    </div> <span className='font-semibold'>Why Not Approve Your Document</span> : your id document not valid please submit again , will be verified within 24-48 hours .
                 </div>
 
 

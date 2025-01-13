@@ -654,8 +654,8 @@ const Page = () => {
                 </div>
             </div>
             <AvailableRoutes />
-            <Shipments />
             <VideoAndCard />
+            <Shipments />
 
 
         </div>

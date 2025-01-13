@@ -22,7 +22,7 @@ const Header = () => {
     };
 
     return (
-        <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20 py-6 z-[99999]">
+        <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] py-2">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
                 <li>What do you want to do?</li>
@@ -61,6 +61,7 @@ const Header = () => {
                     height={75}
                     layout="responsive"
                 />
+
             </Link>
 
             {/* User Icon Section (Always Visible) */}
@@ -75,15 +76,29 @@ const Header = () => {
                 <Link href={'/'}>
                     <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
                 </Link>
-                <Link href={'/dashboard/profile'}>
+                <div className="relative group">
                     <Image
                         src="/Images/header-user.svg"
                         alt="User Icon"
                         width={40}
                         height={40}
-                        className="rounded-full"
+                        className="rounded-full cursor-pointer py-6"
                     />
-                </Link>
+                    <div className="p-5 bg-slate-100 rounded-lg absolute top-20 right-0 min-w-72 hidden group-hover:block">
+                        <Link
+                            href={'/dashboard/profile'}
+                            className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                        >
+                            Profile
+                        </Link>
+                        <button
+                            className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                        >
+                            Switch to Sender
+                        </button>
+                    </div>
+                </div>
+
 
             </div>
 

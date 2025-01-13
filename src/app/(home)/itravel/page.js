@@ -754,9 +754,9 @@ const Page = () => {
                 </div>
             </div>
 
+            <ITravelVideoSection />
             <HalfEmptyLuggage />
             <Courier />
-            <ITravelVideoSection />
 
         </div>
     );

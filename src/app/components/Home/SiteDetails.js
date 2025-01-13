@@ -1,9 +1,16 @@
+'use client';
+import { useGetPostQuery } from '@/app/redux/Features/getProfile';
 import React from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
+import { GoShieldCheck } from 'react-icons/go';
 
 const SiteDetails = () => {
+    const { data } = useGetPostQuery();
+    console.log(data);
     return (
         <div >
+
+
             <div className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
                 <h1 className='md:text-4xl text-3xl font-semibold text-primary'>CARPOOLING <span className='text-[#0b2f9f]'>CO-LOCATION</span> <span className='text-[#2563eb]'>CO-WORKING</span></h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
@@ -12,6 +19,9 @@ const SiteDetails = () => {
                 </div>
                 <h2>As you will have understood, the principle of CoBag is simple: <span className='font-semibold text-primary'>Sharing</span></h2>
                 <h2>Sharing what?<span className='font-semibold text-primary'>Sharing luggage</span></h2>
+            </div>
+            <div>
+
             </div>
 
             {/*=========== cards ============ */}
@@ -30,6 +40,16 @@ const SiteDetails = () => {
                     </div>
                     <div>
                         <img src="/Images/Home/home-1.png" alt="" />
+                    </div>
+                </div>
+
+                <div data-aos="fade-up" data-aos-duration="500" className='bg-[#e5f0ff] rounded-lg px-5 py-10 flex items-center gap-5'>
+                    <div className='flex items-center justify-center min-w-16 h-16 bg-primary rounded-full'>
+                        <GoShieldCheck className='text-white text-3xl font-semibold' />
+                    </div>
+                    <div>
+                        <h2 className='font-semibold mb-2 text-primary text-xl'>Your luggage is highly safe with Cobag</h2>
+                        <p className='text-gray-500'>Travel with peace of mind : with Cobag's high-level security, you stay in control of your luggage and no unauthorized item can slip through.</p>
                     </div>
                 </div>
 

@@ -8,6 +8,7 @@ import { GoPackage } from "react-icons/go";
 
 
 const Hero = () => {
+    
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handlePlayClick = () => {
@@ -21,13 +22,14 @@ const Hero = () => {
             <div className="w-full h-full sm:min-h-[80vh] min-h-[90vh] bg-[#000000c5]">
                 <div className='flex flex-col items-center justify-center py-10'>
 
-                    <button className='text-white flex items-center gap-2 hover:scale-105 border-2 rounded-full px-10 py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm duration-300'>
-                        <FiShield className='text-2xl animate-spin duration-1000' />
+                    <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full px-10 py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
+                        <FiShield className='text-2xl animate-spin duration-[2s]' />
                         <IoLockClosedOutline className='text-2xl' />
                         Secure Delivery & Payment
                     </button>
-                    <h2 className='text-center my-10 text-white md:text-6xl text-3xl font-bold'>Got extra kilos in your luggage ? <br /> Sell-them !</h2>
-                    <h3 className='md:text-3xl text-xl font-semibold text-white'>Express delivery, faster than express</h3>
+                    <h2 className='text-center my-10 text-white md:text-6xl text-3xl font-bold'>Share Your Luggage, save Money</h2>
+                    <h3 className='md:text-3xl text-xl font-semibold text-white'>CoBag reimburses your Luggage
+                    </h3>
                     <div className="absolute md:-bottom-60 -bottom-0 md:w-[50%]">
                         {/* Thumbnail or Video Player */}
                         {!isPlaying ? (

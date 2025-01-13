@@ -161,9 +161,9 @@ const Page = () => {
             </div>
 
             <CouriersAvailable />
+            <VideoAndCard />
             <HowDoesWork />
             <PopularProducts />
-            <VideoAndCard />
 
         </div>
     );
