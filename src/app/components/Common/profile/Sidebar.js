@@ -13,7 +13,7 @@ import { GoCreditCard, GoQuestion } from 'react-icons/go';
 import { FiMessageSquare } from 'react-icons/fi';
 import { Button, message, Modal } from 'antd';
 import { RxCross2 } from 'react-icons/rx';
-import { LiaBusinessTimeSolid } from "react-icons/lia";
+import { LiaBusinessTimeSolid, LiaOpencart } from "react-icons/lia";
 
 
 
@@ -163,6 +163,18 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                         )
                     } */}
 
+                    </div>
+                    <div className='my-5'>
+                        <Link href={'/dashboard/runingorder'}
+                            onClick={showReservationsSubmenu}
+
+                        >
+                            <span
+
+                                className={`flex items-center cursor-pointer gap-5 blcok w-full p-3 px-5  rounded-md font-semibold ${isActive('/dashboard/runingorder') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
+                                    }`}
+                                onClick={hadnleHideSidebar}> <div className='flex items-center gap-3'> <LiaOpencart className="text-2xl" /> Running Order </div></span>
+                        </Link>
                     </div>
 
 

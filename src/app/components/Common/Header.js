@@ -73,7 +73,7 @@ const Header = () => {
                     0% Commission
                 </Link>
 
-                <Link href={'/'}>
+                <Link href={'/commission'}>
                     <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
                 </Link>
                 <div className="relative group">

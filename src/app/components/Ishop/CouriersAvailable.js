@@ -32,7 +32,7 @@ const CouriersAvailable = () => {
 
                     {
                         [...Array(4)].map((_, index) => (
-                            <div data-aos="fade-up" data-aos-duration="300" key={index} className='shadow-lg rounded-lg  p-10 my-5'>
+                            <div data-aos="fade-up" data-aos-duration="300" key={index} className='shadow-lg rounded-lg  p-10 my-5 bg-white'>
                                 <div className='flex items-center flex-wrap justify-between '>
                                     <div className='flex items-center text-primary gap-3 font-medium'>
                                         <div className='w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg'>
@@ -40,9 +40,9 @@ const CouriersAvailable = () => {
                                         </div>
                                         <h2>Direct flight</h2>
                                     </div>
-                                    <div className='flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full'>
+                                    {/* <div className='flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full'>
                                         <MdAccessTime className='text-2xl' /> Express
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='flex flex-wrap justify-between gap-10 items-center my-5'>
                                     <div>
@@ -90,14 +90,17 @@ const CouriersAvailable = () => {
                                     <div>
                                         <div className='flex flex-wrap justify-end items-start gap-3 mb-2'>
                                             <h2 className='text-2xl font-semibold text-primary'>25€</h2>
-                                            <div>
+                                            {/* <div>
                                                 <span className='flex items-center flex-wrap gap-3 text-[#ffd16f] '>(+5€ express)</span>
                                                 <h4 className='text-xs text-right'>+ CoBag fess</h4>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className='flex flex-wrap items-center justify-end gap-5'>
                                             <Link href={`/ishop/${index}`} className='flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg'><CiStar /> View review</Link>
                                             <button className='flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg'><FiMessageSquare /> Contact</button>
+                                        </div>
+                                        <div className='flex justify-end mt-3 text-gray-500'>
+                                            <p className='text-xs'>Languages spoken: French, English</p>
                                         </div>
                                     </div>
                                 </div>

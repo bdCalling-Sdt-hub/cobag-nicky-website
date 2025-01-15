@@ -61,7 +61,7 @@ const Page = () => {
                         </label>
 
                         {/* Forgot Password */}
-                        <a href="/forgot-password" className="text-primary text-sm font-semibold">
+                        <a href="/forgotpassword" className="text-primary text-sm font-semibold">
                             Forgot password?
                         </a>
                     </div>

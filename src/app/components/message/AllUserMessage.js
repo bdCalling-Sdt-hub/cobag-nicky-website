@@ -1,21 +1,21 @@
-'use client' ; 
+'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 
-const AllUserMessage = () => {
-    const {userId} = useParams();
-    
-   
+const AllUserMessage = ({isAllUserMessage}) => {
+    const { userId } = useParams();
+
+
     return (
         <div className="">
             {/* Logo */}
-            <Link href="/dashboard/profile" className="border-b border-gray-400">
+            {/* <Link href="/dashboard/profile" className="border-b border-gray-400">
                 <img className="w-1/2 mx-auto py-5" src="/Images/logo.svg" alt="Logo" />
-            </Link>
+            </Link> */}
 
             {/* Header */}
-            <div className="p-5 border-b border-gray-100">
+            <div className="p-5 border-b border-gray-100 ">
                 <h2 className="font-semibold text-xl mb-5">Messages</h2>
                 {/* Search Input */}
                 <div className="relative">
@@ -38,6 +38,7 @@ const AllUserMessage = () => {
 
                         return (
                             <Link
+                                onClick={() => isAllUserMessage(false)}
                                 href={`/message/${messagePath}`}
                                 key={index}
                                 className={`p-5 flex items-start justify-between gap-2 cursor-pointer 

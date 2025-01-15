@@ -10,9 +10,8 @@ const SiteDetails = () => {
     return (
         <div >
 
-
             <div className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
-                <h1 className='md:text-4xl text-3xl font-semibold text-primary'>CARPOOLING <span className='text-[#0b2f9f]'>CO-LOCATION</span> <span className='text-[#2563eb]'>CO-WORKING</span></h1>
+                <h1 className='md:text-4xl text-3xl font-semibold text-primary text-center'><span className='block leading-[1.5]'>You Know <br /></span> CARPOOLING <span className='text-[#0b2f9f]'>CO-LOCATION</span> <span className='text-[#2563eb]'>CO-WORKING</span></h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
                 <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
                     <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/logo.svg" alt="" />

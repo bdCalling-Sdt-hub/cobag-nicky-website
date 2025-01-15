@@ -32,9 +32,9 @@ const Page = () => {
                             </div>
                             <h2>Direct flight</h2>
                         </div>
-                        <div className="flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full">
+                        {/* <div className="flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full">
                             <MdAccessTime className="text-2xl" /> Express
-                        </div>
+                        </div> */}
                     </div>
                     <div className="flex flex-wrap justify-between gap-10 items-center my-5">
                         <div>
@@ -102,12 +102,12 @@ const Page = () => {
                         <div>
                             <div className="flex flex-wrap justify-end items-start gap-3 mb-2">
                                 <h2 className="text-2xl font-semibold text-primary">25€</h2>
-                                <div>
+                                {/* <div>
                                     <span className="flex items-center gap-3 text-[#ffd16f]">
                                         (+5€ express)
                                     </span>
                                     <h4 className="text-xs text-right">+ CoBag fees</h4>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="flex items-center justify-end gap-5">
                                 <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
