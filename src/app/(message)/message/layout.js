@@ -18,15 +18,15 @@ export default function Layout({ children }) {
             </Head>
             <body>
                 <div className='flex h-screen overflow-hidden'>
-                    <div className='absolute top-6 left-2 mr-2 z-50 xl:hidden block'>
-                        <button onClick={handleShowAllUserMessage} className='py-1 px-5 '><LuMessageSquareMore className='text-3xl text-primary' /></button>
+                    <div className='absolute top-6 left-2 mr-2 z-50 xl:hidden block bg-white  rounded-md '>
+                        <button onClick={handleShowAllUserMessage} className='p-2'><LuMessageSquareMore className='text-3xl text-primary' /></button>
                     </div>
                     <div className='xl:min-w-96 w-0 overflow-hidden border-r border-gray-400 overflow-y-scroll'>
                         <AllUserMessage />
                     </div>
                     {
                         isAllUserMessage && 
-                        <div className='min-w-96 pt-20 px-5 bg-gray-100 z-20'>
+                        <div className='min-w-96 pt-20 px-5 bg-gray-100 z-20 h-screen overflow-y-auto'>
                             <AllUserMessage isAllUserMessage={isAllUserMessage} />
                         </div>
                     }
