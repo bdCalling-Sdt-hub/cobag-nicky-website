@@ -84,6 +84,8 @@ const Page = () => {
                                         </span>
                                         <input
                                             type="text"
+                                            disabled
+                                            title='Full Name'
                                             placeholder="Enter full name"
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
@@ -99,6 +101,8 @@ const Page = () => {
                                         </span>
                                         <input
                                             type="email"
+                                            disabled
+                                            title='Email'
                                             placeholder="Enter email"
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
@@ -115,6 +119,8 @@ const Page = () => {
                                         <input
                                             type="text"
                                             placeholder="Enter address"
+                                            disabled
+                                            title='Address'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
@@ -130,6 +136,8 @@ const Page = () => {
                                         <input
                                             type="text"
                                             placeholder="Enter phone"
+                                            disabled
+                                            title='Phone number'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
