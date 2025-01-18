@@ -1,13 +1,16 @@
 'use client';
+import i18n from '@/app/utils/i18';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
 import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
-import { FiMessageSquare } from 'react-icons/fi'; 
+import { FiMessageSquare } from 'react-icons/fi';
 import { LuPlane } from 'react-icons/lu';
 import { MdAccessTime, MdVerifiedUser } from 'react-icons/md';
 
 const CouriersAvailable = () => {
+
+    const { t } = i18n;
 
     const [isNotificaiton, setIsNotificaiton] = useState(true);
     const handleNotificationShowHide = () => {
@@ -18,7 +21,7 @@ const CouriersAvailable = () => {
         <div className='bg-[#f7f7fc]'>
             <div className='lg:py-32 py-20 bg-[#]'>
                 <div className='lg:w-[80%] mx-auto mb-5 flex items-center gap-3'>
-                    <p className='text-base font-semibold text-primary'>New journey notification -</p>
+                    <p className='text-base font-semibold text-primary'>{t('newJourneyNotification654')} -</p>
                     {
                         isNotificaiton ?
                             <FaToggleOff className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
@@ -26,7 +29,7 @@ const CouriersAvailable = () => {
                             <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                     }
                 </div>
-                <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>Couriers available</h2>
+                <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t('couriersAvailable')}</h2>
 
                 <div className='lg:w-[80%] w-[90%] mx-auto'>
 

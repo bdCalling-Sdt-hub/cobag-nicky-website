@@ -8,8 +8,12 @@ import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
+import i18n from '@/app/utils/i18';
 
 const Page = () => {
+
+    const { t } = i18n;
+
     const [showFlexibleDate, setShowFlexibleDate] = useState(false); // State for Flexible Dates checkbox
     const [formValues, setFormValues] = useState({
         departureCity: '',
@@ -39,11 +43,10 @@ const Page = () => {
                     <div className='bg-[#000d1a8a] min-h-[80vh] py-20'>
                         <div className='lg:w-2/4 mx-auto text-center'>
                             <h1 className='md:text-4xl text-3xl font-semibold text-white'>
-                                World purchases in your basket
+                                {t('worldPurchasesInYourBasket5454')}
                             </h1>
                             <p className='text-white lg:text-xl lg:mt-5 mt-3'>
-                                What you can't find at home, our travel couriers bring it to you thanks to Cobag!
-                                Access the world.
+                               {t('whatYouCantFindAtHome5454')}
                             </p>
                         </div>
 
@@ -52,13 +55,13 @@ const Page = () => {
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">City of purchase</label>
+                                        <label className="block mb-2 font-semibold">{t('cityOfPurchase5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
                                                 value={formValues.departureCity}
                                                 onChange={(e) => handleInputChange('departureCity', e.target.value)}
-                                                placeholder="Enter departure city"
+                                                placeholder={t('enterDepartureCity5454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
                                             <span className="absolute left-3 text-gray-400">
@@ -69,13 +72,13 @@ const Page = () => {
 
                                     {/* Arrival City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">Delivery city</label>
+                                        <label className="block mb-2 font-semibold">{t('deliveryCity5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
                                                 value={formValues.arrivalCity}
                                                 onChange={(e) => handleInputChange('arrivalCity', e.target.value)}
-                                                placeholder="Enter arrival city"
+                                                placeholder={t('enterArrivalCity5454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
                                             <span className="absolute left-3 text-gray-400">
@@ -88,7 +91,7 @@ const Page = () => {
                                 <div className="grid grid-cols-2 items-start gap-4 my-5">
                                     {/* Desired Date */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">Desired date</label>
+                                        <label className="block mb-2 font-semibold">{t('desiredDate5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="date"
@@ -111,7 +114,7 @@ const Page = () => {
                                                 onChange={handleCheckboxChange}
                                                 className="w-4 h-4 text-primary focus:ring-0"
                                             />
-                                            Flexible dates
+                                            {t('flexibleDates454')}
                                         </label>
                                         {showFlexibleDate && (
                                             <div className="">
@@ -133,7 +136,7 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block mb-2 font-semibold">Estimated purchase price</label>
+                                    <label className="block mb-2 font-semibold">{t('Estimatedpurchaseprice')}</label>
                                     <div className="relative flex items-center">
                                         <input
                                             type="number"
@@ -153,7 +156,7 @@ const Page = () => {
                                 type="submit"
                                 className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 font-semibold flex items-center justify-center gap-3 w-full"
                             >
-                                <IoSearchOutline /> Search for a route
+                                <IoSearchOutline /> {t('searchForRoute454')}
                             </button>
                         </form>
                     </div>

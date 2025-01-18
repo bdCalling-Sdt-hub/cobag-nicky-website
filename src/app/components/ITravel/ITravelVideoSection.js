@@ -1,4 +1,5 @@
-'use client';
+'use client'; 
+import i18n from '@/app/utils/i18';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { CiClock2, CiLock, CiPlay1 } from 'react-icons/ci';
@@ -6,12 +7,15 @@ import { FaUserCheck } from 'react-icons/fa6';
 import { FiShield, FiUserCheck } from 'react-icons/fi';
 
 const ITravelVideoSection = () => {
+    const { t } = i18n;
 
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handlePlayClick = () => {
         setIsPlaying(true);
     };
+
+
     return (
         <div className=''>
             <div className='bg-[#f9fafb]'>
@@ -51,7 +55,7 @@ const ITravelVideoSection = () => {
                                     allowFullScreen
                                 ></iframe>
                             )}
-                            
+
                         </div>
                     </div>
                 </div>
@@ -63,29 +67,29 @@ const ITravelVideoSection = () => {
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <FiUserCheck className='text-2xl ' />
                     </div>
-                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Identity verified</h2>
-                    <p className='text-[#000000b2]'>All users are verified, including senders, buyers and travelers, with ticket validation to ensure a reliable and secure service.</p>
+                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>{t('identityVerified1221')}</h2>
+                    <p className='text-[#000000b2]'>{t('verifiedUsers1221')}</p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="500" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <CiLock className='text-2xl ' />
                     </div>
-                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Secure payment</h2>
-                    <p className='text-[#000000b2]'>Payments are held until delivery is confirmed, ensuring a safe and transparent transaction</p>
+                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>{t('securePayment1221')}</h2>
+                    <p className='text-[#000000b2]'>{t('paymentSecurity1221')}</p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="700" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <CiClock2 className='text-2xl ' />
                     </div>
-                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>Security code</h2>
-                    <p className='text-[#000000b2]'>Two 4-digit codes secure each step: upon handover and delivery, guaranteeing maximum traceability and security.</p>
+                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>{t('securityCode1221')}</h2>
+                    <p className='text-[#000000b2]'>{t('securityProcess1221')}</p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="900" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <FiShield className='text-2xl ' />
                     </div>
-                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>CoBag Insurance</h2>
-                    <p className='text-[#000000b2]'>Benefit from comprehensive coverage with CoBag insurance, protecting your parcels up to €1000 in case of any incident. Travel with peace of mind, your shipments are secure.</p>
+                    <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>{t('cobagInsurance1221')}</h2>
+                    <p className='text-[#000000b2]'>{t('insuranceDetails1221')}</p>
                 </div>
             </div>
 

@@ -6,9 +6,12 @@ import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
 import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { MdVerifiedUser } from 'react-icons/md';
 import { FiMessageSquare } from 'react-icons/fi';
+import i18n from '@/app/utils/i18';
 
 
 const AvailableRoutes = () => {
+
+    const {t} = i18n;
 
     const [isNotificaiton, setIsNotificaiton] = useState(true);
 
@@ -19,7 +22,7 @@ const AvailableRoutes = () => {
     return (
         <div className='lg:py-32 py-20 bg-[#]'>
             <div className='lg:w-[80%] mx-auto mb-5 flex items-center gap-3'>
-                <p className='text-base font-semibold text-primary'>New journey notification -</p>
+                <p className='text-base font-semibold text-primary'>{t('newJourneyNotification654')}</p>
                 {
                     isNotificaiton ?
                         <FaToggleOff className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
@@ -27,7 +30,7 @@ const AvailableRoutes = () => {
                         <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                 }
             </div>
-            <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>Available Routes</h2>
+            <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t("availableRoutes654")}</h2>
 
             <div className='lg:w-[80%] mx-auto'>
 

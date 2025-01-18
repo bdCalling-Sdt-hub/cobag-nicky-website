@@ -2,6 +2,7 @@
 import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
 import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
+import i18n from '@/app/utils/i18';
 import React, { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
@@ -11,6 +12,9 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { LuBox, LuPlane } from 'react-icons/lu';
 
 const Page = () => {
+
+    const {t} = i18n;
+
     const [activeTab, setActiveTab] = useState(0); // Track the active tab
     const [packages, setPackages] = useState([
         { departureCity: '', arrivalCity: '', desiredDate: '', weight: '' },
@@ -148,7 +152,7 @@ const Page = () => {
                                     <div className='grid grid-cols-2 gap-4'>
                                         {/* Departure City */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">Departure City</label>
+                                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
@@ -156,7 +160,7 @@ const Page = () => {
                                                     onChange={(e) =>
                                                         handlePackageChange(index, 'departureCity', e.target.value)
                                                     }
-                                                    placeholder="Enter departure city"
+                                                    placeholder={t('departureCityPlaceholder45454')}
                                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                 />
                                                 <span className="absolute left-3 text-gray-400">
@@ -167,7 +171,7 @@ const Page = () => {
 
                                         {/* Arrival City */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">Arrival City</label>
+                                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
@@ -175,7 +179,7 @@ const Page = () => {
                                                     onChange={(e) =>
                                                         handlePackageChange(index, 'arrivalCity', e.target.value)
                                                     }
-                                                    placeholder="Enter arrival city"
+                                                    placeholder={t('arrivalCityPlaceholder45454')}
                                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                 />
                                                 <span className="absolute left-3 text-gray-400">
@@ -189,7 +193,7 @@ const Page = () => {
                                     <div className="grid grid-cols-2 items-start gap-4 my-5">
                                         {/* Desired Date */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">Desired Date</label>
+                                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="date"
@@ -216,7 +220,7 @@ const Page = () => {
                                                         checked={showFlexibleDate}
                                                         onChange={handleCheckboxChange}
                                                     />
-                                                    <span>Flexible dates</span>
+                                                    <span>{t('flexibleDates454')}</span>
                                                 </label>
                                                 {showFlexibleDate && (
                                                     <div className="col-span-2">
@@ -243,8 +247,8 @@ const Page = () => {
 
                                     {/* Package Weight */}
                                     <div>
-                                        <label className="mb-2 font-semibold flex justify-between">Package Weight (kg)
-                                            <button type="button" onClick={addNewPackageField} className='flex items-center gap-2 text-primary'><FaPlus /> Add a package</button>
+                                        <label className="mb-2 font-semibold flex justify-between">{t('packageWeightLabel454')}
+                                            <button type="button" onClick={addNewPackageField} className='flex items-center gap-2 text-primary'><FaPlus /> {t('addPackageButton454')}</button>
                                         </label>
                                         <div className="relative flex items-center">
                                             <input
@@ -252,7 +256,7 @@ const Page = () => {
                                                 onChange={(e) =>
                                                     handlePackageChange(index, 'weight', e.target.value)
                                                 }
-                                                placeholder="Enter weight"
+                                                placeholder={t('enterWeightPlaceholder454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
                                             <span className="absolute left-3 text-gray-400">
@@ -286,7 +290,7 @@ const Page = () => {
                             type="submit"
                             className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-3 w-full"
                         >
-                            <IoSearchOutline /> Search for a route
+                            <IoSearchOutline /> {t('searchForRoute454')}
                         </button>
                     </form>
 
@@ -301,11 +305,11 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 mb-5">
                         {/* Departure City */}
                         <div>
-                            <label className="block mb-2 font-semibold">Departure City</label>
+                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
-                                    placeholder="Enter departure city"
+                                    placeholder={t('departureCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -316,11 +320,11 @@ const Page = () => {
 
                         {/* Arrival City */}
                         <div>
-                            <label className="block mb-2 font-semibold">Arrival City</label>
+                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
-                                    placeholder="Enter arrival city"
+                                    placeholder={t('arrivalCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -333,7 +337,7 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 mb-5">
                         {/* Desired Date */}
                         <div>
-                            <label className="block mb-2 font-semibold">Desired Date</label>
+                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
@@ -352,7 +356,7 @@ const Page = () => {
                                     className="w-4 h-4 text-primary focus:ring-0"
                                     onChange={handleTrainCheckboxChange} // Updated handler name
                                 />
-                                Flexible Dates
+                               {t('flexibleDates454')}
                             </label>
 
                             {/* Conditionally Render Additional Field */}
@@ -423,7 +427,7 @@ const Page = () => {
                         type="submit"
                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-3 w-full font-semibold"
                     >
-                        <IoSearchOutline /> Search for a route
+                        <IoSearchOutline /> {t('searchForRoute454')}
                     </button>
 
                 </form>
@@ -438,11 +442,11 @@ const Page = () => {
                     <div className='grid grid-cols-2 gap-4'>
                         {/* Departure City */}
                         <div>
-                            <label className="block mb-2 font-semibold">Departure City</label>
+                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
-                                    placeholder="Enter departure city"
+                                    placeholder={t('departureCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -453,11 +457,11 @@ const Page = () => {
 
                         {/* Arrival City */}
                         <div>
-                            <label className="block mb-2 font-semibold">Arrival City</label>
+                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
-                                    placeholder="Enter arrival city"
+                                    placeholder={t('arrivalCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -472,7 +476,7 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 my-5">
                         {/* Desired Date */}
                         <div>
-                            <label className="block mb-2 font-semibold">Desired Date</label>
+                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
@@ -491,7 +495,7 @@ const Page = () => {
                                     className="w-4 h-4 text-primary focus:ring-0"
                                     onChange={handleTrainCheckboxChange} // Updated handler name
                                 />
-                                Flexible Dates
+                                {t('flexibleDates454')}
                             </label>
 
                             {/* Conditionally Render Additional Field */}
@@ -516,13 +520,15 @@ const Page = () => {
                         {/* Departure City */}
                         <div>
                             <label className="flex items-center justify-between mb-2 font-semibold">
-                                Package weight
-                                <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />Add a package</button>
+                                {t('packageWeightLabel454')}
+                                <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
+                                {t('addPackageButton454')}
+                                </button>
                             </label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
-                                    placeholder="0"
+                                    placeholder={t('enterWeightPlaceholder454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -601,7 +607,7 @@ const Page = () => {
                         type="submit"
                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-3 w-full font-semibold"
                     >
-                        <IoSearchOutline /> Search for a route
+                        <IoSearchOutline /> {t('searchForRoute454')}
                     </button>
 
                 </form>
@@ -623,16 +629,15 @@ const Page = () => {
                 <div className="bg-[#0505055e] min-h-[100vh] p-5">
                     <div className="lg:w-2/4 mx-auto text-center my-10">
                         <h2 className="lg:text-4xl text-2xl font-semibold text-white">
-                            Your package delivered internationally in just a few hours
+                            {t('packageDeliveredTitle45454')}
                         </h2>
                         <p className="mt-3 font-normal text-[#ffffff] lg:text-xl">
-                            Thanks to CoBag: In a few hours, your package crosses the world. A first
-                            for international
+                            {t('packageDeliveredDescription45454')}
                         </p>
                     </div>
 
                     <div className="lg:w-2/4 mx-auto bg-[#ffffff91] backdrop-blur-lg rounded-xl p-5">
-                        <h2 className="font-semibold text-primary mb-3">Transport Mode</h2>
+                        <h2 className="font-semibold text-primary mb-3">{t('transportModeTitle45454')}</h2>
                         <div className="flex justify-center mb-5 gap-5">
                             {tabs.map((tab, index) => (
                                 <button
@@ -653,6 +658,8 @@ const Page = () => {
                     </div>
                 </div>
             </div>
+
+            
             <AvailableRoutes />
             <VideoAndCard />
             <Shipments />
