@@ -1,22 +1,27 @@
+'use client';
+import i18n from '@/app/utils/i18';
 import React from 'react';
 import { BsSend } from 'react-icons/bs';
 import { CiSquareQuestion } from 'react-icons/ci';
 
 const Page = () => {
+
+    const { t } = i18n;
+
     return (
         <div>
             <div className='p-5 bg-white lg:w-3/4 mx-auto rounded-lg'>
                 <div>
-                    <h2 className='text-2xl font-semibold text-primary'>Send us a message</h2>
+                    <h2 className='text-2xl font-semibold text-primary'>{t('sendAMessage')}</h2>
                     <div className="mt-5">
                         <form action="" className="">
                             {/* Full Name */}
                             <div className="mb-5">
-                                <label className="block text-sm font-semibold mb-2">Full Name</label>
+                                <label className="block text-sm font-semibold mb-2">{t('fullName')}</label>
                                 <div className="relative">
                                     <input
                                         type="text"
-                                        placeholder="Enter your full name"
+                                        placeholder={t('enterFullName')}
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     />
                                 </div>
@@ -24,11 +29,11 @@ const Page = () => {
 
                             {/* Email */}
                             <div className="mb-5">
-                                <label className="block text-sm font-semibold mb-2">Email</label>
+                                <label className="block text-sm font-semibold mb-2">{t('email')}</label>
                                 <div className="relative">
                                     <input
                                         type="email"
-                                        placeholder="Enter your email"
+                                        placeholder={t('enterYourEmail')}
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     />
                                 </div>
@@ -36,12 +41,12 @@ const Page = () => {
 
                             {/* Subject */}
                             <div className="mb-5">
-                                <label className="block text-sm font-semibold mb-2">Subject</label>
+                                <label className="block text-sm font-semibold mb-2">{t('submit')}</label>
                                 <div className="relative">
                                     <select
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     >
-                                        <option value="">Select a topic</option>
+                                        <option value="" disabled defaultValue={true}>{t('selectATopic')}</option>
                                         <option value="general">General Inquiry</option>
                                         <option value="support">Support</option>
                                         <option value="feedback">Feedback</option>
@@ -51,9 +56,9 @@ const Page = () => {
 
                             {/* Message */}
                             <div className="mb-5">
-                                <label className="block text-sm font-semibold mb-2">Message</label>
+                                <label className="block text-sm font-semibold mb-2">{t('message')}</label>
                                 <textarea
-                                    placeholder="Type your question..."
+                                    placeholder={t('typeYourQuestion')}
                                     rows="6"
                                     className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                 ></textarea>
@@ -65,7 +70,7 @@ const Page = () => {
                                     type="submit"
                                     className="bg-primary w-full font-semibold  text-white py-3 rounded-lg hover:bg-primary-dark transition"
                                 >
-                                    <BsSend className='inline mr-2' /> Send the Message
+                                    <BsSend className='inline mr-2' /> {t('sendTheMessage')}
                                 </button>
                             </div>
                         </form>
@@ -75,8 +80,8 @@ const Page = () => {
             </div>
             <section className='lg:p-20 p-5 bg-[#e9edf2] lg:w-3/4 mx-auto my-10 rounded-lg' id="faq">
                 <div className='text-center'>
-                    <h2 className='lg:text-5xl text-3xl font-semibold text-primary'>Frequently Asked Questions</h2>
-                    <p className='mt-5 text-gray-400'>Find answers to the most frequently asked questions</p>
+                    <h2 className='lg:text-5xl text-3xl font-semibold text-primary'>{t('frequentlyAskedQuestions')}</h2>
+                    <p className='mt-5 text-gray-400'>{t('findAnswersToTheMostFrequentlyAskedQuestions')}</p>
                 </div>
                 <div>
                     <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
@@ -84,9 +89,8 @@ const Page = () => {
                             <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
                         </div>
                         <div>
-                            <h2 className='text-xl font-semibold text-primary mb-2'>How does the payment system work?</h2>
-                            <p className='text-gray-500'>Payment is secure and blocked until delivery confirmation. Once the package is delivered,
-                                payment is automatically released.</p>
+                            <h2 className='text-xl font-semibold text-primary mb-2'>{t('howDoesThePaymentSystemWork')}</h2>
+                            <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
                         </div>
                     </div>
                     <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
@@ -94,21 +98,20 @@ const Page = () => {
                             <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
                         </div>
                         <div>
-                            <h2 className='text-xl font-semibold text-primary mb-2'>How does the payment system work?</h2>
-                            <p className='text-gray-500'>Payment is secure and blocked until delivery confirmation. Once the package is delivered,
-                                payment is automatically released.</p>
+                            <h2 className='text-xl font-semibold text-primary mb-2'>{t('howDoesThePaymentSystemWork')}</h2>
+                            <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
                         </div>
                     </div>
                     <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
                         <div className='min-w-10'>
-                            <CiSquareQuestion className='text-5xl font-semibold text-primary ' />
+                            <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
                         </div>
                         <div>
-                            <h2 className='text-xl font-semibold text-primary mb-2'>How does the payment system work?</h2>
-                            <p className='text-gray-500'>Payment is secure and blocked until delivery confirmation. Once the package is delivered,
-                                payment is automatically released.</p>
+                            <h2 className='text-xl font-semibold text-primary mb-2'>{t('howDoesThePaymentSystemWork')}</h2>
+                            <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
                         </div>
                     </div>
+                  
                 </div>
             </section>
         </div>

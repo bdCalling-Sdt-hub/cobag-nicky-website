@@ -39,7 +39,7 @@ const Page = () => {
     return (
         <div className="lg:py-20 py-10 bg-[#f2f3ff]">
             {/* Tutorial Section */}
-            <div className="w-3/4 mx-auto lg:mb-20 mb-10 text-center">
+            <div data-aos="fade-up" data-aos-duration="900" className="w-3/4 mx-auto lg:mb-20 mb-10 text-center">
                 <div className="flex flex-col justify-center items-center">
                     <LuBookCheck className="text-4xl text-primary block" />
                     <h2 className="lg:text-5xl text-3xl font-semibold text-primary my-5">

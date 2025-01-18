@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { Table, Tag, Button, Modal, Input, message } from 'antd'
 import { FaArrowLeft } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
+import i18n from '@/app/utils/i18'
 
 const Page = () => {
+    const {t} = i18n
     // Sample data for the table
     const initialData = [
         {
@@ -169,7 +171,7 @@ const Page = () => {
                         className="mr-2 bg-primary text-white px-4 py-2 rounded-md"
                         onClick={() => handleApprove(record)}
                     >
-                        Delivary
+                        {t('delivery')}
                     </button>
                 </div>
             ),
@@ -198,7 +200,7 @@ const Page = () => {
     return (
         <div className="lg:p-10 p-5 bg-white rounded-lg">
             <div className="flex items-center justify-between gap-5">
-                <h1 className="text-2xl font-bold mb-4 text-primary">Running Order</h1>
+                <h1 className="text-2xl font-bold mb-4 text-primary">{t('runningOrder')}</h1>
                 <select
                     value={selectedStatus}
                     onChange={handleFilterChange}

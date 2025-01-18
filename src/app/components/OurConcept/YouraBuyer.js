@@ -10,7 +10,7 @@ const YouraBuyer = () => {
     useEffect(() => {
         Aos.init({
             duration: 1000, // Animation duration in milliseconds
-            once: true, // Animations trigger only once
+            // Animations trigger only once
         });
     }, [])
 

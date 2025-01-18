@@ -1,3 +1,5 @@
+'use client';
+import i18n from '@/app/utils/i18';
 import React from 'react';
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { IoMdNotifications } from 'react-icons/io';
@@ -5,16 +7,18 @@ import { IoEyeOutline } from 'react-icons/io5';
 import { MdOutlineEmail } from 'react-icons/md';
 
 const Page = () => {
+
+    const { t } = i18n;
     return (
         <div>
             <div className='bg-white p-5 lg:w-3/4 mx-auto rounded-lg'>
                 <div>
-                    <h2 className='text-2xl font-semibold text-primary mb-2'>Account settings</h2>
-                    <p>Manage your bookings as a sender or traveler,</p>
+                    <h2 className='text-2xl font-semibold text-primary mb-2'>{t('accountSettings')}</h2>
+                    <p>{t('manageYourBookingsAsASenderOrTraveler')}</p>
                     <br />
 
                     <div className="relative w-full">
-                        <span className="font-semibold text-sm text-gray-400 block mb-2">Language</span>
+                        <span className="font-semibold text-sm text-gray-400 block mb-2">{t('language')}</span>
                         <div className="relative">
                             <select
                                 name="language"
@@ -30,7 +34,7 @@ const Page = () => {
                         </div>
                     </div>
                     <div className="relative w-full my-5">
-                        <span className="font-semibold text-sm text-gray-400 block mb-2">Time zone</span>
+                        <span className="font-semibold text-sm text-gray-400 block mb-2">{t('timeZone')}</span>
                         <div className="relative">
                             <select
                                 name="language"
@@ -46,7 +50,7 @@ const Page = () => {
                         </div>
                     </div>
                     <div className="relative w-full my-5">
-                        <span className="font-semibold text-sm text-gray-400 block mb-2">Currency</span>
+                        <span className="font-semibold text-sm text-gray-400 block mb-2">{t('currency')}</span>
                         <div className="relative">
                             <select
                                 name="language"
@@ -64,7 +68,8 @@ const Page = () => {
 
                 </div>
             </div>
-            <div className='mt-5 bg-white p-5 lg:w-3/4 mx-auto rounded-lg'>
+
+            {/* <div className='mt-5 bg-white p-5 lg:w-3/4 mx-auto rounded-lg'>
                 <h2 className='text-2xl font-semibold text-primary mb-2'>Preferences</h2>
 
                 <section id='preferences2' className='my-5 lg:p-5 bg-white rounded-lg'>
@@ -100,7 +105,7 @@ const Page = () => {
 
                     </div>
                 </section>
-            </div>
+            </div> */}
         </div>
     );
 }

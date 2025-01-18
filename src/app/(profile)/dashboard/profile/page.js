@@ -14,9 +14,12 @@ import { UploadOutlined } from '@ant-design/icons';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsSend } from 'react-icons/bs';
 import { FiAlertTriangle } from 'react-icons/fi';
+import i18n from '@/app/utils/i18';
 
 
 const Page = () => {
+
+    const {t} = i18n;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -68,8 +71,8 @@ const Page = () => {
             <section id='profile' className='grid lg:grid-cols-3 gap-5'>
                 <div className='p-5 bg-white lg:col-span-2 rounded-lg'>
                     <div className='flex items-center justify-between'>
-                        <h2 className='font-semibold text-primary text-xl'>Personal Information</h2>
-                        <button onClick={showModal} className='flex items-center gap-2 bg-primary text-white py-2 px-5 rounded-md'><CiEdit />Edit</button>
+                        <h2 className='font-semibold text-primary text-xl'>{t('personalInformation')}</h2>
+                        <button onClick={showModal} className='flex items-center gap-2 bg-primary text-white py-2 px-5 rounded-md'><CiEdit />{t('edit')}</button>
                     </div>
                     <div className='mt-10'>
                         <img className='w-20' src="/Images/Isend/availableRoutesUser.png" alt="" />
@@ -77,7 +80,7 @@ const Page = () => {
                             <div className='grid lg:grid-cols-2 gap-5'>
                                 {/* Full Name */}
                                 <div className="mt-5 relative">
-                                    <label className="text-sm font-semibold">Full Name</label>
+                                    <label className="text-sm font-semibold">{t('fullName')}</label>
                                     <div className="relative flex items-center">
                                         <span className="absolute left-3 top-6 text-gray-400">
                                             <FaUser />
@@ -86,7 +89,7 @@ const Page = () => {
                                             type="text"
                                             disabled
                                             title='Full Name'
-                                            placeholder="Enter full name"
+                                            placeholder={t('enterFullName')}
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
@@ -94,7 +97,7 @@ const Page = () => {
 
                                 {/* Email */}
                                 <div className="mt-5 relative">
-                                    <label className="text-sm font-semibold">Email</label>
+                                    <label className="text-sm font-semibold">{t('email')}</label>
                                     <div className="relative flex items-center">
                                         <span className="absolute left-3 top-6 text-gray-400">
                                             <FaEnvelope />
@@ -103,7 +106,7 @@ const Page = () => {
                                             type="email"
                                             disabled
                                             title='Email'
-                                            placeholder="Enter email"
+                                            placeholder={t('enterEmail')}
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
@@ -111,14 +114,14 @@ const Page = () => {
 
                                 {/* Address */}
                                 <div className="mt-5 relative">
-                                    <label className="text-sm font-semibold">Address</label>
+                                    <label className="text-sm font-semibold">{t('address')}</label>
                                     <div className="relative flex items-center">
                                         <span className="absolute left-3  top-6 text-gray-400">
                                             <FaMapMarkerAlt />
                                         </span>
                                         <input
                                             type="text"
-                                            placeholder="Enter address"
+                                            placeholder={t('enterAddress')}
                                             disabled
                                             title='Address'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
@@ -128,14 +131,14 @@ const Page = () => {
 
                                 {/* Phone */}
                                 <div className="mt-5 relative">
-                                    <label className="text-sm font-semibold">Phone</label>
+                                    <label className="text-sm font-semibold">{t('phone')}</label>
                                     <div className="relative flex items-center">
                                         <span className="absolute left-3 top-6 text-gray-400">
                                             <FaPhoneAlt />
                                         </span>
                                         <input
                                             type="text"
-                                            placeholder="Enter phone"
+                                            placeholder={t('enterPhone')}
                                             disabled
                                             title='Phone number'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
@@ -149,7 +152,7 @@ const Page = () => {
                                         onClick={openPasswordResetModal}
                                         className="gap-2 text-primary border-b-2 border-primary font-semibold mt-10"
                                     >
-                                        Reset Password
+                                        {t('resetPassword')}
                                     </button>
                                 </div>
                             </div>
@@ -158,18 +161,18 @@ const Page = () => {
                 </div>
 
                 <div className='lg:col-span-1 bg-white  rounded-lg p-5'>
-                    <h2 className='text-2xl font-semibold text-primary py-5'>Wallet</h2>
+                    <h2 className='text-2xl font-semibold text-primary py-5'>{t('wallet')}</h2>
                     <div className='bg-primary rounded-lg p-5 flex items-center gap-5 my-5'>
                         <div className='flex items-center gap-2 w-14 h-14 bg-[#383f8a] text-white justify-center rounded-full'>
                             <LuWallet className='text-2xl' />
                         </div>
                         <div className='text-white'>
-                            <p>Balance available</p>
+                            <p>{t('balanceAvailable')}</p>
                             <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
                         </div>
                     </div>
                     <div>
-                        <h2 className='font-semibold text-primary'>Recent Transactions</h2>
+                        <h2 className='font-semibold text-primary'>{t('recentTransactions')}</h2>
                         <div className='flex items-center justify-between gap-5 flex-wrap bg-[#f6f6fb] my-5 p-5 rounded-md'>
                             <div className='flex items-center flex-wrap gap-3 '>
                                 <div className='flex items-center gap-2 w-14 h-14 bg-[#e0eee9] text-[#2b8f6c] justify-center rounded-full '>
@@ -400,16 +403,16 @@ const Page = () => {
 
             <section id='documents' className='my-10 p-5 bg-white rounded-lg'>
                 <div className='flex items-center justify-between'>
-                    <h2 className='text-2xl font-semibold text-primary mb-5'>Ethan documents</h2>
+                    <h2 className='text-2xl font-semibold text-primary mb-5'>{t('ethanDocuments')}</h2>
                     <div className='flex items-center gap-2'>
-                        <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-1 px-6 rounded-full'>Verified</span>
-                        <button className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>Send <BsSend /> </button>
+                        <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-1 px-6 rounded-full'>{t('verified')}</span>
+                        <button className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>{t('send')} <BsSend /> </button>
                     </div>
                 </div>
 
 
                 <div className='my-5'>
-                    <h2 className='font-medium'>Identity document</h2>
+                    <h2 className='font-medium'>{t('identityDocument')}</h2>
                     <div className='bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5'>
                         <div className=' flex items-center gap-5'>
                             <div className='flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md'>
@@ -427,13 +430,13 @@ const Page = () => {
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
 
-                            <p className="ant-upload-text font-semibold">Drag & Drop your files or Browse</p>
+                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
                         </Dragger>
                     </div>
                 </div>
 
                 <div className='my-5'>
-                    <h2 className='font-medium'>Proof of address</h2>
+                    <h2 className='font-medium'>{t('proofOfAddress')}</h2>
                     <div className='bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5'>
                         <div className=' flex items-center gap-5'>
                             <div className='flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md'>
@@ -451,7 +454,7 @@ const Page = () => {
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
 
-                            <p className="ant-upload-text font-semibold">Drag & Drop your files or Browse</p>
+                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
                         </Dragger>
                     </div>
                 </div>
@@ -475,7 +478,7 @@ const Page = () => {
                     <div className='mt-5'>
                         <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
 
-                            <p className="ant-upload-text font-semibold">Drag & Drop your files or Browse</p>
+                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
                         </Dragger>
                     </div>
                 </div>
@@ -483,19 +486,19 @@ const Page = () => {
                 <div className='p-5 bg-[#e0e0ff86] text-[#3030b9] flex items-center gap-2 rounded-md'>
                     <div className='min-w-10'>
                         <GoInfo className='text-2xl min-w-10' />
-                    </div> To be able to use all CoBag services you must provide these documents. They will be verified within 24-48 hours.
+                    </div>{t('ToBeAbletouseAllCobag')}
                 </div>
 
                 <div className='p-5 mt-5 bg-[#F989251A] text-[#F98925] flex items-center gap-2 rounded-md'>
                     <div className='min-w-10'>
                         <FiAlertTriangle className='text-2xl min-w-10' />
-                    </div> <span className='font-semibold'>Why Not Approve Your Document</span> : your id document not valid please submit again , will be verified within 24-48 hours .
+                    </div> <span className='font-semibold'>{t('WhyNotApproveYourDocument')}</span> : {t('yourIdDocumentNotValidPleaseSubmitAgain')}
                 </div>
 
 
             </section>
 
-            <section id='preferences' className='my-5 p-5 bg-white rounded-lg'>
+            {/* <section id='preferences' className='my-5 p-5 bg-white rounded-lg'>
                 <h2 className='font-semibold text-2xl text-primary'>Preferences</h2>
                 <div>
                     <div className='rounded-lg my-10 flex items-center justify-between'>
@@ -541,7 +544,7 @@ const Page = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }

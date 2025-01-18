@@ -1,8 +1,8 @@
 'use client';
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
- 
+
 import HeroConcept from '@/app/components/OurConcept/HeroConcept';
 import YouraBuyer from '@/app/components/OurConcept/YouraBuyer';
 import YourTravial from '@/app/components/OurConcept/YourTravial';

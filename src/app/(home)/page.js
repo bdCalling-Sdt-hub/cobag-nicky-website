@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 
 
-
 import React from 'react';
 import Hero from '../components/Home/Hero';
 import AboutUs from '../components/Home/AboutUs';

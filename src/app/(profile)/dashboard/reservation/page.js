@@ -1,4 +1,5 @@
 'use client';
+import i18n from '@/app/utils/i18';
 import React, { useState } from 'react';
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
 import { FaSearch } from 'react-icons/fa';
@@ -10,6 +11,8 @@ import { LuPlane, LuPlaneLanding, LuShield } from 'react-icons/lu';
 import { MdAccessTime, MdVerifiedUser } from 'react-icons/md';
 
 const Page = () => {
+
+    const {t} = i18n;
 
 
     const [activeTab, setActiveTab] = useState('Traveler'); // Track active tab
@@ -31,8 +34,8 @@ const Page = () => {
         <div>
             <div className='bg-white  p-5 rounded-lg'>
                 <div>
-                    <h2 className='text-xl font-semibold text-primary mb-2'>My Reservations</h2>
-                    <p className='text-gray-500'>Manage your bookings as a sender or traveler,</p>
+                    <h2 className='text-xl font-semibold text-primary mb-2'>{t('myReservations')}</h2>
+                    <p className='text-gray-500'>{t('manageYourBooking')}</p>
                 </div>
                 <div>
                     <div className="my-10">
@@ -47,7 +50,7 @@ const Page = () => {
                                         : 'bg-gray-100 text-black'
                                         }`}
                                 >
-                                    <LuPlane /> As a Traveler
+                                    <LuPlane /> {t('asATraveler')}
                                 </button>
                                 <button
                                     onClick={() => handleTabChange('Sender')}
@@ -56,7 +59,7 @@ const Page = () => {
                                         : 'bg-gray-100 text-black'
                                         }`}
                                 >
-                                    <GrSend /> As a Sender
+                                    <GrSend /> {t('asASender')}
                                 </button>
                             </div>
                             {/* Search and Filter */}
@@ -176,22 +179,22 @@ const Page = () => {
                                             )
                                         }
 
-                                        View Cost Breakdown
+                                        {t('viewCostBreakdown')}
                                         <span className='block w-[86%] h-[2px] bg-primary mt-3'></span>
                                     </div>
                                     {
                                         showViewCostBreakdown && (
                                             <div className='p-5'>
                                                 <div className='flex justify-between items-center gap-5 my-5'>
-                                                    <span>Base price</span>
+                                                    <span>{t('basePrice')}</span>
                                                     <span className='font-semibold'>35.00€</span>
                                                 </div>
                                                 <div className='flex justify-between items-center gap-5 my-5'>
-                                                    <span>Commission  (20%)</span>
+                                                    <span>{t('commission')} (20%)</span>
                                                     <span className='font-semibold'>0.50€</span>
                                                 </div>
                                                 <div className='flex justify-between items-center gap-5 my-5'>
-                                                    <span>Fixed costs</span>
+                                                    <span>{t('fixedCosts')}</span>
                                                     <span className='font-semibold'>7.00€</span>
                                                 </div>
                                                 <hr className='my-3' />

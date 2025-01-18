@@ -1,8 +1,12 @@
+'use client'    
 import i18n from '@/app/utils/i18';
 import React from 'react';
 
 const HeroConcept = () => {
     const { t } = i18n;
+
+
+
     return (
         <div className='bg-[#f7f7fc] md:py-32 py-20 flex items-center justify-center '>
             <div data-aos="fade-up" data-aos-duration="500" className='text-center md:px-0 px-5'>

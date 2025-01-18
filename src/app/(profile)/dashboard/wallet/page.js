@@ -7,8 +7,10 @@ import { MdOutlineAddCard } from 'react-icons/md';
 import { GoArrowDownRight } from 'react-icons/go';
 import { FaFilter } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
+import i18n from '@/app/utils/i18';
 
 const Page = () => {
+    const { t } = i18n;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => setIsModalOpen(true);
@@ -24,12 +26,12 @@ const Page = () => {
             {/* Bank Card Section */}
             <section id="bankCard" className="bg-white p-5 rounded-lg mt-5">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-primary">Bank card</h2>
+                    <h2 className="text-xl font-semibold text-primary">{t('bankCard')}</h2>
                     <button
                         className="flex items-center px-6 py-3 border border-primary text-primary rounded-lg gap-2"
                         onClick={showModal}
                     >
-                        <BsCreditCard className="text-xl" /> Add
+                        <BsCreditCard className="text-xl" /> {t('add')}
                     </button>
                 </div>
 
@@ -44,7 +46,7 @@ const Page = () => {
                             <div className="w-32 mx-auto flex items-center justify-center mt-3">
                                 <p className="font-semibold border-b text-xl border-primary text-primary">Add a card</p>
                             </div>
-                            <p className="ant-upload-hint text-center mt-5">Add a new bank card</p>
+                            <p className="ant-upload-hint text-center mt-5">{t('addANewBankCard')}</p>
                         </div>
                     </div>
                 </div>
@@ -53,13 +55,13 @@ const Page = () => {
             {/* Recent Payments Section */}
             <section id="recentPayments" className="bg-white p-5 rounded-lg mt-5">
                 <div className='flex items-center justify-between flex-wrap gap-5'>
-                    <h2 className="text-xl font-semibold text-primary">Recent Payments</h2>
+                    <h2 className="text-xl font-semibold text-primary">{t('recentPayments')}</h2>
                     <div className="flex flex-wrap items-center gap-3">
                         <div className="relative">
                             <input
                                 type="text"
                                 name="search"
-                                placeholder="Search transactions"
+                                placeholder={t('searchTransactions')}
                                 className="w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
                             />
                             <span className="absolute left-3 top-3 text-gray-400">
