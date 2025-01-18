@@ -7,7 +7,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     // baseUrl: "https://api.bidmedic.com/api/v1",
     // baseUrl: "http://192.168.10.169:6089/api/v1",
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "https://jsonplaceholder.typicode.com/todos/",
     prepareHeaders: (headers, { getState }) => {
     //   const token = localStorage.getItem("token");
     //   //   console.log("9 baseApi", token);

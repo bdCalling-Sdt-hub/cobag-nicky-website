@@ -4,7 +4,7 @@ import { apiSlice } from "../api/apiSlice";
 const getPost = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPost: builder.query({
-      query: () => `posts`,
+      query: () => `1`,
       method: "GET",
     })
   })
