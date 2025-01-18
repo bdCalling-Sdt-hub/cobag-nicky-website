@@ -5,10 +5,11 @@ import { FiShield } from "react-icons/fi";
 import { CiPlay1 } from "react-icons/ci";
 import Image from 'next/image';
 import { GoPackage } from "react-icons/go";
+import i18n from '@/app/utils/i18';
 
 
 const Hero = () => {
-    
+    const { t } = i18n;
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handlePlayClick = () => {
@@ -25,10 +26,12 @@ const Hero = () => {
                     <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full px-10 py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
                         <FiShield className='text-2xl animate-spin duration-[2s]' />
                         <IoLockClosedOutline className='text-2xl' />
-                        Secure Delivery & Payment
+
+                        {t('HeroSecureDelivery')}
                     </button>
-                    <h2 className='text-center my-10 text-white md:text-6xl text-3xl font-bold'>Share Your Luggage, save Money</h2>
-                    <h3 className='md:text-3xl text-xl font-semibold text-white'>CoBag reimburses your Luggage
+                    <h2 className='text-center my-10 text-white md:text-6xl text-3xl font-bold'>{t('ShareYourLuggagesaveMoney')}</h2>
+                    <h3 className='md:text-3xl text-xl font-semibold text-white'>
+                        {t('CoBagreimbursesyourLuggage')}
                     </h3>
                     <div className="absolute md:-bottom-60 -bottom-0 md:w-[50%]">
                         {/* Thumbnail or Video Player */}
@@ -65,10 +68,12 @@ const Hero = () => {
                             ></iframe>
                         )}
                         <div className='my-5 grid grid-cols-1 md:grid-cols-2 gap-5'>
-                            <button className='bg-gradient-to-r from-[#161D6F] to-[#0B2F9F] py-3 rounded-md font-semibold text-white flex items-center justify-center gap-2'><GoPackage className='text-xl' /> Sell my unused kilos</button>
+                            <button className='bg-gradient-to-r from-[#161D6F] to-[#0B2F9F] py-3 rounded-md font-semibold text-white flex items-center justify-center gap-2'><GoPackage className='text-xl' />
+                                {t('Sellmyunusedkilos')}
+                            </button>
                             <button className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 rounded-md font-semibold text-primary border-[1px] flex items-center justify-center gap-2">
                                 <IoSearchOutline className='text-xl' />
-                                Search for a traveler
+                               {t('Searchforatraveler')}
                             </button>
 
                         </div>

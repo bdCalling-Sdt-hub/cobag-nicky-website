@@ -1,6 +1,8 @@
-'use client';
-import React, { useState } from 'react';
-import { Table, Tag } from 'antd';
+'use client'
+import React, { useState } from 'react'
+import { Table, Tag, Button, Modal, Input, message } from 'antd'
+import { FaArrowLeft } from 'react-icons/fa'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const Page = () => {
     // Sample data for the table
@@ -8,8 +10,10 @@ const Page = () => {
         {
             id: 1,
             userName: 'John Doe',
-            userImage: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            userImage:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            packagePhoto:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
             weight: 5.5,
             status: 'In_progressing',
             deliveryCode: 'DEL12345',
@@ -21,8 +25,10 @@ const Page = () => {
         {
             id: 2,
             userName: 'Nerob',
-            userImage: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            userImage:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            packagePhoto:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
             weight: 10.2,
             status: 'Delivered',
             deliveryCode: 'DEL67890',
@@ -34,8 +40,10 @@ const Page = () => {
         {
             id: 3,
             userName: 'Partner',
-            userImage: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto: 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            userImage:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
+            packagePhoto:
+                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
             weight: 2.8,
             status: 'Failed',
             deliveryCode: 'DEL54321',
@@ -44,22 +52,24 @@ const Page = () => {
             date: '2025-01-12',
             brief: 'Urgent delivery, return if not delivered.',
         },
-    ];
+    ]
 
-    const [data, setData] = useState(initialData);
-    const [selectedStatus, setSelectedStatus] = useState(''); // For tracking selected filter
+    const [data, setData] = useState(initialData)
+    const [selectedStatus, setSelectedStatus] = useState('') // For tracking selected filter
+    const [isModalVisible, setIsModalVisible] = useState(false) // Modal visibility state
+    const [secretCode, setSecretCode] = useState('') // To store the entered secret code
 
     const handleFilterChange = (e) => {
-        const status = e.target.value;
-        setSelectedStatus(status);
+        const status = e.target.value
+        setSelectedStatus(status)
 
         if (status === '') {
-            setData(initialData); // Reset to all data if "All" is selected
+            setData(initialData) // Reset to all data if "All" is selected
         } else {
-            const filteredData = initialData.filter((item) => item.status === status);
-            setData(filteredData);
+            const filteredData = initialData.filter((item) => item.status === status)
+            setData(filteredData)
         }
-    };
+    }
 
     // Columns for the table
     const columns = [
@@ -106,21 +116,21 @@ const Page = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status) => {
-                let color;
+                let color
                 switch (status) {
                     case 'In_progressing':
-                        color = 'blue';
-                        break;
+                        color = 'blue'
+                        break
                     case 'Delivered':
-                        color = 'green';
-                        break;
+                        color = 'green'
+                        break
                     case 'Failed':
-                        color = 'red';
-                        break;
+                        color = 'red'
+                        break
                     default:
-                        color = 'gray';
+                        color = 'gray'
                 }
-                return <Tag color={color}>{status}</Tag>;
+                return <Tag color={color}>{status}</Tag>
             },
         },
         {
@@ -148,11 +158,46 @@ const Page = () => {
             dataIndex: 'brief',
             key: 'brief',
         },
-    ];
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (_, record) => (
+                <div>
+                    {/* Approve Button */}
+                    <button
+                        type="primary"
+                        className="mr-2 bg-primary text-white px-4 py-2 rounded-md"
+                        onClick={() => handleApprove(record)}
+                    >
+                        Delivary
+                    </button>
+                </div>
+            ),
+        },
+    ]
+
+    const handleApprove = (record) => {
+        // Show modal when "Approve" button is clicked
+        setIsModalVisible(true)
+    }
+
+    const handleModalOk = () => {
+        // Validate secret code
+        if (secretCode === '12345') {
+            message.success('Package approved successfully!')
+            setIsModalVisible(false) // Close the modal
+        } else {
+            message.error('Invalid secret code!')
+        }
+    }
+
+    const handleModalCancel = () => {
+        setIsModalVisible(false) // Close the modal
+    }
 
     return (
         <div className="lg:p-10 p-5 bg-white rounded-lg">
-            <div className='flex items-center justify-between gap-5'>
+            <div className="flex items-center justify-between gap-5">
                 <h1 className="text-2xl font-bold mb-4 text-primary">Running Order</h1>
                 <select
                     value={selectedStatus}
@@ -165,6 +210,7 @@ const Page = () => {
                     <option value="Failed">Failed</option>
                 </select>
             </div>
+
             <Table
                 columns={columns}
                 dataSource={data}
@@ -177,14 +223,31 @@ const Page = () => {
                 rowKey="id"
                 bordered
                 style={{
-                    // borderRadius: '10px',
                     overflow: 'hidden',
                     marginTop: '20px',
                 }}
                 scroll={{ x: 'max-content' }}
             />
-        </div>
-    );
-};
 
-export default Page;
+            {/* Modal for Approving Package */}
+            <Modal 
+                visible={isModalVisible}
+                onOk={handleModalOk}
+                onCancel={handleModalCancel}
+            >
+                <div>
+                    <label>Enter Secret Code:</label>
+                    <input
+                        className='w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary mt-2'
+                        type="text"
+                        value={secretCode}
+                        onChange={(e) => setSecretCode(e.target.value)}
+                        placeholder="Enter secret code"
+                    />
+                </div>
+            </Modal>
+        </div>
+    )
+}
+
+export default Page

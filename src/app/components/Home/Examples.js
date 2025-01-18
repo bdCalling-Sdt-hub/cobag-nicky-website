@@ -1,10 +1,13 @@
+import { t } from 'i18next';
 import React from 'react';
 
 const Examples = () => {
     return (
         <div className='bg-[#f6f6fb] py-20 '>
+
+
             <div className='py-20'>
-                <h2 data-aos="fade-in" data-aos-duration="500" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of shipments</h2>
+                <h2 data-aos="fade-in" data-aos-duration="500" className='text-center md:text-5xl text-3xl text-primary font-semibold'>{t('Examplesofshipments')}</h2>
 
                 <div className='mt-10 md:w-[80%] w-[90%] mx-auto grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 items-center'>
                     <div data-aos="fade-in" data-aos-duration="800">
@@ -21,11 +24,11 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Documents <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Documents5454')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Urgent administrative documents.</p>
+                                <p>{t('Urgentadministrativedocuments')}</p>
                             </div>
                         </div>
 
@@ -39,11 +42,11 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Clothes <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Clothessdf4554')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Surprise your loved ones quickly.</p>
+                                <p>{t('Surpriseyourlovedonesquickly')}</p>
                             </div>
                         </div>
 
@@ -57,11 +60,11 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Food <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Food54445')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Traditional food products.</p>
+                                <p>{t('Traditionalfoodproducts')}</p>
                             </div>
                         </div>
 
@@ -73,16 +76,16 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Medicine <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Medicine456sdf')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Express delivery of urgent medications.</p>
+                                <p>{t('Expressdeliveryofurgentmedications')}</p>
                             </div>
                         </div>
 
 
-                        <i className='text-sm mt-5 block'>* Please check the list of products allowed by your transport company.</i>
+                        <i className='text-sm mt-5 block'>{t('Pleasecheckthelist')}</i>
 
                     </div>
                 </div>
@@ -90,7 +93,7 @@ const Examples = () => {
 
 
             <div className='py-20'>
-                <h2 data-aos="fade-in" data-aos-duration="800" className='text-center md:text-5xl text-3xl text-primary font-semibold'>Examples of purchases</h2>
+                <h2 data-aos="fade-in" data-aos-duration="800" className='text-center md:text-5xl text-3xl text-primary font-semibold'>{t('Examplesofpurchases')}</h2>
                 <div className='mt-10 md:w-[80%] w-[90%] mx-auto grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10 items-center'>
 
                     <div data-aos="fade-in" data-aos-duration="800" className='bg-white p-10 rounded-xl shadow-md w-full'>
@@ -104,11 +107,11 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Korean skincare <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Koreanskincare')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Authentic Korean Beauty and Skincare Products.</p>
+                                <p>{t('AuthenticKoreanBeauty')}</p>
                             </div>
                         </div>
 
@@ -121,11 +124,11 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Clothes <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Clothes4545')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>International fashion and trends.</p>
+                                <p>{t('Internationalfashion')}</p>
                             </div>
                         </div>
 
@@ -139,16 +142,16 @@ const Examples = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className='flex items-center gap-2 text-primary font-semibold'>Limited edition sneakers <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                <h2 className='flex items-center gap-2 text-primary font-semibold'>{t('Limitededitionsneakers')} <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M11.5833 1.66699L3.25 11.667H10.75L9.91667 18.3337L18.25 8.33366H10.75L11.5833 1.66699Z" stroke="#0B2F9F" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 </h2>
-                                <p>Exclusive models and rare collections.</p>
+                                <p>{t('Exclusivemodelsandrarecollections')}</p>
                             </div>
                         </div>
 
 
-                        <i className='text-sm mt-5 block'>* * All products are subject to current customs regulations</i>
+                        <i className='text-sm mt-5 block'>{t('Allproductsaresubjecttocurrentcustomsregulations')}</i>
 
                     </div>
 

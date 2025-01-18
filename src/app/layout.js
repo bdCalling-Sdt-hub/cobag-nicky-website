@@ -29,12 +29,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
 
-      <body suppressHydrationWarning
+      <body suppressHydrationWarning suppressContentEditableWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
+        <Start />
         <ReduxProvider>
-          {/* <Start /> */}
+          
           {children}
         </ReduxProvider>
       </body>

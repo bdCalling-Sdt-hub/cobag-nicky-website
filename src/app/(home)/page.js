@@ -1,5 +1,6 @@
-// "use client";
-// import { useTranslation } from "react-i18next";
+"use client";
+import { useTranslation } from "react-i18next";
+
 //============= 4 stape need for use translation  =============
 
 
@@ -12,12 +13,13 @@ import DoseItWork from '../components/Home/DoseItWork';
 import Examples from '../components/Home/Examples';
 import DetailsInfo from '../components/Home/DetailsInfo';
 import SiteDetails from '../components/Home/SiteDetails';
+import i18n from "../utils/i18";
 
 
 
 const Page = () => {
 
-    // const { t } = useTranslation()
+    const { t } = i18n
 
 
     return (

@@ -1,8 +1,19 @@
+'use client';
+import i18n from '@/app/utils/i18';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Aos from 'aos';
 
 
 const YouraBuyer = () => {
+    const { t } = i18n; 
+    useEffect(() => {
+        Aos.init({
+            duration: 1000, // Animation duration in milliseconds
+            once: true, // Animations trigger only once
+        });
+    }, [])
+
     return (
         <div>
             <div className='md:w-3/4 md:px-0 px-5  mx-auto grid lg:grid-cols-2 gap-10 items-center md:my-20 my-10'>
@@ -10,27 +21,27 @@ const YouraBuyer = () => {
                     <img className='w-full' src="/Images/Ourconcept/ourconcept2.png" alt="" />
                 </div>
                 <div data-aos="fade-up" data-aos-duration="500" className='md:py-20 py-10 text-primary'>
-                    <h2 className='gap-2 md:text-5xl text-3xl font-semibold'>Why Choose CoBag?</h2>
+                    <h2 className='gap-2 md:text-5xl text-3xl font-semibold'>{t('WhyChooseCoBag45')}</h2>
                     <div>
                         <ul className='my-5 list-disc ml-6'>
                             <li className='my-5 text-xl'>
-                                <span className='font-semibold'> Secure: </span>User identities, trips, and parcel contents are verified. Payments are held until the mission is completed successfully.
+                                <span className='font-semibold'> Secure: </span>{t('Secure456')}
                             </li>
                             <li className='my-5 text-xl'>
-                                <span className='font-semibold'> Eco-Friendly:</span>  CoBag uses space on flights and trains that are already traveling, reducing unnecessary CO2 emissions.
+                                <span className='font-semibold'> Eco-Friendly:</span> {t('EcoFriendly546')}
                             </li>
                             <li className='my-5 text-xl'>
-                                <span className='font-semibold'>Affordable: </span>  Save on expensive excess baggage fees and international shipping costs.
+                                <span className='font-semibold'>Affordable: </span>  {t('Affordable456456')}
                             </li>
                             <li className='my-5 text-xl'>
-                                <span className='font-semibold'>Flexible: </span>  Choose the service that suits your needs—whether you’re selling kilos, sending parcels, or making purchases abroad.
+                                <span className='font-semibold'>Flexible: </span>  {t('Flexible4566')}
                             </li>
                         </ul>
                         <div>
-                            <p className='text-xl mb-10'> <span className='font-semibold'>Join the CoBag Movement Today! <br /> </span>  Whether you’re a traveler, a sender, or a buyer, CoBag helps you make the most of every trip. Turn unused baggage space into opportunities and experience a smarter, greener way to travel.</p>
+                            <p className='text-xl mb-10'> <span className='font-semibold'>{t('JoinTheCoBagMovement54645')} <br /> </span>{t('Whetheryoure4241')}</p>
                         </div>
                         <Link href={'/signup'}>
-                            <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 px-16 text-primary font-semibold rounded-md w-full'>Sign Up Now</button>
+                            <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 px-16 text-primary font-semibold rounded-md w-full'>{t('SignUpNow456')}</button>
                         </Link>
                     </div>
                 </div>

@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import { FaArrowRightLong, FaCheck } from 'react-icons/fa6';
 import { Modal } from 'antd';
 import { FiShield } from 'react-icons/fi';
+import i18n from '@/app/utils/i18';
+ 
 
 const CommissionHeader = () => {
+    const {t} = i18n;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -24,7 +27,7 @@ const CommissionHeader = () => {
         <div className="bg-gradient-to-b from-[#E9FFFD] via-[#E9FFFD] to-[#FFF]">
             <div className="md:w-[50%] w-[90%] mx-auto py-20 text-center">
                 <h1 className="md:text-5xl text-3xl font-semibold text-primary">
-                    Enjoy 0% commission on all your missions with
+                    {t('commissionMessage21')}
                 </h1>
                 <img
                     className="w-2/3 mx-auto mg:my-20 my-10"
@@ -32,13 +35,13 @@ const CommissionHeader = () => {
                     alt="Commission Logo"
                 />
                 <p className="text-xl text-primary">
-                    For only €10 per month, without commitment, optimize your earnings and reduce your costs on each transaction.
+                    {t('monthlyFeeMessage')}
                 </p>
                 <button
                     onClick={showModal}
                     className="bg-primary py-3 px-16 text-white font-semibold rounded-lg md:mt-20 mt-10"
                 >
-                    Subscribe now <FaArrowRightLong className="inline ml-2" />
+                    {t('Subscribenow1')} <FaArrowRightLong className="inline ml-2" />
                 </button>
             </div>
 

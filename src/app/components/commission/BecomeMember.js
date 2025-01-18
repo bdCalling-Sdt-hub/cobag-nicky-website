@@ -1,7 +1,11 @@
+'use client';
+
+import i18n from '@/app/utils/i18';
 import React from 'react';
 import { FaArrowRightLong, FaArrowTrendUp } from 'react-icons/fa6';
 
 const BecomeMember = () => {
+    const {t} = i18n;
     return (
         <div className='my-20'>
             <div className='my-10'>
@@ -11,14 +15,14 @@ const BecomeMember = () => {
                 <div>
                     <div className='text-primary flex items-center gap-5'>
                         <FaArrowTrendUp />
-                        <h2><span className='text-3xl'>30€ </span>/ month saved by our members</h2>
+                        <h2><span className='text-3xl'>30€ </span>/ {t('PricePerMonthSaved')}</h2>
                     </div>
-                    <p className='my-3 text-gray-500'>Members save an average of €30 per month with CoBag Sky*</p>
-                    <p className='my-3 text-gray-500'>*Average savings made per month, calculated on the basis of all missions carried out over a month, thanks to the €0 commission fees</p>
+                    <p className='my-3 text-gray-500'>{t('SavingsByMembers')}</p>
+                    <p className='my-3 text-gray-500'>{t('AverageSavingsExplanation')}</p>
                 </div>
                 <div className='text-right flex flex-col items-end justify-center'>
-                    <h2 className='text-xl text-primary'>Become a member for only €10 per month</h2>
-                    <p className='my-3'>Your benefits are usable wherever CoBag Sky is present</p>
+                    <h2 className='text-xl text-primary'>{t('BecomeAMember')}</h2>
+                    <p className='my-3'>{t('BenefitsUsableAnywhere')}</p>
                     <button className='bg-primary py-3 px-10 text-white font-semibold rounded-lg'>Try now <FaArrowRightLong className='inline ml-2' /> </button>
                 </div>
             </div>

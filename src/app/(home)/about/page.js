@@ -5,9 +5,10 @@ import React from 'react';
 const Page = () => {
     return (
         <div>
+
             <AboutHero></AboutHero>
             <AboutStory></AboutStory>
-
+            
         </div>
     );
 }

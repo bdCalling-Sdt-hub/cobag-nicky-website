@@ -1,4 +1,5 @@
 'use client'; // Ensure this is a client-side component
+import i18n from '@/app/utils/i18';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,6 +9,8 @@ import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 const Header = () => {
+    const { t } = i18n;
+
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
     const pathname = usePathname(); // Get the current route path
 
@@ -25,30 +28,52 @@ const Header = () => {
         <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] py-2">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
-                <li>What do you want to do?</li>
+                <li>{t('navWhatdoWYouWantTo')}</li>
                 <li className="relative group cursor-pointer">
                     <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-5 py-3 px-5 rounded-full navbar-item-hover z-[9999]'>
                         <FaChevronRight className='group-hover:hidden text-white z-[9999] ' />
                         <FaArrowRight className='hidden group-hover:block text-white z-[9999] ' />
-                        Discover our services
+                        {t('Discoverourservices')}
                     </span>
 
                     <ul className="absolute hidden group-hover:block top-12 left-0 bg-white shadow-md rounded-md min-w-96">
-                        {[
-                            { path: '/itravel', label: 'I want to sell my kilos' },
-                            { path: '/isend', label: 'I want to send a parcel' },
-                            { path: '/ishop', label: 'I want to have my excess baggage transported' },
-                            { path: '/isend', label: 'I want to buy abroad' }  // Updated unique path
-                        ].map((item, index) => (
-                            <li key={index}>
-                                <Link
-                                    className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block ${isActive(item.path) ? '' : 'text-black'}`}
-                                    href={item.path}
-                                >
-                                    {item.label}
-                                </Link>
-                            </li>
-                        ))}
+
+
+
+                        <li >
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/itravel'}
+                            >
+                                {/* I want to travel abroad */}
+                                {t('NavbarItem1')}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/isend'}
+                            >
+                                {t('NavbarItem2')}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/ishop'}
+                            >
+                                {t('NavbarItem3')}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/isend'}
+                            >
+                                {t('NavbarItem4')}
+                            </Link>
+                        </li>
+
                     </ul>
                 </li>
             </ul>
@@ -70,11 +95,11 @@ const Header = () => {
                     href={'/commission'}
                     className="hidden md:block bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border"
                 >
-                    0% Commission
+                    {t('NavCommission')}
                 </Link>
 
                 <Link href={'/commission'}>
-                    <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>Subscribe</button>
+                    <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavSubscribe')}</button>
                 </Link>
                 <div className="relative group">
                     <Image
@@ -89,7 +114,7 @@ const Header = () => {
                             href={'/dashboard/profile'}
                             className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
                         >
-                            Profile
+                            {t('NavProfile')}
                         </Link>
                         <button
                             className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"

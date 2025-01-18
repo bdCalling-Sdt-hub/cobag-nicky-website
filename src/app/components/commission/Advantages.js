@@ -1,11 +1,15 @@
+'use client'
+import i18n from '@/app/utils/i18';
 import React from 'react';
 
 const Advantages = () => {
+    const {t} = i18n;
+
     return (
         <div className='py-20 bg-[#fafaff]'>
             <div className='text-center my-10'>
-                <h1 className='md:text-5xl text-3xl font-semibold text-primary mb-5'>The CoBag Sky advantages</h1>
-                <p className='text-base font-semibold text-gray-500'>A premium experience to optimize your missions</p>
+                <h1 className='md:text-5xl text-3xl font-semibold text-primary mb-5'>{t('TheCoBagSkyAdvantages')}</h1>
+                <p className='text-base font-semibold text-gray-500'>{t('PremiumExperience')}</p>
             </div>
 
             <div className='lg:w-[60%] w-[90%] mx-auto mt-20'>
@@ -14,8 +18,8 @@ const Advantages = () => {
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-1.png" alt="" />
                         <div>
-                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>0% commissions</h2>
-                            <p className='text-gray-400'>0% commission fee. An ideal solution to maximize your earnings</p>
+                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>{t('ZeroCommissions')}</h2>
+                            <p className='text-gray-400'>{t('ZeroCommissionFee')}</p>
                         </div>
                     </div>
                 </div>
@@ -24,8 +28,8 @@ const Advantages = () => {
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-2.png" alt="" />
                         <div>
-                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>Sans engagement</h2>
-                            <p className='text-gray-400'>Enjoy complete flexibility with the ability to cancel at any time. Stay in control of your subscription</p>
+                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>{t('InsurancePlusIncluded')}</h2>
+                            <p className='text-gray-400'>{t('EnjoyCompleteFlexibility')}</p>
                         </div>
                     </div>
                 </div>
@@ -34,8 +38,8 @@ const Advantages = () => {
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-3.png" alt="" />
                         <div>
-                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>Insurance Plus included</h2>
-                            <p className='text-gray-400'>Enjoy complete flexibility with the ability to cancel at any time. Stay in control of your subscription</p>
+                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>{t('NoCommitment')}</h2>
+                            <p className='text-gray-400'>{t('StayInControl')}</p>
                         </div>
                     </div>
                 </div>

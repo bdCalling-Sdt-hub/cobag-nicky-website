@@ -13,6 +13,7 @@ import { PiTrainLight } from "react-icons/pi";
 import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
 import Courier from '@/app/components/ITravel/Courier';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
+import i18n from '@/app/utils/i18';
 
 
 
@@ -25,6 +26,7 @@ const onChange = (time, timeString) => {
 
 
 const Page = () => {
+    const {t} = i18n;
 
 
 
@@ -126,14 +128,16 @@ const Page = () => {
         <div>
             <div className={` duration-500 ${activeTab === 1 ? 'bg-[url("/Images/Itravel/travel-plane-1.png")] ' : 'bg-[url("/Images/Itravel/travel-tran-1.png")] '}  bg-cover bg-center h-auto w-full `}>
                 <div className='w-full h-full bg-[#0000008e] lg:py-10 py-5 '>
+                   
                     <div className='flex flex-col items-center justify-center lg:py-10 py-5 lg:px-0 px-5 text-center text-white'>
                         <h2 className='lg:text-5xl text-3xl font-semibold mb-3'>
-                            Offer your journey, Make your luggage profitable.
+                            {t('OfferYourJourney')}
                         </h2>
                         <p className='lg:text-xl'>
-                            Resell your unused kilos and turn your trips into <br /> lucrative opportunities.
+                            {t('ResellUnusedKilos')}
                         </p>
                     </div>
+
                     <div className='max-w-5xl mx-auto backdrop-blur-lg bg-[#ffffff85] p-10 rounded-md'>
                         {/* Tab Navigation */}
                         <div className="flex justify-center gap-5 mb-6">
@@ -142,14 +146,14 @@ const Page = () => {
                                     }`}
                                 onClick={() => setActiveTab(1)}
                             >
-                                <LuPlane /> Plane
+                                <LuPlane /> {t('Plane')}
                             </button>
                             <button
                                 className={`px-4 py-3 text-lg font-medium w-[50%] rounded-md flex items-center justify-center gap-2   ${activeTab === 2 ? ' bg-primary text-white ' : 'bg-white text-primary'
                                     }`}
                                 onClick={() => setActiveTab(2)}
                             >
-                                <PiTrainLight />Train
+                                <PiTrainLight />{t('Train')}
                             </button>
                         </div>
 
@@ -160,7 +164,7 @@ const Page = () => {
                                     <form onSubmit={handleSubmitTravel} className="space-y-6">
 
                                         <div className="">
-                                            <span className='font-semibold text-gray-700 mb-2 block'>Transport Mood</span>
+                                            <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
                                             <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-4'>
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
@@ -172,7 +176,7 @@ const Page = () => {
                                                         defaultChecked
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>Direct</span>
+                                                        <span className='font-semibold'>{t('Direct')}</span>
                                                     </div>
                                                 </label>
 
@@ -185,7 +189,7 @@ const Page = () => {
                                                         id="radio2"
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>With correspondence</span>
+                                                        <span className='font-semibold'>{t('WithCorrespondence')}</span>
                                                     </div>
                                                 </label>
                                             </div>
@@ -194,7 +198,7 @@ const Page = () => {
                                         {/* Transport Mood */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
                                             <div className=" ">
-                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>Transport Mood</span>
+                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
                                                 <div className='flex gap-5'>
                                                     {/*  Hidden File Input */}
                                                     <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
@@ -220,7 +224,7 @@ const Page = () => {
                                                         >
                                                             Add your ticket
                                                         </span>
-                                                        <p className="text-xs mt-2 text-gray-500">(PNG, JPG or PDF up to 10MB)</p>
+                                                        <p className="text-xs mt-2 text-gray-500">{t('AddYourTicket')}</p>
                                                     </label>
 
                                                 </div>
@@ -228,7 +232,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">Flight Number</label>
+                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">{t('FlightNumber')}</label>
                                                 <input
                                                     type="text"
                                                     className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
@@ -242,7 +246,8 @@ const Page = () => {
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">Departure City</label>
+                                                <label className="block text-sm font-semibold text-gray-700">
+                                                    {t('DepartureCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -257,7 +262,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">Arrival city</label>
+                                                <label className="block text-sm font-semibold text-gray-700">{t('ArrivalCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -275,7 +280,7 @@ const Page = () => {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">Departure Date</label>
+                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">{t('DepartureDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -288,7 +293,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm mb-2 font-semibold text-gray-700">Arrival Date</label>
+                                                <label className="block text-sm mb-2 font-semibold text-gray-700">{t('ArrivalDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -304,24 +309,24 @@ const Page = () => {
 
                                         <div className='flex items-center justify-between gap-5 '>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>Departure time</span>
+                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
                                                 <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
                                             </div>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>Departure time</span>
+                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
                                                 <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
                                             </div>
                                         </div>
 
                                         <div>
-                                            <span className="block font-semibold text-gray-700 mb-3">Available weight</span>
+                                            <span className="block font-semibold text-gray-700 mb-3">{t('AvailableWeight')}</span>
                                             <div className='bg-white p-5 rounded-lg '>
                                                 <label htmlFor="handLuggage" className='flex items-center justify-between '>
                                                     <div className='flex items-center gap-3'>
                                                         <div className='w-16 h-16 bg-[#e7eaf5] rounded-full flex items-center justify-center'>
                                                             <IoBagOutline className='text-3xl text-primary' />
                                                         </div>
-                                                        <h2 className='text-2xl font-semibold text-primary'>Hand luggage</h2>
+                                                        <h2 className='text-2xl font-semibold text-primary'>{t('HandLuggage')}</h2>
                                                     </div>
                                                     <div>
                                                         <input onClick={handleShowCheckLuggage} className='w-5 h-5' type="checkbox" name="handLuggage" id="handLuggage" />
@@ -331,7 +336,7 @@ const Page = () => {
                                                     showLuggage && (
 
                                                         <div className='flex items-center gap-5 justify-center'>
-                                                            <p>Available weight:</p>
+                                                            <p>{t('AvailableWeight')}:</p>
                                                             <div className='flex items-center justify-start gap-3'>
                                                                 {/* incress and decress button and input field  */}
 
@@ -359,7 +364,7 @@ const Page = () => {
                                                         <div className='w-16 h-16 bg-[#e7eaf5] rounded-full flex items-center justify-center'>
                                                             <RiShoppingBag4Line className='text-3xl text-primary' />
                                                         </div>
-                                                        <h2 className='text-2xl font-semibold text-primary'>Checked baggage</h2>
+                                                        <h2 className='text-2xl font-semibold text-primary'>{t('CheckedBaggage')}</h2>
                                                     </div>
                                                     <div>
                                                         <input onClick={handleShowCheckBaggage} className='w-5 h-5' type="checkbox" name="handBaggage" id="handBaggage" />
@@ -369,7 +374,7 @@ const Page = () => {
                                                     showBaggage && (
 
                                                         <div className='flex items-center gap-5 justify-center'>
-                                                            <p>Available weight:</p>
+                                                            <p>{t('AvailableWeight')}:</p>
                                                             <div className='flex items-center justify-start gap-3'>
                                                                 {/* incress and decress button and input field  */}
 
@@ -400,14 +405,14 @@ const Page = () => {
                                                     id="available"
                                                 />
                                                 <span className="flex items-center gap-1 font-semibold  text-gray-700">
-                                                    Available to be a courier <MdInfo />
+                                                    {t('AvailableToBeACourier')} <MdInfo />
                                                 </span>
                                             </label>
 
                                             {/* Conditional Content */}
                                             {showAvailable && (
                                                 <div className="mt-2 bg-white p-5 rounded-lg">
-                                                    <p className='text-[#393939] font-medium'>Maximum purchase amount you are willing to advance.</p>
+                                                    <p className='text-[#393939] font-medium'>{t('MaximumPurchaseAmountYouAreWillingToAdvance')}</p>
                                                     <div className="relative mt-2">
                                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                             {/* Icon */}
@@ -415,18 +420,18 @@ const Page = () => {
                                                         </div>
                                                         <input
                                                             type="number"
-                                                            placeholder='Enter the amount'
+                                                            placeholder={t('EnterTheAmount')}
                                                             className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         />
                                                     </div>
-                                                    <span className='text-[#737373] text-xs mt-1'>This amount will be visible to potential buyers.</span>
+                                                    <span className='text-[#737373] text-xs mt-1'>{t('ThisAmountWillBeVisibleToPotentialBuyers')}</span>
                                                 </div>
                                             )}
                                         </div>
 
 
                                         <div>
-                                            <span className='font-semibold  text-gray-700'>Message (optional)</span>
+                                            <span className='font-semibold  text-gray-700'>{t('MessageOptional')}</span>
                                             <div className="relative mt-2 ">
                                                 <div className="absolute inset-y-0 left-0 pl-2 top-5">
                                                     {/* Icon */}
@@ -446,7 +451,7 @@ const Page = () => {
                                                 type="submit"
                                                 className="w-full bg-primary text-white py-3 rounded-md font-semibold transition"
                                             >
-                                                Publish the Route
+                                                {t('PublishRoute')}
                                             </button>
                                         </div>
                                     </form>
@@ -457,7 +462,7 @@ const Page = () => {
                                     <form onSubmit={handleSubmitTrain} className="space-y-6">
 
                                         <div className="">
-                                            <span className='font-semibold text-gray-700 mb-2 block'>Transport Mood</span>
+                                            <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
                                             <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-4'>
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
@@ -469,7 +474,7 @@ const Page = () => {
                                                         defaultChecked
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>Direct</span>
+                                                        <span className='font-semibold'>{t('Direct')}</span>
                                                     </div>
                                                 </label>
 
@@ -482,7 +487,7 @@ const Page = () => {
                                                         id="radio2"
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>With correspondence</span>
+                                                        <span className='font-semibold'>{t('WithCorrespondence')}</span>
                                                     </div>
                                                 </label>
                                             </div>
@@ -491,7 +496,7 @@ const Page = () => {
                                         {/* Transport Mood */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
                                             <div className=" ">
-                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>Transport Mood</span>
+                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
                                                 <div className='flex gap-5'>
                                                     {/*  Hidden File Input */}
                                                     <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
@@ -517,7 +522,7 @@ const Page = () => {
                                                         >
                                                             Add your ticket
                                                         </span>
-                                                        <p className="text-xs mt-2 text-gray-500">(PNG, JPG or PDF up to 10MB)</p>
+                                                        <p className="text-xs mt-2 text-gray-500">{t('AddYourTicket')}</p>
                                                     </label>
 
                                                 </div>
@@ -525,7 +530,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">Flight Number</label>
+                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">{t('FlightNumber')}</label>
                                                 <input
                                                     type="text"
                                                     className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
@@ -539,7 +544,7 @@ const Page = () => {
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">Departure City</label>
+                                                <label className="block text-sm font-semibold text-gray-700">{t('DepartureCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -554,7 +559,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">Arrival city</label>
+                                                <label className="block text-sm font-semibold text-gray-700">{t('ArrivalCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -572,7 +577,7 @@ const Page = () => {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">Departure Date</label>
+                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">{t('DepartureDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -585,7 +590,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm mb-2 font-semibold text-gray-700">Arrival Date</label>
+                                                <label className="block text-sm mb-2 font-semibold text-gray-700">{t('ArrivalDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -601,11 +606,11 @@ const Page = () => {
 
                                         <div className='flex items-center justify-between gap-5 '>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>Departure time</span>
+                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
                                                 <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
                                             </div>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>Departure time</span>
+                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
                                                 <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
                                             </div>
                                         </div>
@@ -694,14 +699,14 @@ const Page = () => {
                                                     id="available"
                                                 />
                                                 <span className="flex items-center gap-1 font-semibold  text-gray-700">
-                                                    Available to be a courier <MdInfo />
+                                                    {t('AvailableToBeACourier')} <MdInfo />
                                                 </span>
                                             </label>
 
                                             {/* Conditional Content */}
                                             {showAvailable && (
                                                 <div className="mt-2 bg-white p-5 rounded-lg">
-                                                    <p className='text-[#393939] font-medium'>Maximum purchase amount you are willing to advance.</p>
+                                                    <p className='text-[#393939] font-medium'>{t('MaximumPurchaseAmountYouAreWillingToAdvance')}</p>
                                                     <div className="relative mt-2">
                                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                             {/* Icon */}
@@ -709,18 +714,18 @@ const Page = () => {
                                                         </div>
                                                         <input
                                                             type="number"
-                                                            placeholder='Enter the amount'
+                                                            placeholder={t('EnterTheAmount')}
                                                             className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         />
                                                     </div>
-                                                    <span className='text-[#737373] text-xs mt-1'>This amount will be visible to potential buyers.</span>
+                                                    <span className='text-[#737373] text-xs mt-1'>{t('ThisAmountWillBeVisibleToPotentialBuyers')}</span>
                                                 </div>
                                             )}
                                         </div>
 
 
                                         <div>
-                                            <span className='font-semibold  text-gray-700'>Message (optional)</span>
+                                            <span className='font-semibold  text-gray-700'>{t('MessageOptional')}</span>
                                             <div className="relative mt-2 ">
                                                 <div className="absolute inset-y-0 left-0 pl-2 top-5">
                                                     {/* Icon */}
@@ -740,7 +745,7 @@ const Page = () => {
                                                 type="submit"
                                                 className="w-full bg-primary text-white py-3 rounded-md font-semibold transition"
                                             >
-                                                Publish the Route
+                                               {t('PublishRoute')}
                                             </button>
                                         </div>
                                     </form>
