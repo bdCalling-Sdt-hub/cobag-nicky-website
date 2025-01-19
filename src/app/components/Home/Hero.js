@@ -6,10 +6,11 @@ import { CiPlay1 } from "react-icons/ci";
 import Image from 'next/image';
 import { GoPackage } from "react-icons/go";
 import i18n from '@/app/utils/i18';
+import { useTranslation } from 'react-i18next';
 
 
 const Hero = () => {
-    const { t } = i18n;
+    const { t } = useTranslation()
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handlePlayClick = () => {

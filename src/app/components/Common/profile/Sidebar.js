@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-import { CiCreditCard1, CiSquareQuestion, CiUser } from 'react-icons/ci';
+import { CiCreditCard1, CiSettings, CiSquareQuestion, CiUser } from 'react-icons/ci';
 import { IoIosArrowDown, IoIosLogOut } from 'react-icons/io';
 import { LuUserRound, LuWallet } from 'react-icons/lu';
 import { GrDocumentText, GrUserSettings } from "react-icons/gr";
@@ -185,7 +185,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             className={`flex items-center cursor-pointer justify-between gap-3 py-3 px-5 rounded-md font-semibold ${isActive('/dashboard/settings') ? 'bg-primary text-white ' : 'hover:bg-slate-200 bg-stone-100 hover:text-primary text-black  '
                                 }`}
                         >
-                            <div className='flex items-center gap-3'><LuWallet className="text-2xl" /> {t('settings')} </div> <IoIosArrowDown />
+                            <div className='flex items-center gap-3'><CiSettings className="text-2xl" /> {t('settings')} </div> <IoIosArrowDown />
 
 
                         </div>

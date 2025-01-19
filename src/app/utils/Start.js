@@ -1,13 +1,12 @@
 "use client"
-import i18next from "i18next";
+
 
 import React from 'react'
+import i18n from './i18'
 
 const Start = () => {
 
-// const { t, i18n } = useTranslation();
-
-
+// const { t, i18n } = useTranslation()
 
   return (
     <div className="h-0"></div>

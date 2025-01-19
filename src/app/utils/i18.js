@@ -2,12 +2,13 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
 import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
-import { useGetPostQuery } from "../redux/Features/getProfile";
-
-
-
+import { useTranslation, initReactI18next } from "react-i18next"; 
+import { useGetLanguageQuery } from "../redux/Features/language/getLanguage";
  
+const locale = typeof window !== 'undefined' ? localStorage.getItem("lng") : "en"; // Default to "en" if not in a browser
+
+
+console.log(locale);
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -746,6 +747,7 @@ i18n
           "message": "Message",
           "logOut": "Se Déconnecter",
           "areYousureForLogOut": "Êtes-vous sûr de vouloir vous déconnecter ?",
+          'recentTransactions': 'Transactions récentes',
 
 
         }
@@ -753,8 +755,8 @@ i18n
 
 
     },
-    lng: 'fn', // if you're using a language detector, do not define the lng option
-    fallbackLng: "fn",
+    lng:locale, // if you're using a language detector, do not define the lng option
+    fallbackLng: "en",
 
     interpolation: {
       escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
