@@ -44,7 +44,7 @@ const Page = () => {
                     <p>{t('manageYourBookingsAsASenderOrTraveler')}</p>
                     <br />
 
-                    {/* Language Selector */}
+                    {/* Language Selector sdf */}
                     <div className="relative w-full">
                         <span className="font-semibold text-sm text-gray-400 block mb-2">{t('language')}</span>
                         <div className="relative">
