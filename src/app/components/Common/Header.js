@@ -1,4 +1,5 @@
 'use client'; // Ensure this is a client-side component
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import i18n from '@/app/utils/i18';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +10,12 @@ import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 const Header = () => {
+
+    const { data, isLoading: userLoading } = useGetUserQuery();
+    if (data?.user) {
+
+    }
+
     const { t } = i18n;
 
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control menu visibility
@@ -24,8 +31,10 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen); // Toggle the menu state
     };
 
+
+
     return (
-        <header className="fixed top-0 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] py-2">
+        <header className="fixed top-0 py-2 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] ">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
                 <li>{t('navWhatdoWYouWantTo')}</li>
@@ -35,10 +44,7 @@ const Header = () => {
                         <FaArrowRight className='hidden group-hover:block text-white z-[9999] ' />
                         {t('Discoverourservices')}
                     </span>
-
                     <ul className="absolute hidden group-hover:block top-12 left-0 bg-white shadow-md rounded-md min-w-96">
-
-
 
                         <li >
                             <Link
@@ -98,31 +104,41 @@ const Header = () => {
                     {t('NavCommission')}
                 </Link>
 
-                <Link href={'/commission'}>
-                    <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavSubscribe')}</button>
-                </Link>
-                <div className="relative group">
-                    <Image
-                        src="/Images/header-user.svg"
-                        alt="User Icon"
-                        width={40}
-                        height={40}
-                        className="rounded-full cursor-pointer py-6"
-                    />
-                    <div className="p-5 bg-slate-100 rounded-lg absolute top-20 right-0 min-w-72 hidden group-hover:block">
-                        <Link
-                            href={'/dashboard/profile'}
-                            className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
-                        >
-                            {t('NavProfile')}
-                        </Link>
-                        <button
-                            className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
-                        >
-                            Switch to Sender
-                        </button>
+
+                {
+                    !data?.user && <Link href={'/login'}>
+                        <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavLogin')}</button>
+                    </Link>
+                }
+
+                {/* when user is available then show it else not */}
+
+
+
+                {
+                    data?.user && <div className="relative group">
+                        <Image
+                            src="/Images/header-user.svg"
+                            alt="User Icon"
+                            width={40}
+                            height={40}
+                            className="rounded-full cursor-pointer py-6"
+                        />
+                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-20 top-24 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
+                            <Link
+                                href={'/dashboard/profile'}
+                                className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                            >
+                                {t('NavProfile')}
+                            </Link>
+                            <button
+                                className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                            >
+                                Switch to Sender
+                            </button>
+                        </div>
                     </div>
-                </div>
+                }
 
 
             </div>
@@ -137,7 +153,7 @@ const Header = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`md:hidden absolute top-20 right-0 w-full bg-white shadow-lg py-4 px-5 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`md:hidden absolute top-24 right-0 w-full bg-white shadow-lg py-4 px-5 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
                 style={{ height: '100vh' }}
             >

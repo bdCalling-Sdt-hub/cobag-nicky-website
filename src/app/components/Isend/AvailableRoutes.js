@@ -11,13 +11,15 @@ import i18n from '@/app/utils/i18';
 
 const AvailableRoutes = () => {
 
-    const {t} = i18n;
+    const { t } = i18n;
 
     const [isNotificaiton, setIsNotificaiton] = useState(true);
 
     const handleNotificationShowHide = () => {
         setIsNotificaiton(!isNotificaiton);
     }
+
+ 
 
     return (
         <div className='lg:py-32 py-20 bg-[#]'>

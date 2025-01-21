@@ -12,7 +12,7 @@ export default function Layout({ children }) {
             </Head>
             <body>
                 <Header></Header>
-                <div className='md:mt-[108px] mt-20'>
+                <div className='md:mt-[100px] mt-[110px]'>
                     {children}
                 </div>
                 <Footer></Footer>

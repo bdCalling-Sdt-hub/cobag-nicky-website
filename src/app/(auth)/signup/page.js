@@ -1,10 +1,48 @@
+'use client'
+import { useUserSignupMutation } from '@/app/redux/Features/Auth/signup';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from 'react-icons/ai';
 import { FaApple, FaFacebookF, FaGoogle } from 'react-icons/fa6';
 
 const Page = () => {
+
+    const router = useRouter()
+
+    const [userSignup, { isLoading }] = useUserSignupMutation()
+
+    const handleSignupUser = async (e) => {
+
+        e.preventDefault()
+
+        const firstName = e.target.firstName.value;
+        const lastName = e.target.lastName.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const phone = e.target.phoneNumber.value;
+        const role = 'user';
+
+        const formData = { firstName, lastName, email, password, phone, role }
+        console.log(formData);
+
+
+        const res = await userSignup(formData).unwrap();
+        console.log(res);
+        if (res.success) {
+            toast.success('User Register successfully !!')
+            router.push(`/document/${res.data?._id}`)
+        }
+
+
+    }
+
+
+
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            <Toaster />
             {/* Left Side Image */}
             <div className="hidden md:block">
                 <img
@@ -16,7 +54,7 @@ const Page = () => {
 
             {/* Right Side Form */}
             <div className="md:w-3/4 mx-auto my-10 flex items-center justify-center">
-                <form className="w-full rounded-lg">
+                <form onSubmit={handleSignupUser} className="w-full rounded-lg">
                     <img className="w-48" src="/Images/Profile/black_logo.png" alt="Logo" />
                     <div className="my-8">
                         <h2 className="text-3xl md:text-5xl font-semibold mb-2">Create an Account</h2>
@@ -30,6 +68,7 @@ const Page = () => {
                             <input
                                 type="text"
                                 id="firstName"
+                                name='firstName'
                                 placeholder="Enter your first name"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -42,6 +81,7 @@ const Page = () => {
                             <input
                                 type="text"
                                 id="lastName"
+                                name='lastName'
                                 placeholder="Enter your last name"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -54,6 +94,7 @@ const Page = () => {
                             <input
                                 type="email"
                                 id="email"
+                                name='email'
                                 placeholder="Enter your email"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -66,6 +107,7 @@ const Page = () => {
                             <input
                                 type="tel"
                                 id="phoneNumber"
+                                name='phoneNumber'
                                 placeholder="Enter your phone number"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -78,6 +120,7 @@ const Page = () => {
                             <input
                                 type="password"
                                 id="password"
+                                name='password'
                                 placeholder="Enter your password"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -90,6 +133,8 @@ const Page = () => {
                         <input
                             type="checkbox"
                             id="terms"
+                            name='terms'
+                            required
                             className="w-4 h-4 mr-2 accent-primary focus:outline-none"
                         />
                         <label htmlFor="terms" className="text-gray-600 text-sm">

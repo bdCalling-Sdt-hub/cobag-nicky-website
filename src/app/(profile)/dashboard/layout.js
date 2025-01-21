@@ -1,11 +1,23 @@
 "use client";
 import Header from "@/app/components/Common/profile/Header";
 import Sidebar from "@/app/components/Common/profile/Sidebar";
+import { useGetUserQuery } from "@/app/redux/Features/Auth/getUser";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 
 export default function Layout({ children }) {
+
+    const router = useRouter();
+
+
+    const { user } = useGetUserQuery()
+    console.log(user);
+    // if(!user){
+    //     return router.push('/')
+    // }
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const handleToggleSidebar = () => {
@@ -23,10 +35,9 @@ export default function Layout({ children }) {
                 <div className="flex flex-col md:flex-row items-start">
                     {/* Sidebar */}
                     <div
-                         
-                        className={`fixed top-0 left-0 bg-white shadow-md z-50 h-screen md:relative md:h-auto md:flex ${
-                            isSidebarOpen ? "block" : "hidden"
-                        } md:block w-72`}
+
+                        className={`fixed top-0 left-0 bg-white shadow-md z-50 h-screen md:relative md:h-auto md:flex ${isSidebarOpen ? "block" : "hidden"
+                            } md:block w-72`}
                     >
                         <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
                     </div>

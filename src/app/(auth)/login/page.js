@@ -1,22 +1,75 @@
-import React from 'react';
+'use client';
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import { useUserloginMutation } from '@/app/redux/Features/Auth/login';
+import { message } from 'antd';
+import React, { useState } from 'react';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
 import { FaApple, FaFacebookF, FaGoogle } from 'react-icons/fa6';
+import { FiEye, FiEyeOff } from 'react-icons/fi';  // Import eye icons for show/hide password
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+
+    const router = useRouter();
+    const { data, isLoading: userLoading } = useGetUserQuery();
+
+    // console.log(data?.token);
+    if (data?.token) {
+        window.location.href = '/';
+    }
+
+
+    const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
+    const [email, setEmail] = useState(''); // State for email input
+    const [password, setPassword] = useState(''); // State for password input
+    const [isLoading, setIsLoading] = useState(false); // State to track loading status
+    const [login] = useUserloginMutation();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        const body = {
+            email,
+            password
+        };
+
+        console.log(body);
+
+
+
+        const res = await login(body).unwrap();
+        console.log('User data:', res?.data);
+        console.log(res.data.token);
+
+        if (res.data && res.token) {
+            toast.success('user Login Successfully !!')
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('user', JSON.stringify(res.data[0]));
+            router.push('/');
+
+        } else {
+            console.error('Token missing in response:', res);
+        }
+
+    };
+
+
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            <Toaster />
             {/* Left Side Image */}
             <div className="hidden md:block">
-                <img
-                    className="h-screen w-full object-cover"
-                    src="/Images/auth/login_bg-Image.png"
-                    alt="Background"
-                />
+                <img className="h-screen w-full object-cover" src="/Images/auth/login_bg-Image.png" alt="Background" />
             </div>
 
             {/* Right Side Form */}
             <div className="md:w-3/4 mx-auto my-20 flex items-center justify-center">
-                <form className="w-full rounded-lg">
+                <form onSubmit={handleSubmit} className="w-full rounded-lg">
                     <img className="w-48" src="/Images/Profile/black_logo.png" alt="Logo" />
                     <div className="my-8">
                         <h2 className="text-3xl md:text-5xl font-semibold mb-2">Welcome back!</h2>
@@ -30,6 +83,9 @@ const Page = () => {
                             <input
                                 type="text"
                                 id="email"
+                                name='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)} // Update email state
                                 placeholder="Enter your email"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
@@ -40,12 +96,21 @@ const Page = () => {
                         <div className="relative">
                             <label htmlFor="password" className="block text-sm font-semibold mb-2">Password</label>
                             <input
-                                type="password"
+                                type={passwordVisible ? "text" : "password"} // Toggle password visibility
                                 id="password"
+                                name='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)} // Update password state
                                 placeholder="Enter your password"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                             <AiOutlineLock className="absolute left-3 top-[53px] transform -translate-y-1/2 text-gray-400 text-xl" />
+                            <span
+                                className="absolute right-3 top-[53px] transform -translate-y-1/2 cursor-pointer"
+                                onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility on click
+                            >
+                                {!passwordVisible ? <FiEyeOff className="text-gray-400 text-xl" /> : <FiEye className="text-gray-400 text-xl" />}
+                            </span>
                         </div>
                     </div>
 
@@ -66,12 +131,15 @@ const Page = () => {
                         </a>
                     </div>
 
+
+
                     {/* Login Button */}
                     <button
                         type="submit"
                         className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition"
+                        disabled={isLoading} // Disable button when loading
                     >
-                        Login
+                        {isLoading ? 'Logging in...' : 'Login'}
                     </button>
 
                     {/* Divider */}
@@ -100,7 +168,6 @@ const Page = () => {
                 </form>
             </div>
         </div>
-
     );
 }
 

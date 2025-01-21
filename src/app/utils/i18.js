@@ -2,9 +2,9 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
 import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next"; 
+import { useTranslation, initReactI18next } from "react-i18next";
 import { useGetLanguageQuery } from "../redux/Features/language/getLanguage";
- 
+
 const locale = typeof window !== 'undefined' ? localStorage.getItem("lng") : "en"; // Default to "en" if not in a browser
 
 
@@ -20,6 +20,7 @@ i18n
 
       en: {
         translation: {
+          'NavLogin': 'Login',
           'navWhatdoWYouWantTo': "What do you want to do?",
           'Discoverourservices': 'Discover our services',
           "NavbarItem1": "I want to sell my kilos",
@@ -391,6 +392,7 @@ i18n
 
       fn: {
         translation: {
+          'NavLogin': 'Connexion',
           "navWhatdoWYouWantTo": "Que voulez-vous faire ?",
           "Discoverourservices": "Découvrez nos services",
           "NavbarItem1": "Je veux vendre mes kilos",
@@ -752,10 +754,8 @@ i18n
 
         }
       }
-
-
     },
-    lng:locale, // if you're using a language detector, do not define the lng option
+    lng: locale, // if you're using a language detector, do not define the lng option
     fallbackLng: "en",
 
     interpolation: {
