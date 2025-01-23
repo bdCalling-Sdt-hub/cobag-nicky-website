@@ -16,7 +16,7 @@ const Page = () => {
 
     // console.log(data?.token);
     if (data?.token) {
-        window.location.href = '/';
+        router.push('/');
     }
 
 

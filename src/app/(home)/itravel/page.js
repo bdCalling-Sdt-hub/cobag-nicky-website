@@ -132,12 +132,16 @@ const Page = () => {
     const { data } = useGetUserQuery();
     const userId = data?.user?._id;
 
+    console.log(data?.user);
+
     const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
 
     const handleSubmitTravel = async (e) => {
 
         e.preventDefault();
         const form = e.target;
+
+        // if(userId)
 
         if (!fileList1) {
             return toast.error('Please upload your ticket')
@@ -164,7 +168,7 @@ const Page = () => {
             return toast.error('Please enter a valid arrival time')
         }
 
-        console.log(fileList1);
+        // console.log(fileList1);
 
         const formData = new FormData();
         formData.append("userId", userId);
@@ -281,7 +285,8 @@ const Page = () => {
 
         try {
             const res = await createPlane(formData).unwrap();
-            // console.log(res);
+            console.log(res);
+            
             if (res?.success) {
                 // alert(res?.data)
                 toast.success('Travel created successfully !!')

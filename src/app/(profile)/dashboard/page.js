@@ -1,7 +1,13 @@
+'use client'    
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Page = () => {
+
+
+
     return (
         <div className='flex items-center justify-center min-h-[80vh] w-full'>
             <div className='flex flex-col gap-5 justify-center items-center'>

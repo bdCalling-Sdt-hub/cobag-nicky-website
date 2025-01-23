@@ -19,6 +19,8 @@ import i18n from '@/app/utils/i18';
 
 const Page = () => {
 
+    
+
     const {t} = i18n;
 
     const [isModalOpen, setIsModalOpen] = useState(false);

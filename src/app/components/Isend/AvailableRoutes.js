@@ -7,9 +7,13 @@ import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { MdVerifiedUser } from 'react-icons/md';
 import { FiMessageSquare } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
+import { PiTrainThin } from 'react-icons/pi';
+import baseUrl from '@/app/redux/api/baseUrl';
 
 
-const AvailableRoutes = () => {
+const AvailableRoutes = ({ searchData }) => {
+
+    console.log(searchData[0]);
 
     const { t } = i18n;
 
@@ -19,7 +23,7 @@ const AvailableRoutes = () => {
         setIsNotificaiton(!isNotificaiton);
     }
 
- 
+
 
     return (
         <div className='lg:py-32 py-20 bg-[#]'>
@@ -32,23 +36,28 @@ const AvailableRoutes = () => {
                         <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                 }
             </div>
-            <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t("availableRoutes654")}</h2>
+            <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t("availableRoutes654")} {(`( ${searchData?.length} )`) + ' item'}</h2>
 
-            <div className='lg:w-[80%] mx-auto'>
+            <div className='lg:w-[80%] w-[95%] mx-auto'>
 
-                {
-                    [...Array(4)].map((_, index) => (
+
+                {searchData.length > 0 ?
+                    searchData?.map((item, index) => (
                         <div data-aos="fade-up" data-aos-duration="300" key={index} className='shadow-lg rounded-lg  p-10 my-5'>
                             <div className='flex flex-wrap items-center justify-between '>
                                 <div className='flex items-center text-primary gap-3 font-medium'>
                                     <div className='w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg'>
-                                        <LuPlane className='text-2xl' />
+                                        {
+                                            item?.transportMode == 'plane' ?
+                                                <LuPlane className='text-2xl' /> :
+                                                <PiTrainThin className='text-2xl' />
+                                        }
                                     </div>
-                                    <h2>Direct flight</h2>
+                                    <h2 className='capitalize'>{item?.transportType} {item?.transportMode}</h2>
                                 </div>
                                 <div className='flex flex-col justify-end items-end text-gray-500'>
-                                    <h3 className='text-3xl font-semibold text-primary mb-3'>125.50€ </h3>
-                                    <span className='flex items-center gap-3'> <LuShield className=' text-gray-500' />39.00 € including insurance and protection  <IoMdInformationCircle className='text-gray-500' /> </span>
+                                    <h3 className='text-3xl font-semibold text-primary mb-3'>{item?.price}$ </h3>
+                                    <span className='flex items-center gap-3'> <LuShield className=' text-gray-500 capitalize' />including insurance and protection  <IoMdInformationCircle className='text-gray-500' /> </span>
                                 </div>
                             </div>
                             <div className='flex flex-wrap justify-between gap-10 items-center my-5'>
@@ -56,37 +65,39 @@ const AvailableRoutes = () => {
                                     <div className='flex gap-2 my-8'>
                                         <CiLocationOn className='text-2xl' />
                                         <div >
-                                            <p>Paris</p>
+                                            <p>{item?.departureCity}</p>
                                             <div className='flex items-center gap-2'>
-                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> 15 Mar 2024</span>
-                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> 14:30</span>
+                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {item?.departureDate}</span>
+                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {item?.departureTime}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className='flex gap-2 my-8'>
                                         <CiLocationOn className='text-2xl' />
                                         <div >
-                                            <p>Brazzaville Maya-Maya</p>
+                                            <p>{item?.arrivalCity}</p>
                                             <div className='flex items-center gap-2'>
-                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> 15 Mar 2024</span>
-                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> 14:30</span>
+                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {item?.arrivalDate}</span>
+                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {item?.arrivalTime}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='bg-[#eeeff8] py-5 w-96 px-10 rounded-lg text-primary' >
                                     <h3 className='font-semibold'>Your shipment</h3>
-                                    <h2 className='text-2xl font-semibold '>3 kg</h2>
+                                    <h2 className='text-2xl font-semibold '>{item?.totalSpace} kg</h2>
                                 </div>
                             </div>
                             <div className='flex flex-wrap items-center justify-between gap-5'>
                                 <div className='flex flex-wrap items-center gap-5'>
-                                    <img className='w-14 rounded-full' src="/Images/Isend/availableRoutesUser.png" alt="" />
+                                    <img className='w-14 rounded-full' src={baseUrl + item?.user?.profileImage} alt="" />
                                     <div>
-                                        <h3 className='font-semibold text-primary'>John Doe</h3>
+                                        <h3 className='font-semibold text-primary'>{item?.user?.firstName}</h3>
                                         <div className='flex items-center flex-wrap gap-3'>
-                                            <span className='flex items-center gap-3 text-gray-500 '>4.00 <FaStar className='text-yellow-400' />  (157 reviews)</span>
-                                            <li className='list-disc text-gray-600 mx-5'>24 packages delivered</li>
+                                            <span className='flex items-center gap-3 text-gray-500 '>
+                                                {item?.user?.reviewAva}
+                                                <FaStar className='text-yellow-400' />  ( {item?.user?.reviewInt} reviews)</span>
+                                            <li className='list-disc text-gray-600 ml-5 mr-2'>0 packages delivered</li>
                                             <div className='flex flex-wrap items-center gap-2'>
                                                 <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Verified traveler</span>
                                                 <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Expert</span>
@@ -104,6 +115,10 @@ const AvailableRoutes = () => {
                             </div>
                         </div>
                     ))
+                    :
+                    <div>
+                        <h2 className='text-center text-2xl font-semibold text-red-500 my-20'>No Search Data Found !!</h2>
+                    </div>
                 }
 
             </div>

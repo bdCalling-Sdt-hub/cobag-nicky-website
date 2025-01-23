@@ -4,19 +4,17 @@ import Sidebar from "@/app/components/Common/profile/Sidebar";
 import { useGetUserQuery } from "@/app/redux/Features/Auth/getUser";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 
 export default function Layout({ children }) {
 
-    const router = useRouter();
 
 
     const { user } = useGetUserQuery()
     console.log(user);
-    // if(!user){
-    //     return router.push('/')
-    // }
+ 
+ 
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

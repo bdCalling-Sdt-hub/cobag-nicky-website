@@ -2,8 +2,10 @@
 import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
 import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
+import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
 import { FaTrain } from 'react-icons/fa';
@@ -136,23 +138,45 @@ const Page = () => {
 
 
 
+    const [allSearchResutl, setAllSearchResutl] = useState([]);
+
+
+    console.log(allSearchResutl);
+
     // ==================== Plane ========================
 
-    const handleSearchPlane = (e) => {
+    const [searchItravelWithData, { isLoading }] = useSearchItravelMutation();
+
+    const handleSearchPlane = async (e) => {
         e.preventDefault();
 
         // Perform search logic here
         const form = e.target;
 
         const formData = {
+            transportMode: 'plane',
             departureCity: form?.departureCity?.value || '',
             arrivalCity: form?.arrivalCity?.value || '',
-            desiredDate: form?.desiredDate?.value || '',
-            packageWeight: form?.packageWeight?.value || '',
-            flexibleDate: form?.flexibleDate?.value || '',
+            departureDate: form?.desiredDate?.value || '',
+            totalSpace: Number(form?.packageWeight?.value) || 0,
+            arrivalDate: form?.flexibleDate?.value || '',
         };
 
+        try {
 
+            const response = await searchItravelWithData(formData).unwrap();
+            console.log(response);
+
+            if (response?.success) {
+                console.log(response);
+                setAllSearchResutl(response?.data)
+                toast.success('Search successfully');
+                // router.push(`/itravel/${response?.data[0]?.id}`);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Search failed !!');
+        }
 
         console.log(formData);
 
@@ -162,37 +186,73 @@ const Page = () => {
 
     // ==================== Train ========================
 
-    const handleSearchTrain = (e) => {
+
+    const handleSearchTrain = async (e) => {
         e.preventDefault();
 
         // Perform search logic here
         const form = e.target;
 
         const formData = {
+            transportMode: 'train',
             departureCity: form?.departureCity?.value || '',
             arrivalCity: form?.arrivalCity?.value || '',
-            desiredDate: form?.desiredDate?.value || '',
-            packageWeight: form?.packageWeight?.value || '',
-            flexibleDate: form?.flexibleDate?.value || '',
+            departureDate: form?.desiredDate?.value || '',
+            arrivalDate: form?.flexibleDate?.value || '',
         };
+
+        try {
+
+            const response = await searchItravelWithData(formData).unwrap();
+            console.log(response);
+
+            if (response?.success) {
+                console.log(response);
+                setAllSearchResutl(response?.data)
+                toast.success('Search successfully');
+                // router.push(`/itravel/${response?.data[0]?.id}`);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Search failed !!');
+        }
+
+
+
 
     }
 
     // ==================== All ========================
 
-    const handleSearchAll = (e) => {
+    const handleSearchAll = async (e) => {
         e.preventDefault();
 
         // Perform search logic here
         const form = e.target;
 
         const formData = {
+            transportMode: 'train',
             departureCity: form?.departureCity?.value || '',
             arrivalCity: form?.arrivalCity?.value || '',
-            desiredDate: form?.desiredDate?.value || '',
-            packageWeight: form?.packageWeight?.value || '',
-            flexibleDate: form?.flexibleDate?.value || '',
+            departureDate: form?.desiredDate?.value || '',
+            arrivalDate: form?.flexibleDate?.value || '',
         };
+
+        try {
+
+            const response = await searchItravelWithData(formData).unwrap();
+            console.log(response);
+
+            if (response?.success) {
+                console.log(response);
+                setAllSearchResutl(response?.data)
+                toast.success('Search successfully');
+                // router.push(`/itravel/${response?.data[0]?.id}`);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Search failed !!');
+        }
 
     }
 
@@ -676,6 +736,7 @@ const Page = () => {
 
     return (
         <div>
+            <Toaster position="top-center" containerStyle={{ zIndex: 99999999 }} />
             <div
                 className={`min-h-[100vh] duration-300 ease-in-out ${activeTab === 0
                     ? 'bg-[url("/Images/Ishop/travel-plane-1.png")]'
@@ -719,7 +780,7 @@ const Page = () => {
             </div>
 
 
-            <AvailableRoutes />
+            <AvailableRoutes searchData={allSearchResutl} />
             <VideoAndCard />
             <Shipments />
 
