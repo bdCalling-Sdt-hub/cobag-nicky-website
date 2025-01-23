@@ -13,7 +13,7 @@ import { LuBox, LuPlane } from 'react-icons/lu';
 
 const Page = () => {
 
-    const {t} = i18n;
+    const { t } = i18n;
 
     const [activeTab, setActiveTab] = useState(0); // Track the active tab
     const [packages, setPackages] = useState([
@@ -136,6 +136,69 @@ const Page = () => {
 
 
 
+    // ==================== Plane ========================
+
+    const handleSearchPlane = (e) => {
+        e.preventDefault();
+
+        // Perform search logic here
+        const form = e.target;
+
+        const formData = {
+            departureCity: form?.departureCity?.value || '',
+            arrivalCity: form?.arrivalCity?.value || '',
+            desiredDate: form?.desiredDate?.value || '',
+            packageWeight: form?.packageWeight?.value || '',
+            flexibleDate: form?.flexibleDate?.value || '',
+        };
+
+
+
+        console.log(formData);
+
+
+
+    };
+
+    // ==================== Train ========================
+
+    const handleSearchTrain = (e) => {
+        e.preventDefault();
+
+        // Perform search logic here
+        const form = e.target;
+
+        const formData = {
+            departureCity: form?.departureCity?.value || '',
+            arrivalCity: form?.arrivalCity?.value || '',
+            desiredDate: form?.desiredDate?.value || '',
+            packageWeight: form?.packageWeight?.value || '',
+            flexibleDate: form?.flexibleDate?.value || '',
+        };
+
+    }
+
+    // ==================== All ========================
+
+    const handleSearchAll = (e) => {
+        e.preventDefault();
+
+        // Perform search logic here
+        const form = e.target;
+
+        const formData = {
+            departureCity: form?.departureCity?.value || '',
+            arrivalCity: form?.arrivalCity?.value || '',
+            desiredDate: form?.desiredDate?.value || '',
+            packageWeight: form?.packageWeight?.value || '',
+            flexibleDate: form?.flexibleDate?.value || '',
+        };
+
+    }
+
+
+
+
 
 
     const tabs = [
@@ -145,7 +208,7 @@ const Page = () => {
             content: (
                 <div>
 
-                    <form>
+                    <form onSubmit={handleSearchPlane}>
                         {packages.map((pkg, index) => (
                             <div key={index} className="mb-5">
                                 <div className="">
@@ -156,10 +219,7 @@ const Page = () => {
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
-                                                    value={pkg.departureCity}
-                                                    onChange={(e) =>
-                                                        handlePackageChange(index, 'departureCity', e.target.value)
-                                                    }
+                                                    name="departureCity"
                                                     placeholder={t('departureCityPlaceholder45454')}
                                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                 />
@@ -175,10 +235,7 @@ const Page = () => {
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
-                                                    value={pkg.arrivalCity}
-                                                    onChange={(e) =>
-                                                        handlePackageChange(index, 'arrivalCity', e.target.value)
-                                                    }
+                                                    name="arrivalCity"
                                                     placeholder={t('arrivalCityPlaceholder45454')}
                                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                 />
@@ -197,10 +254,7 @@ const Page = () => {
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="date"
-                                                    value={pkg.desiredDate}
-                                                    onChange={(e) =>
-                                                        handlePackageChange(index, "desiredDate", e.target.value)
-                                                    }
+                                                    name='desiredDate'
                                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                 />
                                                 <span className="absolute left-3 text-gray-400">
@@ -227,9 +281,7 @@ const Page = () => {
                                                         <div className="relative flex items-center">
                                                             <input
                                                                 type="date"
-                                                                onChange={(e) =>
-                                                                    handlePackageChange(index, "alternateDate", e.target.value)
-                                                                }
+                                                                name='flexibleDate'
                                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                             />
                                                             <span className="absolute left-3 text-gray-400">
@@ -248,14 +300,12 @@ const Page = () => {
                                     {/* Package Weight */}
                                     <div>
                                         <label className="mb-2 font-semibold flex justify-between">{t('packageWeightLabel454')}
-                                            <button type="button" onClick={addNewPackageField} className='flex items-center gap-2 text-primary'><FaPlus /> {t('addPackageButton454')}</button>
+                                            {/* <button type="button" onClick={addNewPackageField} className='flex items-center gap-2 text-primary'><FaPlus /> {t('addPackageButton454')}</button> */}
                                         </label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="number"
-                                                onChange={(e) =>
-                                                    handlePackageChange(index, 'weight', e.target.value)
-                                                }
+                                                name='packageWeight'
                                                 placeholder={t('enterWeightPlaceholder454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
@@ -264,7 +314,7 @@ const Page = () => {
                                             </span>
                                         </div>
                                     </div>
-                                    {
+                                    {/* {
                                         showNewPackage &&
                                         <div>
                                             <div className="relative flex items-center mt-5">
@@ -281,7 +331,7 @@ const Page = () => {
                                                 </span>
                                             </div>
                                         </div>
-                                    }
+                                    } */}
 
                                 </div>
                             </div>
@@ -301,7 +351,7 @@ const Page = () => {
             title: 'Train',
             icon: <FaTrain className="text-lg mr-2" />,
             content: (
-                <form>
+                <form onSubmit={handleSearchTrain}>
                     <div className="grid grid-cols-2 gap-4 mb-5">
                         {/* Departure City */}
                         <div>
@@ -309,6 +359,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
+                                    name='departureCity'
                                     placeholder={t('departureCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
@@ -324,6 +375,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
+                                    name='arrivalCity'
                                     placeholder={t('arrivalCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
@@ -341,6 +393,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
+                                    name='desiredDate'
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -356,7 +409,7 @@ const Page = () => {
                                     className="w-4 h-4 text-primary focus:ring-0"
                                     onChange={handleTrainCheckboxChange} // Updated handler name
                                 />
-                               {t('flexibleDates454')}
+                                {t('flexibleDates454')}
                             </label>
 
                             {/* Conditionally Render Additional Field */}
@@ -365,6 +418,7 @@ const Page = () => {
                                     <div className="relative flex items-center">
                                         <input
                                             type="date"
+                                            name='flexibleDate'
                                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                         />
                                         <span className="absolute left-3 text-gray-400">
@@ -438,7 +492,7 @@ const Page = () => {
             title: 'All',
             icon: <LuBox className="text-lg mr-2" />,
             content: (
-                <form action="">
+                <form onSubmit={handleSearchAll} action="">
                     <div className='grid grid-cols-2 gap-4'>
                         {/* Departure City */}
                         <div>
@@ -446,6 +500,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
+                                    name='departureCity'
                                     placeholder={t('departureCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
@@ -461,6 +516,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
+                                    name='arrivalCity'
                                     placeholder={t('arrivalCityPlaceholder45454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
@@ -480,6 +536,7 @@ const Page = () => {
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
+                                    name='desiredDate'
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
                                 <span className="absolute left-3 text-gray-400">
@@ -504,6 +561,7 @@ const Page = () => {
                                     <div className="relative flex items-center">
                                         <input
                                             type="date"
+                                            name='flexibleDate'
                                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                         />
                                         <span className="absolute left-3 text-gray-400">
@@ -521,13 +579,14 @@ const Page = () => {
                         <div>
                             <label className="flex items-center justify-between mb-2 font-semibold">
                                 {t('packageWeightLabel454')}
-                                <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
-                                {t('addPackageButton454')}
-                                </button>
+                                {/* <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
+                                    {t('addPackageButton454')}
+                                </button> */}
                             </label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
+                                    name='packageWeight'
                                     placeholder={t('enterWeightPlaceholder454')}
                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                 />
@@ -536,7 +595,7 @@ const Page = () => {
                                 </span>
                             </div>
                         </div>
-                        {
+                        {/* {
                             addNewAllPackageField > 0 && (
                                 [...Array(addNewAllPackageField)].map((_, index) => (
                                     <div key={index} className="relative flex items-center mt-5">
@@ -551,9 +610,9 @@ const Page = () => {
                                     </div>
                                 ))
                             )
-                        }
+                        } */}
                     </div>
-                    
+
                     <div>
                         <h2>Package size</h2>
 
@@ -659,7 +718,7 @@ const Page = () => {
                 </div>
             </div>
 
-            
+
             <AvailableRoutes />
             <VideoAndCard />
             <Shipments />

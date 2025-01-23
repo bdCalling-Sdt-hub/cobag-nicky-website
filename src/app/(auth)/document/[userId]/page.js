@@ -6,11 +6,12 @@ import React, { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { GoInfo } from 'react-icons/go';
 import { LuFileText } from 'react-icons/lu';
-import toast from 'react-hot-toast';
-import { useParams } from 'next/navigation'; // Assuming this is used correctly to get the userId
+import toast, { Toaster } from 'react-hot-toast';
+import { useParams, useRouter } from 'next/navigation'; // Assuming this is used correctly to get the userId
 import { useSubmitDocumentMutation } from '@/app/redux/Features/Auth/submitDocument'; // Assuming the mutation is correctly set up
 
 const Page = () => {
+    const router = useRouter();
     const { userId } = useParams(); // Get the userId from the route params
     const [fileList, setFileList] = useState([]); // State to manage the uploaded files
     const [submitDocument] = useSubmitDocumentMutation(); // Hook for submitting document
@@ -31,31 +32,39 @@ const Page = () => {
     };
 
     // Handle the document submission
-    const handleDocumentSubmit = (e) => {
+    const handleDocumentSubmit = async (e) => {
         e.preventDefault();
-
         // Check if a file is uploaded
         if (fileList.length === 0) {
             toast.error('Please upload your ID document');
             return;
         }
 
-        // Create a form data object to handle the file upload
-        const ethanDocuments = new FormData();
-        ethanDocuments.append('document', fileList[0].originFileObj); // Appending the uploaded file
+        const formData = new FormData();
+        formData.append("ethanDocuments", fileList[0])
+       
 
-        const body = {
-            ethanDocuments
+        try {
+            const response = await submitDocument({ body: formData, userId }).unwrap();
+            console.log('Document upload response:', response);
+
+            if (response.success) {
+                toast.success('Document uploaded successfully');
+                router.push(`/login`)
+            }
+        } catch (error) {
+            console.error('Error submitting document:', error);
+            toast.error('Error submitting document');
         }
 
-        // Call the submitDocument mutation and pass the form data and userId
-        const response = submitDocument({ body, userId }).unwrap();
-        console.log('Document upload response:', response);
+
+
 
     };
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            <Toaster />
             {/* Left Side Image */}
             <div className="hidden md:block">
                 <img

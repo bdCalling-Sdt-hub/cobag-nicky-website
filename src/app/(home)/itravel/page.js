@@ -14,10 +14,16 @@ import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
 import Courier from '@/app/components/ITravel/Courier';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
 import i18n from '@/app/utils/i18';
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import { useCreatePlaneMutation } from '@/app/redux/Features/Itravel/createPlane';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
-const onChange = (time, timeString) => {
+const onChangeTime2 = (time, timeString) => {
+    console.log(time, timeString);
+};
+const onChangeTime1 = (time, timeString) => {
     console.log(time, timeString);
 };
 
@@ -26,7 +32,9 @@ const onChange = (time, timeString) => {
 
 
 const Page = () => {
-    const {t} = i18n;
+    const { t } = i18n;
+
+
 
 
 
@@ -70,20 +78,6 @@ const Page = () => {
         setShowAvailable(!showAvailable);
     }
 
-    const handleSubmitTravel = (e) => {
-        e.preventDefault();
-        const formData = e.target;
-        console.log('Form Data:', formData);
-        // Add your form submission logic here
-    };
-
-    const handleSubmitTrain = (e) => {
-        e.preventDefault();
-        const formData = e.target;
-        console.log('Form Data:', formData);
-        // Add your form submission logic here
-    };
-
     // ============================
 
     const [smallVlaue, setSmallVlaue] = useState(0);
@@ -119,16 +113,212 @@ const Page = () => {
         setLargeVlaue(largeVlaue - 1)
     }
 
-    
+    // ============================ Plane ============================
+    const [fileList1, setFileList1] = useState(null); // Store the single file or null
+    const [imagePreview, setImagePreview] = useState(null); // Store image preview URL
+
+    // Handle file selection
+    const handleFile1Change = (e) => {
+        const file = e.target.files[0]; // Get the first file
+        if (file) {
+            setFileList1(file); // Update the file state
+            const objectUrl = URL.createObjectURL(file); // Create a URL for the uploaded file
+            setImagePreview(objectUrl); // Set the preview URL
+        }
+    };
+
+    console.log(fileList1);
+
+    const { data } = useGetUserQuery();
+    const userId = data?.user?._id;
+
+    const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
+
+    const handleSubmitTravel = async (e) => {
+
+        e.preventDefault();
+        const form = e.target;
+
+        if (!fileList1) {
+            return toast.error('Please upload your ticket')
+        }
+        if (form.flightNumber.value.length < 3) {
+            return toast.error('Please enter a valid flight number')
+        }
+        if (form.departureCity.value.length < 3) {
+            return toast.error('Please enter a valid departure city')
+        }
+        if (form.arrivalCity.value.length < 3) {
+            return toast.error('Please enter a valid arrival city')
+        }
+        if (form.departureDate.value.length < 3) {
+            return toast.error('Please enter a valid departure date')
+        }
+        if (form.arrivalDate.value.length < 3) {
+            return toast.error('Please enter a valid arrival date')
+        }
+        if (form.departureTime.value.length < 3) {
+            return toast.error('Please enter a valid departure time')
+        }
+        if (form.arrivalTime.value.length < 3) {
+            return toast.error('Please enter a valid arrival time')
+        }
+
+        console.log(fileList1);
+
+        const formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("transportMode", 'plane');
+        // const transportType = form.transportType.value; 
+        formData.append("transportType", form.transportType.value);
+        formData.append("ticket", fileList1);
+        formData.append("flightNumber", form.flightNumber.value);
+        formData.append("departureCity", form.departureCity.value);
+        formData.append("arrivalCity", form.arrivalCity.value);
+        formData.append("departureDate", form.departureDate.value);
+        formData.append("arrivalDate", form.arrivalDate.value);
+        formData.append("departureTime", form.departureTime.value);
+        formData.append("arrivalTime", form.arrivalTime.value);
+        formData.append("handLuggage", luggageValue || 0);
+        formData.append("checkedBaggage", baggageValue || 0);
+        formData.append("availableToBeCourier", form.availableToBeCourier.value == true ? true : false);
+        formData.append("courierOptions.maxPurchaseAmount", 0);
+        formData.append("courierOptions.message", form.message.value);
+        formData.append("maxpurchAmountAdvance", 0);
+
+
+        try {
+            const res = await createPlane(formData).unwrap();
+            console.log(res);
+            if (res?.success) {
+                // alert(res?.data)
+                toast.success('Travel created successfully !!')
+                //    alert('Travel created successfully !!')
+                console.log(res?.data)
+                form.reset();
+                fileList1 = null;
+            }
+            else {
+                // alert(res?.data?.message)
+                console.log(res);
+                toast.success('Travel created Faild !!')
+            }
+        } catch (error) {
+            console.log(error);
+            toast.success('Travel created Faild Please Try Again !!')
+        }
+
+        // Add your form submission logic here
+    };
+
+    // ============================ Train ============================
+    const [fileList2, setFileList2] = useState(null); // Store the single file or null
+    const [imagePreview2, setImagePreview2] = useState(null); // Store image preview URL
+
+    // Handle file selection
+    const handleFile2Change = (e) => {
+        const file = e.target.files[0]; // Get the first file
+        if (file) {
+            setFileList2(file); // Update the file state
+            const objectUrl = URL.createObjectURL(file); // Create a URL for the uploaded file
+            setImagePreview2(objectUrl); // Set the preview URL
+        }
+    };
+
+    console.log(fileList1);
+
+
+    const handleSubmitTrain = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+
+        if (!fileList2) {
+            return toast.error('Please upload your ticket')
+        }
+        if (form.flightNumber.value.length < 3) {
+            return toast.error('Please enter a valid train number')
+        }
+        if (form.departureCity.value.length < 3) {
+            return toast.error('Please enter a valid departure city')
+        }
+        if (form.arrivalCity.value.length < 3) {
+            return toast.error('Please enter a valid arrival city')
+        }
+        if (form.departureDate.value.length < 3) {
+            return toast.error('Please enter a valid departure date')
+        }
+        if (form.arrivalDate.value.length < 3) {
+            return toast.error('Please enter a valid arrival date')
+        }
+        if (form.departureTime.value.length < 3) {
+            return toast.error('Please enter a valid departure time')
+        }
+        if (form.arrivalTime.value.length < 3) {
+            return toast.error('Please enter a valid arrival time')
+        }
+
+
+        const formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("transportMode", 'train');
+        // const transportType = form.transportType.value; 
+        formData.append("transportType", form.transportType.value);
+        formData.append("ticket", fileList1);
+        formData.append("flightNumber", form.flightNumber.value);
+        formData.append("departureCity", form.departureCity.value);
+        formData.append("arrivalCity", form.arrivalCity.value);
+        formData.append("departureDate", form.departureDate.value);
+        formData.append("arrivalDate", form.arrivalDate.value);
+        formData.append("departureTime", form.departureTime.value);
+        formData.append("arrivalTime", form.arrivalTime.value);
+        formData.append("handLuggage", luggageValue || 0);
+        formData.append("checkedBaggage", baggageValue || 0);
+        formData.append("availableToBeCourier", form.maxpurchAmountAdvance.value == true ? true : false);
+        formData.append("courierOptions.maxPurchaseAmount", 0);
+        formData.append("courierOptions.message", form.message.value);
+        formData.append("maxpurchAmountAdvance", form.maxpurchAmountAdvance.value);
+
+
+        try {
+            const res = await createPlane(formData).unwrap();
+            // console.log(res);
+            if (res?.success) {
+                // alert(res?.data)
+                toast.success('Travel created successfully !!')
+                //    alert('Travel created successfully !!')
+                console.log(res?.data)
+                form.reset();
+                // fileList2 = null;
+                setFileList2(null);
+            }
+            else {
+                // alert(res?.data?.message)
+                console.log(res);
+                toast.error('Travel created Faild !!')
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Travel created Faild Please Try Again !!')
+        }
+
+
+
+
+
+
+    };
+
+
 
 
 
 
     return (
         <div>
+            <Toaster toastOptions={{ duration: 5000 }} containerStyle={{ zIndex: 99999999 }} position="top-center" />
             <div className={` duration-500 ${activeTab === 1 ? 'bg-[url("/Images/Itravel/travel-plane-1.png")] ' : 'bg-[url("/Images/Itravel/travel-tran-1.png")] '}  bg-cover bg-center h-auto w-full `}>
                 <div className='w-full h-full bg-[#0000008e] lg:py-10 py-5 '>
-                   
+
                     <div className='flex flex-col items-center justify-center lg:py-10 py-5 lg:px-0 px-5 text-center text-white'>
                         <h2 className='lg:text-5xl text-3xl font-semibold mb-3'>
                             {t('OfferYourJourney')}
@@ -165,18 +355,19 @@ const Page = () => {
 
                                         <div className="">
                                             <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
-                                            <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-4'>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
                                                     <input
                                                         className="hidden peer"
                                                         type="radio"
-                                                        name="radiogroup"
+                                                        name="transportType"
                                                         id="radio1"
+                                                        value="direct" // Set the value here
                                                         defaultChecked
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>{t('Direct')}</span>
+                                                        <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
 
@@ -185,32 +376,45 @@ const Page = () => {
                                                     <input
                                                         className="hidden peer"
                                                         type="radio"
-                                                        name="radiogroup"
+                                                        name="transportType"
                                                         id="radio2"
+                                                        value="withCorrespondence" // Set the value here
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>{t('WithCorrespondence')}</span>
+                                                        <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
                                             </div>
+
                                         </div>
 
                                         {/* Transport Mood */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                                            <div className=" ">
+                                            <div className="">
                                                 <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
                                                 <div className='flex gap-5'>
                                                     {/*  Hidden File Input */}
                                                     <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
                                                         <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
-                                                            <input
-                                                                type="file"
-                                                                id="ticket-upload"
-                                                                accept=".png, .jpg, .jpeg, .pdf"
-                                                                className="hidden"
-                                                            // onChange={handleFileChange}
-                                                            />
-                                                            <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
+
+                                                            {imagePreview ? (
+                                                                <img src={imagePreview} alt="Uploaded" className="w-full h-auto rounded-lg" />
+                                                            ) : (
+                                                                <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
+                                                                    <input
+                                                                        type="file"
+                                                                        id="ticket-upload"
+                                                                        name='ticketImage'
+                                                                        accept=".png, .jpg, .jpeg"
+                                                                        className="hidden"
+                                                                        onChange={handleFile1Change} // Handle the file change
+                                                                    />
+                                                                    <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
+                                                                </label>
+                                                            )}
+
+                                                            {/* Show the file name when the file is uploaded */}
+                                                            {/* <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span> */}
                                                         </label>
                                                     </div>
 
@@ -235,13 +439,12 @@ const Page = () => {
                                                 <label className="block text-sm text-gray-700 font-semibold mb-3 ">{t('FlightNumber')}</label>
                                                 <input
                                                     type="text"
+                                                    name="flightNumber"
                                                     className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
                                                     placeholder="E-5648"
                                                 />
                                             </div>
                                         </div>
-
-
 
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -255,6 +458,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="text"
+                                                        name="departureCity"
                                                         className="block w-full pl-10 border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Paris"
                                                     />
@@ -270,6 +474,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="text"
+                                                        name='arrivalCity'
                                                         className="block w-full pl-10 border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Lyon"
                                                     />
@@ -288,6 +493,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="date"
+                                                        name='departureDate'
                                                         className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                     />
                                                 </div>
@@ -301,6 +507,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="date"
+                                                        name='arrivalDate'
                                                         className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                     />
                                                 </div>
@@ -310,11 +517,11 @@ const Page = () => {
                                         <div className='flex items-center justify-between gap-5 '>
                                             <div className='w-[50%]'>
                                                 <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
-                                                <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
+                                                <TimePicker name='departureTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime2} />
                                             </div>
                                             <div className='w-[50%]'>
                                                 <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
-                                                <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
+                                                <TimePicker name='arrivalTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime1} />
                                             </div>
                                         </div>
 
@@ -420,6 +627,7 @@ const Page = () => {
                                                         </div>
                                                         <input
                                                             type="number"
+                                                            name='availableToBeCourier'
                                                             placeholder={t('EnterTheAmount')}
                                                             className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         />
@@ -439,6 +647,7 @@ const Page = () => {
                                                 </div>
                                                 <textarea
                                                     type="number"
+                                                    name='message'
                                                     placeholder='Enter the message' className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-10 py-5 focus:outline-none focus:ring-blue-500 focus:border-blue-500 min-h-[250px]"
                                                 />
                                             </div>
@@ -457,24 +666,27 @@ const Page = () => {
                                     </form>
                                 </div>
                             )}
+
+
                             {activeTab === 2 && (
                                 <div>
                                     <form onSubmit={handleSubmitTrain} className="space-y-6">
 
                                         <div className="">
                                             <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
-                                            <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-4'>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
                                                     <input
                                                         className="hidden peer"
                                                         type="radio"
-                                                        name="radiogroup"
+                                                        name="transportType"
                                                         id="radio1"
+                                                        value="direct" // Set the value here
                                                         defaultChecked
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>{t('Direct')}</span>
+                                                        <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
 
@@ -483,32 +695,45 @@ const Page = () => {
                                                     <input
                                                         className="hidden peer"
                                                         type="radio"
-                                                        name="radiogroup"
+                                                        name="transportType"
                                                         id="radio2"
+                                                        value="withCorrespondence" // Set the value here
                                                     />
                                                     <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
-                                                        <span className='font-semibold'>{t('WithCorrespondence')}</span>
+                                                        <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
                                             </div>
+
                                         </div>
 
                                         {/* Transport Mood */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                                            <div className=" ">
+                                            <div className="">
                                                 <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
                                                 <div className='flex gap-5'>
                                                     {/*  Hidden File Input */}
                                                     <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
                                                         <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
-                                                            <input
-                                                                type="file"
-                                                                id="ticket-upload"
-                                                                accept=".png, .jpg, .jpeg, .pdf"
-                                                                className="hidden"
-                                                            // onChange={handleFileChange}
-                                                            />
-                                                            <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
+
+                                                            {imagePreview2 ? (
+                                                                <img src={imagePreview2} alt="Uploaded" className="w-full h-auto rounded-lg" />
+                                                            ) : (
+                                                                <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
+                                                                    <input
+                                                                        type="file"
+                                                                        id="ticket-upload"
+                                                                        name='ticketImage'
+                                                                        accept=".png, .jpg, .jpeg"
+                                                                        className="hidden"
+                                                                        onChange={handleFile2Change} // Handle the file change
+                                                                    />
+                                                                    <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
+                                                                </label>
+                                                            )}
+
+                                                            {/* Show the file name when the file is uploaded */}
+                                                            {/* <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span> */}
                                                         </label>
                                                     </div>
 
@@ -530,21 +755,21 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">{t('FlightNumber')}</label>
+                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">Train Number</label>
                                                 <input
                                                     type="text"
+                                                    name="flightNumber"
                                                     className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
                                                     placeholder="E-5648"
                                                 />
                                             </div>
                                         </div>
 
-
-
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">{t('DepartureCity')}</label>
+                                                <label className="block text-sm font-semibold text-gray-700">
+                                                    {t('DepartureCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -552,6 +777,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="text"
+                                                        name="departureCity"
                                                         className="block w-full pl-10 border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Paris"
                                                     />
@@ -567,6 +793,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="text"
+                                                        name='arrivalCity'
                                                         className="block w-full pl-10 border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         placeholder="Lyon"
                                                     />
@@ -585,6 +812,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="date"
+                                                        name='departureDate'
                                                         className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                     />
                                                 </div>
@@ -598,6 +826,7 @@ const Page = () => {
                                                     </div>
                                                     <input
                                                         type="date"
+                                                        name='arrivalDate'
                                                         className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                     />
                                                 </div>
@@ -607,13 +836,14 @@ const Page = () => {
                                         <div className='flex items-center justify-between gap-5 '>
                                             <div className='w-[50%]'>
                                                 <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
-                                                <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
+                                                <TimePicker name='departureTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime2} />
                                             </div>
                                             <div className='w-[50%]'>
                                                 <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
-                                                <TimePicker className='w-full py-3' use12Hours format="h:mm a" onChange={onChange} />
+                                                <TimePicker name='arrivalTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime1} />
                                             </div>
                                         </div>
+
 
                                         <div>
                                             <span className='font-semibold  text-gray-700 block mb-2'>Accepted package sizes</span>
@@ -714,6 +944,7 @@ const Page = () => {
                                                         </div>
                                                         <input
                                                             type="number"
+                                                            name='maxpurchAmountAdvance'
                                                             placeholder={t('EnterTheAmount')}
                                                             className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                                         />
@@ -733,6 +964,7 @@ const Page = () => {
                                                 </div>
                                                 <textarea
                                                     type="number"
+                                                    name='message'
                                                     placeholder='Enter the message' className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-10 py-5 focus:outline-none focus:ring-blue-500 focus:border-blue-500 min-h-[250px]"
                                                 />
                                             </div>
@@ -745,7 +977,7 @@ const Page = () => {
                                                 type="submit"
                                                 className="w-full bg-primary text-white py-3 rounded-md font-semibold transition"
                                             >
-                                               {t('PublishRoute')}
+                                                {t('PublishRoute')}
                                             </button>
                                         </div>
                                     </form>

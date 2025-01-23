@@ -199,7 +199,7 @@ i18n
           "Train": "Train",
           "TransportMood": "Transport Mood",
           "Direct": "Direct",
-          "WithCorrespondence": "Transport Mood",
+          "WithCorrespondence": "With Correspondence",
           "AddYourTicket": "(PNG, JPG or PDF up to 10MB)",
           "FlightNumber": "Flight Number",
           "DepartureCity": "Departure City",

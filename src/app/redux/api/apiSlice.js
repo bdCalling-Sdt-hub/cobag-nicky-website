@@ -7,7 +7,8 @@ import {
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://s5000.sobhoy.com',
   prepareHeaders: (headers, { getState }) => {
-    const token = getState()?.auth?.token;
+    // const token = getState()?.auth?.token;
+    const token = localStorage.getItem('token');
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);

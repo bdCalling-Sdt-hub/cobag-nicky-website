@@ -30,8 +30,10 @@ const Page = () => {
         const res = await userSignup(formData).unwrap();
         console.log(res);
         if (res.success) {
+            localStorage.setItem('token', res.data?.token);
             toast.success('User Register successfully !!')
-            router.push(`/document/${res.data?._id}`)
+            console.log(res?.data?.data?._id);
+            router.push(`/document/${res.data?.data?._id}`)
         }
 
 
