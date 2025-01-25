@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import { Modal, Input, Button, Form } from 'antd';
 import { BsCreditCard } from 'react-icons/bs';
-import { MdOutlineAddCard } from 'react-icons/md';
+import { MdOutlineAddCard, MdOutlineArrowOutward } from 'react-icons/md';
 import { GoArrowDownRight } from 'react-icons/go';
 import { FaFilter } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import i18n from '@/app/utils/i18';
+import { LuWallet } from 'react-icons/lu';
 
 const Page = () => {
     const { t } = i18n;
@@ -23,8 +24,46 @@ const Page = () => {
 
     return (
         <div>
+
+            <section id="waletBalance" className='bg-white p-5 rounded-lg mt-5'>
+                <div className='flex items-center justify-between gap-5 mb-5'>
+                    <h1 className="text-3xl font-semibold text-primary">My {t('wallet')}</h1>
+                    <button className='flex items-center px-6 py-3 border bg-gradient-to-l from-[#98ded9] to-[#c6fed8] rounded-lg gap-2 font-semibold text-primary'> <MdOutlineArrowOutward className='text-2xl' />
+                        Withdraw funds</button>
+
+                </div>
+                <div className='grid xl:grid-cols-2 gap-10'>
+                    <div className='bg-gradient-to-l from-primary to-[#0d2c98] rounded-lg p-5'>
+                        <div className=' flex items-center gap-5 my-5'>
+                            <div className='flex items-center gap-2 w-14 h-14 bg-[#383f8a] text-white justify-center rounded-full'>
+                                <LuWallet className='text-2xl' />
+                            </div>
+                            <div className='text-white'>
+                                <p>{t('balanceAvailable')}</p>
+                                <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
+                            </div>
+                        </div>
+                        <hr className='bg-white h-[2px] my-5' />
+                    </div>
+                    <div className='bg-primary rounded-lg p-5'>
+                        <div className=' flex items-center gap-5 my-5'>
+                            <div className='flex items-center gap-2 w-14 h-14 bg-[#383f8a] text-white justify-center rounded-full'>
+                                <LuWallet className='text-2xl' />
+                            </div>
+                            <div className='text-white'>
+                                <p>{t('runningOrder')}</p>
+                                <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
+                            </div>
+                        </div>
+                        <hr className='bg-white h-[2px] my-5' />
+                    </div>
+
+                </div>
+
+            </section>
+
             {/* Bank Card Section */}
-            <section id="bankCard" className="bg-white p-5 rounded-lg mt-5">
+            {/* <section id="bankCard" className="bg-white p-5 rounded-lg mt-5">
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold text-primary">{t('bankCard')}</h2>
                     <button
@@ -50,7 +89,7 @@ const Page = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Recent Payments Section */}
             <section id="recentPayments" className="bg-white p-5 rounded-lg mt-5">

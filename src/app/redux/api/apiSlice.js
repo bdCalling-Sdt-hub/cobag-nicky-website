@@ -46,6 +46,6 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ['language', 'post'],
+  tagTypes: ['language', 'updateUser'],
   endpoints: () => ({}),
 });

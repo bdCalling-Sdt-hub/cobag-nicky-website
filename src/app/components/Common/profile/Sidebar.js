@@ -131,7 +131,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                             showWallet && (
                                 <div className="bg-white py-3  rounded-md">
 
-                                    <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#bankCard'}><GoCreditCard className="text-xl" /> {t('bankCard')}</Link>
+                                    <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#waletBalance'}><GoCreditCard className="text-xl" /> {t('bankCard')}</Link>
                                     <Link onClick={hadnleHideSidebar} className=' py-2 w-full hover:bg-slate-100 text-gray-500 px-3 rounded font-semibold flex items-center gap-2' href={'/dashboard/wallet#transaction'}><MdTimeline className="text-xl" /> {t('transaction')}</Link>
 
                                 </div>

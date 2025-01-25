@@ -334,7 +334,7 @@ i18n
           'ToBeAbletouseAllCobag': 'To be able to use all CoBag services you must provide these documents. They will be verified within 24-48 hours.',
           'WhyNotApproveYourDocument': 'Why Not Approve Your Document',
           'yourIdDocumentNotValidPleaseSubmitAgain': 'your id document not valid please submit again , will be verified within 24-48 hours .',
-          'bankCard': 'Bank Card',
+         
           'add': 'Add',
           "addACard": "Add a card",
           'addANewBankCard': 'Add a new bank card',
@@ -369,7 +369,7 @@ i18n
           'profileInfo': 'Profile Info',
           'documents': 'Documents',
           'wallet': 'Wallet',
-          'bankCard': 'Bank Card',
+          'bankCard': 'Amount',
           'transaction': 'transaction',
           'reservations': 'Reservations',
           'runningOrder': 'Running Order',

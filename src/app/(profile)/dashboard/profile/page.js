@@ -15,13 +15,122 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsSend } from 'react-icons/bs';
 import { FiAlertTriangle } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
+import { useResetPasswordMutation } from '@/app/redux/Features/Auth/resetpassword';
+import toast, { Toaster } from 'react-hot-toast';
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import baseUrl from '@/app/redux/api/baseUrl';
+import { useUpdateProfileMutation } from '@/app/redux/Features/Profile/updateProfile';
 
 
 const Page = () => {
 
-    
 
-    const {t} = i18n;
+    const { data } = useGetUserQuery();
+
+    const userId = data?.user?._id;
+
+    const user = data?.user;
+
+    console.log(user);
+
+
+
+    const [passwordChangePassword] = useResetPasswordMutation()
+
+    const handleResetPasswordSubmit = async (e) => {
+
+        e.preventDefault();
+        const form = e.target;
+        const oldPassword = form.oldPassword.value;
+        const newPassword = form.newPassword.value;
+        const confirmNewPassword = form.confirmNewPassword.value;
+        const body = {
+            oldPassword,
+            newPassword,
+            confirmNewPassword,
+        };
+
+        if (newPassword !== confirmNewPassword) {
+            return toast.error('New Passwords and Confirm Password do not match');
+        }
+
+        try {
+            const res = await passwordChangePassword({ body, userId }).unwrap();
+            if (res.success) {
+                toast.success(res.message)
+                form.reset();
+                setIsPasswordModalOpen(false);
+            }
+            else {
+                toast.error(res.message)
+            }
+        } catch (error) {
+            toast.error(error?.data?.message);
+            console.log(error?.data);
+        }
+    };
+
+
+
+    //====================== profile update  ======================== 
+
+
+    const [updateProfile] = useUpdateProfileMutation();
+
+
+
+
+    const [profileImage, setProfileImage] = useState(null);
+    const [imageAll, setImageAll] = useState(null);
+    const handleImageUpload = (file) => {
+        const imageUrl = URL.createObjectURL(file); // Generate URL for preview
+        setProfileImage(imageUrl);
+        setImageAll(file);
+    };
+
+    const handleSubmitUserProfileUpdate = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData();
+
+        if (profileImage) {
+            formData.append("profileImage", imageAll);
+        }
+        formData.append("firstName", form.firstName.value);
+        formData.append("email", form.email.value);
+        formData.append("phone", form.phone.value);
+        formData.append("address", form.address.value);
+
+
+        try {
+            const res = await updateProfile({ formData, userId }).unwrap();
+
+            if (res.success) {
+                console.log(res?.data);
+
+                localStorage.setItem('user', JSON.stringify(res?.data));
+
+                toast.success(res.message)
+                form.reset();
+                setIsModalOpen(false);
+            }
+            else {
+                toast.error(res.message)
+            }
+        } catch (error) {
+            toast.error(error?.data?.message);
+            console.log(error?.data);
+        }
+
+
+
+    };
+
+
+
+
+
+    const { t } = i18n;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,35 +150,30 @@ const Page = () => {
     // ============= reset Password =============
 
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-
     const openPasswordResetModal = () => {
         console.log("Opening password reset modal");
         setIsPasswordModalOpen(true);
     };
-
     const closePasswordResetModal = () => {
         console.log("Closing password reset modal");
         setIsPasswordModalOpen(false);
     };
-
     const submitPasswordReset = () => {
         console.log("Password reset submitted");
         // Add logic to handle password reset here
         setIsPasswordModalOpen(false);
     };
-
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
     const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
-
     const [showOldPassword, setShowOldPassword] = useState(false);
     const toggleOldPasswordVisibility = () => setShowOldPassword((prev) => !prev);
 
 
     return (
         <div className='scroll-smooth'>
+            <Toaster />
             <section id='profile' className='grid lg:grid-cols-3 gap-5'>
                 <div className='p-5 bg-white lg:col-span-2 rounded-lg'>
                     <div className='flex items-center justify-between'>
@@ -77,7 +181,7 @@ const Page = () => {
                         <button onClick={showModal} className='flex items-center gap-2 bg-primary text-white py-2 px-5 rounded-md'><CiEdit />{t('edit')}</button>
                     </div>
                     <div className='mt-10'>
-                        <img className='w-20' src="/Images/Isend/availableRoutesUser.png" alt="" />
+                        <img className='w-16 h-16 rounded-full' src={user?.profileImage ? baseUrl + user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'} alt="" />
                         <form action="">
                             <div className='grid lg:grid-cols-2 gap-5'>
                                 {/* Full Name */}
@@ -91,7 +195,7 @@ const Page = () => {
                                             type="text"
                                             disabled
                                             title='Full Name'
-                                            placeholder={t('enterFullName')}
+                                            placeholder={user?.firstName ? (user?.firstName + ' ' + user?.lastName) : 'N/A'}
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
@@ -108,7 +212,7 @@ const Page = () => {
                                             type="email"
                                             disabled
                                             title='Email'
-                                            placeholder={t('enterEmail')}
+                                            placeholder={user?.email ? user?.email : 'N/A'}
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
                                         />
                                     </div>
@@ -123,7 +227,7 @@ const Page = () => {
                                         </span>
                                         <input
                                             type="text"
-                                            placeholder={t('enterAddress')}
+                                            placeholder={user?.address ? user?.address : 'N/A'}
                                             disabled
                                             title='Address'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
@@ -140,7 +244,7 @@ const Page = () => {
                                         </span>
                                         <input
                                             type="text"
-                                            placeholder={t('enterPhone')}
+                                            placeholder={user?.phone ? user?.phone : 'N/A'}
                                             disabled
                                             title='Phone number'
                                             className="w-full border border-slate-200 rounded-lg p-3 pl-10 mt-2 focus:outline-none focus:ring-0 bg-gray-100"
@@ -219,38 +323,46 @@ const Page = () => {
                 closable={false} // Remove the cancel icon (close button)
                 className='!min-w-[40vw] my-20'
             >
-                <form>
-                    <div className='mb-5 flex justify-between items-center'>
+                <form onSubmit={handleSubmitUserProfileUpdate}>
+                    <div className="mb-5 flex justify-between items-center">
                         <h2 className="font-semibold text-primary text-xl">Personal Information</h2>
-                        <div className="">
-                            <button
-                                type="button"
-                                onClick={handleOk}
-                                className="bg-primary text-white px-10 py-3 rounded-md"
-                            >
-                                Save
-                            </button>
-                        </div>
+                        <button type="submit" className="bg-primary text-white px-10 py-3 rounded-md">
+                            Save
+                        </button>
                     </div>
-                    <div className='my-10 flex items-center gap-3'>
-                        <img className='min-w-20' src="/Images/Isend/availableRoutesUser.png" alt="" />
+
+                    <div className="my-10 flex items-center gap-3">
+                        <img
+                            className="min-w-20 w-20 h-20 rounded-full object-cover"
+                            src={profileImage || baseUrl + user?.profileImage}
+                            alt="Profile"
+                        />
                         <div>
-                            <Upload>
+                            <Upload
+                                showUploadList={false}
+                                beforeUpload={(file) => {
+                                    handleImageUpload(file);
+                                    return false; // Prevent auto-upload
+                                }}
+                            >
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
-                            <h2 className='mt-3'>Upload your profile picture</h2>
+                            <h2 className="mt-3">Upload your profile picture</h2>
                         </div>
                     </div>
+
                     <div className="grid grid-cols-2 gap-5">
                         {/* Full Name */}
                         <div className="relative">
                             <label className="block text-sm font-semibold mb-2">Full Name</label>
                             <div className="relative flex items-center">
                                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                    <FaRegUser className='text-xl' />
+                                    <FaRegUser className="text-xl" />
                                 </span>
                                 <input
                                     type="text"
+                                    name="firstName"
+                                    defaultValue={user?.firstName}
                                     placeholder="Enter full name"
                                     className="w-full border border-slate-200 rounded-lg p-2 pl-10"
                                 />
@@ -262,12 +374,15 @@ const Page = () => {
                             <label className="block text-sm font-semibold mb-2">Email</label>
                             <div className="relative flex items-center">
                                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                    <MdOutlineEmail className='text-xl' />
+                                    <MdOutlineEmail className="text-xl" />
                                 </span>
                                 <input
                                     type="email"
+                                    name="email"
+                                    defaultValue={user?.email}
+                                    disabled
                                     placeholder="Enter email"
-                                    className="w-full border border-slate-200 rounded-lg p-2 pl-10"
+                                    className="w-full border text-gray-400 border-slate-200 rounded-lg p-2 pl-10"
                                 />
                             </div>
                         </div>
@@ -277,10 +392,12 @@ const Page = () => {
                             <label className="block text-sm font-semibold mb-2">Address</label>
                             <div className="relative flex items-center">
                                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                    <CiLocationOn className='text-xl' />
+                                    <CiLocationOn className="text-xl" />
                                 </span>
                                 <input
                                     type="text"
+                                    name="address"
+                                    defaultValue={user?.address}
                                     placeholder="Enter address"
                                     className="w-full border border-slate-200 rounded-lg p-2 pl-10"
                                 />
@@ -292,19 +409,19 @@ const Page = () => {
                             <label className="block text-sm font-semibold mb-2">Phone</label>
                             <div className="relative flex items-center">
                                 <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                    <MdOutlinePhone className='text-xl' />
+                                    <MdOutlinePhone className="text-xl" />
                                 </span>
                                 <input
                                     type="text"
+                                    name="phone"
+                                    defaultValue={user?.phone}
                                     placeholder="Enter phone"
                                     className="w-full border border-slate-200 rounded-lg p-2 pl-10"
                                 />
                             </div>
                         </div>
                     </div>
-
                 </form>
-
             </Modal>
 
             {/* reset Password modal */}
@@ -322,10 +439,7 @@ const Page = () => {
                     <p>Your password must be 8-10 character long.</p>
                 </div>
                 <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        submitPasswordReset();
-                    }}
+                    onSubmit={handleResetPasswordSubmit}
                 >
                     <div className="mb-4">
                         <label className="block text-sm font-semibold mb-1">Old Password</label>
@@ -336,6 +450,7 @@ const Page = () => {
                             <input
                                 type={showOldPassword ? 'text' : 'password'}
                                 placeholder="Enter old password"
+                                name='oldPassword'
                                 className="w-full border border-slate-200 rounded-lg p-2 pl-10 focus:outline-none focus:ring-0"
                             />
                             <span
@@ -355,6 +470,7 @@ const Page = () => {
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Enter new password"
+                                name='newPassword'
                                 className="w-full border border-slate-200 rounded-lg p-2 pl-10 focus:outline-none focus:ring-0"
                             />
                             <span
@@ -374,6 +490,7 @@ const Page = () => {
                             <input
                                 type={showConfirmPassword ? 'text' : 'password'}
                                 placeholder="Confirm new password"
+                                name='confirmNewPassword'
                                 className="w-full border border-slate-200 rounded-lg p-2 pl-10 focus:outline-none focus:ring-0"
                             />
                             <span

@@ -13,7 +13,7 @@ const Header = () => {
 
     const { data, isLoading: userLoading } = useGetUserQuery();
 
-    console.log(data?.user?.profileImage);
+    // console.log(data?.user?.profileImage);
 
 
     const { t } = i18n;
@@ -112,8 +112,6 @@ const Header = () => {
                 }
 
                 {/* when user is available then show it else not */}
-
-
 
                 {
                     data?.user && <div className="relative group">

@@ -36,7 +36,7 @@ const Page = () => {
                 {
                     isLoading ?
                         <div>
-                            Loading ...
+                            <h3 className='text-center my-5 text-primary font-semibold text-3xl '>Loading ...</h3>
                         </div>
                         :
 
@@ -104,7 +104,7 @@ const Page = () => {
                                 </div>
                                 <div>
                                     <div className="flex flex-wrap justify-end items-start gap-3 mb-2">
-                                    <h3 className='text-3xl font-semibold text-primary mb-3'>{post?.price}$ </h3>
+                                        <h3 className='text-3xl font-semibold text-primary mb-3'>{post?.price}$ </h3>
                                     </div>
                                     <div className="flex items-center justify-end gap-5">
                                         <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">

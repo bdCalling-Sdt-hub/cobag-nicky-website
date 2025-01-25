@@ -14,7 +14,10 @@ const getUser = apiSlice.injectEndpoints({
                 } else {
                     return { error: { message: "User not found or token missing" } };
                 }
+
             },
+            method: "GET",
+            providesTags: ["updateUser"]
         }),
     }),
 });
