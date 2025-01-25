@@ -7,10 +7,19 @@ import { MdAccessTime, MdVerifiedUser } from 'react-icons/md';
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
 import { FaRegClock, FaStar, FaStarHalf } from 'react-icons/fa6';
 import { FiMessageSquare } from 'react-icons/fi';
+import { useGetReviewUserQuery } from '@/app/redux/Features/Review/getReviewUser';
+import baseUrl from '@/app/redux/api/baseUrl';
 
 const Page = () => {
     const { review } = useParams(); // Fetch dynamic params
     console.log(review);
+
+    const { data: getUserForReview, isLoading } = useGetReviewUserQuery(review);
+    const post = getUserForReview?.data;
+
+
+    console.log(post);
+
 
     const ratingDistribution = [80, 10, 5, 3, 2]; // Mock percentage ratings
     const ratingDetails = [
@@ -23,100 +32,91 @@ const Page = () => {
     return (
         <div className="bg-[#f6f6fb] py-10">
             <div className="lg:w-[80%] w-[90%] mx-auto bg-white rounded-lg p-10">
-                <div className="my-5">
-                    {/* Flight and Shipment Details */}
-                    <div className="flex items-center justify-between flex-wrap">
-                        <div className="flex items-center flex-wrap text-primary gap-3 font-medium">
-                            <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
-                                <LuPlane className="text-2xl" />
-                            </div>
-                            <h2>Direct flight</h2>
-                        </div>
-                        {/* <div className="flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full">
-                            <MdAccessTime className="text-2xl" /> Express
-                        </div> */}
-                    </div>
-                    <div className="flex flex-wrap justify-between gap-10 items-center my-5">
+
+                {
+                    isLoading ?
                         <div>
-                            <div className="flex gap-2 my-8">
-                                <CiLocationOn className="text-2xl" />
+                            Loading ...
+                        </div>
+                        :
+
+                        <div className="my-5">
+                            {/* Flight and Shipment Details */}
+                            <div className="flex items-center justify-between flex-wrap">
+                                <div className="flex items-center flex-wrap text-primary gap-3 font-medium">
+                                    <div className='w-14 h-14 bg-[#efefff] text-primary flex items-center justify-center rounded-lg'>
+                                        {
+                                            post?.transportMode == 'plane' ?
+                                                <LuPlane className='text-2xl' /> :
+                                                <PiTrainThin className='text-2xl' />
+                                        }
+                                    </div>
+                                    <h2 className='capitalize'>{post?.transportType} {post?.transportMode}</h2>
+                                </div>
+                                {/* <div className="flex items-center gap-2 bg-[#fff4ea] text-[#ffb46d] font-semibold px-3 py-2 rounded-full">
+                        <MdAccessTime className="text-2xl" /> Express
+                    </div> */}
+                            </div>
+                            <div className="flex flex-wrap justify-between gap-10 items-center my-5">
                                 <div>
-                                    <p>Paris</p>
-                                    <div className="flex items-center gap-2">
-                                        <span className="flex items-center gap-2 text-sm">
-                                            <CiCalendar /> 15 Mar 2024
-                                        </span>
-                                        <span className="flex items-center gap-2 ml-5 text-sm">
-                                            <FaRegClock /> 14:30
-                                        </span>
+                                    <div className="flex gap-2 my-8">
+                                        <CiLocationOn className="text-2xl" />
+                                        <div>
+                                            <p>{post?.departureCity}</p>
+                                            <div className='flex items-center gap-2'>
+                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {post?.departureDate}</span>
+                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {post?.departureTime}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2 my-8">
+                                        <CiLocationOn className="text-2xl" />
+                                        <div >
+                                            <p>{post?.arrivalCity}</p>
+                                            <div className='flex items-center gap-2'>
+                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {post?.arrivalDate}</span>
+                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {post?.arrivalTime}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="bg-[#eeeff8] py-5 w-96 px-10 rounded-lg text-primary">
+                                    <h3 className="font-semibold">Your shipment</h3>
+                                    <h2 className='text-2xl font-semibold '>{post?.totalSpace} kg</h2>
+                                </div>
                             </div>
-                            <div className="flex gap-2 my-8">
-                                <CiLocationOn className="text-2xl" />
+                            <div className="flex flex-wrap items-center justify-between gap-5">
+                                <div className='flex flex-wrap items-center gap-5'>
+                                    <img className='w-14 rounded-full' src={baseUrl + post?.user?.profileImage} alt="" />
+                                    <div>
+                                        <h3 className='font-semibold text-primary'>{post?.user?.firstName}</h3>
+                                        <div className='flex items-center flex-wrap gap-3'>
+                                            <span className='flex items-center gap-3 text-gray-500 '>
+                                                {post?.user?.reviewAva}
+                                                <FaStar className='text-yellow-400' />  ( {post?.user?.reviewInt} reviews)</span>
+                                            <li className='list-disc text-gray-600 ml-5 mr-2'>0 packages delivered</li>
+                                            <div className='flex flex-wrap items-center gap-2'>
+                                                <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Verified traveler</span>
+                                                <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Expert</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div>
-                                    <p>Brazzaville Maya-Maya</p>
-                                    <div className="flex items-center gap-2">
-                                        <span className="flex items-center gap-2 text-sm">
-                                            <CiCalendar /> 15 Mar 2024
-                                        </span>
-                                        <span className="flex items-center gap-2 ml-5 text-sm">
-                                            <FaRegClock /> 14:30
-                                        </span>
+                                    <div className="flex flex-wrap justify-end items-start gap-3 mb-2">
+                                    <h3 className='text-3xl font-semibold text-primary mb-3'>{post?.price}$ </h3>
+                                    </div>
+                                    <div className="flex items-center justify-end gap-5">
+                                        <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
+                                            <FiMessageSquare /> Contact
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-[#eeeff8] py-5 w-96 px-10 rounded-lg text-primary">
-                            <h3 className="font-semibold">Your shipment</h3>
-                            <h2 className="text-2xl font-semibold">3 kg</h2>
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap items-center justify-between gap-5">
-                        <div className="flex flex-wrap items-center gap-5">
-                            <img
-                                className="w-14 rounded-full"
-                                src="/Images/Isend/availableRoutesUser.png"
-                                alt=""
-                            />
-                            <div>
-                                <h3 className="font-semibold text-primary">John Doe</h3>
-                                <div className="flex flex-wrap items-center gap-3">
-                                    <span className="flex items-center gap-3 text-gray-500">
-                                        4.00 <FaStar className="text-yellow-400" /> (157 reviews)
-                                    </span>
-                                    <li className="list-disc text-gray-600 mx-5">
-                                        24 packages delivered
-                                    </li>
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        <span className="bg-[#e7e7ec] text-primary font-semibold py-2 px-5 rounded-full flex items-center gap-2">
-                                            <MdVerifiedUser /> Verified traveler
-                                        </span>
-                                        <span className="bg-[#e7e7ec] text-primary font-semibold py-2 px-5 rounded-full flex items-center gap-2">
-                                            <MdVerifiedUser /> Expert
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="flex flex-wrap justify-end items-start gap-3 mb-2">
-                                <h2 className="text-2xl font-semibold text-primary">25€</h2>
-                                {/* <div>
-                                    <span className="flex items-center gap-3 text-[#ffd16f]">
-                                        (+5€ express)
-                                    </span>
-                                    <h4 className="text-xs text-right">+ CoBag fees</h4>
-                                </div> */}
-                            </div>
-                            <div className="flex items-center justify-end gap-5">
-                                <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
-                                    <FiMessageSquare /> Contact
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                }
+
                 <hr className="my-10 block" />
                 {/* Ratings and Reviews Section */}
                 <div>
@@ -221,7 +221,7 @@ const Page = () => {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -9,6 +9,8 @@ import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
+import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Page = () => {
 
@@ -30,14 +32,61 @@ const Page = () => {
         setFormValues({ ...formValues, [field]: value }); // Update form values dynamically
     };
 
-    const handleSubmit = (e) => {
+
+
+
+
+
+    // ================ search ================
+
+    const [searchIshop, { isLoading }] = useSearchIShopMutation();
+    const [searchTerm, setSearchTerm] = useState([]);
+
+    // console.log(searchTerm);
+
+
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form Submitted:', formValues);
         // Add your form submission logic here
+
+        const form = e.target;
+        const departureCity = form?.departureCity?.value || '';
+        const arrivalCity = form?.arrivalCity?.value || '';
+        const departureDate = form?.desiredDate?.value || '';
+        const arrivalDate = form?.alternateDate?.value || ''; // Add this line
+        const maxpurchAmountAdvance = form?.desiredPrice?.value || 0; // Add this line
+
+        const formData = {
+            departureCity,
+            arrivalCity,
+            departureDate,
+            arrivalDate,
+            maxpurchAmountAdvance,
+        };
+
+        try {
+
+            const response = await searchIshop(formData).unwrap();
+            console.log(response);
+            if(response?.success){
+                setSearchTerm(response?.data)
+                toast.success(`Search successfully !! See ${response?.data?.length} Item` );
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+
+
     };
 
     return (
         <div>
+            <Toaster position="top-center" toastOptions={{ duration: 3000 }} containerStyle={{ zIndex: 999999 }} />
             <div className='bg-[url("/Images/Ishop/banner.png")] w-full min-h-[80vh] bg-cover bg-center'>
                 <div>
                     <div className='bg-[#000d1a8a] min-h-[80vh] py-20'>
@@ -46,7 +95,7 @@ const Page = () => {
                                 {t('worldPurchasesInYourBasket5454')}
                             </h1>
                             <p className='text-white lg:text-xl lg:mt-5 mt-3'>
-                               {t('whatYouCantFindAtHome5454')}
+                                {t('whatYouCantFindAtHome5454')}
                             </p>
                         </div>
 
@@ -59,8 +108,7 @@ const Page = () => {
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
-                                                value={formValues.departureCity}
-                                                onChange={(e) => handleInputChange('departureCity', e.target.value)}
+                                                name='departureCity'
                                                 placeholder={t('enterDepartureCity5454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
@@ -76,8 +124,7 @@ const Page = () => {
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
-                                                value={formValues.arrivalCity}
-                                                onChange={(e) => handleInputChange('arrivalCity', e.target.value)}
+                                                name='arrivalCity'
                                                 placeholder={t('enterArrivalCity5454')}
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
@@ -95,8 +142,7 @@ const Page = () => {
                                         <div className="relative flex items-center">
                                             <input
                                                 type="date"
-                                                value={formValues.desiredDate}
-                                                onChange={(e) => handleInputChange('desiredDate', e.target.value)}
+                                                name='desiredDate'
                                                 className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                             />
                                             <span className="absolute left-3 text-gray-400">
@@ -121,10 +167,7 @@ const Page = () => {
                                                 <div className="relative flex items-center">
                                                     <input
                                                         type="date"
-                                                        value={formValues.alternateDate}
-                                                        onChange={(e) =>
-                                                            handleInputChange('alternateDate', e.target.value)
-                                                        }
+                                                        name='desiredFlexibleDate'
                                                         className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
                                                     <span className="absolute left-3 text-gray-400">
@@ -140,8 +183,7 @@ const Page = () => {
                                     <div className="relative flex items-center">
                                         <input
                                             type="number"
-                                            value={formValues.estimatedPrice ? formValues.estimatedPrice : 0}
-                                            onChange={(e) => handleInputChange('estimatedPrice', e.target.value)}
+                                            name='desiredPrice'
                                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                         />
                                         <span className="absolute left-3 text-gray-400">
@@ -163,7 +205,7 @@ const Page = () => {
                 </div>
             </div>
 
-            <CouriersAvailable />
+            <CouriersAvailable searchIshopItem={searchTerm} />
             <VideoAndCard />
             <HowDoesWork />
             <PopularProducts />

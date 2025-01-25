@@ -9,6 +9,7 @@ import { FiMessageSquare } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
 import { PiTrainThin } from 'react-icons/pi';
 import baseUrl from '@/app/redux/api/baseUrl';
+import Link from 'next/link';
 
 
 const AvailableRoutes = ({ searchData }) => {
@@ -107,7 +108,7 @@ const AvailableRoutes = ({ searchData }) => {
                                 </div>
                                 <div>
                                     <div className='flex flex-wrap items-center justify-end gap-5'>
-                                        <button className='flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg'><CiStar /> View review</button>
+                                        <Link href={`/ishop/${item?._id}`} className='flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg'><CiStar /> View review</Link>
                                         <button className='flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg'><FiMessageSquare /> Contact</button>
                                     </div>
                                     <p className='text-right text-sm mt-5 text-gray-500'>Languages spoken: French, English</p>

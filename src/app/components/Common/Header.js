@@ -12,9 +12,9 @@ import { RxCross2 } from "react-icons/rx";
 const Header = () => {
 
     const { data, isLoading: userLoading } = useGetUserQuery();
-    if (data?.user) {
 
-    }
+    console.log(data?.user?.profileImage);
+
 
     const { t } = i18n;
 
@@ -118,10 +118,11 @@ const Header = () => {
                 {
                     data?.user && <div className="relative group">
                         <Image
-                            src="/Images/header-user.svg"
+                            src={data?.user?.profileImage ? data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'}
                             alt="User Icon"
                             width={40}
                             height={40}
+
                             className="rounded-full cursor-pointer py-6"
                         />
                         <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-20 top-24 sm:right-0 -right-20 min-w-72 hidden group-hover:block">

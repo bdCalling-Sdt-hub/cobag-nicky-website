@@ -12,4 +12,19 @@ const searchItravel = apiSlice.injectEndpoints({
   }),
 });
 
+const searchIShop = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    searchIShop: builder.mutation({
+      query: (formData) => ({
+        url: `/sell-kg/search/courier`,
+        method: "POST",
+        body: formData, 
+      }),
+    }),
+  }),
+});
+
+
+
 export const { useSearchItravelMutation } = searchItravel;
+export const { useSearchIShopMutation } = searchIShop;

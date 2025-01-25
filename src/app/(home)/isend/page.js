@@ -170,7 +170,7 @@ const Page = () => {
             if (response?.success) {
                 console.log(response);
                 setAllSearchResutl(response?.data)
-                toast.success('Search successfully');
+                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
             }
         } catch (error) {
@@ -209,7 +209,7 @@ const Page = () => {
             if (response?.success) {
                 console.log(response);
                 setAllSearchResutl(response?.data)
-                toast.success('Search successfully');
+                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
             }
         } catch (error) {
@@ -246,7 +246,7 @@ const Page = () => {
             if (response?.success) {
                 console.log(response);
                 setAllSearchResutl(response?.data)
-                toast.success('Search successfully');
+                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
             }
         } catch (error) {
