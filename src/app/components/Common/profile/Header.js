@@ -44,7 +44,11 @@ const Header = () => {
                 </div>
 
                 <Link href={"/dashboard/profile"} className='flex items-center gap-2 cursor-pointer'>
-                    <img className='w-10 h-10 rounded-full' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'} alt="" />
+
+
+                    <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'} alt="" />
+
+
                     <h2 className='font-semibold capitalize'>{data?.user?.firstName}</h2>
                 </Link>
             </div>

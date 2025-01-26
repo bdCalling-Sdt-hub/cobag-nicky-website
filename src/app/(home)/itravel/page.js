@@ -17,6 +17,7 @@ import i18n from '@/app/utils/i18';
 import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import { useCreatePlaneMutation } from '@/app/redux/Features/Itravel/createPlane';
 import toast, { Toaster } from 'react-hot-toast';
+import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
 
 
 
@@ -33,6 +34,11 @@ const onChangeTime1 = (time, timeString) => {
 
 const Page = () => {
     const { t } = i18n;
+
+    const { data: calculationData } = useGetAllCalculationDataQuery();
+
+    const calculet = calculationData?.data[0];
+    console.log(calculet?.minimumPricePerTransaction);
 
 
 
@@ -127,14 +133,15 @@ const Page = () => {
         }
     };
 
-    console.log(fileList1);
 
     const { data } = useGetUserQuery();
     const userId = data?.user?._id;
 
-    console.log(data?.user);
+    // console.log(data?.user);
 
     const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
+
+
 
     const handleSubmitTravel = async (e) => {
 
@@ -185,10 +192,15 @@ const Page = () => {
         formData.append("arrivalTime", form.arrivalTime.value);
         formData.append("handLuggage", luggageValue || 0);
         formData.append("checkedBaggage", baggageValue || 0);
-        formData.append("availableToBeCourier", form.availableToBeCourier.value == true ? true : false);
-        formData.append("courierOptions.maxPurchaseAmount", 0);
+
+        if (form?.availableToBeCourier?.value) {
+            formData.append("availableToBeCourier", form.availableToBeCourier.value == true ? true : false);
+            formData.append("maxpurchAmountAdvance", form.availableToBeCourier.value);
+        }
+
+        formData.append("courierOptions.maxPurchaseAmount", calculet?.minimumPricePerTransaction);
+        formData.append("price", calculet?.purchaseKilosAirplane * (luggageValue + baggageValue));
         formData.append("courierOptions.message", form.message.value);
-        formData.append("maxpurchAmountAdvance", 0);
 
 
         try {
@@ -209,7 +221,7 @@ const Page = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.success('Travel created Faild Please Try Again !!')
+            // toast.success('Travel created Faild Please Try Again !!')
         }
 
         // Add your form submission logic here
@@ -286,7 +298,7 @@ const Page = () => {
         try {
             const res = await createPlane(formData).unwrap();
             console.log(res);
-            
+
             if (res?.success) {
                 // alert(res?.data)
                 toast.success('Travel created successfully !!')

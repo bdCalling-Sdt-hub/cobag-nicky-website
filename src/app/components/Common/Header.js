@@ -1,4 +1,5 @@
 'use client'; // Ensure this is a client-side component
+import baseUrl from '@/app/redux/api/baseUrl';
 import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import i18n from '@/app/utils/i18';
 import Image from 'next/image';
@@ -13,7 +14,9 @@ const Header = () => {
 
     const { data, isLoading: userLoading } = useGetUserQuery();
 
-    // console.log(data?.user?.profileImage);
+    console.log(data?.user?.profileImage);
+    console.log(baseUrl + data?.user?.profileImage);
+
 
 
     const { t } = i18n;
@@ -32,6 +35,8 @@ const Header = () => {
     };
 
 
+
+    console.log(baseUrl + '' + data?.user?.profileImage);
 
     return (
         <header className="fixed top-0 py-2 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] ">
@@ -114,16 +119,12 @@ const Header = () => {
                 {/* when user is available then show it else not */}
 
                 {
-                    data?.user && <div className="relative group">
-                        <Image
-                            src={data?.user?.profileImage ? data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'}
-                            alt="User Icon"
-                            width={40}
-                            height={40}
+                    data?.user && <div className="relative group cursor-pointer">
 
-                            className="rounded-full cursor-pointer py-6"
-                        />
-                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-20 top-24 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
+
+                        <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'} alt="" />
+
+                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-16 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
                             <Link
                                 href={'/dashboard/profile'}
                                 className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
