@@ -25,13 +25,15 @@ import { useUpdateProfileMutation } from '@/app/redux/Features/Profile/updatePro
 const Page = () => {
 
 
+    const date = new Date().toLocaleDateString();
+
     const { data } = useGetUserQuery();
 
     const userId = data?.user?._id;
 
     const user = data?.user;
 
-    console.log(user);
+    // console.log(user);
 
 
 
@@ -103,7 +105,7 @@ const Page = () => {
 
 
         try {
-            const res = await updateProfile({ formData, userId }).unwrap();
+            const res = await updateProfile(formData).unwrap();
 
             if (res.success) {
                 console.log(res?.data);
@@ -126,6 +128,63 @@ const Page = () => {
 
     };
 
+
+    // document verificaton 
+
+
+    const [identityFile, setIdentityFile] = useState(null);
+    const [proofOfAddressFile, setProofOfAddressFile] = useState(null);
+    const [ribFile, setRibFile] = useState(null);
+
+    const handleIdentityFileChange = (info) => {
+        if (info.file.status === "done" || info.file.status === "uploading") {
+            setIdentityFile(info.file.originFileObj);
+            console.log("Identity File Uploaded:", info.file.originFileObj);
+        }
+    };
+
+    const handleProofOfAddressChange = (info) => {
+        if (info.file.status === "done" || info.file.status === "uploading") {
+            setProofOfAddressFile(info.file.originFileObj);
+            console.log("Proof of Address File Uploaded:", info.file.originFileObj);
+        }
+    };
+
+    const handleRibFileChange = (info) => {
+        if (info.file.status === "done" || info.file.status === "uploading") {
+            setRibFile(info.file.originFileObj);
+            console.log("RIB File Uploaded:", info.file.originFileObj);
+        }
+    };
+
+    const handleDocumentSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!identityFile || !proofOfAddressFile || !ribFile) {
+            toast.error("Please upload all documents");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("ethanDocuments", identityFile);
+        formData.append("proofOfAddress", proofOfAddressFile);
+        formData.append("RIB", ribFile);
+
+        try {
+            const res = await updateProfile(formData).unwrap(); // Assumes `updateProfile` is a Redux Toolkit Query API
+            if (res.success) {
+                console.log("API Response:", res);
+                localStorage.setItem("user", JSON.stringify(res.data));
+                toast.success(res.message);
+                setIsModalOpen(false);
+            } else {
+                toast.error(res.message);
+            }
+        } catch (error) {
+            console.error("Error in API Call:", error);
+            toast.error(error?.data?.message || "An error occurred while uploading documents.");
+        }
+    };
 
 
 
@@ -520,84 +579,111 @@ const Page = () => {
             </Modal>
 
 
-            <section id='documents' className='my-10 p-5 bg-white rounded-lg'>
+            <form onSubmit={handleDocumentSubmit} id='documents' className='my-10 p-5 bg-white rounded-lg'>
                 <div className='flex items-center justify-between'>
                     <h2 className='text-2xl font-semibold text-primary mb-5'>{t('ethanDocuments')}</h2>
                     <div className='flex items-center gap-2'>
-                        <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-1 px-6 rounded-full'>{t('verified')}</span>
-                        <button className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>{t('send')} <BsSend /> </button>
+                        <span className='text-[#f0d53d] bg-[#f0d53d2f] font-semibold py-1 px-6 rounded-full'>
+                            {/* {t('verified')} */}
+                            Not verified
+                        </span>
+                        <button type='submit' className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>{t('send')} <BsSend /> </button>
                     </div>
                 </div>
 
 
-                <div className='my-5'>
-                    <h2 className='font-medium'>{t('identityDocument')}</h2>
-                    <div className='bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5'>
-                        <div className=' flex items-center gap-5'>
-                            <div className='flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md'>
-                                <LuFileText className='text-2xl text-primary' />
+                <div className="my-5">
+                    <h2 className="font-medium">Identity Document</h2>
+                    <div className="bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5">
+                        {identityFile ? (
+                            <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md">
+                                    <LuFileText className="text-2xl text-primary" />
+                                </div>
+                                <div>
+                                    <h2 className="font-semibold">{identityFile.name}</h2> {/* Display uploaded file name */}
+                                    <span>
+                                        Added on: {new Date().toISOString().split('T')[0]}
+                                    </span> {/* Display the current date */}
+                                </div>
                             </div>
-                            <div>
-                                <h2 className='font-semibold'>Identity card.pdf</h2>
-                                <span>Added on: 2024-03-14</span>
-                            </div>
-                        </div>
-                        {/* <div>
-                            <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-2 px-5 rounded-full'>Vefiry</span>
-                        </div> */}
+                        ) : (
+                            <span className="text-gray-500">No file uploaded</span>
+                        )}
                     </div>
-                    <div className='mt-5'>
-                        <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
-
-                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
+                    <div className="mt-5">
+                        <Dragger
+                            onChange={handleIdentityFileChange}
+                            name="Identityfiles"
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        >
+                            <p className="ant-upload-text font-semibold">
+                                Drag and drop your files or browse
+                            </p>
                         </Dragger>
                     </div>
                 </div>
 
-                <div className='my-5'>
-                    <h2 className='font-medium'>{t('proofOfAddress')}</h2>
-                    <div className='bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5'>
-                        <div className=' flex items-center gap-5'>
-                            <div className='flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md'>
-                                <LuFileText className='text-2xl text-primary' />
+                <div className="my-5">
+                    <h2 className="font-medium">Proof of Address</h2>
+                    <div className="bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5">
+                        {proofOfAddressFile ? (
+                            <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md">
+                                    <LuFileText className="text-2xl text-primary" />
+                                </div>
+                                <div>
+                                    <h2 className="font-semibold">{proofOfAddressFile.name}</h2> {/* File name */}
+                                    <span>
+                                        Added on: {new Date().toISOString().split('T')[0]}
+                                    </span> {/* Current date */}
+                                </div>
                             </div>
-                            <div>
-                                <h2 className='font-semibold'>Facture EDF.pdf</h2>
-                                <span>Added on: 2024-03-14</span>
-                            </div>
-                        </div>
-                        {/* <div>
-                            <span className='text-[#ffd344] bg-[#ffd34431] font-semibold py-2 px-5 rounded-full'>On hold</span>
-                        </div> */}
+                        ) : (
+                            <span className="text-gray-500">No file uploaded</span>
+                        )}
                     </div>
-                    <div className='mt-5'>
-                        <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
-
-                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
+                    <div className="mt-5">
+                        <Dragger
+                            onChange={handleProofOfAddressChange}
+                            name="files"
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        >
+                            <p className="ant-upload-text font-semibold">
+                                Drag and drop your files or browse
+                            </p>
                         </Dragger>
                     </div>
                 </div>
 
-                <div className='my-5'>
-                    <h2 className='font-medium'>RIB</h2>
-                    <div className='bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5'>
-                        <div className=' flex items-center gap-5'>
-                            <div className='flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md'>
-                                <LuFileText className='text-2xl text-primary' />
+                <div className="my-5">
+                    <h2 className="font-medium">RIB</h2>
+                    <div className="bg-[#f6f6fb] p-5 rounded-lg my-5 flex items-center justify-between flex-wrap gap-5">
+                        {ribFile ? (
+                            <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-3 w-14 h-14 bg-[#eeefff] text-[#2b8f6c] justify-center rounded-md">
+                                    <LuFileText className="text-2xl text-primary" />
+                                </div>
+                                <div>
+                                    <h2 className="font-semibold">{ribFile.name}</h2> {/* File name */}
+                                    <span>
+                                        Added on: {new Date().toISOString().split('T')[0]}
+                                    </span> {/* Current date */}
+                                </div>
                             </div>
-                            <div>
-                                <h2 className='font-semibold'>Facture EDF.pdf</h2>
-                                <span>Added on: 2024-03-14</span>
-                            </div>
-                        </div>
-                        {/* <div>
-                            <span className='text-[#2b8f6c] bg-[#2b8f6c1f] font-semibold py-2 px-5 rounded-full'>Vefiry</span>
-                        </div> */}
+                        ) : (
+                            <span className="text-gray-500">No file uploaded</span>
+                        )}
                     </div>
-                    <div className='mt-5'>
-                        <Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
-
-                            <p className="ant-upload-text font-semibold">{t('dragAndDropYourFilesOrBrowse')}</p>
+                    <div className="mt-5">
+                        <Dragger
+                            onChange={handleRibFileChange}
+                            name="files"
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        >
+                            <p className="ant-upload-text font-semibold">
+                                Drag and drop your files or browse
+                            </p>
                         </Dragger>
                     </div>
                 </div>
@@ -615,7 +701,7 @@ const Page = () => {
                 </div>
 
 
-            </section>
+            </form>
 
             {/* <section id='preferences' className='my-5 p-5 bg-white rounded-lg'>
                 <h2 className='font-semibold text-2xl text-primary'>Preferences</h2>

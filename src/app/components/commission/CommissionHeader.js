@@ -4,10 +4,14 @@ import { FaArrowRightLong, FaCheck } from 'react-icons/fa6';
 import { Modal } from 'antd';
 import { FiShield } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
- 
+import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
+import { useRouter } from 'next/navigation';
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const CommissionHeader = () => {
-    const {t} = i18n;
+    const { t } = i18n;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -23,8 +27,51 @@ const CommissionHeader = () => {
         setIsModalOpen(false);
     };
 
+
+
+    //==============  use Payment Mutation ==================
+    const { data: userData } = useGetUserQuery();
+    const [payment] = usePaymentMutation();
+    const router = useRouter();
+
+    const handlePayment = async () => {
+
+        if (!userData?.user) {
+            toast.error('Please login first');
+            return router.push('/login');
+        }
+
+        // console.log("Payment confirmed");
+        const data = {
+            "amount": 500,
+            "currency": "usd",
+            "paymentMethodId": "pm_card_visa"
+        }
+
+        // console.log(data);
+        // setIsModalOpen(false);
+        try {
+
+            const response = await payment(data).unwrap();
+
+            console.log(response?.url);
+            if (response?.url) {
+                // window.location.href = response?.url;
+                router.push(response?.url);
+            }
+            // setIsModalOpen(false);
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
     return (
         <div className="bg-gradient-to-b from-[#E9FFFD] via-[#E9FFFD] to-[#FFF]">
+            <Toaster />
             <div className="md:w-[50%] w-[90%] mx-auto py-20 text-center">
                 <h1 className="md:text-5xl text-3xl font-semibold text-primary">
                     {t('commissionMessage21')}
@@ -58,7 +105,7 @@ const CommissionHeader = () => {
                     <h2 className="text-xl font-semibold text-primary mb-10">
                         Activate CoBag Sky
                     </h2>
-                    <div className='grid grid-cols-2 gap-5'>
+                    <div className=''>
                         <div>
                             <p className="text-gray-600 mb-2"><span className='text-5xl font-semibold text-primary'>10€ </span>/month</p>
                             <p className="text-gray-600 text-sm mb-5">
@@ -97,60 +144,16 @@ const CommissionHeader = () => {
                                 </li>
                             </ul>
                         </div>
-                        <form className="text-left space-y-5">
-                            {/* Card Number */}
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">Card number</label>
-                                <input
-                                    type="text"
-                                    placeholder="1234 5678 9012 3456"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                />
-                            </div>
 
-                            {/* Expiration Date */}
-                            <div className="flex gap-3">
-                                <div className="flex-1">
-                                    <label className="block text-sm font-semibold mb-1">Expiration date</label>
-                                    <input
-                                        type="text"
-                                        placeholder="MM/YY"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-
-                                {/* CVC */}
-                                <div className="flex-1">
-                                    <label className="block text-sm font-semibold mb-1">CVC</label>
-                                    <input
-                                        type="text"
-                                        placeholder="123"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Terms Agreement */}
-                            <div className="flex items-start gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="terms"
-                                    className="w-4 h-4 accent-primary"
-                                />
-                                <label htmlFor="terms" className="text-sm text-gray-600">
-                                    By confirming, you agree to the <span className="text-primary font-semibold">Terms of Use</span> and <span className="text-primary font-semibold">Privacy Policy</span>.
-                                </label>
-                            </div>
-
-                            {/* Confirm Button */}
-                            <button
-                                type="button"
-                                onClick={handleOk}
-                                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition flex items-center gap-2 justify-center"
-                            >
-                                <FiShield className='text-2xl' /> Confirm subscription
-                            </button>
-                        </form>
+                        {/* Confirm Button */}
+                        <button
+                            type="button"
+                            onClick={handlePayment}
+                            // onClick={handleOk}
+                            className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition flex items-center gap-2 justify-center"
+                        >
+                            <FiShield className='text-2xl' /> Confirm subscription
+                        </button>
                     </div>
                 </div>
             </Modal>

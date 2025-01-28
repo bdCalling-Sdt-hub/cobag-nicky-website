@@ -12,12 +12,25 @@ import { IoCardOutline, IoMenu } from 'react-icons/io5';
 import { FiShield } from 'react-icons/fi';
 import Dragger from 'antd/es/upload/Dragger';
 import { RxCross1 } from 'react-icons/rx';
+import { useGetMessageQuery } from '@/app/redux/Features/message/getMessage';
+import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 
 const Page = () => {
     const params = useParams(); // Retrieve all route parameters
     const userId = params?.userId; // Extract the `userId` parameter if it exists
+    const { data: user } = useGetUserQuery();
+    // const senderId = user?.user?._id ; 
+    const senderId = '67863c745a8b583ba21e3716';
 
-    // console.log(userId);
+    console.log(senderId);
+
+
+    const { data: message } = useGetMessageQuery({ resiverId: userId, senderId: senderId });
+
+    
+    console.log(message?.data.filter(message => message.receiverId === userId));
+    
+
 
     const [isAdjust, setIsAdjust] = useState(false);
     const handleIsAdjust = () => {

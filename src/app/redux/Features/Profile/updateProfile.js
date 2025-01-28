@@ -1,6 +1,4 @@
 
-
-
 //============ /auth/update/ ================
 
 import { apiSlice } from "../../api/apiSlice.js";
@@ -8,8 +6,8 @@ import { apiSlice } from "../../api/apiSlice.js";
 const updateProfile = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         updateProfile: builder.mutation({
-            query: ({ formData, userId }) => ({
-                url: `/auth/update/${userId}`,
+            query: ( formData ) => ({
+                url: `/auth/update`,
                 method: "PATCH",
                 body: formData,
             }),
