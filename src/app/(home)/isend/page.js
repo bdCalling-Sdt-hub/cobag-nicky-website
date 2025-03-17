@@ -2,6 +2,7 @@
 import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
 import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
+import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
 import React, { useState } from 'react';
@@ -21,6 +22,10 @@ const Page = () => {
     const [packages, setPackages] = useState([
         { departureCity: '', arrivalCity: '', desiredDate: '', weight: '' },
     ]); // Track package data
+
+    const { data: allVideo } = useGetAllVideoQuery()
+    console.log(allVideo?.data[0]);
+
 
     const handlePackageChange = (index, field, value) => {
         const updatedPackages = [...packages];
@@ -231,7 +236,7 @@ const Page = () => {
         const form = e.target;
 
         const formData = {
-            transportMode: 'train',
+            transportMode: 'all',
             departureCity: form?.departureCity?.value || '',
             arrivalCity: form?.arrivalCity?.value || '',
             departureDate: form?.desiredDate?.value || '',

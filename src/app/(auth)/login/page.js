@@ -15,9 +15,9 @@ const Page = () => {
     const { data, isLoading: userLoading } = useGetUserQuery();
 
     // console.log(data?.token);
-    if (data?.token) {
-        router.push('/');
-    }
+    // if (!data?.token) {
+    //     router.push('/');
+    // }
 
 
     const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility

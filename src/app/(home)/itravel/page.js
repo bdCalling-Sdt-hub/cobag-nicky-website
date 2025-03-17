@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
-import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdInfo, MdOutlineFileUpload } from "react-icons/md";
 import { RiShoppingBag4Line } from "react-icons/ri";
@@ -38,7 +38,7 @@ const Page = () => {
     const { data: calculationData } = useGetAllCalculationDataQuery();
 
     const calculet = calculationData?.data[0];
-    console.log(calculet?.minimumPricePerTransaction);
+    console.log(calculet?.minimumPricePerTransaction, calculet?.purchaseKilosAirplane);
 
 
 
@@ -198,9 +198,12 @@ const Page = () => {
             formData.append("maxpurchAmountAdvance", form.availableToBeCourier.value);
         }
 
+
+        console.log(Number(calculet?.minimumPricePerTransaction * (luggageValue + baggageValue)));
         formData.append("courierOptions.maxPurchaseAmount", calculet?.minimumPricePerTransaction);
-        formData.append("price", calculet?.purchaseKilosAirplane * (luggageValue + baggageValue));
+        formData.append("price", calculet?.minimumPricePerTransaction * (luggageValue + baggageValue)) || 0;
         formData.append("courierOptions.message", form.message.value);
+        // formData.append("price", 1200);
 
 
         try {
@@ -211,7 +214,7 @@ const Page = () => {
                 toast.success('Travel created successfully !!')
                 //    alert('Travel created successfully !!')
                 console.log(res?.data)
-                form.reset();
+                // form.reset();
                 fileList1 = null;
             }
             else {
@@ -295,6 +298,8 @@ const Page = () => {
         formData.append("maxpurchAmountAdvance", form.maxpurchAmountAdvance.value);
 
 
+
+
         try {
             const res = await createPlane(formData).unwrap();
             console.log(res);
@@ -318,12 +323,12 @@ const Page = () => {
             toast.error('Travel created Faild Please Try Again !!')
         }
 
-
-
-
-
-
     };
+
+
+
+    
+
 
 
 
@@ -678,6 +683,7 @@ const Page = () => {
                                                 className="w-full bg-primary text-white py-3 rounded-md font-semibold transition"
                                             >
                                                 {t('PublishRoute')}
+                                                {isCreatePlaneLoading && <FaSpinner className="animate-spin ml-2" />}
                                             </button>
                                         </div>
                                     </form>

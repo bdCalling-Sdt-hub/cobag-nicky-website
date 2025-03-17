@@ -1,7 +1,11 @@
 import i18n from '@/app/utils/i18';
+import Aos from 'aos';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { CiLocationOn } from 'react-icons/ci';
 import { FaArrowRight } from "react-icons/fa6";
+import { SlPlane } from "react-icons/sl";
+
 
 
 const AboutUs = () => {
@@ -9,80 +13,111 @@ const AboutUs = () => {
 
     const { t } = i18n;
 
-    return (
-        <div className="py-20 bg-[#f7f7fc]">
-            <h2
-                data-aos="fade-up"
-                data-aos-duration="300"
-                className="text-center md:text-5xl text-3xl text-primary font-semibold"
-            >
-                {t('WhoCanISellMyUnusedKilosTo1001')}
-            </h2>
-            <div className="flex justify-center items-center flex-wrap mt-10 gap-10 md:px-0 px-5">
-                <div
-                    data-aos="fade-up"
-                    data-aos-duration="700"
-                    className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white"
-                >
-                    {/* Image with Overlay */}
-                    <div className="relative overflow-hidden">
-                        <img
-                            className="w-full max-h-[280px] object-cover"
-                            src="/Images/Landingpage/home_about2.png"
-                            alt={t('DeliveryImageAltText1002')}
-                        />
-                        <div className="absolute inset-0 bg-[#0000004f]"></div>
-                        <p className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] p-2 text-primary font-semibold absolute top-0 right-0 text-xs md:text-sm">
-                            {t('FastestInternationalDelivery1003')}
-                        </p>
-                    </div>
-                    <div className="p-5">
-                        <h3 className="text-primary font-semibold text-xl">
-                            {t('SendParcelsWorldwide1004')}
-                        </h3>
-                        <p className="my-10 text-gray-500">
-                            {t('SellUnusedKilosDescription1005')}
-                        </p>
-                        <Link href={'/ourconcept'}>
-                            <button className="bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2">
-                                {t('LearnMore1006')} <FaArrowRight />
-                            </button>
-                        </Link>
-                    </div>
-                </div>
 
-                <div
-                    data-aos="fade-up"
-                    data-aos-duration="900"
-                    className="w-[100%] md:w-[500px] relative overflow-hidden rounded-xl bg-white"
-                >
-                    {/* Image with Overlay */}
-                    <div className="relative overflow-hidden">
-                        <img
-                            className="w-full max-h-[280px] object-cover"
-                            src="/Images/Landingpage/home_about.jpg"
-                            alt={t('DeliveryImageAltText1007')}
-                        />
-                        <div className="absolute inset-0 bg-[#0000004f]"></div>
-                        <p className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] p-2 text-primary font-semibold absolute top-0 right-0 text-xs md:text-sm">
-                            {t('UniqueRevolutionaryWorldwide1008')}
-                        </p>
+    useEffect(() => {
+        Aos.init({
+            duration: 1000, // Animation duration in milliseconds
+            once: true, // Animations trigger only once
+        });
+    }, []);
+
+
+
+    return (
+        <div className='my-20'>
+            <section data-aos="fade-up" className='w-[70%] mx-auto'>
+                <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center mb-5'>CoBag is also the solution for:</h2>
+                <p className='text-xl text-center'>Carry your excess baggage at a discounted price, shop from around the world and send packages internationally, all with <span className='text-primary font-semibold'> the fastest delivery on the planet: one direct flight away .</span>
+                </p>
+                <img className='w-3/4 mx-auto' src="/Images/NewSection/solutions-1.png" alt="" />
+                <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto my-20'> Transport my surplus at a reduced price <FaArrowRight /></button>
+            </section>
+
+            <section data-aos="fade-up" className='w-[80%] mx-auto'>
+                <h2 className='text-center text-xl'>Examples of international purchases you will have in your hands <span className='text-primary font-semibold'>during a flight :</span></h2>
+
+                <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 my-20 text-center'>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/Examples-1.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><CiLocationOn />Asia </h2>
+                        <p className='font-semibold '>Korean Skin Care Beauty Treatments</p>
                     </div>
-                    <div className="p-5">
-                        <h3 className="text-primary font-semibold text-xl">
-                            {t('PurchaseRareProductsAbroad1009')}
-                        </h3>
-                        <p className="my-10 text-gray-500">
-                            {t('UnobtainableProductsDescription1010')}
-                        </p>
-                        <Link href={'/ourconcept'}>
-                            <button className="bg-[#e7e8f0] py-3 px-8 rounded-xl text-primary flex items-center justify-center gap-2">
-                                {t('LearnMore1011')} <FaArrowRight />
-                            </button>
-                        </Link>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/cigarettes.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><CiLocationOn />Europe </h2>
+                        <p className='font-semibold '>Cheaper cigarettes</p>
+                    </div>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/pagne.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><CiLocationOn />Africa </h2>
+                        <p className='font-semibold '>Traditional and authentic wax fabric</p>
+                    </div>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/maillot.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><CiLocationOn />America </h2>
+                        <p className='font-semibold '>Authentic NBA Jerseys</p>
                     </div>
                 </div>
+                <div>
+                    <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto'>Find my buyer <FaArrowRight /></button>
+                </div>
+            </section>
+
+            <section data-aos="fade-up" className='w-[80%] mx-auto my-20'>
+                <h2 className='text-center text-xl'>Examples of international shipments, <span className='text-primary font-semibold'>delivered during a flight :</span></h2>
+
+                <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 my-20 text-center'>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/documents-1.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><SlPlane />Fastest delivery on the planet
+                        </h2>
+                        <p className='font-semibold '>Urgent documents</p>
+                    </div>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/documents-2.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><SlPlane />Fastest delivery on the planet
+                        </h2>
+                        <p className='font-semibold '>Urgent medications</p>
+                    </div>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/documents-3.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><SlPlane />Fastest delivery on the planet
+                        </h2>
+                        <p className='font-semibold '>High-tech to offer</p>
+                    </div>
+                    <div className='hover:-mt-2 duration-500'>
+                        <img className='w-full mx-auto' src="/Images/NewSection/documents-4.png" alt="" />
+                        <h2 className='mt-5 flex items-center gap-2 justify-center font-medium mb-3'><SlPlane />Fastest delivery on the planet
+                        </h2>
+                        <p className='font-semibold '>Gifts for special occasions</p>
+                    </div>
+                </div>
+                <div>
+                    <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto'>Find my buyer <FaArrowRight /></button>
+                </div>
+            </section>
+
+            <div className='bg-gradient-to-t from-[#ffffff] via-[#9affcc] to-[#ffffff1a]'>
+                <section data-aos="fade-up" className='w-[80%] mx-auto py-20'>
+                    <h2 className='text-center text-2xl font-semibold text-primary'>CoBag: An ecological revolution in transport</h2>
+                    <p className='mb-10 mt-3 w-3/4 mx-auto text-center'>Every day, 13.7 million people travel by plane around the world , and 67.2 million kilos of their luggage go unused . With CoBag, these lost kilos become a valuable resource, drastically reducing CO₂ emissions.
+                    </p>
+
+                    <img className='w-2/4 mx-auto' src="/Images/NewSection/ecolo.png" alt="" />
+                    <div className='text-center space-y-3'>
+                        <h3 className='font-semibold text-center'>🌍 92 million tonnes of CO₂ saved per year, the equivalent of 20 million fewer cars on the roads.</h3>
+                        <h2>🌱 An alternative to air freight that avoids 252 million kg of CO₂ per day .</h2>
+                        <h2>💰 A market with high potential: €122.6 billion in annual savings for CoBag users by optimizing this wasted space.</h2>
+                        <h2> 100% greener, 100% faster, 100% baggage refunded, 99% cheaper</h2>
+                        <br />
+                        <h2 className='font-semibold mt-10 text-xl text-primary'> CoBag is:</h2>
+                        <h2> ✅ An ecological and economical alternative</h2>
+                        <h2> ✅ A fast and secure solution</h2>
+                        <h2> ✅ An opportunity for all travelers </h2>
+                    </div>
+                </section>
             </div>
+
         </div>
 
     );

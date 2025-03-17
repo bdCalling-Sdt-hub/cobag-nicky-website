@@ -1,112 +1,97 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Modal, Input, Button, Form } from 'antd';
-import { BsCreditCard } from 'react-icons/bs';
-import { MdOutlineAddCard, MdOutlineArrowOutward } from 'react-icons/md';
-import { GoArrowDownRight } from 'react-icons/go';
-import { FaFilter } from 'react-icons/fa6';
-import { FaSearch } from 'react-icons/fa';
-import i18n from '@/app/utils/i18';
+import { Modal, Input, Button, Form, InputNumber } from 'antd';
+import { MdOutlineArrowOutward } from 'react-icons/md';
 import { LuWallet } from 'react-icons/lu';
+import { FaSearch, FaFilter } from 'react-icons/fa';
+import { GoArrowDownRight } from 'react-icons/go';
+import { BsCreditCard } from 'react-icons/bs';
+import toast, { Toaster } from 'react-hot-toast';
 
-const Page = () => {
-    const { t } = i18n;
-    const [isModalOpen, setIsModalOpen] = useState(false);
+const WalletPage = () => {
+    // States for Modal
+    const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
-    const showModal = () => setIsModalOpen(true);
-    const handleCancel = () => setIsModalOpen(false);
+    // Withdraw Modal Handlers
+    const showWithdrawModal = () => setIsWithdrawModalOpen(true);
+    const handleWithdrawCancel = () => setIsWithdrawModalOpen(false);
 
-    const onFinish = (values) => {
-        console.log('Card Details:', values);
-        setIsModalOpen(false);
+    // Submit handler for withdraw modal
+    const handleWithdrawFinish = (values) => {
+
+        if (!values?.name) {
+            toast.error('Amount must be greater than 0!');
+            console.log('Withdraw Details:', values); // Log the form values
+            return setIsWithdrawModalOpen(true);
+        }
+        else {
+            toast.success('Funds withdrawn successfully!');
+            setIsWithdrawModalOpen(false); // Close modal after submission
+        }
     };
 
     return (
-        <div>
-
-            <section id="waletBalance" className='bg-white p-5 rounded-lg mt-5'>
-                <div className='flex items-center justify-between gap-5 mb-5'>
-                    <h1 className="text-3xl font-semibold text-primary">My {t('wallet')}</h1>
-                    <button className='flex items-center px-6 py-3 border bg-gradient-to-l from-[#98ded9] to-[#c6fed8] rounded-lg gap-2 font-semibold text-primary'> <MdOutlineArrowOutward className='text-2xl' />
-                        Withdraw funds</button>
-
-                </div>
-                <div className='grid xl:grid-cols-2 gap-10'>
-                    <div className='bg-gradient-to-l from-primary to-[#0d2c98] rounded-lg p-5'>
-                        <div className=' flex items-center gap-5 my-5'>
-                            <div className='flex items-center gap-2 w-14 h-14 bg-[#383f8a] text-white justify-center rounded-full'>
-                                <LuWallet className='text-2xl' />
-                            </div>
-                            <div className='text-white'>
-                                <p>{t('balanceAvailable')}</p>
-                                <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
-                            </div>
-                        </div>
-                        <hr className='bg-white h-[2px] my-5' />
-                    </div>
-                    <div className='bg-primary rounded-lg p-5'>
-                        <div className=' flex items-center gap-5 my-5'>
-                            <div className='flex items-center gap-2 w-14 h-14 bg-[#383f8a] text-white justify-center rounded-full'>
-                                <LuWallet className='text-2xl' />
-                            </div>
-                            <div className='text-white'>
-                                <p>{t('runningOrder')}</p>
-                                <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
-                            </div>
-                        </div>
-                        <hr className='bg-white h-[2px] my-5' />
-                    </div>
-
-                </div>
-
-            </section>
-
-            {/* Bank Card Section */}
-            {/* <section id="bankCard" className="bg-white p-5 rounded-lg mt-5">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-primary">{t('bankCard')}</h2>
+        <div className="container mx-auto lg:p-5 p-0">
+            <Toaster />
+            {/* Wallet Balance Section */}
+            <section id="walletBalance" className="bg-white p-5 rounded-lg shadow-md mt-5">
+                <div className="flex items-center justify-between mb-5">
+                    <h1 className="md:text-3xl text-2xl font-semibold text-primary">My Wallet</h1>
                     <button
-                        className="flex items-center px-6 py-3 border border-primary text-primary rounded-lg gap-2"
-                        onClick={showModal}
+                        onClick={showWithdrawModal}
+                        className="flex items-center px-6 py-3 bg-gradient-to-l from-[#98ded9] to-[#c6fed8] border rounded-lg gap-2 font-semibold text-primary"
                     >
-                        <BsCreditCard className="text-xl" /> {t('add')}
+                        <MdOutlineArrowOutward className="text-2xl" />
+                        Withdraw funds
                     </button>
                 </div>
-
-                <div className="grid lg:grid-cols-2 gap-5 my-5">
-                    <img className="w-full" src="/Images/Profile/DashboardBankCard.png" alt="Bank Card" />
-                    <img className="w-full" src="/Images/Profile/DashboardBankCard.png" alt="Bank Card" />
-                    <div onClick={showModal}>
-                        <div className="p-5 border border-dashed rounded-lg cursor-pointer">
-                            <div className='flex items-center justify-center'>
-                                <MdOutlineAddCard className="text-5xl text-gray-500 " />
+                <div className="grid xl:grid-cols-2 gap-10">
+                    <div className="bg-gradient-to-l from-primary to-[#0d2c98] rounded-lg p-5 shadow-sm">
+                        <div className="flex items-center gap-5 my-5">
+                            <div className="flex items-center justify-center w-14 h-14 bg-[#383f8a] text-white rounded-full">
+                                <LuWallet className="text-2xl" />
                             </div>
-                            <div className="w-32 mx-auto flex items-center justify-center mt-3">
-                                <p className="font-semibold border-b text-xl border-primary text-primary">Add a card</p>
+                            <div className="text-white">
+                                <p>Balance Available</p>
+                                <h2 className="text-3xl font-semibold mt-2">125.50€</h2>
                             </div>
-                            <p className="ant-upload-hint text-center mt-5">{t('addANewBankCard')}</p>
                         </div>
+                        <hr className="bg-white h-[2px] my-5" />
+                    </div>
+                    <div className="bg-primary rounded-lg p-5 shadow-sm">
+                        <div className="flex items-center gap-5 my-5">
+                            <div className="flex items-center justify-center w-14 h-14 bg-[#383f8a] text-white rounded-full">
+                                <LuWallet className="text-2xl" />
+                            </div>
+                            <div className="text-white">
+                                <p>Running Order</p>
+                                <h2 className="text-3xl font-semibold mt-2">75.30€</h2>
+                            </div>
+                        </div>
+                        <hr className="bg-white h-[2px] my-5" />
                     </div>
                 </div>
-            </section> */}
+            </section>
 
             {/* Recent Payments Section */}
-            <section id="recentPayments" className="bg-white p-5 rounded-lg mt-5">
-                <div className='flex items-center justify-between flex-wrap gap-5'>
-                    <h2 className="text-xl font-semibold text-primary">{t('recentPayments')}</h2>
+            <section id="recentPayments" className="bg-white p-5 rounded-lg shadow-md mt-5">
+                <div className="flex items-center justify-between flex-wrap gap-5">
+                    <h2 className="text-xl font-semibold text-primary">Recent Payments</h2>
                     <div className="flex flex-wrap items-center gap-3">
+                        {/* Search Field */}
                         <div className="relative">
                             <input
                                 type="text"
                                 name="search"
-                                placeholder={t('searchTransactions')}
+                                placeholder="Search Transactions"
                                 className="w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
                             />
                             <span className="absolute left-3 top-3 text-gray-400">
                                 <FaSearch />
                             </span>
                         </div>
+                        {/* Filter Dropdown */}
                         <div className="relative">
                             <select
                                 name="searchselect"
@@ -122,8 +107,13 @@ const Page = () => {
                         </div>
                     </div>
                 </div>
-                {[...Array(3)].map((_, index) => (
-                    <div key={index} className="flex items-center justify-between bg-[#f6f6fb] my-5 p-5 rounded-md">
+
+                {/* Recent Payments */}
+                {[...Array(5)].map((_, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center justify-between bg-[#f6f6fb] my-5 p-5 rounded-md"
+                    >
                         <div className="flex items-center gap-3">
                             <div className="flex items-center justify-center w-14 h-14 bg-[#e0eee9] text-[#2b8f6c] rounded-full">
                                 <GoArrowDownRight className="text-2xl" />
@@ -141,66 +131,81 @@ const Page = () => {
                 ))}
             </section>
 
-            {/* Modal */}
+            {/* Withdraw Funds Modal */}
             <Modal
-                open={isModalOpen}
-                onCancel={handleCancel}
+                open={isWithdrawModalOpen}
+                onCancel={handleWithdrawCancel}
                 footer={null}
             >
-                <h2 className='text-2xl font-semibold text-primary text-center'>Add a Card</h2>
-                <Form layout="vertical" className='mt-10' onFinish={onFinish}>
+                <h2 className="text-3xl font-semibold text-primary text-center">Withdraw Funds</h2>
+                <Form onSubmitCapture={handleWithdrawFinish} layout="vertical" className="mt-5" onFinish={handleWithdrawFinish}>
+                    {/* Name Field */}
                     <Form.Item
-                        label="Card Holder Name"
-                        className='font-semibold text-primary'
-                        name="cardHolderName"
-                        rules={[{ required: true, message: 'Please enter the card holder name!' }]}
+                        label="Name"
+                        name="name"
+                        rules={[{ required: true, message: 'Please enter your name!' }]}
                     >
-                        <Input className='py-3' placeholder="Card holder name" />
+                        <Input className="py-2" placeholder="Enter your name" />
                     </Form.Item>
+
+                    {/* Email Field */}
                     <Form.Item
-                        label="Card Number"
-                        name="cardNumber"
-                        className='font-semibold text-primary'
+                        label="Email"
+                        name="email"
                         rules={[
-                            { required: true, message: 'Please enter the card number!' },
+                            { required: true, message: 'Please enter your email!' },
+                            { type: 'email', message: 'Please enter a valid email!' },
+                        ]}
+                    >
+                        <Input className="py-2" placeholder="Enter your email" />
+                    </Form.Item>
+
+                    {/* Bank Card Number Field */}
+                    <Form.Item
+                        label="Bank Card Number"
+                        name="bankCardNumber"
+                        rules={[
+                            { required: true, message: 'Please enter your bank card number!' },
                             { len: 16, message: 'Card number must be 16 digits!' },
                         ]}
                     >
-                        <Input className='py-3' placeholder="1234 5678 9012 3456" maxLength={16} />
+                        <Input
+                            className="py-2"
+                            placeholder="1234 5678 9012 3456"
+                            maxLength={16}
+                            height={400}
+                            addonAfter={<BsCreditCard className="text-gray-500 text-2xl" />}
+                        />
                     </Form.Item>
-                    <div className='grid grid-cols-2 gap-5'>
-                        <Form.Item
-                            label="Expiration Date (MM/YY)"
-                            name="expirationDate"
-                            className='font-semibold text-primary'
-                            rules={[{ required: true, message: 'Please enter the expiration date!' }]}
-                        >
-                            <Input className='py-3' placeholder="MM/YY" />
-                        </Form.Item>
-                        <Form.Item
-                            label="CVC"
-                            name="cvc"
-                            className='font-semibold text-primary'
-                            rules={[
-                                { required: true, message: 'Please enter the CVC!' },
-                                { len: 3, message: 'CVC must be 3 digits!' },
-                            ]}
-                        >
-                            <Input className='py-3' placeholder="123" maxLength={3} />
-                        </Form.Item>
-                    </div>
-                    <label htmlFor="check" className='flex items-center gap-1'>
-                        <input type="checkbox" name="terms" id="check" />
-                        By confirming, you agree to the{' '}
-                        <a href="/terms" className="text-primary font-semibold">Terms of Use</a> and{' '}
-                        <a href="/privacy" className="text-primary font-semibold">Privacy Policy</a>.
-                    </label>
-                    <p className="text-sm text-gray-500 mb-4">
 
-                    </p>
+                    {/* Amount Field - FIXED */}
+                    <Form.Item
+                        label="Amount (€)"
+                        name="amount"
+                        rules={[
+                            { required: true, message: 'Please enter an amount!' },
+                            {
+                                validator: (_, value) =>
+                                    value && value > 0
+                                        ? Promise.resolve()
+                                        : Promise.reject(new Error('Amount must be greater than 0!'))
+                            }
+                        ]}
+                    >
+                        <InputNumber
+                            className="w-full py-1"
+                            min={1}
+                            placeholder="Enter amount"
+                        />
+                    </Form.Item>
+
+                    {/* Submit Button */}
                     <Form.Item>
-                        <button className='w-full py-3 bg-primary text-white rounded-lg' htmlType="submit" block>
-                            Add Card
+                        <button
+                            type="submit"
+                            className="w-full py-3 bg-primary text-white rounded-lg mt-5"
+                        >
+                            Withdraw
                         </button>
                     </Form.Item>
                 </Form>
@@ -209,4 +214,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default WalletPage;

@@ -30,9 +30,9 @@ const Hero = () => {
 
                         {t('HeroSecureDelivery')}
                     </button>
-                    <h2 className='text-center my-10 text-white md:text-6xl text-3xl font-bold'>{t('ShareYourLuggagesaveMoney')}</h2>
+                    <h2 className='text-center my-10 lg:w-2/4  text-white md:text-6xl text-3xl font-bold'>{t('ShareYourLuggagesaveMoney')}</h2>
                     <h3 className='md:text-3xl text-xl font-semibold text-white'>
-                        {t('CoBagreimbursesyourLuggage')}
+                        {t('CoBagreimbursesyourLuggage2')}
                     </h3>
                     <div className="absolute md:-bottom-60 -bottom-0 md:w-[50%]">
                         {/* Thumbnail or Video Player */}
@@ -74,7 +74,7 @@ const Hero = () => {
                             </button>
                             <button className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] py-3 rounded-md font-semibold text-primary border-[1px] flex items-center justify-center gap-2">
                                 <IoSearchOutline className='text-xl' />
-                               {t('Searchforatraveler')}
+                                {t('Searchforatraveler')}
                             </button>
 
                         </div>

@@ -25,11 +25,11 @@ const Page = () => {
     console.log(senderId);
 
 
-    const { data: message } = useGetMessageQuery({ resiverId: userId, senderId: senderId });
+    const { data: message, isLoading: isMessageLoading } = useGetMessageQuery({ resiverId: userId, senderId: senderId });
 
-    
+
     console.log(message?.data.filter(message => message.receiverId === userId));
-    
+
 
 
     const [isAdjust, setIsAdjust] = useState(false);
@@ -73,96 +73,112 @@ const Page = () => {
                 <div className='lg:col-span-3'>
                     <MessageHeader userId={userId} />
 
-                    <div className='bg-slate-100 min-h-screen'>
-                        <div className='h-[78vh] overflow-y-auto p-5'>
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
-                                <div>
-                                    <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> How are You ?</p>
-                                    <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> Didn't I tell you not to put your phone on charge just because it's the weekend?</p>
-                                    <span className='text-xs font-semibold'>2:10 pm</span>
+                    {
+                        isMessageLoading ?
+                            <div className='flex justify-center items-center h-[80vh]'>
+                                <div class='flex space-x-2 justify-center items-center bg-white h-screen dark:invert'>
+                                    <span class='sr-only'>Loading...</span>
+                                    <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                    <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                    <div class='h-8 w-8 bg-black rounded-full animate-bounce'></div>
                                 </div>
                             </div>
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
-                                        <Image className='max-w-32' src="/Images/about/message-user.png" alt="" />
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
-                                    </div>
-
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/message-user.png" alt="" />
-                                </div>
-                            </div>
-
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
-                                <div>
-                                    <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
-                                    <span className='text-xs font-semibold block'>2:10 pm</span>
-                                </div>
-                            </div>
-
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
+                            :
+                            <div className='bg-slate-100 min-h-screen'>
+                                <div className='h-[78vh] overflow-y-auto p-5'>
+                                    
+                                    <div className='flex gap-3 items-end'>
+                                        <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
                                         <div>
-                                            <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
+                                            <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> How are You ?</p>
+                                            <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> Didn't I tell you not to put your phone on charge just because it's the weekend?</p>
+                                            <span className='text-xs font-semibold'>2:10 pm</span>
                                         </div>
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
                                     </div>
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
+                                    <div className='flex  items-end justify-end'>
+                                        <div className='flex gap-3  items-end justify-end'>
+                                            <div className='w-3/4'>
+                                                <Image className='max-w-32' src="/Images/about/message-user.png" alt="" />
+                                                <span className='block text-right text-xs font-semibold'>2:00 pm</span>
+                                            </div>
 
-                                </div>
-                            </div>
+                                            <img className='w-10 h-10 rounded-full' src="/Images/about/message-user.png" alt="" />
+                                        </div>
+                                    </div>
 
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
-                                <div>
-                                    <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
-                                    <span className='text-xs font-semibold block'>2:10 pm</span>
-                                </div>
-                            </div>
-
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
+                                    <div className='flex gap-3 items-end'>
+                                        <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
                                         <div>
-                                            <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
+                                            <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
+                                            <span className='text-xs font-semibold block'>2:10 pm</span>
                                         </div>
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
                                     </div>
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
+
+                                    <div className='flex  items-end justify-end'>
+                                        <div className='flex gap-3  items-end justify-end'>
+                                            <div className='w-3/4'>
+                                                <div>
+                                                    <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
+                                                </div>
+                                                <span className='block text-right text-xs font-semibold'>2:00 pm</span>
+                                            </div>
+                                            <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
+
+                                        </div>
+                                    </div>
+
+                                    <div className='flex gap-3 items-end'>
+                                        <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
+                                        <div>
+                                            <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
+                                            <span className='text-xs font-semibold block'>2:10 pm</span>
+                                        </div>
+                                    </div>
+
+                                    <div className='flex  items-end justify-end'>
+                                        <div className='flex gap-3  items-end justify-end'>
+                                            <div className='w-3/4'>
+                                                <div>
+                                                    <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
+                                                </div>
+                                                <span className='block text-right text-xs font-semibold'>2:00 pm</span>
+                                            </div>
+                                            <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
+                                        </div>
+                                    </div>
+
                                 </div>
+
+                                <div className="mt-5">
+                                    {/* Input field container */}
+                                    <div className="flex items-center gap-3 border-t border-gray-300 pt-2 px-3">
+                                        {/* File input */}
+                                        <Upload >
+                                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                        </Upload>
+                                        {/* Text input field */}
+                                        <input
+                                            type="text"
+                                            name="text"
+                                            id="message-input"
+                                            placeholder="Type a message..."
+                                            className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-gray-700"
+                                        />
+
+                                        {/* Send button */}
+                                        <button
+                                            className="p-3 bg-primary text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
 
-                        </div>
+                    }
 
-                        <div className="mt-5">
-                            {/* Input field container */}
-                            <div className="flex items-center gap-3 border-t border-gray-300 pt-2 px-3">
-                                {/* File input */}
-                                <Upload >
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                                </Upload>
-                                {/* Text input field */}
-                                <input
-                                    type="text"
-                                    name="text"
-                                    id="message-input"
-                                    placeholder="Type a message..."
-                                    className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-gray-700"
-                                />
 
-                                {/* Send button */}
-                                <button
-                                    className="p-3 bg-primary text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                >
-                                    Send
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
 
