@@ -11,6 +11,8 @@ import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
 import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaBox } from 'react-icons/fa6';
+import { IoMdCheckbox } from 'react-icons/io';
 
 const Page = () => {
 
@@ -71,9 +73,9 @@ const Page = () => {
 
             const response = await searchIshop(formData).unwrap();
             console.log(response);
-            if(response?.success){
+            if (response?.success) {
                 setSearchTerm(response?.data)
-                toast.success(`Search successfully !! See ${response?.data?.length} Item` );
+                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
             }
 
         } catch (error) {
@@ -87,15 +89,16 @@ const Page = () => {
     return (
         <div>
             <Toaster position="top-center" toastOptions={{ duration: 3000 }} containerStyle={{ zIndex: 999999 }} />
-            <div className='bg-[url("/Images/Ishop/banner.png")] w-full min-h-[80vh] bg-cover bg-center'>
+            <div className='bg-[url("/Images/Ishop/banner.png")] w-full min-h-[90vh] duration-500 bg-cover bg-center'>
                 <div>
-                    <div className='bg-[#000d1a8a] min-h-[80vh] py-20'>
+                    <div className='bg-[#000d1a8a] min-h-[90vh] py-32'>
                         <div className='lg:w-2/4 mx-auto text-center'>
                             <h1 className='md:text-4xl text-3xl font-semibold text-white'>
                                 {t('worldPurchasesInYourBasket5454')}
                             </h1>
                             <p className='text-white lg:text-xl lg:mt-5 mt-3'>
-                                {t('whatYouCantFindAtHome5454')}
+                                {/* {t('whatYouCantFindAtHome5454')} */}
+                                What you can't find at home, our courier travelers will bring it to you! The world has never been so close
                             </p>
                         </div>
 
@@ -153,29 +156,22 @@ const Page = () => {
 
                                     {/* Checkbox for Flexible Dates */}
                                     <div>
-                                        <label className="flex items-center gap-2 mb-2 justify-end">
-                                            <input
-                                                type="checkbox"
-                                                checked={showFlexibleDate}
-                                                onChange={handleCheckboxChange}
-                                                className="w-4 h-4 text-primary focus:ring-0"
-                                            />
-                                            {t('flexibleDates454')}
+                                        <label className="block mb-2 font-semibold">
+                                            Flexible Dates
                                         </label>
-                                        {showFlexibleDate && (
-                                            <div className="">
-                                                <div className="relative flex items-center">
-                                                    <input
-                                                        type="date"
-                                                        name='desiredFlexibleDate'
-                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                                    />
-                                                    <span className="absolute left-3 text-gray-400">
-                                                        <CiCalendar className="text-2xl" />
-                                                    </span>
-                                                </div>
+                                        <div className="">
+                                            <div className="relative flex items-center">
+                                                <input
+                                                    type="date"
+                                                    name='desiredFlexibleDate'
+                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                />
+                                                <span className="absolute left-3 text-gray-400">
+                                                    <CiCalendar className="text-2xl" />
+                                                </span>
                                             </div>
-                                        )}
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div>
@@ -184,14 +180,57 @@ const Page = () => {
                                         <input
                                             type="number"
                                             name='desiredPrice'
+                                            placeholder={`Enter Your Price`}
                                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                         />
                                         <span className="absolute left-3 text-gray-400">
                                             <BsCurrencyDollar className="text-2xl" />
                                         </span>
                                     </div>
-
                                 </div>
+                                <div>
+
+                                    <label id="flexibleDate" className="flex items-center gap-2 my-2 ">
+                                        <input
+                                            type="checkbox"
+                                            checked={showFlexibleDate}
+                                            onChange={handleCheckboxChange}
+                                            name="flexibleDate"
+                                            className="w-4 h-4 text-primary focus:ring-0"
+                                        />
+                                        {t('flexibleDates454')}
+                                    </label>
+
+                                    
+
+                                    {showFlexibleDate && (
+                                        <div className="">
+                                            <div className="relative flex items-center">
+                                                <input
+                                                    type="text"
+                                                    name='name'
+                                                    placeholder="Name"
+                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                />
+                                                <span className="absolute left-3 text-gray-400">
+                                                    <IoMdCheckbox className="text-2xl" />
+                                                </span>
+                                            </div>
+                                            <div className="relative mt-5 flex items-center">
+                                                <input
+                                                    type="text"
+                                                    name='quantiry'
+                                                    placeholder="Quantity"
+                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                />
+                                                <span className="absolute left-3 text-gray-400">
+                                                    <FaBox className="text-2xl" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
                             </div>
 
                             <button

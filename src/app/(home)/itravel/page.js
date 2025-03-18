@@ -18,6 +18,7 @@ import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import { useCreatePlaneMutation } from '@/app/redux/Features/Itravel/createPlane';
 import toast, { Toaster } from 'react-hot-toast';
 import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
+import PopularProducts from '@/app/components/Ishop/PopularProducts';
 
 
 
@@ -327,7 +328,7 @@ const Page = () => {
 
 
 
-    
+
 
 
 
@@ -1010,13 +1011,17 @@ const Page = () => {
                         </div>
 
 
+
                     </div>
+                    <h2 className='text-xl font-semibold text-center text-white mt-5'>View purchase request announcements</h2>
                 </div>
             </div>
 
             <ITravelVideoSection />
             <HalfEmptyLuggage />
             <Courier />
+
+            <PopularProducts />
 
         </div>
     );

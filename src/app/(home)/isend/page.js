@@ -780,9 +780,13 @@ const Page = () => {
                         </div>
                         {/* Active Tab Content */}
                         <div className="rounded-md">{tabs[activeTab].content}</div>
+
+
                     </div>
                 </div>
+
             </div>
+          
 
 
             <AvailableRoutes searchData={allSearchResutl} />

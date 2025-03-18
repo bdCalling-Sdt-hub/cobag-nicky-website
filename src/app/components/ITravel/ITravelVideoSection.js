@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import i18n from '@/app/utils/i18';
 import Image from 'next/image';
 import React, { useState } from 'react';
@@ -61,8 +61,10 @@ const ITravelVideoSection = () => {
                 </div>
             </div>
 
+            
 
-            <div className='w-[90%] mx-auto py-20 grid lg:grid-cols-4 grid-cols-1 gap-5 '>
+
+            {/* <div className='w-[90%] mx-auto py-20 grid lg:grid-cols-4 grid-cols-1 gap-5 '>
                 <div data-aos="fade-up" data-aos-duration="300" className='text-center flex flex-col items-center justify-center'>
                     <div className='w-14 h-14 bg-primary text-white flex items-center justify-center rounded-full'>
                         <FiUserCheck className='text-2xl ' />
@@ -91,7 +93,7 @@ const ITravelVideoSection = () => {
                     <h2 className='md:text-2xl text-xl font-semibold text-primary my-5 '>{t('cobagInsurance1221')}</h2>
                     <p className='text-[#000000b2]'>{t('insuranceDetails1221')}</p>
                 </div>
-            </div>
+            </div> */}
 
 
         </div>

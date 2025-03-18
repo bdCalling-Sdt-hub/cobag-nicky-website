@@ -3,7 +3,7 @@ import i18n from '@/app/utils/i18';
 import React from 'react';
 
 const Advantages = () => {
-    const {t} = i18n;
+    const { t } = i18n;
 
     return (
         <div className='py-20 bg-[#fafaff]'>
@@ -14,7 +14,7 @@ const Advantages = () => {
 
             <div className='lg:w-[60%] w-[90%] mx-auto mt-20'>
                 <div className='grid lg:grid-cols-2 items-center gap-20 my-20'>
-                    <img className='w-full' src="/Images/commission/commission-image-1.png" alt="" />
+                    <img className='w-full' src="/Images/NewSection/colis.png" alt="" />
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-1.png" alt="" />
                         <div>
@@ -24,7 +24,7 @@ const Advantages = () => {
                     </div>
                 </div>
                 <div className='grid lg:grid-cols-2 items-center gap-20 my-20'>
-                    <img className='w-full' src="/Images/commission/commission-image-2.png" alt="" />
+                    <img className='w-full' src="/Images/NewSection/gare.png" alt="" />
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-2.png" alt="" />
                         <div>
@@ -34,7 +34,7 @@ const Advantages = () => {
                     </div>
                 </div>
                 <div className='grid lg:grid-cols-2 items-center gap-20 my-20'>
-                    <img className='w-full' src="/Images/commission/commission-image-3.png" alt="" />
+                    <img className='w-full' src="/Images/NewSection/securite.png" alt="" />
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-3.png" alt="" />
                         <div>

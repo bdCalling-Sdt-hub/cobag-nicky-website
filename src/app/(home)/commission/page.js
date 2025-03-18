@@ -3,6 +3,7 @@ import BecomeMember from '@/app/components/commission/BecomeMember';
 import CommissionHeader from '@/app/components/commission/CommissionHeader';
 import Faq from '@/app/components/commission/Faq';
 import SubscriptionCard from '@/app/components/commission/SubscriptionCard';
+import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import React from 'react';
 
 const Page = () => {
@@ -11,8 +12,9 @@ const Page = () => {
             <CommissionHeader />
             <Advantages />
             <SubscriptionCard />
-            <BecomeMember />
-            <Faq />
+            {/* <BecomeMember />
+            <Faq /> */}
+            <PopularProducts />
         </div>
     );
 }
