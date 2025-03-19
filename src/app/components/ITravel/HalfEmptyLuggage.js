@@ -31,7 +31,7 @@ const HalfEmptyLuggage = () => {
                             <span>
                                 {t('AverageEarningsPerTraveler')}
                             </span>
-                            <h2 className='text-3xl font-semibold text-primary'>30€ - 300€</h2>
+                            <h2 className='text-3xl font-semibold text-primary'>50€ - 200€</h2>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
     return (
         <div className='bg-[#f7f7fc]'>
             <div className='lg:py-32 py-20 bg-[#]'>
-                <div className='lg:w-[80%] w-[90%] mx-auto mb-5 flex items-center gap-3'>
+                {/* <div className='lg:w-[80%] w-[90%] mx-auto mb-5 flex items-center gap-3'>
                     <p className='text-base font-semibold text-primary'>{t('newJourneyNotification654')} -</p>
                     {
                         isNotificaiton ?
@@ -33,12 +33,12 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                             :
                             <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                     }
-                </div>
-                <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t('couriersAvailable')}
-                    {(` ( ${searchIshopItem?.length} )`) + ' item'}
-                </h2>
+                </div> */}
 
-                <div className='lg:w-[80%] w-[90%] mx-auto'>
+                <div className='lg:w-[60%] w-[90%] mx-auto'>
+                    <h2 className='md:text-4xl text-3xl font-semibold text-primary '>
+                        Available routes
+                    </h2>
 
                     {searchIshopItem.length > 0 ?
                         searchIshopItem?.map((item, index) => (

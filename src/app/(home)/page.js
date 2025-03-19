@@ -32,7 +32,7 @@ const Page = () => {
             <SiteDetails />
             <AboutUs />
             <DoseItWork />
-            <Examples />
+            {/* <Examples /> */}
             <DetailsInfo />
         </div>
     );

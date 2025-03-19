@@ -99,8 +99,8 @@ const AboutUs = () => {
 
             <div className='bg-gradient-to-t from-[#ffffff] via-[#9affcc] to-[#ffffff1a]'>
                 <section data-aos="fade-up" className='w-[80%] mx-auto py-20'>
-                    <h2 className='text-center text-2xl font-semibold text-primary'>CoBag: An ecological revolution in transport</h2>
-                    <p className='mb-10 mt-3 w-3/4 mx-auto text-center'>Every day, 13.7 million people travel by plane around the world , and 67.2 million kilos of their luggage go unused . With CoBag, these lost kilos become a valuable resource, drastically reducing CO₂ emissions.
+                    <h2 className='text-center text-3xl font-semibold text-primary'>CoBag: An ecological revolution in transport</h2>
+                    <p className='mb-10 mt-3 w-3/4 mx-auto text-center text-xl'>Every day, <span className='font-semibold text-primary '>13.7 million people travel by plane around the world</span> , and <span className='font-semibold text-primary'>67.2 million kilos of their luggage go unused .</span> With CoBag, these lost kilos become a valuable resource, drastically reducing CO₂ emissions.
                     </p>
 
                     <img className='w-2/4 mx-auto' src="/Images/NewSection/ecolo.png" alt="" />
