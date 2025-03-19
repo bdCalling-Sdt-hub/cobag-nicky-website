@@ -91,7 +91,7 @@ const Header = () => {
             {/* Logo Section (Always Visible) */}
             <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
                 <Image
-                    src="/Images/logo.svg"
+                    src="/Images/NewSection/cobag-logo.png"
                     alt="Company Logo"
                     width={150}
                     height={75}

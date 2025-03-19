@@ -23,7 +23,7 @@ const SiteDetails = () => {
                 <h1 className='md:text-4xl text-3xl font-semibold text-primary text-center'><span className='block leading-[1.5]'>{t('SiteYouKnow')} <br /></span> {t('SiteCARPOOLING')} <span className='text-[#0b2f9f]'>{t('SiteCOLOCATION')}</span> <span className='text-[#2563eb]'>{t('SiteCOWORKING')}</span></h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
                 <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
-                    <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/logo.svg" alt="" />
+                    <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/NewSection/cobag-logo.png" alt="" />
                 </div>
                 <h2>{t('SiteCObagSharing')} <span className='font-semibold text-primary'>Sharing</span></h2>
                 <h2>{t('SiteCObagSharingwhat')}<span className='font-semibold text-primary'>Sharing luggage</span></h2>

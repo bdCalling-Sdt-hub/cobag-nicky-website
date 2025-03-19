@@ -1,7 +1,9 @@
 'use client';
 import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
+import ExcessBaggage from '@/app/components/Isend/ExcessBaggage';
 import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
+import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
@@ -362,6 +364,18 @@ const Page = () => {
 
                                     </div>
 
+                                    {/* checkbox  with : I would like to have my excess baggage transported*/}
+                                    <div>
+                                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                                            <input
+                                                type="checkbox"
+                                                name="flexible"
+                                                id={`flexible`}
+                                            />
+                                            <span>I would like to have my excess baggage transported</span>
+                                        </label>
+                                    </div>
+
                                     {/* Package Weight */}
                                     <div>
                                         <label className="mb-2 font-semibold flex justify-between">{t('packageWeightLabel454')}
@@ -379,6 +393,7 @@ const Page = () => {
                                             </span>
                                         </div>
                                     </div>
+
                                     {/* {
                                         showNewPackage &&
                                         <div>
@@ -399,6 +414,7 @@ const Page = () => {
                                     } */}
 
                                 </div>
+
                             </div>
                         ))}
                         <button
@@ -494,6 +510,17 @@ const Page = () => {
                             )}
                         </div>
                     </div>
+                    <div>
+                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                            <input
+                                type="checkbox"
+                                name="flexible"
+                                id={`flexible`}
+                            />
+                            <span>I would like to have my excess baggage transported</span>
+                        </label>
+                    </div>
+
 
                     <div className='mb-5'>
                         <h2 className="block mb-2 font-semibold">  Package size   </h2>
@@ -638,6 +665,17 @@ const Page = () => {
                         </div>
                     </div>
 
+                    <div>
+                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                            <input
+                                type="checkbox"
+                                name="flexible"
+                                id={`flexible`}
+                            />
+                            <span>I would like to have my excess baggage transported</span>
+                        </label>
+                    </div>
+
 
                     <div className="my-5">
                         {/* Departure City */}
@@ -677,6 +715,8 @@ const Page = () => {
                             )
                         } */}
                     </div>
+
+
 
                     <div>
                         <h2>Package size</h2>
@@ -786,13 +826,19 @@ const Page = () => {
                 </div>
 
             </div>
-          
+
 
 
             <AvailableRoutes searchData={allSearchResutl} />
-            <VideoAndCard />
-            <Shipments />
 
+            <ExcessBaggage />
+
+            <PopularProducts />
+
+
+
+            {/* <Shipments /> */}
+            {/* <VideoAndCard /> */}
 
         </div>
 

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { LuPlane, LuShield } from 'react-icons/lu';
-import { IoMdInformationCircle } from "react-icons/io";
+import { IoIosNotificationsOutline, IoMdInformationCircle } from "react-icons/io";
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
 import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { MdVerifiedUser } from 'react-icons/md';
@@ -27,19 +27,41 @@ const AvailableRoutes = ({ searchData }) => {
 
 
     return (
-        <div className='lg:py-32 py-20 bg-[#]'>
-            <div className='lg:w-[80%] mx-auto mb-5 flex items-center gap-3'>
-                <p className='text-base font-semibold text-primary'>{t('newJourneyNotification654')}</p>
+        <div className='lg:py-20 py-10 bg-[#]'>
+            <div className='lg:w-[80%] mx-auto mb-5 flex justify-center items-center gap-3'>
+                <p className='text-base font-semibold text-gray-600'>Be alerted</p>
                 {
                     isNotificaiton ?
-                        <FaToggleOff className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
+                        <FaToggleOff className='text-4xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                         :
-                        <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
+                        <FaToggleOn className='text-4xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                 }
             </div>
-            <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t("availableRoutes654")} {(`( ${searchData?.length} )`) + ' item'}</h2>
+            <div className='md:w-[600px] mx-auto  my-10'>
+                <div className=' grid grid-cols-2 gap-5'>
+                    <div>
+                        <img src="/Images/NewSection/available-routes.png" alt="" />
+                    </div>
+                    <div className='bg-gray-200 p-5 rounded-xl'>
+                        <h2 className='text-2xl font-semibold text-primary flex items-center gap-2 mb-5'><span className='text-4xl'>😋</span> Victim of its success</h2>
+                        <p>Oooh... Too bad, all the travelers have already sold their kilos for this destination. But don't worry! Sign up for the alert and be the first to know as soon as a new traveler offers their space.</p>
+                    </div>
+                </div>
+                <div className='mt-5'>
+                    <p className='text-base my-3 text-gray-600'>Receive an alert for new places available:</p>
+                    <div className='grid grid-cols-2 gap-5'>
+                        <input className='w-full p-3 rounded-lg border border-gray-300' type="email" placeholder='Enter your email' name="email" id="" />
+                        <button className='w-full p-3 rounded-lg bg-primary text-white flex items-center justify-center gap-2'><IoIosNotificationsOutline className='text-2xl' />Activate alert</button>
+                    </div>
+                </div>
+            </div>
 
-            <div className='lg:w-[80%] w-[95%] mx-auto'>
+
+
+
+
+            <div className='lg:w-[60%] w-[95%] mx-auto'>
+                <h2 className='md:text-3xl text-2xl font-semibold text-primary mt-10'>Available routes</h2>
 
 
                 {searchData.length > 0 ?
