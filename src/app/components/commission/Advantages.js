@@ -28,7 +28,10 @@ const Advantages = () => {
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-2.png" alt="" />
                         <div>
-                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>{t('InsurancePlusIncluded')}</h2>
+                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>
+                                {/* {t('InsurancePlusIncluded')} */}
+                                Sans engagement
+                            </h2>
                             <p className='text-gray-400'>{t('EnjoyCompleteFlexibility')}</p>
                         </div>
                     </div>
@@ -38,8 +41,14 @@ const Advantages = () => {
                     <div className='flex items-start gap-5'>
                         <img src="/Images/commission/commission-con-3.png" alt="" />
                         <div>
-                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>{t('NoCommitment')}</h2>
-                            <p className='text-gray-400'>{t('StayInControl')}</p>
+                            <h2 className='md:text-3xl text-2xl font-semibold text-primary mb-5'>
+                                {/* {t('NoCommitment')} */}
+                                Plus Insurance included
+                            </h2>
+                            <p className='text-gray-400'>
+                                {/* {t('StayInControl')} */}
+                                Benefit from Plus insurance: coverage included up to €500 instead of €150
+                            </p>
                         </div>
                     </div>
                 </div>

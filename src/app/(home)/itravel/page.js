@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
-import { FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
+import { FaAngleDown, FaAngleUp, FaArrowRightLong, FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdInfo, MdOutlineFileUpload } from "react-icons/md";
 import { RiShoppingBag4Line } from "react-icons/ri";
@@ -340,19 +340,23 @@ const Page = () => {
         <div>
             <Toaster toastOptions={{ duration: 5000 }} containerStyle={{ zIndex: 99999999 }} position="top-center" />
             <div className={` duration-500 ${activeTab === 1 ? 'bg-[url("/Images/Itravel/travel-plane-1.png")] ' : 'bg-[url("/Images/Itravel/travel-tran-1.png")] '}  bg-cover bg-center h-auto w-full `}>
-                <div className='w-full h-full bg-[#0000008e] lg:py-10 py-5 '>
+                <div className='w-full h-full bg-[#0000008e] lg:py-10 py-5 px-5 md:px-0'>
 
                     <div className='flex flex-col items-center justify-center lg:py-10 py-5 lg:px-0 px-5 text-center text-white'>
                         <h2 className='lg:text-5xl text-3xl font-semibold mb-3'>
-                            {t('OfferYourJourney')}
+                            {/* {t('OfferYourJourney')} */}
+                            Travel smart
                         </h2>
                         <p className='lg:text-xl'>
-                            {t('ResellUnusedKilos')}
+                            {/* {t('ResellUnusedKilos')} */}
+                            Turn your lost pounds into gains with every trip
                         </p>
                     </div>
 
-                    <div className='max-w-5xl mx-auto backdrop-blur-lg bg-[#ffffff85] p-10 rounded-md'>
+                    <div className='max-w-5xl mx-auto backdrop-blur-lg bg-[#ffffff85] md:p-10 p-5 rounded-md'>
                         {/* Tab Navigation */}
+                        <span className='mb-3 font-semibold block text-[#474747]'>Mode of transport</span>
+
                         <div className="flex justify-center gap-5 mb-6">
                             <button
                                 className={`px-4 py-3 text-lg font-medium w-[50%] rounded-md flex items-center justify-center gap-2  ${activeTab === 1 ? ' bg-primary text-white ' : 'bg-white text-primary'
@@ -371,14 +375,16 @@ const Page = () => {
                         </div>
 
                         {/* Tab Content */}
-                        <div>
+                        <div className=''>
+
                             {activeTab === 1 && (
                                 <div>
                                     <form onSubmit={handleSubmitTravel} className="space-y-6">
 
                                         <div className="">
-                                            <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+                                            <span className='font-semibold text-gray-700 mb-2 block'>Type of journey
+                                            </span>
+                                            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
                                                     <input
@@ -389,7 +395,7 @@ const Page = () => {
                                                         value="direct" // Set the value here
                                                         defaultChecked
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white  rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
@@ -403,7 +409,7 @@ const Page = () => {
                                                         id="radio2"
                                                         value="withCorrespondence" // Set the value here
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white bg-white text-primary rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
@@ -411,63 +417,6 @@ const Page = () => {
 
                                         </div>
 
-                                        {/* Transport Mood */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                                            <div className="">
-                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
-                                                <div className='flex gap-5'>
-                                                    {/*  Hidden File Input */}
-                                                    <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
-                                                        <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
-
-                                                            {imagePreview ? (
-                                                                <img src={imagePreview} alt="Uploaded" className="w-full h-auto rounded-lg" />
-                                                            ) : (
-                                                                <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
-                                                                    <input
-                                                                        type="file"
-                                                                        id="ticket-upload"
-                                                                        name='ticketImage'
-                                                                        accept=".png, .jpg, .jpeg"
-                                                                        className="hidden"
-                                                                        onChange={handleFile1Change} // Handle the file change
-                                                                    />
-                                                                    <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
-                                                                </label>
-                                                            )}
-
-                                                            {/* Show the file name when the file is uploaded */}
-                                                            {/* <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span> */}
-                                                        </label>
-                                                    </div>
-
-                                                    {/* Label and Button */}
-                                                    <label
-                                                        htmlFor="ticket-upload"
-                                                        className="flex flex-col justify-center cursor-pointer w-[50%]"
-                                                    >
-                                                        <span
-                                                            className="border-gray-100 block text-center border-[1px] text-gray-700 px-4 py-2 rounded-md   transition"
-                                                        >
-                                                            Add your ticket
-                                                        </span>
-                                                        <p className="text-xs mt-2 text-gray-500">{t('AddYourTicket')}</p>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">{t('FlightNumber')}</label>
-                                                <input
-                                                    type="text"
-                                                    name="flightNumber"
-                                                    className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
-                                                    placeholder="E-5648"
-                                                />
-                                            </div>
-                                        </div>
 
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -508,7 +457,10 @@ const Page = () => {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">{t('DepartureDate')}</label>
+                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">
+                                                    {/* {t('DepartureDate')} */}
+                                                    Departure date and time
+                                                </label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -522,7 +474,10 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm mb-2 font-semibold text-gray-700">{t('ArrivalDate')}</label>
+                                                <label className="block text-sm mb-2 font-semibold text-gray-700">
+                                                    {/* {t('ArrivalDate')} */}
+                                                    Date and time of arrival
+                                                </label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -537,36 +492,30 @@ const Page = () => {
                                             </div>
                                         </div>
 
-                                        <div className='flex items-center justify-between gap-5 '>
-                                            <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
-                                                <TimePicker name='departureTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime2} />
-                                            </div>
-                                            <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
-                                                <TimePicker name='arrivalTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime1} />
-                                            </div>
-                                        </div>
-
                                         <div>
-                                            <span className="block font-semibold text-gray-700 mb-3">{t('AvailableWeight')}</span>
-                                            <div className='bg-white p-5 rounded-lg '>
-                                                <label htmlFor="handLuggage" className='flex items-center justify-between '>
-                                                    <div className='flex items-center gap-3'>
-                                                        <div className='w-16 h-16 bg-[#e7eaf5] rounded-full flex items-center justify-center'>
-                                                            <IoBagOutline className='text-3xl text-primary' />
-                                                        </div>
-                                                        <h2 className='text-2xl font-semibold text-primary'>{t('HandLuggage')}</h2>
-                                                    </div>
-                                                    <div>
-                                                        <input onClick={handleShowCheckLuggage} className='w-5 h-5' type="checkbox" name="handLuggage" id="handLuggage" />
-                                                    </div>
-                                                </label>
-                                                {
-                                                    showLuggage && (
+                                            <span className="block font-semibold text-gray-700 mb-3">
+                                                {/* {t('AvailableWeight')} */}
+                                                Weight available for resale
+                                            </span>
 
-                                                        <div className='flex items-center gap-5 justify-center'>
-                                                            <p>{t('AvailableWeight')}:</p>
+                                            <div className='bg-white p-5 rounded-lg '>
+
+                                                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-5'>
+
+                                                    <div className=' '>
+                                                        <label htmlFor="handLuggage" className='flex items-center justify-between '>
+                                                            <div className='flex items-center gap-3'>
+                                                                <div className='w-16 h-16 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
+                                                                    <IoBagOutline className='text-3xl text-primary' />
+                                                                </div>
+                                                                <h2 className='text-2xl font-semibold text-primary'>{t('HandLuggage')} <br />
+                                                                    <span className='text-sm text-gray-500 font-normal'> Maximum 13kg per baggage</span>
+
+                                                                </h2>
+                                                            </div>
+                                                        </label>
+                                                        <div className='flex items-center gap-5 mt-5 justify-center'>
+                                                            {/* <p>{t('AvailableWeight')}:</p> */}
                                                             <div className='flex items-center justify-start gap-3'>
                                                                 {/* incress and decress button and input field  */}
 
@@ -580,31 +529,21 @@ const Page = () => {
                                                             </div>
                                                             <p>kg</p>
                                                         </div>
-                                                    )
-                                                }
-                                            </div>
-
-                                        </div>
-
-
-                                        <div>
-                                            <div className='bg-white p-5 rounded-lg '>
-                                                <label htmlFor="handBaggage" className='flex items-center justify-between '>
-                                                    <div className='flex items-center gap-3'>
-                                                        <div className='w-16 h-16 bg-[#e7eaf5] rounded-full flex items-center justify-center'>
-                                                            <RiShoppingBag4Line className='text-3xl text-primary' />
-                                                        </div>
-                                                        <h2 className='text-2xl font-semibold text-primary'>{t('CheckedBaggage')}</h2>
                                                     </div>
-                                                    <div>
-                                                        <input onClick={handleShowCheckBaggage} className='w-5 h-5' type="checkbox" name="handBaggage" id="handBaggage" />
-                                                    </div>
-                                                </label>
-                                                {
-                                                    showBaggage && (
 
-                                                        <div className='flex items-center gap-5 justify-center'>
-                                                            <p>{t('AvailableWeight')}:</p>
+                                                    <div className=' '>
+                                                        <label htmlFor="handBaggage" className='flex items-center justify-between '>
+                                                            <div className='flex items-center gap-3'>
+                                                                <div className='w-16 h-16 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
+                                                                    <RiShoppingBag4Line className='text-3xl text-primary' />
+                                                                </div>
+                                                                <h2 className='text-2xl font-semibold text-primary'>{t('CheckedBaggage')} <br />
+                                                                    <span className='text-sm text-gray-500 font-normal'>Maximum 23kg per piece of luggage</span>
+                                                                </h2>
+                                                            </div>
+                                                        </label>
+                                                        <div className='flex items-center mt-5 gap-5 justify-center'>
+                                                            {/* <p>{t('AvailableWeight')}:</p> */}
                                                             <div className='flex items-center justify-start gap-3'>
                                                                 {/* incress and decress button and input field  */}
 
@@ -618,11 +557,29 @@ const Page = () => {
                                                             </div>
                                                             <p>kg</p>
                                                         </div>
-                                                    )
-                                                }
-                                            </div>
+                                                    </div>
 
+                                                </div>
+
+                                                <div className='mt-10'>
+                                                    <h2 className='mb-5'>Resale price per kilo</h2>
+                                                    <div className='bg-[#F9FAFB] justify-between p-5 rounded-lg flex items-center gap-5'>
+                                                        <div>
+                                                            <h2 className='text-2xl font-semibold text-primary mb-3'>5€/kg</h2>
+                                                            <span className='text-sm'>Minimum transaction: €12</span>
+                                                        </div>
+                                                        <div className='flex items-center gap-3 flex-col'>
+                                                            <FaAngleUp className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
+                                                            <FaAngleDown className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
                                         </div>
+
+
 
                                         <div>
                                             {/* Checkbox with Label */}
@@ -662,18 +619,17 @@ const Page = () => {
 
 
                                         <div>
-                                            <span className='font-semibold  text-gray-700'>{t('MessageOptional')}</span>
-                                            <div className="relative mt-2 ">
-                                                <div className="absolute inset-y-0 left-0 pl-2 top-5">
-                                                    {/* Icon */}
-                                                    <FiMessageSquare className='text-2xl text-[#737373]' />
-                                                </div>
-                                                <textarea
-                                                    type="number"
-                                                    name='message'
-                                                    placeholder='Enter the message' className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-10 py-5 focus:outline-none focus:ring-blue-500 focus:border-blue-500 min-h-[250px]"
+                                            <label htmlFor="available2" className="flex items-center gap-2 cursor-pointer">
+                                                <input  // Use onChange instead of onClick for checkboxes
+                                                    className="w-5 h-5"
+                                                    type="checkbox"
+                                                    name="availableReturn"
+                                                    id='available2'
                                                 />
-                                            </div>
+                                                <span className="flex items-center gap-1 text-sm font-semibold  text-gray-700">
+                                                    Also fill my return journey
+                                                </span>
+                                            </label>
                                         </div>
 
 
@@ -698,7 +654,7 @@ const Page = () => {
 
                                         <div className="">
                                             <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
                                                     <input
@@ -709,7 +665,7 @@ const Page = () => {
                                                         value="direct" // Set the value here
                                                         defaultChecked
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white border border-gray-300 rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white  rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
@@ -723,7 +679,7 @@ const Page = () => {
                                                         id="radio2"
                                                         value="withCorrespondence" // Set the value here
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white border border-gray-300 bg-white text-primary rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white  bg-white text-primary rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
@@ -1013,7 +969,7 @@ const Page = () => {
 
 
                     </div>
-                    <h2 className='text-xl font-semibold text-center text-white mt-5'>View purchase request announcements</h2>
+                    <h2 className='md:text-xl cursor-pointer flex items-center justify-center gap-2 font-semibold text-center text-white mt-5'>View purchase request announcements <FaArrowRightLong />                    </h2>
                 </div>
             </div>
 

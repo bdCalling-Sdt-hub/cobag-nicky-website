@@ -4,6 +4,7 @@ import ExcessBaggage from '@/app/components/Isend/ExcessBaggage';
 import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
+import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
 import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
@@ -262,8 +263,6 @@ const Page = () => {
         }
 
     }
-
-
 
 
 
@@ -794,10 +793,13 @@ const Page = () => {
                 <div className="bg-[#0505055e] min-h-[100vh] p-5">
                     <div className="lg:w-2/4 mx-auto text-center my-10">
                         <h2 className="lg:text-4xl text-2xl font-semibold text-white">
-                            {t('packageDeliveredTitle45454')}
+                            {/* {t('packageDeliveredTitle45454')} */}
+                            The fastest delivery on the planet
+
                         </h2>
                         <p className="mt-3 font-normal text-[#ffffff] lg:text-xl">
-                            {t('packageDeliveredDescription45454')}
+                            {/* {t('packageDeliveredDescription45454')} */}
+                            In just a few hours, your package will cross the globe. The world has never been so close.
                         </p>
                     </div>
 
@@ -829,10 +831,10 @@ const Page = () => {
 
 
 
+
             <AvailableRoutes searchData={allSearchResutl} />
-
+            <ITravelVideoSection />
             <ExcessBaggage />
-
             <PopularProducts />
 
 

@@ -19,8 +19,8 @@ const ITravelVideoSection = () => {
     return (
         <div className=''>
             <div className='bg-[#f9fafb]'>
-                <div className='w-[90%] mx-auto lg:py-20 py-10'>
-                    <div className='relative mt-10 flex justify-center'>
+                <div className='w-[90%] mx-auto  py-10'>
+                    <div className='relative flex justify-center'>
                         <div className=" md:-bottom-60 -bottom-0 md:w-[50%]">
                             {/* Thumbnail or Video Player */}
                             {!isPlaying ? (

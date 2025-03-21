@@ -78,11 +78,12 @@ const CommissionHeader = () => {
                 </h1>
                 <img
                     className="w-2/3 mx-auto mg:my-20 my-10"
-                    src="/Images/commission/commission-hero-logo.png"
+                    src="/Images/NewSection/cobag-sky-logo.png"
                     alt="Commission Logo"
                 />
                 <p className="text-xl text-primary">
-                    {t('monthlyFeeMessage')}
+                    {/* {t('monthlyFeeMessage')} */}
+                    For only €10 per month, without commitment, earn even more
                 </p>
                 <button
                     onClick={showModal}

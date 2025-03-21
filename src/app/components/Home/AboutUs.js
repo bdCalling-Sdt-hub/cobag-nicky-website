@@ -25,15 +25,15 @@ const AboutUs = () => {
 
     return (
         <div className='my-20'>
-            <section data-aos="fade-up" className='w-[70%] mx-auto'>
-                <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center mb-5'>CoBag is also the solution for:</h2>
-                <p className='text-xl text-center'>Carry your excess baggage at a discounted price, shop from around the world and send packages internationally, all with <span className='text-primary font-semibold'> the fastest delivery on the planet: one direct flight away .</span>
+            <section data-aos="fade-up" className='md:w-[70%] w-[90%] mx-auto'>
+                <h2 className='md:text-4xl text-2xl font-semibold text-primary text-center mb-5'>CoBag is also the solution for:</h2>
+                <p className='md:text-xl text-center'>Carry your excess baggage at a discounted price, shop from around the world and send packages internationally, all with <span className='text-primary font-semibold'> the fastest delivery on the planet: one direct flight away .</span>
                 </p>
                 <img className='w-3/4 mx-auto' src="/Images/NewSection/solutions-1.png" alt="" />
-                <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto my-20'> Transport my surplus at a reduced price <FaArrowRight /></button>
+                <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-5 rounded-lg mx-auto my-20'> Transport my surplus at a reduced price <FaArrowRight /></button>
             </section>
 
-            <section data-aos="fade-up" className='w-[80%] mx-auto'>
+            <section data-aos="fade-up" className='w-[80%]  mx-auto'>
                 <h2 className='text-center text-xl'>Examples of international purchases you will have in your hands <span className='text-primary font-semibold'>during a flight :</span></h2>
 
                 <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 my-20 text-center'>
@@ -98,9 +98,9 @@ const AboutUs = () => {
             </section>
 
             <div className='bg-gradient-to-t from-[#ffffff] via-[#9affcc] to-[#ffffff1a]'>
-                <section data-aos="fade-up" className='w-[80%] mx-auto py-20'>
-                    <h2 className='text-center text-3xl font-semibold text-primary'>CoBag: An ecological revolution in transport</h2>
-                    <p className='mb-10 mt-3 w-3/4 mx-auto text-center text-xl'>Every day, <span className='font-semibold text-primary '>13.7 million people travel by plane around the world</span> , and <span className='font-semibold text-primary'>67.2 million kilos of their luggage go unused .</span> With CoBag, these lost kilos become a valuable resource, drastically reducing CO₂ emissions.
+                <section data-aos="fade-up" className='md:w-[80%] w-[90%] mx-auto py-20'>
+                    <h2 className='text-center md:text-3xl text-2xl  font-semibold text-primary'>CoBag: An ecological revolution in transport</h2>
+                    <p className='mb-10 mt-5 md:w-3/4 mx-auto text-center md:text-xl'>Every day, <span className='font-semibold text-primary '>13.7 million people travel by plane around the world</span> , and <span className='font-semibold text-primary'>67.2 million kilos of their luggage go unused .</span> With CoBag, these lost kilos become a valuable resource, drastically reducing CO₂ emissions.
                     </p>
 
                     <img className='w-2/4 mx-auto' src="/Images/NewSection/ecolo.png" alt="" />

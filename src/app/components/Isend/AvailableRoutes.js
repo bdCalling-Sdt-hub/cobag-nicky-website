@@ -3,14 +3,12 @@ import React, { useState } from 'react';
 import { LuPlane, LuShield } from 'react-icons/lu';
 import { IoIosNotificationsOutline, IoMdInformationCircle } from "react-icons/io";
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
-import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
+import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';  // Corrected the duplicate import
 import { MdVerifiedUser } from 'react-icons/md';
 import { FiMessageSquare } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
-import { PiTrainThin } from 'react-icons/pi';
-import baseUrl from '@/app/redux/api/baseUrl';
 import Link from 'next/link';
-
+import { IoShieldCheckmarkOutline } from 'react-icons/io5';
 
 const AvailableRoutes = ({ searchData }) => {
 
@@ -24,7 +22,27 @@ const AvailableRoutes = ({ searchData }) => {
         setIsNotificaiton(!isNotificaiton);
     }
 
-
+    const routeData = [
+        {
+            transportMode: 'plane',
+            transportType: 'Vol direct',
+            price: 18.00,
+            departureCity: 'Paris (CDG)',
+            departureDate: '15/03/2024',
+            departureTime: '14:30',
+            arrivalCity: 'Brazzaville (Maya-Maya)',
+            arrivalDate: '15/03/2024',
+            arrivalTime: '22:00',
+            totalSpace: 3,
+            user: {
+                profileImage: '/Images/NewSection/usreImgae.avif',
+                firstName: 'Thomas Martin',
+                reviewAva: 4.8,
+                reviewInt: 22,
+            },
+        },
+        // Add more raw route data here as needed
+    ];
 
     return (
         <div className='lg:py-20 py-10 bg-[#]'>
@@ -37,8 +55,8 @@ const AvailableRoutes = ({ searchData }) => {
                         <FaToggleOn className='text-4xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
                 }
             </div>
-            <div className='md:w-[600px] mx-auto  my-10'>
-                <div className=' grid grid-cols-2 gap-5'>
+            <div className='md:w-[600px] mx-auto my-10 px-5 md:px-0'>
+                <div className=' grid md:grid-cols-2 gap-5'>
                     <div>
                         <img src="/Images/NewSection/available-routes.png" alt="" />
                     </div>
@@ -56,96 +74,125 @@ const AvailableRoutes = ({ searchData }) => {
                 </div>
             </div>
 
+            <div className="lg:w-[60%] w-[95%] mx-auto">
+                <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
-
-
-
-            <div className='lg:w-[60%] w-[95%] mx-auto'>
-                <h2 className='md:text-3xl text-2xl font-semibold text-primary mt-10'>Available routes</h2>
-
-
-                {searchData.length > 0 ?
-                    searchData?.map((item, index) => (
-                        <div data-aos="fade-up" data-aos-duration="300" key={index} className='shadow-lg rounded-lg  p-10 my-5'>
-                            <div className='flex flex-wrap items-center justify-between '>
-                                <div className='flex items-center text-primary gap-3 font-medium'>
-                                    <div className='w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg'>
-                                        {
-                                            item?.transportMode == 'plane' ?
-                                                <LuPlane className='text-2xl' /> :
-                                                <PiTrainThin className='text-2xl' />
-                                        }
+                {routeData.length > 0 ? (
+                    routeData.map((item, index) => (
+                        <div key={index} className="shadow-lg rounded-lg md:p-10 p-5 my-5">
+                            <div className="flex flex-wrap items-center justify-between">
+                                <div className="flex items-center text-primary gap-3 font-medium">
+                                    <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
+                                        {item.transportMode === 'plane' ? (
+                                            <LuPlane className="text-2xl" />
+                                        ) : (
+                                            <MdVerifiedUser className="text-2xl" />
+                                        )}
                                     </div>
-                                    <h2 className='capitalize'>{item?.transportType} {item?.transportMode}</h2>
+                                    <h2 className="capitalize">
+                                        {item.transportType} {item.transportMode}
+
+                                    </h2>
                                 </div>
-                                <div className='flex flex-col justify-end items-end text-gray-500'>
-                                    <h3 className='text-3xl font-semibold text-primary mb-3'>{item?.price}$ </h3>
-                                    <span className='flex items-center gap-3'> <LuShield className=' text-gray-500 capitalize' />including insurance and protection  <IoMdInformationCircle className='text-gray-500' /> </span>
+                                <div className="flex flex-col justify-end items-end text-gray-500">
+                                    <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                    <span className="flex items-center gap-3">
+                                        <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
+                                        including insurance and protection
+
+                                    </span>
                                 </div>
                             </div>
-                            <div className='flex flex-wrap justify-between gap-10 items-center my-5'>
+
+                            <div className="flex flex-wrap justify-between gap-10 items-center my-5">
                                 <div>
-                                    <div className='flex gap-2 my-8'>
-                                        <CiLocationOn className='text-2xl' />
-                                        <div >
-                                            <p>{item?.departureCity}</p>
-                                            <div className='flex items-center gap-2'>
-                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {item?.departureDate}</span>
-                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {item?.departureTime}</span>
+                                    <div className="flex gap-2 my-8">
+                                        <CiLocationOn className="text-2xl" />
+                                        <div>
+                                            <p>{item.departureCity}</p>
+                                            <div className="flex items-center gap-2">
+                                                <span className="flex items-center gap-2 text-sm">
+                                                    <CiCalendar />
+                                                    {item.departureDate}
+                                                </span>
+                                                <span className="flex items-center gap-2 ml-5 text-sm">
+                                                    <FaRegClock />
+                                                    {item.departureTime}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex gap-2 my-8'>
-                                        <CiLocationOn className='text-2xl' />
-                                        <div >
-                                            <p>{item?.arrivalCity}</p>
-                                            <div className='flex items-center gap-2'>
-                                                <span className='flex items-center gap-2 text-sm'> <CiCalendar /> {item?.arrivalDate}</span>
-                                                <span className='flex items-center gap-2 ml-5 text-sm'> <FaRegClock /> {item?.arrivalTime}</span>
+
+                                    <div className="flex gap-2 my-8">
+                                        <CiLocationOn className="text-2xl" />
+                                        <div>
+                                            <p>{item.arrivalCity}</p>
+                                            <div className="flex items-center gap-2">
+                                                <span className="flex items-center gap-2 text-sm">
+                                                    <CiCalendar />
+                                                    {item.arrivalDate}
+                                                </span>
+                                                <span className="flex items-center gap-2 ml-5 text-sm">
+                                                    <FaRegClock />
+                                                    {item.arrivalTime}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className='bg-[#eeeff8] py-5 w-96 px-10 rounded-lg text-primary' >
-                                    <h3 className='font-semibold'>Your shipment</h3>
-                                    <h2 className='text-2xl font-semibold '>{item?.totalSpace} kg</h2>
+
+                                <div>
+                                    <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
+                                        <h3 className="font-semibold">Your shipment</h3>
+                                        <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
+                                    </div>
+                                    <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full px-10 rounded-lg text-primary text-sm'>
+                                        <h2>Delivery by Thomas</h2>
+                                        <p><span className='font-semibold'>Today</span> 03/15/2024 at <span className='font-semibold'>10:00 PM</span></p>
+                                        <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className='flex flex-wrap items-center justify-between gap-5'>
-                                <div className='flex flex-wrap items-center gap-5'>
-                                    <img className='w-14 rounded-full' src={baseUrl + item?.user?.profileImage} alt="" />
+
+                            <div className="flex flex-wrap items-center md:justify-between gap-5">
+                                <div className="flex flex-wrap items-center gap-5">
+                                    <img className="w-14 rounded-full" src={item.user.profileImage} alt="" />
                                     <div>
-                                        <h3 className='font-semibold text-primary'>{item?.user?.firstName}</h3>
-                                        <div className='flex items-center flex-wrap gap-3'>
-                                            <span className='flex items-center gap-3 text-gray-500 '>
-                                                {item?.user?.reviewAva}
-                                                <FaStar className='text-yellow-400' />  ( {item?.user?.reviewInt} reviews)</span>
-                                            <li className='list-disc text-gray-600 ml-5 mr-2'>0 packages delivered</li>
-                                            <div className='flex flex-wrap items-center gap-2'>
-                                                <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Verified traveler</span>
-                                                <span className='bg-[#e7e7ec] text-primary font-semibold py-2 px-5  rounded-full flex items-center gap-2'><MdVerifiedUser /> Expert</span>
-                                            </div>
+                                        <h3 className="font-semibold text-primary">{item.user.firstName}</h3>
+                                        <div className="flex items-center flex-wrap gap-3">
+                                            <span className="flex items-center gap-3 text-gray-500">
+                                                {item.user.reviewAva}
+                                                <FaStar className="text-yellow-400" /> ({item.user.reviewInt} reviews)
+                                            </span>
+                                            <li className="list-disc text-gray-600 ml-5 mr-2">0 packages delivered</li>
+
                                         </div>
                                     </div>
                                 </div>
+
                                 <div>
-                                    <div className='flex flex-wrap items-center justify-end gap-5'>
-                                        <Link href={`/ishop/${item?._id}`} className='flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg'><CiStar /> View review</Link>
-                                        <button className='flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg'><FiMessageSquare /> Contact</button>
+                                    <div className="flex flex-wrap items-center justify-end gap-5">
+                                        {/* <Link href={`/ishop/${item._id}`} className="flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg">
+                                            <CiStar /> View review
+                                        </Link> */}
+                                        <p className="text-right text-sm text-gray-500">Languages spoken: French, English</p>
+                                        <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
+                                            <FiMessageSquare /> Contact
+                                        </button>
                                     </div>
-                                    <p className='text-right text-sm mt-5 text-gray-500'>Languages spoken: French, English</p>
                                 </div>
                             </div>
                         </div>
                     ))
-                    :
+                ) : (
                     <div>
-                        <h2 className='text-center text-2xl font-semibold text-red-500 my-20'>No Search Data Found !!</h2>
+                        <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2>
                     </div>
-                }
-
+                )}
             </div>
 
+            
         </div>
     );
 }

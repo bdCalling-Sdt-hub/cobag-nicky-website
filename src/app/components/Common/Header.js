@@ -39,7 +39,7 @@ const Header = () => {
     console.log(baseUrl + '' + data?.user?.profileImage);
 
     return (
-        <header className="fixed top-0 py-2 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] ">
+        <header className="fixed top-0 py-5 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] ">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
                 <li>{t('navWhatdoWYouWantTo')}</li>
@@ -100,11 +100,14 @@ const Header = () => {
 
             </Link>
 
+
+            {/* bg-gradient-to-r text-white from-[#2F387F] to-[#C7FFD8] w-full text-center py-2 rounded-full font-semibold  border */}
+
             {/* User Icon Section (Always Visible) */}
             <div className="flex items-center gap-3">
                 <Link
                     href={'/commission'}
-                    className="hidden md:block bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border"
+                    className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-3 rounded-full font-semibold  border"
                 >
                     {t('NavCommission')}
                 </Link>
@@ -181,7 +184,7 @@ const Header = () => {
                     <Link
                         href={'/commission'}
                         onClick={() => setIsMenuOpen(false)}
-                        className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] w-full text-center py-2 rounded-md font-semibold text-primary border"
+                        className="bg-gradient-to-r text-white from-[#2F387F] to-[#C7FFD8] w-full text-center py-2 rounded-full font-semibold  border"
                     >
                         0% Commission
                     </Link>

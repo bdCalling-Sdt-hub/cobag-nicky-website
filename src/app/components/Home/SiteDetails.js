@@ -19,13 +19,14 @@ const SiteDetails = () => {
     return (
         <div >
 
-            <div className='flex flex-col items-center justify-center gap-5 py-20 bg-[#f9fafb]'>
-                <h1 className='md:text-4xl text-3xl font-semibold text-primary text-center'><span className='block leading-[1.5]'>{t('SiteYouKnow')} <br /></span> {t('SiteCARPOOLING')} <span className='text-[#0b2f9f]'>{t('SiteCOLOCATION')}</span> <span className='text-[#2563eb]'>{t('SiteCOWORKING')}</span></h1>
+            <div className='flex flex-col items-center justify-center gap-5 md:px-0 px-5 py-20 bg-[#f9fafb]'>
+                <h1 className='md:text-4xl text-3xl font-semibold text-primary text-center'>
+                    <span className='block leading-[1.5] text-base text-gray-800 '>{t('SiteYouKnow')} <br /></span> {t('SiteCARPOOLING')} <span className='text-[#0b2f9f]'>{t('SiteCOLOCATION')}</span> <span className='text-[#2563eb]'>{t('SiteCOWORKING')}</span></h1>
                 <p className='text-base font-semibold text-gray-500'>and now ...</p>
                 <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
                     <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/NewSection/cobag-logo.png" alt="" />
                 </div>
-                <h2>{t('SiteCObagSharing')} <span className='font-semibold text-primary'>Sharing</span></h2>
+                <h2 className='text-center'>{t('SiteCObagSharing')} <span className='font-semibold text-primary'>Sharing</span></h2>
                 <h2>{t('SiteCObagSharingwhat')}<span className='font-semibold text-primary'>Sharing luggage</span></h2>
             </div>
             <div>
@@ -37,18 +38,18 @@ const SiteDetails = () => {
             <div className='lg:w-[80%] w-[90%] mx-auto '>
 
                 <div data-aos="fade-up" data-aos-duration="500" className='min-h-[80vh] my-10'>
-                    <h2 className='my-10 text-4xl font-semibold text-primary text-center'>What CoBag makes possible</h2>
+                    <h2 className='my-10 md:text-4xl text-3xl font-semibold text-primary text-center'>What CoBag makes possible</h2>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
                         <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
-                            <div className="relative">
-                                <img className="w-full max-h-[250px]" src="/Images/NewSection/43579491-35914718.jpg" alt="" />
+                            <div className="relative bg-[#0000008e]">
+                                <img className="w-full min-h-[200px]" src="/Images/NewSection/south-korea.webp" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
                                     Paris <LuArrowRightLeft /> Seoul
                                 </h2>
                             </div>
                             <div className='p-3'>
-                                <h2 className='flex items-center justify-between font-semibold'>Traveler-courier <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 14h35</span></h2>
+                                <h2 className='flex items-center justify-between font-semibold'>Traveler-courier<span className='flex items-center'><span className='-rotate-45 block'>✈</span> 14h35</span></h2>
                                 <hr className='block my-5' />
                                 <h3 className='font-semibold'>On his round trip:</h3>
 
@@ -61,105 +62,129 @@ const SiteDetails = () => {
                                 </ul>
                                 <hr className='block my-5' />
 
-                                <h2 className='font-semibold text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
+                                <h2 className='font-semibold text-center text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
                                 </div>
                             </div>
                         </div>
                         <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
-                                <img className="w-full max-h-[250px]" src="/Images/NewSection/46308994-37047419.jpg" alt="" />
+                                <img className="w-full h-[200px]" src="/Images/NewSection/46308994-37047419.jpg" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
-                                    Paris <LuArrowRightLeft /> Seoul
+                                    Paris <LuArrowRightLeft /> Barcelona
                                 </h2>
                             </div>
                             <div className='p-3'>
-                                <h2 className='flex items-center justify-between font-semibold'>Traveler-courier <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 14h35</span></h2>
+                                <h2 className='flex items-center justify-between font-semibold'>Purchase abroad<span className='flex items-center'><span className='-rotate-45 block'>✈</span> 1h40</span></h2>
                                 <hr className='block my-5' />
-                                <h3 className='font-semibold'>On his round trip:</h3>
+                                <h3 className='font-semibold'>On this purchase:</h3>
 
-                                <h2 className='text-2xl font-semibold text-primary my-3'>Gains +273€</h2>
+                                <h2 className='text-2xl font-semibold text-primary my-3'>Savings -280€</h2>
 
                                 <ul>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold'>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold '>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5 font-semibold'>Total <span className='font-semibold text-green-600'>+273€</span></li>
+                                    <li className='flex items-center justify-between my-5'>4 cartons of Spanish tobacco
+                                        <span className='font-semibold'>220€</span></li>
+                                    <li className='flex items-center justify-between my-5'>4 cartons of Paris tobacco
+                                        <span className='font-semibold '>500€</span></li>
+                                    <li className='flex items-center justify-between my-5 font-semibold'>Total difference
+                                        <span className='font-semibold text-green-600'>-280€
+                                        </span></li>
                                 </ul>
                                 <hr className='block my-5' />
 
-                                <h2 className='font-semibold text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
+                                <h2 className='font-semibold text-blue-600 text-xl text-center'>What if instead of paying, you saved?
+                                </h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
                                 </div>
                             </div>
                         </div>
                         <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
-                                <img className="w-full max-h-[250px]" src="/Images/NewSection/images.jpg" alt="" />
-                                <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
-                                    Paris <LuArrowRightLeft /> Seoul
+                                <img className="w-full h-[200px]" src="/Images/NewSection/43579491-35914718.jpg" alt="" />
+                                <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl w-full mx-auto justify-center">
+                                    Paris <LuArrowRightLeft /> New York
                                 </h2>
                             </div>
                             <div className='p-3'>
-                                <h2 className='flex items-center justify-between font-semibold'>Traveler-courier <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 14h35</span></h2>
+                                <h2 className='flex items-center justify-between font-semibold'>Transport of surplus
+                                    <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 8h30</span></h2>
                                 <hr className='block my-5' />
-                                <h3 className='font-semibold'>On his round trip:</h3>
+                                <h3 className='font-semibold'>On his excess baggage:
+                                </h3>
 
-                                <h2 className='text-2xl font-semibold text-primary my-3'>Gains +273€</h2>
+                                <h2 className='text-2xl font-semibold text-primary my-3'>Savings -50€
+                                </h2>
 
                                 <ul>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold'>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold '>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5 font-semibold'>Total <span className='font-semibold text-green-600'>+273€</span></li>
+                                    <li className='flex items-center justify-between my-5'>10kg surplus with CoBag
+                                        <span className='font-semibold'>50€                                    </span></li>
+                                    <li className='flex items-center justify-between my-5'>10kg surplus WITHOUT CoBag
+                                        <span className='font-semibold '>100€</span></li>
+                                    <li className='flex items-center justify-between my-5 font-semibold'>Total difference
+                                        <span className='font-semibold text-green-600'>-50€
+                                        </span></li>
                                 </ul>
                                 <hr className='block my-5' />
 
-                                <h2 className='font-semibold text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
+                                <h2 className='font-semibold text-blue-600 text-xl text-center'>What if instead of paying, you saved?
+                                </h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
                                 </div>
                             </div>
                         </div>
                         <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
-                                <img className="w-full max-h-[250px]" src="/Images/NewSection/south-korea.webp" alt="" />
+                                <img className="w-full h-[200px] " src="/Images/NewSection/images.jpg" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
-                                    Paris <LuArrowRightLeft /> Seoul
+                                    Paris <LuArrowRightLeft /> Dakar
                                 </h2>
                             </div>
                             <div className='p-3'>
-                                <h2 className='flex items-center justify-between font-semibold'>Traveler-courier <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 14h35</span></h2>
-                                <hr className='block my-5' />
-                                <h3 className='font-semibold'>On his round trip:</h3>
+                                <h2 className='flex items-center justify-between font-semibold'>Sending parcels
 
-                                <h2 className='text-2xl font-semibold text-primary my-3'>Gains +273€</h2>
+                                    <span className='flex items-center'><span className='-rotate-45 block'>✈</span> 5h50
+                                    </span></h2>
+                                <hr className='block my-5' />
+                                <h3 className='font-semibold'>On sending your package:</h3>
+
+                                <h2 className='text-2xl font-semibold text-primary my-3'>Delivery in 5 hours 50 minutes
+                                </h2>
 
                                 <ul>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold'>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold '>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5 font-semibold'>Total <span className='font-semibold text-green-600'>+273€</span></li>
+                                    <li className='flex items-center justify-between my-5'>5kg shipping with CoBag
+                                        <span className='font-semibold'>25€
+                                        </span></li>
+                                    <li className='flex items-center justify-between my-5'>5kg shipment WITHOUT CoBag
+                                        <span className='font-semibold '>70€
+                                        </span></li>
+                                    <li className='flex items-center justify-between my-5 font-semibold'>Total difference
+                                        <span className='font-semibold text-green-600'>-45€
+                                        </span></li>
                                 </ul>
                                 <hr className='block my-5' />
 
-                                <h2 className='font-semibold text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
+                                <h2 className='font-semibold text-blue-600 text-xl text-center'>What if instead of paying, you got paid?</h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
                 <div data-aos="fade-up" data-aos-duration="500" className='my-32 grid lg:grid-cols-2 gap-10 items-center'>
                     <div>
-                        <h2 className='text-4xl font-semibold text-primary'>CoBag does justice to travelers: Your suitcases are worth gold!</h2>
-                        <p className='my-5 text-2xl'>Tired of your luggage traveling for more than you do? With CoBag, take back control: Every <span className='font-semibold text-primary'>kilo lost</span> in your suitcase is <span className='font-semibold text-primary'>money lost </span>. Turn them into kilos available for others... and <span className='font-semibold text-primary'>into profits for you, in complete safety !</span></p>
+                        <h2 className='md:text-4xl text-2xl font-semibold text-primary'>CoBag does justice to travelers: Your suitcases are worth gold!</h2>
+                        <p className='my-5 md:text-2xl'>Tired of your luggage traveling for more than you do? With CoBag, take back control: Every <span className='font-semibold text-primary'>kilo lost</span> in your suitcase is <span className='font-semibold text-primary'>money lost </span>. Turn them into kilos available for others... and <span className='font-semibold text-primary'>into profits for you, in complete safety !</span></p>
 
                         <div className='bg-[#f3fef7] p-5 rounded-lg'>
                             <h3 className='font-semibold text-2xl text-primary mb-3'>Who do I sell to?</h3>
@@ -174,8 +199,8 @@ const SiteDetails = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-duration="500" className=' rounded-lg px-5 py-10'>
-                    <img className='w-2/4 mx-auto' src="/Images/NewSection/Screenshot_19.png" alt="" />
-                    <h2 className='text-center text-xl'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
+                    <img className='md:w-2/4 mx-auto md:mb-0 mb-10' src="/Images/NewSection/Screenshot_19.png" alt="" />
+                    <h2 className='text-center md:text-xl'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
                         <span className='text-primary font-semibold mb-1'>What if, instead of paying, you got paid?</span> Join the <span className='text-primary font-semibold mb-1'>smart travelers!</span> <br />
                         Sell my lost kilos</h2>
                     <div className='flex items-center justify-center'>

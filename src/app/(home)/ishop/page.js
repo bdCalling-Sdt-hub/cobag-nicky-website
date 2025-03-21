@@ -91,7 +91,7 @@ const Page = () => {
             <Toaster position="top-center" toastOptions={{ duration: 3000 }} containerStyle={{ zIndex: 999999 }} />
             <div className='bg-[url("/Images/Ishop/banner.png")] w-full min-h-[90vh] duration-500 bg-cover bg-center'>
                 <div>
-                    <div className='bg-[#000d1a8a] min-h-[90vh] py-32'>
+                    <div className='bg-[#000d1a8a] min-h-[90vh] md:py-32 py-20'>
                         <div className='lg:w-2/4 mx-auto text-center'>
                             <h1 className='md:text-4xl text-3xl font-semibold text-white'>
                                 {t('worldPurchasesInYourBasket5454')}
@@ -201,7 +201,7 @@ const Page = () => {
                                         {t('flexibleDates454')}
                                     </label>
 
-                                    
+
 
                                     {showFlexibleDate && (
                                         <div className="">
@@ -244,8 +244,8 @@ const Page = () => {
                 </div>
             </div>
 
-            <CouriersAvailable searchIshopItem={searchTerm} />
             <VideoAndCard />
+            <CouriersAvailable searchIshopItem={searchTerm} />
             <HowDoesWork />
             <PopularProducts />
 

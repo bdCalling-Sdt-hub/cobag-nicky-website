@@ -33,7 +33,7 @@ const PopularProducts = () => {
                 <h2 className="text-3xl font-semibold text-center text-primary mb-8">Frequently Asked Questions</h2>
 
                 {/* FAQ Panel 1 */}
-                <div className="bg-white shadow-md rounded-xl mb-4">
+                <div className="bg-white shadow-md rounded-xl mb-4 du">
                     <button
                         onClick={() => toggleQuestion(1)}
                         className="w-full text-left px-6 py-4  font-medium text-gray-800 bg-gray-100 rounded-t-xl hover:bg-indigo-50 focus:outline-none flex justify-between items-center"

@@ -1,8 +1,8 @@
 'use client';
 import i18n from '@/app/utils/i18';
 import Aos from 'aos';
-import React, { useEffect } from 'react';
-import { CiClock2, CiLocationOn, CiLock } from 'react-icons/ci';
+import React, { useEffect, useState } from 'react';
+import { CiChat1, CiClock2, CiLocationOn, CiLock } from 'react-icons/ci';
 import { FaArrowRight } from 'react-icons/fa6';
 import { FiMessageSquare, FiShield, FiShoppingBag, FiUserCheck } from 'react-icons/fi';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -23,25 +23,28 @@ const HowDoesWork = () => {
 
     return (
         <div className='lg:w-[80%] w-[90%] mx-auto'>
+
+
+
             <div data-aos="fade-up" data-aos-duration="500" className='my-32 grid lg:grid-cols-2 gap-10 items-center'>
                 <div>
-                    <h2 className='text-4xl font-semibold text-primary'>Access products from around the world, without borders
+                    <h2 className='md:text-4xl text-2xl font-semibold text-primary'>Access products from around the world, without borders
                     </h2>
-                    <p className='my-5 text-2xl'>The whole world at your fingertips, thanks to our travel couriers,<span className='text-primary font-semibold'>the world has never been so close</span></p>
+                    <p className='my-5 md:text-2xl'>The whole world at your fingertips, thanks to our travel couriers,<span className='text-primary font-semibold'>the world has never been so close</span></p>
 
                     <div className='bg-[#f3fef7] p-5 rounded-lg'>
                         <h3 className='font-semibold text-2xl text-primary mb-3'>How does it work?</h3>
                         <p>Your dream product is impossible to find in your country, or the import price is too high , or the delivery takes too long . With CoBag, a traveler-courier on vacation in the country where it is available can buy it for you and bring it back in their suitcase upon their return, and all this with the fastest delivery on the planet: just a flight away . Make the inaccessible possible with CoBag.</p>
                     </div>
 
-                    <div className='flex items-center gap-5 mt-5'>
+                    <div className='md:flex items-center gap-5 mt-5'>
                         <div className='bg-[#f4fcfb] p-5 rounded-lg'>
                             <h2 className='text-xl text-center'>A product <br />
                                 <span className='font-semibold text-primary'>not found?</span>
                             </h2>
                         </div>
-                        <div>
-                            <FaArrowRight className='text-2xl text-primary' />
+                        <div className='flex md:block items-center justify-center gap-5'>
+                            <FaArrowRight className='text-2xl md:my-0 my-5 text-primary' />
                         </div>
                         <div className='bg-[#f4fcfb] p-5 rounded-lg'>
                             <h2 className='text-xl text-center'>A CoBag traveler
@@ -94,6 +97,10 @@ const HowDoesWork = () => {
                 </div>
 
             </div>
+
+
+
+
 
         </div>
     );

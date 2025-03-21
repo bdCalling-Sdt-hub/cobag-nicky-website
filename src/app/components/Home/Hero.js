@@ -22,7 +22,7 @@ const Hero = () => {
             className="bg-cover bg-center bg-no-repeat sm:min-h-[60vh] min-h-[90vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-96 md:mb-60 mb-0"
         >
             <div className="w-full h-full sm:min-h-[80vh] min-h-[90vh] bg-[#000000c5]">
-                <div className='flex flex-col items-center justify-center py-10'>
+                <div className='flex flex-col items-center justify-center py-10 md:py-20'>
 
                     <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full px-10 py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
                         <FiShield className='text-2xl animate-spin duration-[2s]' />
@@ -34,7 +34,7 @@ const Hero = () => {
                     <h3 className='md:text-3xl text-xl font-semibold text-white'>
                         {t('CoBagreimbursesyourLuggage2')}
                     </h3>
-                    <div className="absolute md:-bottom-60 -bottom-0 md:w-[50%]">
+                    <div className="absolute md:-bottom-72 -bottom-0 md:w-[50%]">
                         {/* Thumbnail or Video Player */}
                         {!isPlaying ? (
                             <div className="relative">

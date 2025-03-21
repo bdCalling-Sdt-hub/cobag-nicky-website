@@ -26,7 +26,9 @@ const Courier = () => {
             deadline: '04/15/2024',
             travelerName: 'Marie D.',
             travelerRating: 4.8,
-            travelerMissions: 15
+            travelerMissions: '4.8 • 15 missions',
+            image: '/Images/NewSection/Products/beauty-of-joseon-ground-rice-and-honey-glow-mask-5.jpg',
+            userImage: '/Images/NewSection/usreImgae.avif'
         },
         {
             image: 'link_to_image',
@@ -38,7 +40,9 @@ const Courier = () => {
             deadline: '04/20/2024',
             travelerName: 'Thomas M.',
             travelerRating: 4.9,
-            travelerMissions: 10
+            travelerMissions: '4.9 • 10 missions',
+            image: '/Images/NewSection/Products/Nike-Air-Max-Shoes-1.jpg',
+            userImage: '/Images/NewSection/photo-1500648767791-00dcc994a43e.avif'
         },
         {
             image: 'link_to_image',
@@ -50,7 +54,9 @@ const Courier = () => {
             deadline: '04/25/2024',
             travelerName: 'Sophie B.',
             travelerRating: 4.7,
-            travelerMissions: 20
+            travelerMissions: '4.7 • 20 missions',
+            image: '/Images/NewSection/Products/cl-5645cecb7971bb340f4dad84-ph0.jpg',
+            userImage: '/Images/NewSection/photo-1438761681033-6461ffad8d80.avif'
         },
         {
             image: 'link_to_image',
@@ -62,7 +68,9 @@ const Courier = () => {
             deadline: '04/18/2024',
             travelerName: 'Luke P.',
             travelerRating: 4.6,
-            travelerMissions: 8
+            travelerMissions: '4.6 • 15 missions',
+            image: '/Images/NewSection/Products/contes-de-parfums-dubai.webp',
+            userImage: '/Images/NewSection/photo-1472099645785-5658abf4ff4e.avif'
         }
     ];
 
@@ -110,13 +118,13 @@ const Courier = () => {
         <div className='bg-[#f6f6fb]'>
             <div className='lg:w-[80%] w-[90%] mx-auto py-20'>
                 <div>
-                    <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary mb-10'>What is it like to be a courier with Cobag?</h2>
+                    <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary 0'>What is it like to be a courier with Cobag?</h2>
 
 
-                    <h3 className='text-center w-2/4 mx-auto'>As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users.
+                    <h3 className='text-center md:w-2/4 mx-auto my-10 md:text-xl '>As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users.
                         Earn <span className='font-semibold text-primary'> at least €27 in earnings for each purchase mission .</span></h3>
 
-                    <h3 className='text-center w-2/4 mx-auto font-semibold text-2xl mt-10 text-primary'>How does it work?</h3>
+                    <h3 className='text-center md:w-2/4 mx-auto font-semibold text-2xl  text-primary'>How does it work?</h3>
 
                     <div data-aos="fade-up" className='my-20'>
 
@@ -151,7 +159,7 @@ const Courier = () => {
                                 </div>
                             </div>
 
-                            <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto text-xl mt-20'>
+                            <button className='flex items-center justify-center gap-2 bg-primary text-white hover:scale-[1.2] duration-300 py-2 px-8 rounded-lg mx-auto  mt-20'>
                                 Suggest my route
                             </button>
                             {/* <div>
@@ -191,7 +199,7 @@ const Courier = () => {
                 </div> */}
             </div>
 
-            <div className='lg:w-[80%] w-[90%] mx-auto pb-20'>
+            <div className='lg:w-[80%] w-[90%] mx-auto md:pb-20'>
                 <div className="bg-white shadow-lg rounded-lg p-8 border text-left">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">Filter ads</h2>
 
@@ -272,7 +280,7 @@ const Courier = () => {
 
 
                             <div className='relative h-60'>
-                                <img src='/Images/NewSection/Nike-Air-Max-Shoes-1.jpg' alt={request.title} className='w-full h-60 object-cover' />
+                                <img src={request?.image} alt={request.title} className='w-full h-60 object-cover' />
                                 <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4'>
                                     <h3 className='text-lg font-semibold mb-5 text-white'>{request.title}</h3>
                                     <div className='flex items-center gap-3 justify-between'>
@@ -295,12 +303,12 @@ const Courier = () => {
                                     </div>
                                     <p className='mt-2 text-sm text-gray-600'>Deadline: {request.deadline}</p>
                                 </div>
-                                <div className=' mt-3'>
-                                    <img src="https://via.placeholder.com/30" alt="" />
+                                <div className=' mt-3 flex items-center gap-2'>
+                                    <img className='w-10 h-10 rounded-full' src="/Images/NewSection/usreImgae.avif" alt="" />
                                     <div className='text-left'>
                                         <span className='mr-2'>{request.travelerName}</span> <br />
-                                        <span className='text-yellow-400'>{'★'.repeat(Math.floor(request.travelerRating))}</span>
-                                        <span className='ml-2 text-gray-500 text-xs'>({request.travelerMissions} missions)</span>
+                                        <span className='text-yellow-400'>{'★'}</span>
+                                        <span className='ml-2 text-gray-500 text-xs'>{request.travelerMissions}</span>
                                     </div>
                                 </div>
                                 <button className='mt-4 px-6 w-full py-2 bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>

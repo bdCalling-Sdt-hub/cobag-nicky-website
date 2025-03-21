@@ -51,8 +51,12 @@ const SubscriptionCard = () => {
 
 
     return (
-        <div className="py-20 bg-white px-5 md:px-0">
+        <div className="md:py-20 py-10 bg-white px-5 md:px-0">
             <Toaster />
+            <div className='mb-10'>
+                <h2 className='font-semibold text-3xl text-primary text-center'>Compare our packages</h2>
+                <p className='text-center'>Choose the option that suits you best.</p>
+            </div>
             <div className='grid md:grid-cols-3 gap-10 lg:w-[80%] w-90 mx-auto'>
                 <div className=" w-full mx-auto shadow-xl rounded-2xl overflow-hidden">
                     {/* Header */}
