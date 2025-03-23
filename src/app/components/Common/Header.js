@@ -39,7 +39,7 @@ const Header = () => {
     console.log(baseUrl + '' + data?.user?.profileImage);
 
     return (
-        <header className="fixed top-0 py-5 left-0 w-full bg-white flex items-center justify-between px-5 md:px-20  z-[99999] ">
+        <header className="fixed top-0 py-5 left-0 w-full bg-white flex items-center justify-between px-5 xl:px-48 md:px-10  z-[99999] ">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5">
                 <li>{t('navWhatdoWYouWantTo')}</li>
@@ -68,14 +68,7 @@ const Header = () => {
                                 {t('NavbarItem2')}
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
-                                href={'/ishop'}
-                            >
-                                {t('NavbarItem3')}
-                            </Link>
-                        </li>
+
                         <li>
                             <Link
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
@@ -84,27 +77,20 @@ const Header = () => {
                                 {t('NavbarItem4')}
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/ishop'}
+                            >
+                                {t('NavbarItem3')}
+                            </Link>
+                        </li>
 
                     </ul>
                 </li>
             </ul>
-            {/* Logo Section (Always Visible) */}
-            <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
-                <Image
-                    src="/Images/NewSection/cobag-logo.png"
-                    alt="Company Logo"
-                    width={150}
-                    height={75}
-                    layout="responsive"
-                />
 
-            </Link>
-
-
-            {/* bg-gradient-to-r text-white from-[#2F387F] to-[#C7FFD8] w-full text-center py-2 rounded-full font-semibold  border */}
-
-            {/* User Icon Section (Always Visible) */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3  md:hidden ">
                 <Link
                     href={'/commission'}
                     className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-3 rounded-full font-semibold  border"
@@ -125,7 +111,65 @@ const Header = () => {
                     data?.user && <div className="relative group cursor-pointer">
 
 
-                        <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png'} alt="" />
+                        <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1742636667/ForBdcolling/neyqgnpepzdve7cm12h3.png'} alt="" />
+
+                        <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-16 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
+                            <Link
+                                href={'/dashboard/profile'}
+                                className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                            >
+                                {t('NavProfile')}
+                            </Link>
+                            <button
+                                className="border-2 text-center block my-3 w-full hover:bg-[#161d6f] hover:text-white duration-300 border-[#161d6f] rounded-full px-10 py-2 text-[#161d6f]"
+                            >
+                                Switch to Sender
+                            </button>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+            {/* Logo Section (Always Visible) */}
+            <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
+                <Image
+                    src="/Images/NewSection/cobag-logo.png"
+                    alt="Company Logo"
+                    width={150}
+                    height={75}
+                    layout="responsive"
+                />
+
+            </Link>
+
+
+            {/* bg-gradient-to-r text-white from-[#2F387F] to-[#C7FFD8] w-full text-center py-2 rounded-full font-semibold  border */}
+
+            {/* User Icon Section (Always Visible) */}
+            <div className="md:flex items-center gap-3  hidden ">
+                <Link
+                    href={'/commission'}
+                    className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-3 rounded-full font-semibold  border"
+                >
+                    {t('NavCommission')}
+                </Link>
+
+
+                {
+                    !data?.user && <Link href={'/login'}>
+                        <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavLogin')}</button>
+                    </Link>
+                }
+
+                {/* when user is available then show it else not */}
+
+                {
+                    data?.user && <div className="relative group cursor-pointer">
+
+
+                        <img className='w-16 h-16 rounded-full border-4 border-[#161d6f]' src={data?.user?.profileImage ? baseUrl + data?.user?.profileImage : 'https://res.cloudinary.com/nerob/image/upload/v1742636667/ForBdcolling/neyqgnpepzdve7cm12h3.png'} alt="" />
 
                         <div className=" bg-slate-100 p-2 rounded-lg absolute sm:top-16 sm:right-0 -right-20 min-w-72 hidden group-hover:block">
                             <Link
@@ -164,8 +208,8 @@ const Header = () => {
                     {[
                         { path: '/itravel', label: 'I want to sell my kilos' },
                         { path: '/isend', label: 'I want to send a parcel' },
-                        { path: '/ishop', label: 'I want to have my excess baggage transported' },
-                        { path: '/isend', label: 'I want to buy abroad' }  // Updated unique path
+                        { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
+                        { path: '/ishop', label: 'I want to have my excess baggage transported' }
                     ].map((item, index) => (
                         <li key={index}>
                             <Link

@@ -41,7 +41,13 @@ const YourTravial = () => {
         <div className='lg:w-[50%] w-[90%] mx-auto mb-10'>
 
 
-            <div onClick={handleShowfirstFAQ} className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer'>
+            <div onClick={() => {
+                handleShowfirstFAQ();
+                setShowfourthFAQ(false);
+                setShowsecondFAQ(false);
+                setShowthirdFAQ(false);
+            }}
+                className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer'>
                 <div>
                     <h2 className='text-xl font-semibold text-primary'>How do I resell my unused kilos?
                     </h2>
@@ -53,7 +59,7 @@ const YourTravial = () => {
             </div>
             {
                 showfirstFAQ && (
-                    <div className='my-5'>
+                    <div data-aos="fade-left" data-aos-duration="800" className='my-5'>
                         <div className='flex items-center gap-5 my-5'>
                             <img className='w-20' src="/Images/NewSection/ourconsept/11.png" alt="" />
                             <p>1.  Complete the online <span className='underline cursor-pointer text-blue-500'>form indicating your journey and available weight.</span></p>
@@ -79,17 +85,17 @@ const YourTravial = () => {
                             <p>6. Confirm the package collection on the platform to formalize the transaction.</p>
                         </div>
                         <div className='flex items-center gap-5 my-5'>
-                            <img className='w-20' src="/Images/NewSection/ourconsept/16.png" alt="" />
+                            <img className='w-20' src="/Images/NewSection/ourconsept/15.png" alt="" />
                             <p>7. At the destination, meet the recipient or use a secure locker to deliver the package.
                             </p>
                         </div>
                         <div className='flex items-center gap-5 my-5'>
-                            <img className='w-20' src="/Images/NewSection/ourconsept/17.png" alt="" />
+                            <img className='w-20' src="/Images/NewSection/ourconsept/16.png" alt="" />
                             <p>8. Confirm delivery with the 4-digit confirmation code provided by the recipient.
                             </p>
                         </div>
                         <div className='flex items-center gap-5 my-5'>
-                            <img className='w-20' src="/Images/NewSection/ourconsept/18.png" alt="" />
+                            <img className='w-20' src="/Images/NewSection/ourconsept/17.png" alt="" />
                             <p>9. Receive your payment automatically and transfer your winnings to your bank account.
                             </p>
                         </div>
@@ -97,7 +103,16 @@ const YourTravial = () => {
                 )
             }
 
-            <div onClick={handleShowsecondFAQ} className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
+            <div
+                onClick={
+                    () => {
+                        handleShowsecondFAQ();
+                        setShowfirstFAQ(false);
+                        setShowfourthFAQ(false);
+                        setShowthirdFAQ(false);
+                    }
+                }
+                className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
                 <div>
                     <h2 className='text-xl font-semibold text-primary'>How do I get my excess baggage transported?
                     </h2>
@@ -109,7 +124,7 @@ const YourTravial = () => {
             </div>
             {
                 showsecondFAQ && (
-                    <div className='my-5'>
+                    <div data-aos="fade-left" data-aos-duration="800" className='my-5'>
                         <div className='flex items-center gap-5 my-5'>
                             <img className='w-20' src="/Images/NewSection/ourconsept/11.png" alt="" />
                             <p>1. Complete the route search<span className='underline cursor-pointer text-blue-500'> form , indicating your route and the weight of your excess baggage.</span></p>
@@ -134,7 +149,14 @@ const YourTravial = () => {
                 )
             }
 
-            <div onClick={handleShowthirdFAQ} className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
+            <div onClick={
+                () => {
+                    handleShowthirdFAQ();
+                    setShowfirstFAQ(false);
+                    setShowsecondFAQ(false);
+                    setShowfourthFAQ(false);
+                }
+            } className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
                 <div>
                     <h2 className='text-xl font-semibold text-primary'>How do I transport a purchase for someone?
                     </h2>
@@ -146,7 +168,7 @@ const YourTravial = () => {
             </div>
             {
                 showthirdFAQ && (
-                    <div className='my-5'>
+                    <div data-aos="fade-left" data-aos-duration="800" className='my-5'>
                         <div className='flex items-center gap-5 my-5'>
                             <img className='w-20' src="/Images/NewSection/ourconsept/11.png" alt="" />
                             <p>1. You have two options:<span className='underline cursor-pointer text-blue-500'>  search for an available travel courier </span>or place a purchase ad and wait to be contacted by an interested travel courier.</p>
@@ -175,7 +197,18 @@ const YourTravial = () => {
                 )
             }
 
-            <div onClick={handleShowfourthFAQ} className='flex items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
+
+
+
+            <div onClick={
+                () => {
+                    handleShowfourthFAQ();
+                    setShowfirstFAQ(false);
+                    setShowsecondFAQ(false);
+                    setShowthirdFAQ(false);
+                }
+
+            } className='flex z-10 items-center gap-5 justify-between border border-gray-300 shadow p-5 rounded-lg cursor-pointer mt-5'>
                 <div>
                     <h2 className='text-xl font-semibold text-primary'>How do I buy a product abroad?
                     </h2>
@@ -188,7 +221,7 @@ const YourTravial = () => {
 
             {
                 showfourthFAQ && (
-                    <div className='my-5'>
+                    <div data-aos="fade-left" data-aos-duration="800" className='my-5 duration-300 z-0'>
                         <div className='flex items-center gap-5 my-5'>
                             <img className='w-20' src="/Images/NewSection/ourconsept/11.png" alt="" />
                             <p>1. Fill out the <span className='underline cursor-pointer text-blue-500'> form </span>, indicating the destination of your package and its weight. </p>
@@ -217,7 +250,7 @@ const YourTravial = () => {
 
 
 
-        </div>
+        </div >
     );
 }
 

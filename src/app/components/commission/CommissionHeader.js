@@ -76,11 +76,10 @@ const CommissionHeader = () => {
                 <h1 className="md:text-5xl text-3xl font-semibold text-primary">
                     {t('commissionMessage21')}
                 </h1>
-                <img
-                    className="w-2/3 mx-auto mg:my-20 my-10"
-                    src="/Images/NewSection/cobag-sky-logo.png"
-                    alt="Commission Logo"
-                />
+                <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
+                    <img data-aos="flip-right" data-aos-duration="900" className="w-2/3 mx-auto mg:my-20 my-10" src="/Images/NewSection/cobag-sky-logo.png" alt="" />
+                </div>
+
                 <p className="text-xl text-primary">
                     {/* {t('monthlyFeeMessage')} */}
                     For only €10 per month, without commitment, earn even more

@@ -215,7 +215,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                                     onChange={handleRatingChange}
                                     className="w-full"
                                 />
-                                <span className="text-gray-700">{minRating} ★</span>
+                                <span className="text-gray-700">{minRating} <span className='text-orange-400'>★</span></span>
                             </div>
 
 

@@ -1,8 +1,9 @@
 'use client';
 import { useGetPostQuery } from '@/app/redux/Features/getProfile';
 import i18n from '@/app/utils/i18';
+import Link from 'next/link';
 import React from 'react';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import { FaArrowRight, FaArrowRightLong } from 'react-icons/fa6';
 import { GoShieldCheck } from 'react-icons/go';
 import { LuArrowRightLeft } from 'react-icons/lu';
 
@@ -26,7 +27,7 @@ const SiteDetails = () => {
                 <div data-aos="zoom-out-up" data-aos-duration="900" className='flex items-center justify-center gap-5'>
                     <img data-aos="flip-right" data-aos-duration="900" className='w-72 my-5' src="/Images/NewSection/cobag-logo.png" alt="" />
                 </div>
-                <h2 className='text-center'>{t('SiteCObagSharing')} <span className='font-semibold text-primary'>Sharing</span></h2>
+                <h2 className='text-center'>{t('SiteCObagSharing')} <span className='font-semibold text-primary'>Sharing,</span></h2>
                 <h2>{t('SiteCObagSharingwhat')}<span className='font-semibold text-primary'>Sharing luggage</span></h2>
             </div>
             <div>
@@ -41,7 +42,7 @@ const SiteDetails = () => {
                     <h2 className='my-10 md:text-4xl text-3xl font-semibold text-primary text-center'>What CoBag makes possible</h2>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-                        <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
+                        <div className='md:hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative bg-[#0000008e]">
                                 <img className="w-full min-h-[200px]" src="/Images/NewSection/south-korea.webp" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
@@ -57,7 +58,8 @@ const SiteDetails = () => {
 
                                 <ul>
                                     <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold'>+151€</span></li>
-                                    <li className='flex items-center justify-between my-5'>5 purchasing missions <span className='font-semibold '>+151€</span></li>
+                                    <li className='flex items-center justify-between my-5'>6 parcel shipments
+                                        <span className='font-semibold '>+151€</span></li>
                                     <li className='flex items-center justify-between my-5 font-semibold'>Total <span className='font-semibold text-green-600'>+273€</span></li>
                                 </ul>
                                 <hr className='block my-5' />
@@ -65,11 +67,11 @@ const SiteDetails = () => {
                                 <h2 className='font-semibold text-center text-blue-600 text-xl'>What if instead of paying, you got paid?</h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <Link href={`/itravel`} className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</Link>
                                 </div>
                             </div>
                         </div>
-                        <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
+                        <div className='md:hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
                                 <img className="w-full h-[200px]" src="/Images/NewSection/46308994-37047419.jpg" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
@@ -87,6 +89,7 @@ const SiteDetails = () => {
                                     <li className='flex items-center justify-between my-5'>4 cartons of Spanish tobacco
                                         <span className='font-semibold'>220€</span></li>
                                     <li className='flex items-center justify-between my-5'>4 cartons of Paris tobacco
+
                                         <span className='font-semibold '>500€</span></li>
                                     <li className='flex items-center justify-between my-5 font-semibold'>Total difference
                                         <span className='font-semibold text-green-600'>-280€
@@ -98,11 +101,11 @@ const SiteDetails = () => {
                                 </h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <Link href={`/itravel`} className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to buy {'>'}</Link>
                                 </div>
                             </div>
                         </div>
-                        <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
+                        <div className='md:hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
                                 <img className="w-full h-[200px]" src="/Images/NewSection/43579491-35914718.jpg" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl w-full mx-auto justify-center">
@@ -134,11 +137,11 @@ const SiteDetails = () => {
                                 </h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <Link href={`/itravel`} className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to save {'>'}</Link>
                                 </div>
                             </div>
                         </div>
-                        <div className='hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
+                        <div className='md:hover:-mt-4 duration-500 rounded-2xl overflow-hidden shadow'>
                             <div className="relative">
                                 <img className="w-full h-[200px] " src="/Images/NewSection/images.jpg" alt="" />
                                 <h2 className="text-white font-semibold flex items-center gap-2 absolute top-[10%] left-1/2 transform -translate-x-1/2 -translate-y-[0%] text-2xl">
@@ -172,7 +175,7 @@ const SiteDetails = () => {
                                 <h2 className='font-semibold text-blue-600 text-xl text-center'>What if instead of paying, you got paid?</h2>
 
                                 <div className='flex items-center justify-center mt-5'>
-                                    <button className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to win {'>'}</button>
+                                    <Link href={`/itravel`} className='bg-primary hover:scale-[1.1] duration-300 text-white py-2 px-8 rounded-lg '>I also want to send {'>'}</Link>
                                 </div>
                             </div>
                         </div>
@@ -181,10 +184,10 @@ const SiteDetails = () => {
 
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="500" className='my-32 grid lg:grid-cols-2 gap-10 items-center'>
+                <div data-aos="fade-up" data-aos-duration="500" className='md:my-32 my-10 grid lg:grid-cols-2 gap-10 items-center'>
                     <div>
                         <h2 className='md:text-4xl text-2xl font-semibold text-primary'>CoBag does justice to travelers: Your suitcases are worth gold!</h2>
-                        <p className='my-5 md:text-2xl'>Tired of your luggage traveling for more than you do? With CoBag, take back control: Every <span className='font-semibold text-primary'>kilo lost</span> in your suitcase is <span className='font-semibold text-primary'>money lost </span>. Turn them into kilos available for others... and <span className='font-semibold text-primary'>into profits for you, in complete safety !</span></p>
+                        <p className='my-5 md:text-2xl text-primary'>Tired of your luggage traveling for more than you do? With CoBag, take back control: Every <span className='font-semibold text-primary'>kilo lost</span> in your suitcase is <span className='font-semibold text-primary'>money lost </span>. Turn them into kilos available for others... and <span className='font-semibold text-primary'>into profits for you, in complete safety !</span></p>
 
                         <div className='bg-[#f3fef7] p-5 rounded-lg'>
                             <h3 className='font-semibold text-2xl text-primary mb-3'>Who do I sell to?</h3>
@@ -194,17 +197,18 @@ const SiteDetails = () => {
 
                     </div>
                     <div className='flex justify-end'>
-                        <img className='w-4/5' src="/Images/NewSection/queen_luggage_CoBag.png" alt="" />
+                        <img className='md:w-4/5' src="/Images/NewSection/queen_luggage_CoBag.png" alt="" />
                     </div>
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="500" className=' rounded-lg px-5 py-10'>
-                    <img className='md:w-2/4 mx-auto md:mb-0 mb-10' src="/Images/NewSection/Screenshot_19.png" alt="" />
-                    <h2 className='text-center md:text-xl'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
+                <div data-aos="fade-up" data-aos-duration="500" className=' rounded-lg md:px-5 my-10'>
+                    <img className='md:w-2/4 w-full mx-auto md:mb-0 mb-10' src="/Images/NewSection/Screenshot_19.png" alt="" />
+                    <h2 className='text-center md:text-xl leading-[1.5]'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
                         <span className='text-primary font-semibold mb-1'>What if, instead of paying, you got paid?</span> Join the <span className='text-primary font-semibold mb-1'>smart travelers!</span> <br />
                         Sell my lost kilos</h2>
                     <div className='flex items-center justify-center'>
-                        <button className='bg-primary text-white py-2 px-8 rounded-lg mt-5'>Sell ​​my lost kilos {'>'}</button>
+                        <button className='flex items-center gap-2 bg-primary text-white py-2 px-8 rounded-lg mt-5'>Sell ​​my lost kilos <FaArrowRight />
+                        </button>
                     </div>
                 </div>
                 {/* 

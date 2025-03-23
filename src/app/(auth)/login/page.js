@@ -70,7 +70,7 @@ const Page = () => {
             {/* Right Side Form */}
             <div className="md:w-3/4 mx-auto my-20 flex items-center justify-center">
                 <form onSubmit={handleSubmit} className="w-full rounded-lg">
-                    <img className="w-48" src="/Images/Profile/black_logo.png" alt="Logo" />
+                    <img className="w-48" src="/Images/NewSection/cobag-logo.png" alt="Logo" />
                     <div className="my-8">
                         <h2 className="text-3xl md:text-5xl font-semibold mb-2">Welcome back!</h2>
                         <p className="text-gray-600">Please enter your details</p>

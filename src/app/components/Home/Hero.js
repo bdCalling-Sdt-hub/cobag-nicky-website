@@ -19,22 +19,22 @@ const Hero = () => {
 
     return (
         <div
-            className="bg-cover bg-center bg-no-repeat sm:min-h-[60vh] min-h-[90vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-96 md:mb-60 mb-0"
+            className="bg-cover relative bg-center bg-no-repeat sm:min-h-[90vh] min-h-[90vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-96 md:mb-60 mb-20"
         >
-            <div className="w-full h-full sm:min-h-[80vh] min-h-[90vh] bg-[#000000c5]">
-                <div className='flex flex-col items-center justify-center py-10 md:py-20'>
+            <div className="w-full h-full relative sm:min-h-[90vh] min-h-[90vh] bg-[#000000c5]">
+                <div className='flex flex-col items-center justify-center px-5 md:px-0 py-10 md:py-20'>
 
-                    <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full px-10 py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
-                        <FiShield className='text-2xl animate-spin duration-[2s]' />
+                    <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full md:px-10 px-5 text-sm py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
+                        <FiShield className='text-2xl animate-spin-slow' />
                         <IoLockClosedOutline className='text-2xl' />
 
                         {t('HeroSecureDelivery')}
                     </button>
                     <h2 className='text-center my-10 lg:w-2/4  text-white md:text-6xl text-3xl font-bold'>{t('ShareYourLuggagesaveMoney')}</h2>
-                    <h3 className='md:text-3xl text-xl font-semibold text-white'>
+                    <h3 className='md:text-3xl text-xl md:mt-0 -mt-5 font-semibold text-white'>
                         {t('CoBagreimbursesyourLuggage2')}
                     </h3>
-                    <div className="absolute md:-bottom-72 -bottom-0 md:w-[50%]">
+                    <div className="absolute md:-bottom-80 -bottom-32 md:w-[50%] w-[90%]">
                         {/* Thumbnail or Video Player */}
                         {!isPlaying ? (
                             <div className="relative">
@@ -58,15 +58,14 @@ const Hero = () => {
                         ) : (
                             // When the play button is clicked, show YouTube video iframe
                             <iframe
-
-                                className='w-[100%] xl:h-[600px] md:h-[400px] h-[300px]'
-
-                                src="https://www.youtube.com/embed/zFDpdKIQ5LU?autoplay=1" // Correct embed URL format
+                                className="w-[100%] xl:h-[600px] md:h-[400px] h-[300px]"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                src="https://www.youtube.com/embed/9x1XyJeTC20"
                                 title="YouTube video"
                                 frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             ></iframe>
+
                         )}
                         <div className='my-5 grid grid-cols-1 md:grid-cols-2 gap-5'>
                             <button className='bg-gradient-to-r from-[#161D6F] to-[#0B2F9F] py-3 rounded-md font-semibold text-white flex items-center justify-center gap-2'><GoPackage className='text-xl' />

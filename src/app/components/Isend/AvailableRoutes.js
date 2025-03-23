@@ -141,12 +141,12 @@ const AvailableRoutes = ({ searchData }) => {
                                     </div>
                                 </div>
 
-                                <div>
+                                <div className='w-full'>
                                     <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
                                         <h3 className="font-semibold">Your shipment</h3>
                                         <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
                                     </div>
-                                    <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full px-10 rounded-lg text-primary text-sm'>
+                                    <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
                                         <h2>Delivery by Thomas</h2>
                                         <p><span className='font-semibold'>Today</span> 03/15/2024 at <span className='font-semibold'>10:00 PM</span></p>
                                         <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>

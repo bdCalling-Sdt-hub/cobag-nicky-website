@@ -24,17 +24,17 @@ const AboutUs = () => {
 
 
     return (
-        <div className='my-20'>
+        <div className='md:my-20 my-10'>
             <section data-aos="fade-up" className='md:w-[70%] w-[90%] mx-auto'>
                 <h2 className='md:text-4xl text-2xl font-semibold text-primary text-center mb-5'>CoBag is also the solution for:</h2>
-                <p className='md:text-xl text-center'>Carry your excess baggage at a discounted price, shop from around the world and send packages internationally, all with <span className='text-primary font-semibold'> the fastest delivery on the planet: one direct flight away .</span>
+                <p className='md:text-xl text-center text-primary'>Carry your excess baggage at a discounted price, shop from around the world and send packages internationally, all with <span className='text-primary font-semibold'> the fastest delivery on the planet: one direct flight away .</span>
                 </p>
                 <img className='w-3/4 mx-auto' src="/Images/NewSection/solutions-1.png" alt="" />
                 <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-5 rounded-lg mx-auto my-20'> Transport my surplus at a reduced price <FaArrowRight /></button>
             </section>
 
             <section data-aos="fade-up" className='w-[80%]  mx-auto'>
-                <h2 className='text-center text-xl'>Examples of international purchases you will have in your hands <span className='text-primary font-semibold'>during a flight :</span></h2>
+                <h2 className='text-center text-xl text-primary '>Examples of international purchases you will have in your hands <span className='text-primary font-semibold'>during a flight :</span></h2>
 
                 <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 my-20 text-center'>
                     <div className='hover:-mt-2 duration-500'>
@@ -64,7 +64,7 @@ const AboutUs = () => {
             </section>
 
             <section data-aos="fade-up" className='w-[80%] mx-auto my-20'>
-                <h2 className='text-center text-xl'>Examples of international shipments, <span className='text-primary font-semibold'>delivered during a flight :</span></h2>
+                <h2 className='text-center text-xl text-primary'>Examples of international shipments, <span className='text-primary font-semibold'>delivered during a flight :</span></h2>
 
                 <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 my-20 text-center'>
                     <div className='hover:-mt-2 duration-500'>

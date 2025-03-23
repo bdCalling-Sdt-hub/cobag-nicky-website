@@ -7,7 +7,7 @@ import { MdInfo, MdOutlineFileUpload } from "react-icons/md";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { BiDollar } from "react-icons/bi";
 import { FiMessageSquare } from 'react-icons/fi';
-import { Space, TimePicker } from 'antd';
+import { message, Space, TimePicker } from 'antd';
 import { LuPlane } from 'react-icons/lu';
 import { PiTrainLight } from "react-icons/pi";
 import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
@@ -40,6 +40,22 @@ const Page = () => {
 
     const calculet = calculationData?.data[0];
     console.log(calculet?.minimumPricePerTransaction, calculet?.purchaseKilosAirplane);
+
+    const [defaultCruuent, setDefaultCruuent] = useState(5);
+    console.log(defaultCruuent);
+
+    const handleDecressValue = () => {
+        if (defaultCruuent < 5.5) {
+            return message.error('You have no more luggage')
+        }
+        setDefaultCruuent(defaultCruuent - 0.5)
+    }
+    const handleIncressValue = () => {
+        if (defaultCruuent > 6.5) {
+            return message.error('You have no more luggage')
+        }
+        setDefaultCruuent(defaultCruuent + 0.5)
+    }
 
 
 
@@ -330,12 +346,6 @@ const Page = () => {
 
 
 
-
-
-
-
-
-
     return (
         <div>
             <Toaster toastOptions={{ duration: 5000 }} containerStyle={{ zIndex: 99999999 }} position="top-center" />
@@ -565,12 +575,12 @@ const Page = () => {
                                                     <h2 className='mb-5'>Resale price per kilo</h2>
                                                     <div className='bg-[#F9FAFB] justify-between p-5 rounded-lg flex items-center gap-5'>
                                                         <div>
-                                                            <h2 className='text-2xl font-semibold text-primary mb-3'>5€/kg</h2>
+                                                            <h2 className='text-2xl font-semibold text-primary mb-3'>{defaultCruuent}€/kg</h2>
                                                             <span className='text-sm'>Minimum transaction: €12</span>
                                                         </div>
                                                         <div className='flex items-center gap-3 flex-col'>
-                                                            <FaAngleUp className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
-                                                            <FaAngleDown className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
+                                                            <FaAngleUp onClick={handleIncressValue} className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
+                                                            <FaAngleDown onClick={handleDecressValue} className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -592,7 +602,8 @@ const Page = () => {
                                                     id="available"
                                                 />
                                                 <span className="flex items-center gap-1 font-semibold  text-gray-700">
-                                                    {t('AvailableToBeACourier')} <MdInfo />
+                                                    {t('AvailableToBeACourier')}
+                                                    {/* <MdInfo /> */}
                                                 </span>
                                             </label>
 
@@ -687,63 +698,7 @@ const Page = () => {
 
                                         </div>
 
-                                        {/* Transport Mood */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                                            <div className="">
-                                                <span className='text-sm text-gray-700 font-semibold mb-3 block'>{t('TransportMood')}</span>
-                                                <div className='flex gap-5'>
-                                                    {/*  Hidden File Input */}
-                                                    <div className='border-2 w-[50%] border-dashed flex items-center justify-center h-full border-gray-300 bg-white rounded-lg p-4 cursor-pointer'>
-                                                        <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
 
-                                                            {imagePreview2 ? (
-                                                                <img src={imagePreview2} alt="Uploaded" className="w-full h-auto rounded-lg" />
-                                                            ) : (
-                                                                <label htmlFor="ticket-upload" className='flex w-full min-h-[80px] items-center justify-center'>
-                                                                    <input
-                                                                        type="file"
-                                                                        id="ticket-upload"
-                                                                        name='ticketImage'
-                                                                        accept=".png, .jpg, .jpeg"
-                                                                        className="hidden"
-                                                                        onChange={handleFile2Change} // Handle the file change
-                                                                    />
-                                                                    <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span>
-                                                                </label>
-                                                            )}
-
-                                                            {/* Show the file name when the file is uploaded */}
-                                                            {/* <span><MdOutlineFileUpload className='text-3xl text-gray-500' /></span> */}
-                                                        </label>
-                                                    </div>
-
-                                                    {/* Label and Button */}
-                                                    <label
-                                                        htmlFor="ticket-upload"
-                                                        className="flex flex-col justify-center cursor-pointer w-[50%]"
-                                                    >
-                                                        <span
-                                                            className="border-gray-100 block text-center border-[1px] text-gray-700 px-4 py-2 rounded-md   transition"
-                                                        >
-                                                            Add your ticket
-                                                        </span>
-                                                        <p className="text-xs mt-2 text-gray-500">{t('AddYourTicket')}</p>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-sm text-gray-700 font-semibold mb-3 ">Train Number</label>
-                                                <input
-                                                    type="text"
-                                                    name="flightNumber"
-                                                    className=" block w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 focus:outline-none text-sm focus:ring-blue-500 focus:border-blue-500"
-                                                    placeholder="E-5648"
-                                                />
-                                            </div>
-                                        </div>
 
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -909,7 +864,8 @@ const Page = () => {
                                                     id="available"
                                                 />
                                                 <span className="flex items-center gap-1 font-semibold  text-gray-700">
-                                                    {t('AvailableToBeACourier')} <MdInfo />
+                                                    {t('AvailableToBeACourier')}
+                                                    {/* <MdInfo /> */}
                                                 </span>
                                             </label>
 
