@@ -21,7 +21,7 @@ const Hero = () => {
         <div
             className="bg-cover relative bg-center bg-no-repeat sm:min-h-[90vh] min-h-[90vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-96 md:mb-60 mb-20"
         >
-            <div className="w-full h-full relative sm:min-h-[90vh] min-h-[90vh] bg-[#000000c5]">
+            <div className="w-full h-full relative sm:min-h-[90vh] min-h-[90vh] bg-[#00000063]">
                 <div className='flex flex-col items-center justify-center px-5 md:px-0 py-10 md:py-20'>
 
                     <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full md:px-10 px-5 text-sm py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
