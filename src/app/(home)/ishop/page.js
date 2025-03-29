@@ -107,7 +107,7 @@ const Page = () => {
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">{t('cityOfPurchase5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('cityOfPurchase5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
@@ -123,7 +123,7 @@ const Page = () => {
 
                                     {/* Arrival City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">{t('deliveryCity5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('deliveryCity5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
@@ -141,7 +141,7 @@ const Page = () => {
                                 <div className="grid grid-cols-2 items-start gap-4 my-5">
                                     {/* Desired Date */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">{t('desiredDate5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDate5454')}</label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="date"
@@ -156,7 +156,7 @@ const Page = () => {
 
                                     {/* Checkbox for Flexible Dates */}
                                     <div>
-                                        <label className="block mb-2 font-semibold">
+                                        <label className="block mb-2 font-semibold  text-[#474747]">
                                             Flexible Dates
                                         </label>
                                         <div className="">
@@ -175,7 +175,7 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block mb-2 font-semibold">{t('Estimatedpurchaseprice')}</label>
+                                    <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}</label>
                                     <div className="relative flex items-center">
                                         <input
                                             type="number"
@@ -190,7 +190,7 @@ const Page = () => {
                                 </div>
                                 <div>
 
-                                    <label id="flexibleDate" className="flex items-center gap-2 my-2 ">
+                                    <label id="flexibleDate" className="flex items-center gap-2 my-2 font-semibold  text-[#474747]">
                                         <input
                                             type="checkbox"
                                             checked={showFlexibleDate}

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { LuPlane, LuShield } from 'react-icons/lu';
 import { IoIosNotificationsOutline, IoMdInformationCircle } from "react-icons/io";
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
@@ -12,7 +12,7 @@ import { IoShieldCheckmarkOutline } from 'react-icons/io5';
 
 const AvailableRoutes = ({ searchData }) => {
 
-    console.log(searchData[0]);
+    // console.log(searchData[0]);
 
     const { t } = i18n;
 
@@ -44,16 +44,37 @@ const AvailableRoutes = ({ searchData }) => {
         // Add more raw route data here as needed
     ];
 
+
+    const [isNotification, setIsNotification] = useState(false);
+
+    // Create a reference to the section you want to scroll to
+    const routesSectionRef = useRef(null);
+
+    const handleNotificationShowHide2 = () => {
+        setIsNotification(prev => !prev);
+
+        // Scroll to the section smoothly
+        if (routesSectionRef.current) {
+            routesSectionRef.current.scrollIntoView({
+                behavior: 'smooth', // Smooth scroll
+                block: 'start' // Scroll to the top of the section
+            });
+        }
+    };
+
     return (
         <div className='lg:py-20 py-10 bg-[#]'>
             <div className='lg:w-[80%] mx-auto mb-5 flex justify-center items-center gap-3'>
                 <p className='text-base font-semibold text-gray-600'>Be alerted</p>
-                {
-                    isNotificaiton ?
-                        <FaToggleOff className='text-4xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
-                        :
-                        <FaToggleOn className='text-4xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
-                }
+                <a href="#routes" onClick={handleNotificationShowHide2}>
+                    {
+                        isNotification ?
+                            <FaToggleOff className='text-4xl cursor-pointer text-primary' />
+                            :
+                            <FaToggleOn className='text-4xl cursor-pointer text-primary' />
+                    }
+                </a>
+
             </div>
             <div className='md:w-[600px] mx-auto my-10 px-5 md:px-0'>
                 <div className=' grid md:grid-cols-2 gap-5'>
@@ -74,85 +95,95 @@ const AvailableRoutes = ({ searchData }) => {
                 </div>
             </div>
 
-            <div className="lg:w-[60%] w-[95%] mx-auto">
+            <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
                 {routeData.length > 0 ? (
                     routeData.map((item, index) => (
                         <div key={index} className="shadow-lg rounded-lg md:p-10 p-5 my-5">
                             <div className="flex flex-wrap items-center justify-between">
-                                <div className="flex items-center text-primary gap-3 font-medium">
-                                    <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
-                                        {item.transportMode === 'plane' ? (
-                                            <LuPlane className="text-2xl" />
-                                        ) : (
-                                            <MdVerifiedUser className="text-2xl" />
-                                        )}
+                                <div>
+                                    <div className="flex items-center text-primary gap-3 font-medium">
+                                        <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
+                                            {item.transportMode === 'plane' ? (
+                                                <LuPlane className="text-2xl" />
+                                            ) : (
+                                                <MdVerifiedUser className="text-2xl" />
+                                            )}
+                                        </div>
+                                        <h2 className="capitalize">
+                                            {item.transportType} {item.transportMode}
+
+                                        </h2>
                                     </div>
-                                    <h2 className="capitalize">
-                                        {item.transportType} {item.transportMode}
 
-                                    </h2>
-                                </div>
-                                <div className="flex flex-col justify-end items-end text-gray-500">
-                                    <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
-                                    <span className="flex items-center gap-3">
-                                        <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
-                                        including insurance and protection
+                                    <div>
+                                        <div className="flex gap-2 my-8">
+                                            <CiLocationOn className="text-2xl" />
+                                            <div>
+                                                <p>{item.departureCity}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="flex items-center gap-2 text-sm">
+                                                        <CiCalendar />
+                                                        {item.departureDate}
+                                                    </span>
+                                                    <span className="flex items-center gap-2 ml-5 text-sm">
+                                                        <FaRegClock />
+                                                        {item.departureTime}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    </span>
+                                        <div className="flex gap-2 my-8">
+                                            <CiLocationOn className="text-2xl" />
+                                            <div>
+                                                <p>{item.arrivalCity}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="flex items-center gap-2 text-sm">
+                                                        <CiCalendar />
+                                                        {item.arrivalDate}
+                                                    </span>
+                                                    <span className="flex items-center gap-2 ml-5 text-sm">
+                                                        <FaRegClock />
+                                                        {item.arrivalTime}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
+                                <div>
+                                    <div className="flex flex-col justify-end items-end text-gray-500">
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <span className="flex items-center gap-3">
+                                            <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
+                                            including insurance and protection
+
+                                        </span>
+
+                                    </div>
+                                    <div className='w-full mt-5'>
+                                        <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
+                                            <h3 className="font-semibold">Your shipment</h3>
+                                            <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
+                                        </div>
+                                        <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
+                                            <h2>Delivery by Thomas</h2>
+                                            <p><span className='font-semibold'>Today</span> 03/15/2024 at <span className='font-semibold'>10:00 PM</span></p>
+                                            <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div className="flex flex-wrap justify-between gap-10 items-center my-5">
-                                <div>
-                                    <div className="flex gap-2 my-8">
-                                        <CiLocationOn className="text-2xl" />
-                                        <div>
-                                            <p>{item.departureCity}</p>
-                                            <div className="flex items-center gap-2">
-                                                <span className="flex items-center gap-2 text-sm">
-                                                    <CiCalendar />
-                                                    {item.departureDate}
-                                                </span>
-                                                <span className="flex items-center gap-2 ml-5 text-sm">
-                                                    <FaRegClock />
-                                                    {item.departureTime}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div className="flex gap-2 my-8">
-                                        <CiLocationOn className="text-2xl" />
-                                        <div>
-                                            <p>{item.arrivalCity}</p>
-                                            <div className="flex items-center gap-2">
-                                                <span className="flex items-center gap-2 text-sm">
-                                                    <CiCalendar />
-                                                    {item.arrivalDate}
-                                                </span>
-                                                <span className="flex items-center gap-2 ml-5 text-sm">
-                                                    <FaRegClock />
-                                                    {item.arrivalTime}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div className='w-full'>
-                                    <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
-                                        <h3 className="font-semibold">Your shipment</h3>
-                                        <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
-                                    </div>
-                                    <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
-                                        <h2>Delivery by Thomas</h2>
-                                        <p><span className='font-semibold'>Today</span> 03/15/2024 at <span className='font-semibold'>10:00 PM</span></p>
-                                        <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
 
                             <div className="flex flex-wrap items-center md:justify-between gap-5">
@@ -190,9 +221,9 @@ const AvailableRoutes = ({ searchData }) => {
                         <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2>
                     </div>
                 )}
-            </div>
+            </section>
 
-            
+
         </div>
     );
 }

@@ -281,7 +281,7 @@ const Page = () => {
                                     <div className='grid grid-cols-2 gap-4'>
                                         {/* Departure City */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
+                                            <label className="block mb-2 font-semibold  text-[#474747]">{t('departureCityLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
@@ -297,7 +297,7 @@ const Page = () => {
 
                                         {/* Arrival City */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
+                                            <label className="block mb-2 font-semibold  text-[#474747]">{t('arrivalCityLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="text"
@@ -316,7 +316,7 @@ const Page = () => {
                                     <div className="grid grid-cols-2 items-start gap-4 my-5">
                                         {/* Desired Date */}
                                         <div>
-                                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
+                                            <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDateLabel45454')}</label>
                                             <div className="relative flex items-center">
                                                 <input
                                                     type="date"
@@ -365,7 +365,7 @@ const Page = () => {
 
                                     {/* checkbox  with : I would like to have my excess baggage transported*/}
                                     <div>
-                                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                                        <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 my-5 ">
                                             <input
                                                 type="checkbox"
                                                 name="flexible"
@@ -377,7 +377,7 @@ const Page = () => {
 
                                     {/* Package Weight */}
                                     <div>
-                                        <label className="mb-2 font-semibold flex justify-between">{t('packageWeightLabel454')}
+                                        <label className="mb-2 font-semibold  text-[#474747] flex justify-between">{t('packageWeightLabel454')}
                                             {/* <button type="button" onClick={addNewPackageField} className='flex items-center gap-2 text-primary'><FaPlus /> {t('addPackageButton454')}</button> */}
                                         </label>
                                         <div className="relative flex items-center">
@@ -435,7 +435,7 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 mb-5">
                         {/* Departure City */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('departureCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
@@ -451,7 +451,7 @@ const Page = () => {
 
                         {/* Arrival City */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('arrivalCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
@@ -469,7 +469,7 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 mb-5">
                         {/* Desired Date */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDateLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
@@ -483,7 +483,7 @@ const Page = () => {
                         </div>
 
                         <div className="">
-                            <label className="mb-2 font-semibold flex items-center justify-end gap-2">
+                            <label className="mb-2 font-semibold  text-[#474747] flex items-center justify-end gap-2">
                                 <input
                                     type="checkbox"
                                     className="w-4 h-4 text-primary focus:ring-0"
@@ -510,7 +510,7 @@ const Page = () => {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                        <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 my-5 ">
                             <input
                                 type="checkbox"
                                 name="flexible"
@@ -526,8 +526,8 @@ const Page = () => {
 
                         <div className='grid lg:grid-cols-3 gap-5'>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>S (small)</h3>
-                                <p className='my-3'>Documents, small packages</p>
+                                <h3 className='text-xl font-semibold'>Little</h3>
+                                <p className='mb-3 mt-1 text-xs '>Documents, small packages</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -539,8 +539,8 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>M (medium)</h3>
-                                <p className='my-3'>Standard boxes</p>
+                                <h3 className='text-xl font-semibold'>AVERAGE</h3>
+                                <p className='mb-3 mt-1 text-xs '>Standard boxes</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -552,8 +552,8 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>L (large)</h3>
-                                <p className='my-3'>Lightweight suitcases</p>
+                                <h3 className='text-xl font-semibold'>Grand</h3>
+                                <p className='mb-3 mt-1 text-xs '>Lightweight suitcases</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -587,7 +587,7 @@ const Page = () => {
                     <div className='grid grid-cols-2 gap-4'>
                         {/* Departure City */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('departureCityLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('departureCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
@@ -603,7 +603,7 @@ const Page = () => {
 
                         {/* Arrival City */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('arrivalCityLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('arrivalCityLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
@@ -623,7 +623,7 @@ const Page = () => {
                     <div className="grid grid-cols-2 gap-4 my-5">
                         {/* Desired Date */}
                         <div>
-                            <label className="block mb-2 font-semibold">{t('desiredDateLabel45454')}</label>
+                            <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDateLabel45454')}</label>
                             <div className="relative flex items-center">
                                 <input
                                     type="date"
@@ -637,7 +637,7 @@ const Page = () => {
                         </div>
 
                         <div className="">
-                            <label className="mb-2 font-semibold flex items-center justify-end gap-2">
+                            <label className="mb-2 font-semibold  text-[#474747] flex items-center justify-end gap-2">
                                 <input
                                     type="checkbox"
                                     className="w-4 h-4 text-primary focus:ring-0"
@@ -665,7 +665,7 @@ const Page = () => {
                     </div>
 
                     <div>
-                        <label htmlFor={`flexible`} className="flex items-center gap-2 my-5 ">
+                        <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 my-5 ">
                             <input
                                 type="checkbox"
                                 name="flexible"
@@ -679,7 +679,7 @@ const Page = () => {
                     <div className="my-5">
                         {/* Departure City */}
                         <div>
-                            <label className="flex items-center justify-between mb-2 font-semibold">
+                            <label className="flex items-center justify-between mb-2 font-semibold  text-[#474747]">
                                 {t('packageWeightLabel454')}
                                 {/* <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
                                     {t('addPackageButton454')}
@@ -722,8 +722,8 @@ const Page = () => {
 
                         <div className='grid lg:grid-cols-3 gap-5'>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>S (small)</h3>
-                                <p className='my-3'>Documents, small packages</p>
+                                <h3 className='text-xl font-semibold'>Little</h3>
+                                <p className='mb-3 mt-1 text-xs '>Documents, small packages</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusAllSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -735,8 +735,8 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>M (medium)</h3>
-                                <p className='my-3'>Standard boxes</p>
+                                <h3 className='text-xl font-semibold'>AVERAGE</h3>
+                                <p className='mb-3 mt-1 text-xs '>Standard boxes</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusAllMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -748,8 +748,8 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>L (large)</h3>
-                                <p className='my-3'>Lightweight suitcases</p>
+                                <h3 className='text-xl font-semibold'>Grand</h3>
+                                <p className='mb-3 mt-1 text-xs '>Lightweight suitcases</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusAllLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
                                         <FaMinus />
@@ -804,7 +804,7 @@ const Page = () => {
                     </div>
 
                     <div className="lg:w-2/4 mx-auto bg-[#ffffff91] backdrop-blur-lg rounded-xl p-5">
-                        <h2 className="font-semibold text-primary mb-3">{t('transportModeTitle45454')}</h2>
+                        <h2 className="font-semibold  text-[#474747] mb-3">{t('transportModeTitle45454')}</h2>
                         <div className="flex justify-center mb-5 gap-5">
                             {tabs.map((tab, index) => (
                                 <button

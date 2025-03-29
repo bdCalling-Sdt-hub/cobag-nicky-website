@@ -6,7 +6,7 @@ import 'aos/dist/aos.css'; // Import AOS styles
 import i18n from '@/app/utils/i18';
 
 const DetailsInfo = () => {
-    const {t} = i18n ;
+    const { t } = i18n;
     useEffect(() => {
         AOS.init({ duration: 1000 }); // Initialize AOS with desired options
     }, []);
@@ -23,8 +23,8 @@ const DetailsInfo = () => {
                             <path d="M21.832 14.6667L24.4987 17.3333L29.832 12" stroke="white" strokeWidth="2.66667" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </div>
-                    <h2 className='my-5 text-xl font-semibold text-primary'>{t('Identityverified')}</h2>
-                    <p>{t('Allusersareverifiedincluding')}</p>
+                    <h2 className='mt-5 mb-3 text-xl font-semibold text-primary'>{t('Identityverified')}</h2>
+                    <p className='text-gray-600 text-sm'>{t('Allusersareverifiedincluding')}</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-duration="500" className='flex flex-col items-center justify-center '>
@@ -35,8 +35,8 @@ const DetailsInfo = () => {
                             <path d="M9.83203 13.3337V9.33366C9.83203 7.56555 10.5344 5.86986 11.7847 4.61961C13.0349 3.36937 14.7306 2.66699 16.4987 2.66699C18.2668 2.66699 19.9625 3.36937 21.2127 4.61961C22.463 5.86986 23.1654 7.56555 23.1654 9.33366V13.3337" stroke="white" strokeWidth="2.66667" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </div>
-                    <h2 className='my-5 text-xl font-semibold text-primary'>{t('Securepayment3554')}</h2>
-                    <p>{t('Paymentsarehelduntildeliverytransparent')}</p>
+                    <h2 className='mt-5 mb-3 text-xl font-semibold text-primary'>{t('Securepayment3554')}</h2>
+                    <p className='text-gray-600 text-sm'>{t('Paymentsarehelduntildeliverytransparent')}</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-duration="800" className='flex flex-col items-center justify-center '>
@@ -46,8 +46,8 @@ const DetailsInfo = () => {
                             <path d="M16.5 10.667V16.0003L19.1667 18.667" stroke="#E7E7E7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </div>
-                    <h2 className='my-5 text-xl font-semibold text-primary'>{t('Securitycode2541')}</h2>
-                    <p>{t('Two5445zdf41')}<span className='font-semibold'>{t('4digitcodes')}</span>{t('secureeachstepuponhandover')}</p>
+                    <h2 className='mt-5 mb-3 text-xl font-semibold text-primary'>{t('Securitycode2541')}</h2>
+                    <p className='text-gray-600 text-sm'>{t('Two5445zdf41')}<span className='font-semibold'>{t('4digitcodes')}</span>{t('secureeachstepuponhandover')}</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-duration="1000" className='flex flex-col items-center justify-center '>
@@ -56,8 +56,8 @@ const DetailsInfo = () => {
                             <path d="M16.501 3.2002C12.9053 6.25726 10.6514 6.40019 6.901 6.40019V18.7042C6.901 23.6141 10.3175 24.8951 16.501 28.8002C22.6845 24.8951 26.101 23.6141 26.101 18.7042C26.101 13.7943 26.101 6.40019 26.101 6.40019C22.3506 6.40019 20.0967 6.25726 16.501 3.2002Z" stroke="white" strokeWidth="2.5" strokeLinejoin="round" />
                         </svg>
                     </div>
-                    <h2 className='my-5 text-xl font-semibold text-primary'>{t('CoBagInsurance345')}</h2>
-                    <p>{t('BenefitfromcomprehensivecoveragewithCoBag')} <span className='font-semibold'>{t('insurance5sd54ff')}</span>{t('protectingyourparcelsupto')} <span className='font-semibold'>{t('prices€1000')}</span> {t('incaseincidentpeacemindyourshipments')}</p>
+                    <h2 className='mt-5 mb-3 text-xl font-semibold text-primary'>{t('CoBagInsurance345')}</h2>
+                    <p className='text-gray-600 text-sm'>{t('BenefitfromcomprehensivecoveragewithCoBag')} <span className='font-semibold text-primary'>{t('insurance5sd54ff')}</span>{t('protectingyourparcelsupto')} <span className='font-semibold text-primary'>{t('prices€1000')}</span> {t('incaseincidentpeacemindyourshipments')}</p>
                 </div>
 
 

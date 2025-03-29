@@ -18,7 +18,7 @@ const HalfEmptyLuggage = () => {
             </div> */}
 
             <div >
-                <div className='my-20 flex items-center justify-center'>
+                <div className='my-10 flex items-center justify-center'>
                     <div className='flex items-center gap-5 shadow-lg rounded-lg p-10'>
                         <div className='bg-gradient-to-tl w-14 h-14 flex items-center justify-center from-[#C7FFD8] to-primary text-white rounded-full'>
                             <BsCurrencyDollar className='text-3xl ' />
@@ -31,7 +31,7 @@ const HalfEmptyLuggage = () => {
                         </div>
                     </div>
                 </div>
-                <div data-aos="fade-up" data-aos-duration="500" className='my-32 grid lg:grid-cols-2 gap-10 items-center'>
+                <div data-aos="fade-up" data-aos-duration="500" className='my-10 grid lg:grid-cols-2 gap-10 items-center'>
                     <div>
                         <h2 className='text-3xl md:text-4xl font-semibold text-primary'>CoBag does justice to travelers: Your suitcases are worth gold!</h2>
                         <p className='my-5  md:text-2xl'>Tired of your luggage traveling for more than you do? With CoBag, take back control: Every <span className='font-semibold text-primary'>kilo lost</span> in your suitcase is <span className='font-semibold text-primary'>money lost </span>. Turn them into kilos available for others... and <span className='font-semibold text-primary'>into profits for you, in complete safety !</span></p>
@@ -52,7 +52,7 @@ const HalfEmptyLuggage = () => {
 
             <div data-aos="fade-up" data-aos-duration="500" className=' rounded-lg px-5 md:py-10'>
                 <img className='md:w-2/4 mx-auto md:mb-0 mb-5' src="/Images/NewSection/Screenshot_19.png" alt="" />
-                <h2 className='text-center md:text-xl'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
+                <h2 className='text-center md:text-xl mt-5'>Yes, you've <span className='text-primary font-semibold'>noticed, your luggage costs you more than your own ticket.</span> <br />
                     <span className='text-primary font-semibold mb-1 leading-[2]'>What if, instead of paying, you got paid?</span> Join the <span className='text-primary font-semibold mb-1'>smart travelers!</span> <br />
                     Sell my lost kilos</h2>
                 <div className='flex items-center justify-center'>

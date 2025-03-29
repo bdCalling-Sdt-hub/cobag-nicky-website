@@ -40,7 +40,7 @@ i18n
           'SiteCOLOCATION': 'CO-LOCATION',
           'SiteCOWORKING': 'CO-WORKING',
           'SiteCObagSharing': 'As you will have understood, the principle of CoBag is simple:',
-          'SiteCObagSharingwhat': 'Sharing what?',
+          'SiteCObagSharingwhat': 'Sharing what ? ',
           'CoBagreimbursesyourluggage': 'CoBag rembourse vos bagages',
           'Resellyour': 'Resell your',
           'unusedkilos': 'unused kilos',

@@ -4,7 +4,7 @@ import i18n from '@/app/utils/i18';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { CiCalendar, CiChat1, CiLocationOn, CiStar } from 'react-icons/ci';
-import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
+import { FaChevronLeft, FaChevronRight, FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { FiMessageSquare } from 'react-icons/fi';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { IoShieldCheckmarkOutline } from 'react-icons/io5';
@@ -144,15 +144,6 @@ const CouriersAvailable = ({ searchIshopItem }) => {
     return (
         <div className='bg-[#f7f7fc]'>
             <div className='lg:py-32 py-20 bg-[#]'>
-                {/* <div className='lg:w-[80%] w-[90%] mx-auto mb-5 flex items-center gap-3'>
-                    <p className='text-base font-semibold text-primary'>{t('newJourneyNotification654')} -</p>
-                    {
-                        isNotificaiton ?
-                            <FaToggleOff className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
-                            :
-                            <FaToggleOn className='text-3xl cursor-pointer text-primary' onClick={handleNotificationShowHide} />
-                    }
-                </div> */}
 
                 <div className='lg:w-[80%] w-[90%] mx-auto '>
                     <div className="bg-white shadow-lg rounded-lg p-8 border text-left">
@@ -204,23 +195,23 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                             </div>
 
                             {/* Minimum traveler rating */}
-                            <div className="flex items-center space-x-2">
-                                <span className="text-gray-600 block">Minimum traveler rating</span><br />
-                                <input
-                                    type="range"
-                                    min="1"
-                                    max="5"
-                                    step="0.1"
-                                    value={minRating}
-                                    onChange={handleRatingChange}
-                                    className="w-full"
-                                />
-                                <span className="text-gray-700">{minRating} <span className='text-orange-400'>★</span></span>
+                            <div className="items-center ">
+                                <span className="text-gray-600 block">Minimum traveler rating</span>
+                                <div className='flex items-center gap-3'>
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="5"
+                                        step="0.1"
+                                        value={minRating}
+                                        onChange={handleRatingChange}
+                                        className="w-full"
+                                    />
+                                    <span className="text-gray-700 min-w-16">{minRating} <span className='text-2xl text-[#f3d423]'>★</span></span>
+                                </div>
                             </div>
 
-
                         </div>
-
 
 
                         {/* Apply Filter Button */}
@@ -247,10 +238,6 @@ const CouriersAvailable = ({ searchIshopItem }) => {
 
 
                                 <div className='p-4'>
-                                    {/* <h4 className='text-xl font-semibold'>{request.title}</h4>
-                                                                      <p className='text-lg text-gray-700'>{request.price}€</p>
-                                                                      <p className='text-sm text-gray-500'>Earnings: {request.earnings}€ or more</p>
-                                                                      */}
                                     <div className='flex justify-between '>
                                         <div className=' text-left mt-2'>
                                             <p className='text-sm text-gray-600'>Purchase in:  {request.purchaseCity}</p>
@@ -266,8 +253,8 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                                             <span className='ml-2 text-gray-500 text-xs'>{request.travelerMissions}</span>
                                         </div>
                                     </div>
-                                    <button className='mt-4 px-6 w-full py-2 bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>
-                                        <CiChat1 />Contact
+                                    <button className='mt-4 px-6 w-full py-3 text-xl bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>
+                                        <FiMessageSquare />Contact
                                     </button>
                                 </div>
                             </div>
@@ -278,22 +265,24 @@ const CouriersAvailable = ({ searchIshopItem }) => {
                     <div className='flex justify-center mt-8'>
                         <button
                             onClick={() => goToPage(currentPage - 1)}
-                            className='px-4 py-2 bg-primary text-white rounded-l-lg hover:bg-primary-dark'
+                            className='px-4 py-2  text-primary rounded-l-lg hover:bg-primary-dark'
                             disabled={currentPage === 1}
                         >
-                            Previous
+                            <FaChevronLeft className='text-2xl' />
                         </button>
                         <span className='px-4 py-2 text-lg text-gray-700'>{`${currentPage} / ${totalPages}`}</span>
                         <button
                             onClick={() => goToPage(currentPage + 1)}
-                            className='px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark'
+                            className='px-4 py-2 text-primary rounded-r-lg hover:bg-primary-dark'
                             disabled={currentPage === totalPages}
                         >
-                            Next
+                            <FaChevronRight
+                                className='text-2xl' />
                         </button>
                     </div>
 
                 </div>
+
 
 
 

@@ -39,12 +39,12 @@ const Header = () => {
     console.log(baseUrl + '' + data?.user?.profileImage);
 
     return (
-        <header className="fixed top-0 py-5 left-0 w-full bg-white flex items-center justify-between px-5 xl:px-48 md:px-10  z-[99999] ">
+        <header className="fixed  top-0 py-10 left-0 w-full bg-white flex items-center justify-between px-5 xl:px-48 md:px-10  z-[99999] ">
             {/* Navigation Links */}
-            <ul className="hidden md:flex items-center gap-5">
-                <li>{t('navWhatdoWYouWantTo')}</li>
-                <li className="relative group cursor-pointer">
-                    <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-5 py-3 px-5 rounded-full navbar-item-hover z-[9999]'>
+            <ul className="hidden md:flex items-center gap-5 ">
+                <li className='font-semibold text-[#4d4d4d]'>{t('navWhatdoWYouWantTo')}</li>
+                <li className="relative group cursor-pointer ">
+                    <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-10 py-3 px-4  m rounded-full navbar-item-hover z-[9999]'>
                         <FaChevronRight className='group-hover:hidden text-white z-[9999] ' />
                         <FaArrowRight className='hidden group-hover:block text-white z-[9999] ' />
                         {t('Discoverourservices')}
@@ -101,7 +101,10 @@ const Header = () => {
 
                 {
                     !data?.user && <Link href={'/login'}>
-                        <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavLogin')}</button>
+                        <button className='  rounded-full font-semibold text-[#19191b] '>
+                            {/* {t('NavLogin')} */}
+                            My profile
+                        </button>
                     </Link>
                 }
 
@@ -133,12 +136,12 @@ const Header = () => {
             </div>
 
             {/* Logo Section (Always Visible) */}
-            <Link href={'/'} className="w-[100px] md:w-[150px] block cursor-pointer">
+            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-36 cursor-pointer">
                 <Image
                     src="/Images/NewSection/cobag-logo.png"
                     alt="Company Logo"
-                    width={150}
-                    height={75}
+                    width={80}
+                    height={40}
                     layout="responsive"
                 />
 
@@ -151,7 +154,7 @@ const Header = () => {
             <div className="md:flex items-center gap-3  hidden ">
                 <Link
                     href={'/commission'}
-                    className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-3 rounded-full font-semibold  border"
+                    className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-2 rounded-full font-semibold  border"
                 >
                     {t('NavCommission')}
                 </Link>
@@ -159,7 +162,10 @@ const Header = () => {
 
                 {
                     !data?.user && <Link href={'/login'}>
-                        <button className='bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] px-6 py-3 rounded-full font-semibold text-primary border'>{t('NavLogin')}</button>
+                        <button className='rounded-full font-medium text-[#161618] px-6 py-2 duration-300 hover:bg-gray-100'>
+                            {/* {t('NavLogin')} */}
+                            My profile
+                        </button>
                     </Link>
                 }
 

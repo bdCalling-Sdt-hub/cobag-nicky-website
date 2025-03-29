@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { CiCalendar, CiLocationOn } from 'react-icons/ci';
+import { CiCalendar, CiCircleQuestion, CiLocationOn } from 'react-icons/ci';
 import { FaAngleDown, FaAngleUp, FaArrowRightLong, FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdInfo, MdOutlineFileUpload } from "react-icons/md";
@@ -19,6 +19,7 @@ import { useCreatePlaneMutation } from '@/app/redux/Features/Itravel/createPlane
 import toast, { Toaster } from 'react-hot-toast';
 import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
+import { FaRegQuestionCircle } from 'react-icons/fa';
 
 
 
@@ -363,9 +364,9 @@ const Page = () => {
                         </p>
                     </div>
 
-                    <div className='max-w-5xl mx-auto backdrop-blur-lg bg-[#ffffff85] md:p-10 p-5 rounded-md'>
+                    <div className='max-w-3xl mx-auto backdrop-blur-lg bg-[#ffffff85] md:p-8 p-5 rounded-2xl'>
                         {/* Tab Navigation */}
-                        <span className='mb-3 font-semibold block text-[#474747]'>Mode of transport</span>
+                        <span className='mb-2 font-semibold block text-[#474747]'>Mode of transport</span>
 
                         <div className="flex justify-center gap-5 mb-6">
                             <button
@@ -392,7 +393,7 @@ const Page = () => {
                                     <form onSubmit={handleSubmitTravel} className="space-y-6">
 
                                         <div className="">
-                                            <span className='font-semibold text-gray-700 mb-2 block'>Type of journey
+                                            <span className='font-semibold block text-[#474747] mb-2'>Type of journey
                                             </span>
                                             <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
                                                 {/* First Radio Button */}
@@ -405,7 +406,7 @@ const Page = () => {
                                                         value="direct" // Set the value here
                                                         defaultChecked
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white  rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-gray-600 peer-checked:text-white text-xs rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
@@ -419,7 +420,7 @@ const Page = () => {
                                                         id="radio2"
                                                         value="withCorrespondence" // Set the value here
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white bg-white text-primary rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white text-xs bg-white text-gray-600 rounded-lg px-4 py-3">
                                                         <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
@@ -431,7 +432,7 @@ const Page = () => {
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">
+                                                <label className="block font-semibold text-[#474747]">
                                                     {t('DepartureCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -448,7 +449,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">{t('ArrivalCity')}</label>
+                                                <label className="font-semibold block text-[#474747]">{t('ArrivalCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -467,7 +468,7 @@ const Page = () => {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">
+                                                <label className=" font-semibold block text-[#474747]">
                                                     {/* {t('DepartureDate')} */}
                                                     Departure date and time
                                                 </label>
@@ -484,7 +485,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm mb-2 font-semibold text-gray-700">
+                                                <label className="  mb-2 font-semibold block text-[#474747]">
                                                     {/* {t('ArrivalDate')} */}
                                                     Date and time of arrival
                                                 </label>
@@ -503,7 +504,7 @@ const Page = () => {
                                         </div>
 
                                         <div>
-                                            <span className="block font-semibold text-gray-700 mb-3">
+                                            <span className="font-semibold block text-[#474747] mb-2">
                                                 {/* {t('AvailableWeight')} */}
                                                 Weight available for resale
                                             </span>
@@ -515,11 +516,11 @@ const Page = () => {
                                                     <div className=' '>
                                                         <label htmlFor="handLuggage" className='flex items-center justify-between '>
                                                             <div className='flex items-center gap-3'>
-                                                                <div className='w-16 h-16 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
-                                                                    <IoBagOutline className='text-3xl text-primary' />
+                                                                <div className='w-12 h-12 hover:rotate-45 duration-300 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
+                                                                    <IoBagOutline className='text-2xl text-primary' />
                                                                 </div>
-                                                                <h2 className='text-2xl font-semibold text-primary'>{t('HandLuggage')} <br />
-                                                                    <span className='text-sm text-gray-500 font-normal'> Maximum 13kg per baggage</span>
+                                                                <h2 className='text-[18px] font-semibold text-[#222]'>{t('HandLuggage')}
+                                                                    <span className='text-sm block mt-1 text-gray-500 font-normal'> Maximum 13kg per baggage</span>
 
                                                                 </h2>
                                                             </div>
@@ -544,11 +545,11 @@ const Page = () => {
                                                     <div className=' '>
                                                         <label htmlFor="handBaggage" className='flex items-center justify-between '>
                                                             <div className='flex items-center gap-3'>
-                                                                <div className='w-16 h-16 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
-                                                                    <RiShoppingBag4Line className='text-3xl text-primary' />
+                                                                <div className='w-12 h-12 hover:rotate-45 duration-300 bg-[#e7eaf5] rounded-md flex items-center justify-center'>
+                                                                    <RiShoppingBag4Line className='text-2xl text-primary' />
                                                                 </div>
-                                                                <h2 className='text-2xl font-semibold text-primary'>{t('CheckedBaggage')} <br />
-                                                                    <span className='text-sm text-gray-500 font-normal'>Maximum 23kg per piece of luggage</span>
+                                                                <h2 className='text-[18px] font-semibold text-[#222]'>{t('CheckedBaggage')}
+                                                                    <span className='text-sm block mt-1 text-gray-500 font-normal'>Maximum 23kg per piece of luggage</span>
                                                                 </h2>
                                                             </div>
                                                         </label>
@@ -572,11 +573,11 @@ const Page = () => {
                                                 </div>
 
                                                 <div className='mt-10'>
-                                                    <h2 className='mb-5'>Resale price per kilo</h2>
+                                                    <h2 className='mb-1 text-[#444] font-semibold'>Resale price per kilo</h2>
                                                     <div className='bg-[#F9FAFB] justify-between p-5 rounded-lg flex items-center gap-5'>
                                                         <div>
                                                             <h2 className='text-2xl font-semibold text-primary mb-3'>{defaultCruuent}€/kg</h2>
-                                                            <span className='text-sm'>Minimum transaction: €12</span>
+                                                            <span className='text-sm '>Minimum transaction: €12</span>
                                                         </div>
                                                         <div className='flex items-center gap-3 flex-col'>
                                                             <FaAngleUp onClick={handleIncressValue} className='cursor-pointer p-1 text-2xl duration-300 hover:bg-slate-200 rounded-full' />
@@ -601,8 +602,8 @@ const Page = () => {
                                                     name="available"
                                                     id="available"
                                                 />
-                                                <span className="flex items-center gap-1 font-semibold  text-gray-700">
-                                                    {t('AvailableToBeACourier')}
+                                                <span className="flex items-center gap-1 font-semibold text-[#474747]">
+                                                    {t('AvailableToBeACourier')} <FaRegQuestionCircle className='font-semibold' />
                                                     {/* <MdInfo /> */}
                                                 </span>
                                             </label>
@@ -637,7 +638,7 @@ const Page = () => {
                                                     name="availableReturn"
                                                     id='available2'
                                                 />
-                                                <span className="flex items-center gap-1 text-sm font-semibold  text-gray-700">
+                                                <span className="flex items-center gap-1 font-semibold text-[#474747]">
                                                     Also fill my return journey
                                                 </span>
                                             </label>
@@ -664,8 +665,8 @@ const Page = () => {
                                     <form onSubmit={handleSubmitTrain} className="space-y-6">
 
                                         <div className="">
-                                            <span className='font-semibold text-gray-700 mb-2 block'>{t('TransportMood')}</span>
-                                            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+                                            <span className='font-semibold block text-[#474747] mb-2 '>{t('TransportMood')}</span>
+                                            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2">
                                                 {/* First Radio Button */}
                                                 <label htmlFor="radio1" className="flex items-center gap-2 cursor-pointer">
                                                     <input
@@ -676,7 +677,7 @@ const Page = () => {
                                                         value="direct" // Set the value here
                                                         defaultChecked
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center bg-white text-primary peer-checked:text-white  rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center text-sm bg-white text-primary peer-checked:text-white  rounded-lg px-3 py-3">
                                                         <span className="font-semibold">{t("Direct")}</span>
                                                     </div>
                                                 </label>
@@ -690,7 +691,7 @@ const Page = () => {
                                                         id="radio2"
                                                         value="withCorrespondence" // Set the value here
                                                     />
-                                                    <div className="peer-checked:bg-primary w-full text-center peer-checked:text-white  bg-white text-primary rounded-lg px-4 py-3">
+                                                    <div className="peer-checked:bg-primary w-full text-center text-sm peer-checked:text-white  bg-white text-primary rounded-lg px-3 py-3">
                                                         <span className="font-semibold">{t("WithCorrespondence")}</span>
                                                     </div>
                                                 </label>
@@ -703,7 +704,7 @@ const Page = () => {
                                         {/* Departure and Arrival */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">
+                                                <label className="font-semibold block text-[#474747]">
                                                     {t('DepartureCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -720,7 +721,7 @@ const Page = () => {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-semibold text-gray-700">{t('ArrivalCity')}</label>
+                                                <label className="font-semibold block text-[#474747] ">{t('ArrivalCity')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -739,7 +740,7 @@ const Page = () => {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-sm  text-gray-700 mb-2 font-semibold">{t('DepartureDate')}</label>
+                                                <label className="font-semibold block text-[#474747] mb-2">{t('DepartureDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -753,7 +754,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm mb-2 font-semibold text-gray-700">{t('ArrivalDate')}</label>
+                                                <label className="block mb-2 font-semibold text-[#474747]">{t('ArrivalDate')}</label>
                                                 <div className="relative mt-1">
                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                         {/* Icon */}
@@ -770,22 +771,22 @@ const Page = () => {
 
                                         <div className='flex items-center justify-between gap-5 '>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('DepartureTime')}</span>
+                                                <span className='font-semibold block text-[#474747] mb-2'>{t('DepartureTime')}</span>
                                                 <TimePicker name='departureTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime2} />
                                             </div>
                                             <div className='w-[50%]'>
-                                                <span className='font-semibold  text-gray-700 block mb-2'>{t('ArrivalTime')}</span>
+                                                <span className='font-semibold block text-[#474747] mb-2'>{t('ArrivalTime')}</span>
                                                 <TimePicker name='arrivalTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime1} />
                                             </div>
                                         </div>
 
 
                                         <div>
-                                            <span className='font-semibold  text-gray-700 block mb-2'>Accepted package sizes</span>
+                                            <span className='font-semibold block text-[#474747] mb-2'>Accepted package sizes</span>
                                             <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                                                 <div className='p-5 bg-white rounded-md'>
-                                                    <div className='flex items-center justify-between flex-wrap mb-5' >
-                                                        <h2 className='font-semibold'>Small (s)</h2>
+                                                    <div className='flex flex-col gap-2 flex-wrap mb-5' >
+                                                        <h2 className='font-semibold '>Small (s)</h2>
                                                         <div className='flex items-center gap-3'>
                                                             <div onClick={handleSmallDecress} className='text-2xl w-10  h-10 p-3  bg-[#e7eaf5] rounded-full cursor-pointer flex items-center justify-center'>
                                                                 <FaMinus />
@@ -806,7 +807,7 @@ const Page = () => {
                                                     <p className=''>Maximum: 5 packages</p>
                                                 </div>
                                                 <div className='p-5 bg-white rounded-md'>
-                                                    <div className='flex items-center justify-between flex-wrap mb-5' >
+                                                    <div className='flex flex-col gap-2 flex-wrap mb-5' >
                                                         <h2 className='font-semibold'>Medium (M)</h2>
                                                         <div className='flex items-center gap-3'>
                                                             <div onClick={handleMediumDecress} className='text-2xl w-10  h-10 p-3  bg-[#e7eaf5] rounded-full cursor-pointer flex items-center justify-center'>
@@ -827,7 +828,7 @@ const Page = () => {
                                                     <p className=''>Maximum: 5 packages</p>
                                                 </div>
                                                 <div className='p-5 bg-white rounded-md'>
-                                                    <div className='flex items-center justify-between flex-wrap mb-5' >
+                                                    <div className='flex flex-col gap-2 flex-wrap mb-5' >
                                                         <h2 className='font-semibold'>Large (L)</h2>
                                                         <div className='flex items-center gap-3'>
                                                             <div onClick={handleLargeDecress} className='text-2xl w-10  h-10 p-3  bg-[#e7eaf5] rounded-full cursor-pointer flex items-center justify-center'>
@@ -863,7 +864,7 @@ const Page = () => {
                                                     name="available"
                                                     id="available"
                                                 />
-                                                <span className="flex items-center gap-1 font-semibold  text-gray-700">
+                                                <span className="flex items-center gap-1 font-semibold text-[#474747]">
                                                     {t('AvailableToBeACourier')}
                                                     {/* <MdInfo /> */}
                                                 </span>
@@ -891,11 +892,11 @@ const Page = () => {
                                         </div>
 
 
-                                        <div>
+                                        {/* <div>
                                             <span className='font-semibold  text-gray-700'>{t('MessageOptional')}</span>
                                             <div className="relative mt-2 ">
                                                 <div className="absolute inset-y-0 left-0 pl-2 top-5">
-                                                    {/* Icon */}
+                                                    
                                                     <FiMessageSquare className='text-2xl text-[#737373]' />
                                                 </div>
                                                 <textarea
@@ -904,6 +905,20 @@ const Page = () => {
                                                     placeholder='Enter the message' className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-10 py-5 focus:outline-none focus:ring-blue-500 focus:border-blue-500 min-h-[250px]"
                                                 />
                                             </div>
+                                        </div> */}
+
+                                        <div>
+                                            <label htmlFor="available2" className="flex items-center gap-2 cursor-pointer">
+                                                <input  // Use onChange instead of onClick for checkboxes
+                                                    className="w-5 h-5"
+                                                    type="checkbox"
+                                                    name="availableReturn"
+                                                    id='available2'
+                                                />
+                                                <span className="flex items-center gap-1 font-semibold  text-[#474747]">
+                                                    Also fill my return journey
+                                                </span>
+                                            </label>
                                         </div>
 
 

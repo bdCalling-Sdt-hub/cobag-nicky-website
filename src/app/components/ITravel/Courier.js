@@ -3,6 +3,8 @@ import i18n from '@/app/utils/i18';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react';
 import { CiChat1, CiLocationOn } from 'react-icons/ci';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import { FiMessageSquare } from 'react-icons/fi';
 
 const Courier = () => {
     const { t } = i18n;
@@ -116,21 +118,20 @@ const Courier = () => {
 
     return (
         <div className='bg-[#f6f6fb]'>
-            <div className='lg:w-[80%] w-[90%] mx-auto py-20'>
+            <div className='lg:w-[80%] w-[90%] mx-auto py-10 md:py-20'>
                 <div>
-                    <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary 0'>What is it like to be a courier with Cobag?</h2>
+                    <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary '>What is it like to be a courier with Cobag?</h2>
 
-
-                    <h3 className='text-center md:w-2/4 mx-auto my-10 md:text-xl '>As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users.
+                    <h3 className='text-center md:w-2/4 mx-auto mb-10 mt-3 md:text-xl '>As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users.
                         Earn <span className='font-semibold text-primary'> at least €27 in earnings for each purchase mission .</span></h3>
 
-                    <h3 className='text-center md:w-2/4 mx-auto font-semibold text-2xl  text-primary'>How does it work?</h3>
+                    <h3 className='text-center md:w-2/4 mx-auto font-semibold text-3xl  text-primary'>How does it work?</h3>
 
                     <div data-aos="fade-up" className='my-20'>
 
                         <div className=''>
 
-                            <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10  text-center'>
+                            <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 text-center'>
                                 <div className='hover:-mt-2 duration-500'>
                                     <img className='w-full mx-auto' src="/Images/NewSection/form-1.png" alt="" />
                                     <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>Add your journey
@@ -159,7 +160,7 @@ const Courier = () => {
                                 </div>
                             </div>
 
-                            <button className='flex items-center justify-center gap-2 bg-primary text-white hover:scale-[1.2] duration-300 py-2 px-8 rounded-lg mx-auto  mt-20'>
+                            <button className='flex items-center justify-center gap-2 bg-primary text-white hover:scale-[1.1] duration-300 py-3 px-8 rounded-xl mx-auto  mt-10'>
                                 Suggest my route
                             </button>
                             {/* <div>
@@ -199,7 +200,7 @@ const Courier = () => {
                 </div> */}
             </div>
 
-            <div className='lg:w-[80%] w-[90%] mx-auto md:pb-20'>
+            <div className='lg:w-[80%] w-[90%] mx-auto '>
                 <div className="bg-white shadow-lg rounded-lg p-8 border text-left">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">Filter ads</h2>
 
@@ -249,18 +250,20 @@ const Courier = () => {
                         </div>
 
                         {/* Minimum traveler rating */}
-                        <div className="flex items-center space-x-2">
-                            <span className="text-gray-600 block">Minimum traveler rating</span><br />
-                            <input
-                                type="range"
-                                min="1"
-                                max="5"
-                                step="0.1"
-                                value={minRating}
-                                onChange={handleRatingChange}
-                                className="w-full"
-                            />
-                            <span className="text-gray-700">{minRating} ★</span>
+                        <div className="items-center ">
+                            <span className="text-gray-600 block">Minimum traveler rating</span>
+                            <div className='flex items-center gap-3'>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="5"
+                                    step="0.1"
+                                    value={minRating}
+                                    onChange={handleRatingChange}
+                                    className="w-full"
+                                />
+                                <span className="text-gray-700 min-w-16">{minRating} <span className='text-2xl text-[#f3d423]'>★</span></span>
+                            </div>
                         </div>
 
 
@@ -311,8 +314,8 @@ const Courier = () => {
                                         <span className='ml-2 text-gray-500 text-xs'>{request.travelerMissions}</span>
                                     </div>
                                 </div>
-                                <button className='mt-4 px-6 w-full py-2 bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>
-                                    <CiChat1 />Contact
+                                <button className='mt-4 px-6 w-full py-3 text-xl bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>
+                                    <FiMessageSquare />Contact
                                 </button>
                             </div>
                         </div>
@@ -323,18 +326,19 @@ const Courier = () => {
                 <div className='flex justify-center mt-8'>
                     <button
                         onClick={() => goToPage(currentPage - 1)}
-                        className='px-4 py-2 bg-primary text-white rounded-l-lg hover:bg-primary-dark'
+                        className='px-4 py-2  text-primary rounded-l-lg hover:bg-primary-dark'
                         disabled={currentPage === 1}
                     >
-                        Previous
+                        <FaChevronLeft className='text-2xl' />
                     </button>
                     <span className='px-4 py-2 text-lg text-gray-700'>{`${currentPage} / ${totalPages}`}</span>
                     <button
                         onClick={() => goToPage(currentPage + 1)}
-                        className='px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark'
+                        className='px-4 py-2 text-primary rounded-r-lg hover:bg-primary-dark'
                         disabled={currentPage === totalPages}
                     >
-                        Next
+                        <FaChevronRight
+                            className='text-2xl' />
                     </button>
                 </div>
 
