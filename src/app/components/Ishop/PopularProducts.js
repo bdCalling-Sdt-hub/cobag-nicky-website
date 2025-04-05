@@ -17,12 +17,12 @@ const PopularProducts = () => {
     };
 
     return (
-        <div className='bg-[#f6f6fb] py-20'>
+        <div className='bg-[#f6f6fb] '>
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="max-w-4xl mx-auto py-10 px-5"
+                className="max-w-4xl mx-auto pb-10 pt-20 px-5"
             >
                 <motion.h2
                     initial={{ y: 50, opacity: 0 }}

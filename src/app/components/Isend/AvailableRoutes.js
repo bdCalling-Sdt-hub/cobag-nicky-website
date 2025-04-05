@@ -101,7 +101,7 @@ const AvailableRoutes = ({ searchData }) => {
                 {routeData.length > 0 ? (
                     routeData.map((item, index) => (
                         <div key={index} className="shadow-lg rounded-lg md:p-10 p-5 my-5">
-                            <div className="flex flex-wrap items-center justify-between">
+                            <div className="md:flex flex-wrap items-center justify-between">
                                 <div>
                                     <div className="flex items-center text-primary gap-3 font-medium">
                                         <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
