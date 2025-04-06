@@ -20,7 +20,7 @@ const Page = () => {
  
 
     return (
-        <div className=''>
+        <div className='overflow-hidden'>
             {/* {t('navWhatdoWYouWantTo')}
             <button onClick={handleLanguageChange}>
                 change to english

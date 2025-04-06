@@ -19,10 +19,10 @@ const Hero = () => {
 
     return (
         <div
-            className=" relative bg-center bg-auto bg-no-repeat sm:min-h-[62vh] min-h-[62vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-[500px] mb-60 "
+            className=" relative bg-center bg-auto bg-no-repeat sm:min-h-[62vh] min-h-[55vh] w-full bg-[url('/Images/Landingpage/hero-.png')] lg:mb-[500px] mb-60 "
         >
-            <div className="w-full h-full relative sm:min-h-[62vh] min-h-[62vh] bg-[#0000009a]">
-                <div className='flex flex-col items-center justify-center px-5 md:px-0 py-10 md:py-20'>
+            <div className="w-full h-full relative sm:min-h-[62vh] min-h-[55vh] bg-[#0000009a]">
+                <div className='flex flex-col items-center justify-center px-5 md:px-0 py-20 md:py-20'>
 
                     <button className='text-white flex items-center duration-[1s] gap-2 hover:scale-105 border-2 rounded-full md:px-6 px-5 text-sm py-2 border-[#6c7e82] cursor-pointer bg-[#ffffff1c] backdrop-blur-sm '>
                         <FiShield className='text-2xl animate-spin-slow' />
@@ -34,7 +34,7 @@ const Hero = () => {
                     <h3 className='md:text-2xl text-xl md:mt-0 mt-2 font-semibold text-white'>
                         {t('CoBagreimbursesyourLuggage2')}
                     </h3>
-                    <div data-aos="fade-up" data-aos-duration="500" className="absolute md:-bottom-[480px] -bottom-60  md:w-[45%]">
+                    <div data-aos="fade-up" data-aos-duration="500" className="absolute md:-bottom-[480px] -bottom-60  md:w-[45%] ">
                         {/* Thumbnail or Video Player */}
                         {!isPlaying ? (
                             <div className="relative">

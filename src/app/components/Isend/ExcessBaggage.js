@@ -143,14 +143,16 @@ const ExcessBaggage = () => {
 
                 </div>
                 <div className='flex justify-end'>
-                    <motion.img
+                    {/* <motion.img
                         initial={{ scale: 0.8 }}
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 1 }}
                         className='md:w-full'
                         src='/Images/NewSection/send_package_CoBag.png'
                         alt=''
-                    />
+                    /> */}
+                  
+                    <img  src="/Images/NewSection/send_package_CoBag.png" alt="" />
                 </div>
             </motion.div>
 

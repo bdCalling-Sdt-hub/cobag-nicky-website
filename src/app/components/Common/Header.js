@@ -136,7 +136,7 @@ const Header = () => {
             </div>
 
             {/* Logo Section (Always Visible) */}
-            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-36 cursor-pointer">
+            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-36 -ml-10 cursor-pointer">
                 <Image
                     src="/Images/NewSection/cobag-logo.png"
                     alt="Company Logo"
@@ -201,7 +201,7 @@ const Header = () => {
                 onClick={toggleMenu}
                 className="p-2 border rounded-full text-black md:hidden"
             >
-                {!isMenuOpen ? <IoMenu className="md:text-3xl text-xl" /> : <RxCross2 className="md:text-3xl text-xl" />}
+                {!isMenuOpen ? <IoMenu className="md:text-3xl text-2xl" /> : <RxCross2 className="md:text-3xl text-2xl" />}
             </button>
 
             {/* Mobile Menu */}
@@ -213,9 +213,9 @@ const Header = () => {
                 <ul className="space-y-4">
                     {[
                         { path: '/itravel', label: 'I want to sell my kilos' },
-                        { path: '/isend', label: 'I want to send a parcel' },
                         { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
-                        { path: '/ishop', label: 'I want to have my excess baggage transported' }
+                        { path: '/ishop', label: 'I want to have my excess baggage transported' },
+                        { path: '/isend', label: 'I want to send a parcel' },
                     ].map((item, index) => (
                         <li key={index}>
                             <Link

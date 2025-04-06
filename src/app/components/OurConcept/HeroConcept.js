@@ -8,7 +8,7 @@ const HeroConcept = () => {
 
 
     return (
-        <div className=' md:py-32 py-20 flex items-center justify-center '>
+        <div className=' md:py-32 pb-10  flex items-center justify-center '>
             {/* <div data-aos="fade-up" data-aos-duration="500" className='text-center md:px-0 px-5'>
                 <h2 className='md:text-5xl text-3xl font-semibold text-primary'>{t('CoBagTravelshareconnect')}</h2>
                 <h3 className='md:my-5 py-3  md:text-xl text-base '>{t('Whatifyoursuitcaseisvaluable')}</h3>

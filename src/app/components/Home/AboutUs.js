@@ -23,7 +23,7 @@ const AboutUs = () => {
                         the <br /> fastest delivery on the planet: one direct flight away .
                     </span>
                 </p>
-                <img data-aos="fade-up" data-aos-duration="500" className='w-2/4 mx-auto' src="/Images/NewSection/solutions-1.png" alt="" />
+                <img data-aos="fade-up" data-aos-duration="500" className='md:w-2/4 mx-auto' src="/Images/NewSection/solutions-1.png" alt="" />
                 <motion.button
                     whileHover={{ scale: 1.03, backgroundColor: "#0b2f9f" }}
                     className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-5 rounded-lg mx-auto my-20'

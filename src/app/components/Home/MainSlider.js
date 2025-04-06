@@ -117,10 +117,10 @@ const MainSlider = () => {
                 )}
             </div>
 
-            <div className='w-10 h-10 bg-primary rounded-full flex items-center justify-center absolute md:bottom-1 bottom-2 md:right-1 right-2 cursor-pointer' onClick={handleGoWindowTop}>
+            <div className='w-12 h-12 bg-primary rounded-full flex items-center justify-center absolute md:bottom-1 bottom-2 md:right-1 right-2 cursor-pointer' onClick={handleGoWindowTop}>
                 <FaArrowUp className='text-2xl text-white' />
             </div>
- {/* sfsdf */}
+ {/* sfsdfFF */}
         </div>
     );
 };

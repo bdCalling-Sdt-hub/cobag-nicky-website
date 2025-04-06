@@ -48,7 +48,7 @@ const SubscriptionCard = () => {
                     whileInView={{ scale: 1 }} // Slight zoom-in on scroll
                     initial={{ scale: 0.8 }}
                     transition={{ duration: 0.5 }}
-                    className="w-full mx-auto shadow-xl rounded-2xl overflow-hidden relative "
+                    className="w-full mx-auto shadow-xl rounded-2xl pb-10 overflow-hidden relative "
                 >
                     <div className="bg-primary text-white px-6 md:px-10 py-5 text-center">
                         <h3 className="text-xl md:text-2xl mb-5 ">Without subscription</h3>
@@ -82,7 +82,7 @@ const SubscriptionCard = () => {
                     whileInView={{ scale: 1 }} // Slight zoom-in on scroll
                     initial={{ scale: 0.8 }}
                     transition={{ duration: 0.5 }}
-                    className="w-full mx-auto shadow-xl rounded-2xl relative overflow-hidden"
+                    className="w-full mx-auto shadow-xl rounded-2xl pb-10 relative overflow-hidden"
                 >
                     <div className="bg-[#2563eb] text-white px-6 md:px-10 py-5 text-center">
                         <h3 className="text-xl md:text-2xl mb-5">Abonnement CoBag Sky</h3>
