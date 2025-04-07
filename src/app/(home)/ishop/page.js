@@ -6,7 +6,7 @@ import HowDoesWork from '../../components/Ishop/HowDoesWork';
 import React, { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
-import { IoSearchOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
+import { IoAddCircleOutline, IoSearchOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
 import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
@@ -193,7 +193,7 @@ const Page = () => {
                                 </div>
                                 <div>
 
-                                    <label id="flexibleDate" className="flex items-center gap-2 mt-5 font-semibold  text-[#474747]">
+                                    <label id="flexibleDate" className="flex items-center gap-2 mt-10 font-semibold  text-[#474747]">
                                         <input
                                             type="checkbox"
                                             checked={showFlexibleDate}
@@ -210,13 +210,13 @@ const Page = () => {
                                     {showFlexibleDate && (
                                         <div className="">
                                             <div>
-                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Product name</label>
+                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Product name</label>
                                                 <div className="relative flex items-center">
                                                     <input
                                                         type="text"
                                                         name='name'
                                                         placeholder="Product name"
-                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                        className="w-full py-2 px-2 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
                                                     {/* <span className="absolute left-3 text-gray-400">
                                                         <IoMdCheckbox className="text-2xl" />
@@ -224,7 +224,7 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Quantity</label>
+                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Quantity</label>
                                                 <div className="relative  flex items-center">
                                                     <input
                                                         type="text"
@@ -233,22 +233,22 @@ const Page = () => {
                                                         className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
                                                     <span className="absolute left-3 text-gray-400">
-                                                        <FaBox className="text-2xl" />
+                                                        <FaBox className="text-xl" />
                                                     </span>
                                                 </div>
                                             </div>
                                             <div>
                                                 {/* image upload  */}
-                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Upload image</label>
+                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Upload image</label>
                                                 <div className="relative flex items-center">
                                                     <input
                                                         type="file"
                                                         name='image'
-                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                        className="w-full py-2 px-2 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
-                                                    <span className="absolute left-3 text-gray-400">
+                                                    {/* <span className="absolute left-3 text-gray-400">
                                                         <CiImageOn className="text-2xl" />
-                                                    </span>
+                                                    </span> */}
                                                 </div>
                                             </div>
                                         </div>
@@ -271,6 +271,7 @@ const Page = () => {
                                         type="submit"
                                         className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 font-semibold flex items-center justify-center gap-3 w-full"
                                     >
+                                        <IoAddCircleOutline />
                                         Post Now
                                     </button>
                             }
