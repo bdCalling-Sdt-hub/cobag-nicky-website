@@ -8,7 +8,7 @@ import React from 'react';
 
 const Page = () => {
     return (
-        <div>
+        <div className='overflow-hidden'>
             <CommissionHeader />
             <Advantages />
             <SubscriptionCard />

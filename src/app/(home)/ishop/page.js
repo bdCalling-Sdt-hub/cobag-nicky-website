@@ -13,6 +13,9 @@ import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItrave
 import toast, { Toaster } from 'react-hot-toast';
 import { FaBox } from 'react-icons/fa6';
 import { IoMdCheckbox } from 'react-icons/io';
+import { CiImageOn } from "react-icons/ci";
+
+
 
 const Page = () => {
 
@@ -190,7 +193,7 @@ const Page = () => {
                                 </div>
                                 <div>
 
-                                    <label id="flexibleDate" className="flex items-center gap-2 my-2 font-semibold  text-[#474747]">
+                                    <label id="flexibleDate" className="flex items-center gap-2 mt-5 font-semibold  text-[#474747]">
                                         <input
                                             type="checkbox"
                                             checked={showFlexibleDate}
@@ -198,47 +201,80 @@ const Page = () => {
                                             name="flexibleDate"
                                             className="w-4 h-4 text-primary focus:ring-0"
                                         />
-                                        {t('flexibleDates454')}
+                                        {/* {t('flexibleDates454')} */}
+                                        I want to Post
                                     </label>
 
 
 
                                     {showFlexibleDate && (
                                         <div className="">
-                                            <div className="relative flex items-center">
-                                                <input
-                                                    type="text"
-                                                    name='name'
-                                                    placeholder="Name"
-                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                                />
-                                                <span className="absolute left-3 text-gray-400">
-                                                    <IoMdCheckbox className="text-2xl" />
-                                                </span>
+                                            <div>
+                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Product name</label>
+                                                <div className="relative flex items-center">
+                                                    <input
+                                                        type="text"
+                                                        name='name'
+                                                        placeholder="Product name"
+                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                    />
+                                                    {/* <span className="absolute left-3 text-gray-400">
+                                                        <IoMdCheckbox className="text-2xl" />
+                                                    </span> */}
+                                                </div>
                                             </div>
-                                            <div className="relative mt-5 flex items-center">
-                                                <input
-                                                    type="text"
-                                                    name='quantiry'
-                                                    placeholder="Quantity"
-                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                                />
-                                                <span className="absolute left-3 text-gray-400">
-                                                    <FaBox className="text-2xl" />
-                                                </span>
+                                            <div>
+                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Quantity</label>
+                                                <div className="relative  flex items-center">
+                                                    <input
+                                                        type="text"
+                                                        name='quantity'
+                                                        placeholder="Quantity"
+                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                    />
+                                                    <span className="absolute left-3 text-gray-400">
+                                                        <FaBox className="text-2xl" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                {/* image upload  */}
+                                                <label className="block my-2 text-sm font-semibold text-[#474747]">Upload image</label>
+                                                <div className="relative flex items-center">
+                                                    <input
+                                                        type="file"
+                                                        name='image'
+                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                    />
+                                                    <span className="absolute left-3 text-gray-400">
+                                                        <CiImageOn className="text-2xl" />
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     )}
                                 </div>
 
                             </div>
+                            {
+                                !showFlexibleDate ?
+                                    <button
+                                        type="submit"
+                                        className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 font-semibold flex items-center justify-center gap-3 w-full"
+                                    >
+                                        <IoSearchOutline />
+                                        {/* {t('searchForRoute454')} */}
+                                        Find a courier
+                                    </button>
+                                    :
+                                    <button
+                                        type="submit"
+                                        className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 font-semibold flex items-center justify-center gap-3 w-full"
+                                    >
+                                        Post Now
+                                    </button>
+                            }
 
-                            <button
-                                type="submit"
-                                className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 font-semibold flex items-center justify-center gap-3 w-full"
-                            >
-                                <IoSearchOutline /> {t('searchForRoute454')}
-                            </button>
                         </form>
                     </div>
                 </div>
