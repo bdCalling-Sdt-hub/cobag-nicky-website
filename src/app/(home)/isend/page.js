@@ -27,7 +27,7 @@ const Page = () => {
     ]); // Track package data
 
     const { data: allVideo } = useGetAllVideoQuery()
-    console.log(allVideo?.data[0]);
+    // console.log(allVideo?.data[0]);
 
 
     const handlePackageChange = (index, field, value) => {
@@ -149,7 +149,7 @@ const Page = () => {
     const [allSearchResutl, setAllSearchResutl] = useState([]);
 
 
-    console.log(allSearchResutl);
+    // console.log('my Search Result', allSearchResutl);
 
     // ==================== Plane ========================
 
@@ -173,10 +173,10 @@ const Page = () => {
         try {
 
             const response = await searchItravelWithData(formData).unwrap();
-            console.log(response);
+            // console.log(response);
 
             if (response?.success) {
-                console.log(response);
+                // console.log(response);
                 setAllSearchResutl(response?.data)
                 toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
@@ -249,10 +249,10 @@ const Page = () => {
         try {
 
             const response = await searchItravelWithData(formData).unwrap();
-            console.log(response);
+
 
             if (response?.success) {
-                console.log(response);
+
                 setAllSearchResutl(response?.data)
                 toast.success(`Search successfully !! See ${response?.data?.length} Item`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);

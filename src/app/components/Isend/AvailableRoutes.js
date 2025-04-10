@@ -9,10 +9,11 @@ import { FiMessageSquare } from 'react-icons/fi';
 import i18n from '@/app/utils/i18';
 import Link from 'next/link';
 import { IoShieldCheckmarkOutline } from 'react-icons/io5';
+import baseUrl from '@/app/redux/api/baseUrl';
 
 const AvailableRoutes = ({ searchData }) => {
 
-    // console.log(searchData[0]);
+    console.log('searchData', searchData[0]);
 
     const { t } = i18n;
 
@@ -98,8 +99,8 @@ const AvailableRoutes = ({ searchData }) => {
             <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
-                {routeData.length > 0 ? (
-                    routeData.map((item, index) => (
+                {searchData.length > 0 ? (
+                    searchData.map((item, index) => (
                         <div key={index} className="shadow-[0_0_15px_0_rgba(0,0,0,0.1)]   rounded-lg md:p-10 p-5 my-5">
                             <div className="md:flex flex-wrap items-center justify-between">
                                 <div>
@@ -188,7 +189,7 @@ const AvailableRoutes = ({ searchData }) => {
 
                             <div className="flex flex-wrap items-center md:justify-between gap-5">
                                 <div className="flex flex-wrap items-center gap-5">
-                                    <img className="w-14 rounded-full" src={item.user.profileImage} alt="" />
+                                    <img className="w-14 rounded-full" src={baseUrl + item.user.profileImage} alt="" />
                                     <div>
                                         <h3 className="font-semibold text-primary">{item.user.firstName}</h3>
                                         <div className="flex items-center flex-wrap gap-3">
@@ -208,9 +209,9 @@ const AvailableRoutes = ({ searchData }) => {
                                             <CiStar /> View review
                                         </Link> */}
                                         <p className="text-right text-sm text-gray-500">Languages spoken: French, English</p>
-                                        <button className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
+                                        <Link href={`/message/${item._id}`} className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
                                             <FiMessageSquare /> Contact
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

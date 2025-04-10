@@ -5,8 +5,25 @@ import { BsSend } from 'react-icons/bs';
 import { CiSquareQuestion } from 'react-icons/ci';
 
 const Page = () => {
-
     const { t } = i18n;
+
+    const handleSupport = (e) => {
+        e.preventDefault();
+
+        // Accessing form data using the 'name' attribute of form elements
+        const form = e.target;
+
+        const formData = {
+            fullName: form.fullName.value,
+            email: form.email.value,
+            subject: form.subject.value,
+            message: form.message.value
+        };
+
+        console.log(formData);
+
+        // You can handle form submission here (e.g., send it to a server or show a success message)
+    }
 
     return (
         <div>
@@ -14,13 +31,14 @@ const Page = () => {
                 <div>
                     <h2 className='text-2xl font-semibold text-primary'>{t('sendAMessage')}</h2>
                     <div className="mt-5">
-                        <form action="" className="">
+                        <form onSubmit={handleSupport} className="">
                             {/* Full Name */}
                             <div className="mb-5">
                                 <label className="block text-sm font-semibold mb-2">{t('fullName')}</label>
                                 <div className="relative">
                                     <input
                                         type="text"
+                                        name="fullName"  // Added name attribute
                                         placeholder={t('enterFullName')}
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     />
@@ -33,6 +51,7 @@ const Page = () => {
                                 <div className="relative">
                                     <input
                                         type="email"
+                                        name="email"  // Added name attribute
                                         placeholder={t('enterYourEmail')}
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     />
@@ -44,6 +63,7 @@ const Page = () => {
                                 <label className="block text-sm font-semibold mb-2">{t('submit')}</label>
                                 <div className="relative">
                                     <select
+                                        name="subject"  // Added name attribute
                                         className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                                     >
                                         <option value="" disabled defaultValue={true}>{t('selectATopic')}</option>
@@ -58,6 +78,7 @@ const Page = () => {
                             <div className="mb-5">
                                 <label className="block text-sm font-semibold mb-2">{t('message')}</label>
                                 <textarea
+                                    name="message"  // Added name attribute
                                     placeholder={t('typeYourQuestion')}
                                     rows="6"
                                     className="w-full py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -68,22 +89,23 @@ const Page = () => {
                             <div className="">
                                 <button
                                     type="submit"
-                                    className="bg-primary w-full font-semibold  text-white py-3 rounded-lg hover:bg-primary-dark transition"
+                                    className="bg-primary w-full font-semibold text-white py-3 rounded-lg hover:bg-primary-dark transition"
                                 >
                                     <BsSend className='inline mr-2' /> {t('sendTheMessage')}
                                 </button>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
+
             <section className='lg:p-20 p-5 bg-[#e9edf2] lg:w-3/4 mx-auto my-10 rounded-lg' id="faq">
                 <div className='text-center'>
                     <h2 className='lg:text-5xl text-3xl font-semibold text-primary'>{t('frequentlyAskedQuestions')}</h2>
                     <p className='mt-5 text-gray-400'>{t('findAnswersToTheMostFrequentlyAskedQuestions')}</p>
                 </div>
                 <div>
+                    {/* FAQ Items */}
                     <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
                         <div className='min-w-10'>
                             <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
@@ -93,25 +115,7 @@ const Page = () => {
                             <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
                         </div>
                     </div>
-                    <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
-                        <div className='min-w-10'>
-                            <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
-                        </div>
-                        <div>
-                            <h2 className='text-xl font-semibold text-primary mb-2'>{t('howDoesThePaymentSystemWork')}</h2>
-                            <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
-                        </div>
-                    </div>
-                    <div className='flex items-start gap-5 bg-white p-5 rounded-lg my-5'>
-                        <div className='min-w-10'>
-                            <CiSquareQuestion className='text-5xl font-semibold text-primary -mt-2' />
-                        </div>
-                        <div>
-                            <h2 className='text-xl font-semibold text-primary mb-2'>{t('howDoesThePaymentSystemWork')}</h2>
-                            <p className='text-gray-500'>{t('paymentIsSecureAndBlockedUntilDeliveryConfirmation')}</p>
-                        </div>
-                    </div>
-                  
+                    {/* Add more FAQ items if needed */}
                 </div>
             </section>
         </div>

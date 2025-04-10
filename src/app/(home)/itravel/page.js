@@ -40,10 +40,10 @@ const Page = () => {
     const { data: calculationData } = useGetAllCalculationDataQuery();
 
     const calculet = calculationData?.data[0];
-    console.log(calculet?.minimumPricePerTransaction, calculet?.purchaseKilosAirplane);
+    // console.log(calculet?.minimumPricePerTransaction, calculet?.purchaseKilosAirplane);
 
     const [defaultCruuent, setDefaultCruuent] = useState(5);
-    console.log(defaultCruuent);
+    // console.log(defaultCruuent);
 
     const handleDecressValue = () => {
         if (defaultCruuent < 5.5) {
@@ -102,40 +102,7 @@ const Page = () => {
         setShowAvailable(!showAvailable);
     }
 
-    // ============================
 
-    const [smallVlaue, setSmallVlaue] = useState(0);
-    const handleSmallIncress = () => {
-        setSmallVlaue(smallVlaue + 1)
-    }
-    const handleSmallDecress = () => {
-        if (smallVlaue === 0) {
-            return alert('You have no small Vlaue')
-        }
-        setSmallVlaue(smallVlaue - 1)
-    }
-
-    const [mediumVlaue, setMediumVlaue] = useState(0);
-    const handleMediumIncress = () => {
-        setMediumVlaue(mediumVlaue + 1)
-    }
-    const handleMediumDecress = () => {
-        if (mediumVlaue === 0) {
-            return alert('You have no medium Vlaue')
-        }
-        setMediumVlaue(mediumVlaue - 1)
-    }
-
-    const [largeVlaue, setLargeVlaue] = useState(0);
-    const handleLargeIncress = () => {
-        setLargeVlaue(largeVlaue + 1)
-    }
-    const handleLargeDecress = () => {
-        if (largeVlaue === 0) {
-            return alert('You have no large Vlaue')
-        }
-        setLargeVlaue(largeVlaue - 1)
-    }
 
     // ============================ Plane ============================
     const [fileList1, setFileList1] = useState(null); // Store the single file or null
@@ -168,12 +135,12 @@ const Page = () => {
 
         // if(userId)
 
-        if (!fileList1) {
-            return toast.error('Please upload your ticket')
-        }
-        if (form.flightNumber.value.length < 3) {
-            return toast.error('Please enter a valid flight number')
-        }
+        // if (!fileList1) {
+        //     return toast.error('Please upload your ticket')
+        // }
+        // if (!form.flightNumber) {
+        //     return toast.error('Please enter a valid flight number')
+        // }
         if (form.departureCity.value.length < 3) {
             return toast.error('Please enter a valid departure city')
         }
@@ -186,42 +153,34 @@ const Page = () => {
         if (form.arrivalDate.value.length < 3) {
             return toast.error('Please enter a valid arrival date')
         }
-        if (form.departureTime.value.length < 3) {
-            return toast.error('Please enter a valid departure time')
-        }
-        if (form.arrivalTime.value.length < 3) {
-            return toast.error('Please enter a valid arrival time')
-        }
 
-        // console.log(fileList1);
+        const formData = {
+            userId: userId,
+            transportMode: 'plane',
+            transportType: form.transportType.value,
+            // flightNumber: form.flightNumber.value,
+            departureCity: form.departureCity.value,
+            arrivalCity: form.arrivalCity.value,
+            departureDate: form.departureDate.value,
+            arrivalDate: form.arrivalDate.value,
 
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("transportMode", 'plane');
-        // const transportType = form.transportType.value; 
-        formData.append("transportType", form.transportType.value);
-        formData.append("ticket", fileList1);
-        formData.append("flightNumber", form.flightNumber.value);
-        formData.append("departureCity", form.departureCity.value);
-        formData.append("arrivalCity", form.arrivalCity.value);
-        formData.append("departureDate", form.departureDate.value);
-        formData.append("arrivalDate", form.arrivalDate.value);
-        formData.append("departureTime", form.departureTime.value);
-        formData.append("arrivalTime", form.arrivalTime.value);
-        formData.append("handLuggage", luggageValue || 0);
-        formData.append("checkedBaggage", baggageValue || 0);
+            departureTime: form.departureTime.value,
+            arrivalTime: form.arrivalTime.value,
 
-        if (form?.availableToBeCourier?.value) {
-            formData.append("availableToBeCourier", form.availableToBeCourier.value == true ? true : false);
-            formData.append("maxpurchAmountAdvance", form.availableToBeCourier.value);
+            handLuggage: luggageValue || 0,
+            checkedBaggage: baggageValue || 0,
+            availableToBeCourier: form.availableToBeCourier.value == true ? true : false,
+            maxpurchAmountAdvance: form.availableToBeCourier.value,
+            courierOptions: {
+                maxPurchaseAmount: calculet?.minimumPricePerTransaction
+            },
+            price: calculet?.minimumPricePerTransaction * (luggageValue + baggageValue) || 0,
+
+
         }
 
 
-        console.log(Number(calculet?.minimumPricePerTransaction * (luggageValue + baggageValue)));
-        formData.append("courierOptions.maxPurchaseAmount", calculet?.minimumPricePerTransaction);
-        formData.append("price", calculet?.minimumPricePerTransaction * (luggageValue + baggageValue)) || 0;
-        formData.append("courierOptions.message", form.message.value);
-        // formData.append("price", 1200);
+        console.log(formData);
 
 
         try {
@@ -233,7 +192,7 @@ const Page = () => {
                 //    alert('Travel created successfully !!')
                 console.log(res?.data)
                 // form.reset();
-                fileList1 = null;
+                // fileList1 = null;
             }
             else {
                 // alert(res?.data?.message)
@@ -265,16 +224,63 @@ const Page = () => {
     console.log(fileList1);
 
 
+    // ============================
+
+    const [smallVlaue, setSmallVlaue] = useState(0);
+    const handleSmallIncress = () => {
+        setSmallVlaue(smallVlaue + 1)
+    }
+    const handleSmallDecress = () => {
+        if (smallVlaue === 0) {
+            return alert('You have no small Vlaue')
+        }
+        setMediumVlaue(0);
+        setLargeVlaue(0);
+        setSmallVlaue(smallVlaue - 1)
+    }
+
+    const [mediumVlaue, setMediumVlaue] = useState(0);
+    const handleMediumIncress = () => {
+        setMediumVlaue(mediumVlaue + 1)
+    }
+    const handleMediumDecress = () => {
+        if (mediumVlaue === 0) {
+            return alert('You have no medium Vlaue')
+        }
+        setSmallVlaue(0);
+        setLargeVlaue(0);
+        setMediumVlaue(mediumVlaue - 1)
+    }
+
+    const [largeVlaue, setLargeVlaue] = useState(0);
+    const handleLargeIncress = () => {
+        setLargeVlaue(largeVlaue + 1)
+    }
+    const handleLargeDecress = () => {
+        if (largeVlaue === 0) {
+            return alert('You have no large Vlaue')
+        }
+        setSmallVlaue(0);
+        setMediumVlaue(0);
+        setLargeVlaue(largeVlaue - 1)
+    }
+
+
+
+
+    console.log(smallVlaue, mediumVlaue, largeVlaue);
+
+
     const handleSubmitTrain = async (e) => {
         e.preventDefault();
         const form = e.target;
 
-        if (!fileList2) {
-            return toast.error('Please upload your ticket')
-        }
-        if (form.flightNumber.value.length < 3) {
-            return toast.error('Please enter a valid train number')
-        }
+        // if (!fileList2) {
+        //     return toast.error('Please upload your ticket')
+        // }
+        // if (form.flightNumber.value.length < 3) {
+        //     return toast.error('Please enter a valid train number')
+        // }
         if (form.departureCity.value.length < 3) {
             return toast.error('Please enter a valid departure city')
         }
@@ -295,31 +301,39 @@ const Page = () => {
         }
 
 
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("transportMode", 'train');
-        // const transportType = form.transportType.value; 
-        formData.append("transportType", form.transportType.value);
-        formData.append("ticket", fileList1);
-        formData.append("flightNumber", form.flightNumber.value);
-        formData.append("departureCity", form.departureCity.value);
-        formData.append("arrivalCity", form.arrivalCity.value);
-        formData.append("departureDate", form.departureDate.value);
-        formData.append("arrivalDate", form.arrivalDate.value);
-        formData.append("departureTime", form.departureTime.value);
-        formData.append("arrivalTime", form.arrivalTime.value);
-        formData.append("handLuggage", luggageValue || 0);
-        formData.append("checkedBaggage", baggageValue || 0);
-        formData.append("availableToBeCourier", form.maxpurchAmountAdvance.value == true ? true : false);
-        formData.append("courierOptions.maxPurchaseAmount", 0);
-        formData.append("courierOptions.message", form.message.value);
-        formData.append("maxpurchAmountAdvance", form.maxpurchAmountAdvance.value);
+        const fromData = {
+            userId: userId,
+            transportMode: 'train',
+            transportType: form.transportType.value,
+            size: smallVlaue > 0 ? 'small' : mediumVlaue > 0 ? 'medium' : largeVlaue > 0 ? 'large' : null,
+
+            // flightNumber: form.flightNumber.value,
+            totalSpace: smallVlaue > 0 && smallVlaue || mediumVlaue > 0 && mediumVlaue || largeVlaue > 0 && largeVlaue || 0,
+            departureCity: form.departureCity.value,
+            arrivalCity: form.arrivalCity.value,
+            departureDate: form.departureDate.value,
+            arrivalDate: form.arrivalDate.value,
+            departureTime: form.departureTime.value,
+            arrivalTime: form.arrivalTime.value,
+
+            availableToBeCourier: showAvailable ? true : false,
+
+            courierOptions: {
+                maxPurchaseAmount: form.maxpurchAmountAdvance.value || 0,
+            }
+
+
+
+        }
+
+
+        console.log(fromData);
 
 
 
 
         try {
-            const res = await createPlane(formData).unwrap();
+            const res = await createPlane(fromData).unwrap();
             console.log(res);
 
             if (res?.success) {
@@ -327,7 +341,7 @@ const Page = () => {
                 toast.success('Travel created successfully !!')
                 //    alert('Travel created successfully !!')
                 console.log(res?.data)
-                form.reset();
+                // form.reset();
                 // fileList2 = null;
                 setFileList2(null);
             }
@@ -502,6 +516,18 @@ const Page = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div className='flex items-center justify-between gap-5 '>
+                                            <div className='w-[50%]'>
+                                                <span className='font-semibold block text-[#474747] mb-2'>{t('DepartureTime')}</span>
+                                                <TimePicker name='departureTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime2} />
+                                            </div>
+                                            <div className='w-[50%]'>
+                                                <span className='font-semibold block text-[#474747] mb-2'>{t('ArrivalTime')}</span>
+                                                <TimePicker name='arrivalTime' className='w-full py-3' use12Hours format="h:mm a" onChange={onChangeTime1} />
+                                            </div>
+                                        </div>
+
 
                                         <div>
                                             <span className="font-semibold block text-[#474747] mb-2">
