@@ -31,12 +31,12 @@ const Page = () => {
 
     const handleCheckboxChange = (e) => {
         setShowFlexibleDate(e.target.checked); // Toggle state for Flexible Dates
+
     };
 
     const handleInputChange = (field, value) => {
         setFormValues({ ...formValues, [field]: value }); // Update form values dynamically
     };
-
 
 
 
@@ -54,15 +54,13 @@ const Page = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form Submitted:', formValues);
-        // Add your form submission logic here
 
         const form = e.target;
         const departureCity = form?.departureCity?.value || '';
         const arrivalCity = form?.arrivalCity?.value || '';
         const departureDate = form?.desiredDate?.value || '';
-        const arrivalDate = form?.alternateDate?.value || ''; // Add this line
-        const maxpurchAmountAdvance = form?.desiredPrice?.value || 0; // Add this line
+        const arrivalDate = form?.desiredFlexibleDate?.value || ''; // Add this line
+        const maxpurchAmountAdvance = Number(form?.desiredPrice?.value) || 0; // Add this line
 
         const formData = {
             departureCity,
@@ -71,6 +69,8 @@ const Page = () => {
             arrivalDate,
             maxpurchAmountAdvance,
         };
+
+        console.log(formData);
 
         try {
 

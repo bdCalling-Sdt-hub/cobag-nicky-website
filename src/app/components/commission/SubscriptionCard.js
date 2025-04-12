@@ -20,15 +20,20 @@ const SubscriptionCard = () => {
         }
 
         const data = {
-            "amount": 500,
-            "currency": "usd",
-            "paymentMethodId": "pm_card_visa"
-        };
+            amount: 200000,
+            cobagProfit: 10,
+            currency: "eur",
+            paymentMethodId: "pm_card_visa",
+            isEightyPercent: true,
+            senderId: "6788e348a04e8c59a30681e3",
+            sellKgId: "679220598e6c39ff15badcea",
+            travellerId: "678f82bec40b40834c389dd9"
+        }
 
         try {
             const response = await payment(data).unwrap();
             if (response?.url) {
-                router.push(response?.url);
+                window.open(response?.url, "_blank");
             }
         } catch (error) {
             console.log(error);

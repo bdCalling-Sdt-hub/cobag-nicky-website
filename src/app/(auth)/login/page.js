@@ -39,8 +39,6 @@ const Page = () => {
 
         console.log(body);
 
-
-
         const res = await login(body).unwrap();
         console.log('User data:', res?.data);
         console.log(res.data.token);
@@ -52,6 +50,7 @@ const Page = () => {
             router.push('/');
 
         } else {
+            toast.error('Login failed. Please check your credentials.');
             console.error('Token missing in response:', res);
         }
 

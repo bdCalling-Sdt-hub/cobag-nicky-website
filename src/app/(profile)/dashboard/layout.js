@@ -4,6 +4,7 @@ import Sidebar from "@/app/components/Common/profile/Sidebar";
 import { useGetUserQuery } from "@/app/redux/Features/Auth/getUser";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
+import NextTopLoader from "nextjs-toploader";
 import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 
@@ -13,8 +14,8 @@ export default function Layout({ children }) {
 
     const { user } = useGetUserQuery()
     console.log(user);
- 
- 
+
+
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -24,6 +25,20 @@ export default function Layout({ children }) {
 
     return (
         <html lang="en">
+            <NextTopLoader
+                color="#161d6f"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={5}
+                crawl={true}
+                easing="ease"
+                speed={200}
+                template='<div class="bar" role="bar"><div class="peg"></div></div> 
+                             <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                zIndex={999999999}
+                showAtBottom={false}
+            />
+
             <Head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />

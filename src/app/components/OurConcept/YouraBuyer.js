@@ -24,7 +24,7 @@ const YouraBuyer = () => {
                 <div className='flex items-center justify-center flex-wrap gap-5'>
                     <button className='hover:scale-[1.1] duration-500 flex items-center gap-1 bg-white py-3 px-10 text-primary font-semibold rounded-md'><IoChatbubbleOutline />
                         Contact Support</button>
-                    <button className='hover:scale-[1.1] duration-500 flex items-center gap-1 bg-[#4054A4] py-3 px-10 text-white rounded-md'>
+                    <button onClick={() => window.open('https://mail.google.com/mail/u/0/?fs=1&to=contact@cobag.com&tf=cm')} className='hover:scale-[1.1] duration-500 flex items-center gap-1 bg-[#4054A4] py-3 px-10 text-white rounded-md'>
                         <MdOutlineEmail />
                         contact@cobag.com</button>
                 </div>
