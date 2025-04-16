@@ -1,6 +1,6 @@
 'use client'; // Ensure this is a client-side component
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { CiCreditCard1, CiSettings, CiSquareQuestion, CiUser } from 'react-icons/ci';
 import { IoIosArrowDown, IoIosLogOut } from 'react-icons/io';
@@ -21,6 +21,8 @@ import i18n from '@/app/utils/i18';
 const Sidebar = ({ setIsSidebarOpen }) => {
     const { t } = i18n;
     const pathname = usePathname(); // Get the current route
+
+    const navigate = useRouter();
 
     // Function to check if the link is active
     const isActive = (path) => pathname === path;
@@ -67,9 +69,13 @@ const Sidebar = ({ setIsSidebarOpen }) => {
     };
 
     const handleLogout = () => {
-        // Add your logout logic here
-        console.log("User logged out");
-        message.error('Logout canceled.');
+        
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        message.success('Logout successful.');
+
+
+        navigate.push('/login');
         setIsModalVisible(false);
     };
 

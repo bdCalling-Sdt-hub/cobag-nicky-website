@@ -1,28 +1,53 @@
 'use client';
+import { useReportMessageMutation } from '@/app/redux/Features/ReportMessage/reportMessage';
 import i18n from '@/app/utils/i18';
+import { message } from 'antd';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { BsSend } from 'react-icons/bs';
 import { CiSquareQuestion } from 'react-icons/ci';
 
 const Page = () => {
     const { t } = i18n;
 
-    const handleSupport = (e) => {
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    const [supportMessage] = useReportMessageMutation();
+
+
+    const handleSupport = async (e) => {
         e.preventDefault();
 
         // Accessing form data using the 'name' attribute of form elements
         const form = e.target;
 
         const formData = {
-            fullName: form.fullName.value,
-            email: form.email.value,
-            subject: form.subject.value,
-            message: form.message.value
+            userId: user?._id,
+            description: form.message.value,
+            status: 'In progress',
+            reportType: form.subject.value,
         };
 
         console.log(formData);
 
-        // You can handle form submission here (e.g., send it to a server or show a success message)
+        try {
+            const res = await supportMessage(formData).unwrap();
+            console.log(res);
+
+            if (res.success) {
+                message.success(res.message);
+                form.reset();
+            }
+            else {
+                toast.error(res.message);
+            }
+
+        } catch (error) {
+            console.error('Error in API Call:', error);
+            message.error(error?.data?.message || 'An error occurred while sending the message.');
+        }
+
     }
 
     return (

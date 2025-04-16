@@ -73,13 +73,15 @@ const Page = () => {
         console.log(formData);
 
         try {
-
-            const response = await searchIshop(formData).unwrap();
-            console.log(response);
-            if (response?.success) {
-                setSearchTerm(response?.data)
-                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+            if (!showFlexibleDate) {
+                const response = await searchIshop(formData).unwrap();
+                console.log(response);
+                if (response?.success) {
+                    setSearchTerm(response?.data)
+                    toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                }
             }
+
 
         } catch (error) {
             console.log(error);
