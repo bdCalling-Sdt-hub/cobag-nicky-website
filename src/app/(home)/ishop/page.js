@@ -62,6 +62,12 @@ const Page = () => {
         const arrivalDate = form?.desiredFlexibleDate?.value || ''; // Add this line
         const maxpurchAmountAdvance = Number(form?.desiredPrice?.value) || 0; // Add this line
 
+        const name = form?.name?.value || '';
+        const quantity = Number(form?.quantity?.value) || 0;
+        const weight = Number(form?.weight?.value) || 0;
+
+
+
         const formData = {
             departureCity,
             arrivalCity,
@@ -70,7 +76,18 @@ const Page = () => {
             maxpurchAmountAdvance,
         };
 
-        console.log(formData);
+        const fromDataPostCourier = {
+            departureCity,
+            arrivalCity,
+            departureDate,
+            arrivalDate,
+            price: maxpurchAmountAdvance,
+            name,
+            weight: quantity,
+            image: form?.image?.files[0]
+        };
+
+        console.log(fromDataPostCourier);
 
         try {
             if (!showFlexibleDate) {
@@ -106,7 +123,6 @@ const Page = () => {
                                 What you can't find at home, our courier travelers will bring it to you! The world has never been so close
                             </p>
                         </div>
-
                         <form className="lg:w-2/4 w-11/12 mx-auto mt-10 bg-[#ffffffab] backdrop-blur-lg lg:p-10 p-5 rounded-lg" onSubmit={handleSubmit}>
                             <div className="mb-5">
                                 <div className="grid lg:grid-cols-2 gap-4">
@@ -226,12 +242,12 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Quantity</label>
+                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Quantity (kg)</label>
                                                 <div className="relative  flex items-center">
                                                     <input
                                                         type="text"
                                                         name='quantity'
-                                                        placeholder="Quantity"
+                                                        placeholder="weight (kg)"
                                                         className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
                                                     <span className="absolute left-3 text-gray-400">
