@@ -145,7 +145,7 @@ const getMessage = apiSlice.injectEndpoints({
                 }
             },
         }),
-    })
+    }) 
 });
 
 export const { useCreateSingleChatMutation, useGetChatsQuery, useGetMessageQuery, useGetChatQueryQuery, useSendMessageMutation } = getMessage;
