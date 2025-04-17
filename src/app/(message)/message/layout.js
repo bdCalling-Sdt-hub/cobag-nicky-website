@@ -1,5 +1,5 @@
 'use client';
-import AllUserMessage from '@/app/components/message/AllUserMessage';
+import AllChats from '@/app/components/message/AllChats';
 import Head from 'next/head';
 import { useState } from 'react';
 import { LuMessageSquareMore } from 'react-icons/lu';
@@ -22,12 +22,12 @@ export default function Layout({ children }) {
                         <button onClick={handleShowAllUserMessage} className='p-2'><LuMessageSquareMore className='text-3xl text-primary' /></button>
                     </div>
                     <div className='xl:min-w-96 w-0 overflow-hidden border-r border-gray-400 overflow-y-scroll'>
-                        <AllUserMessage />
+                        <AllChats />
                     </div>
                     {
                         isAllUserMessage && 
                         <div className='min-w-96 pt-20 px-5 bg-gray-100 z-20 h-screen overflow-y-auto'>
-                            <AllUserMessage isAllUserMessage={isAllUserMessage} />
+                            <AllChats isAllUserMessage={isAllUserMessage} />
                         </div>
                     }
                     <div className='w-full relative'>

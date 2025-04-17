@@ -3,34 +3,54 @@ import MessageHeader from '@/app/components/message/MessageHeader';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { CloudUploadOutlined, InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Image, Input, InputNumber, Upload, Modal } from 'antd';
+import { Button, Form, Image, Input, InputNumber, Upload, Modal  } from 'antd';
 import { LuPlane, LuShield } from 'react-icons/lu';
 import { CiStar } from 'react-icons/ci';
 import { FaAngleDown, FaArrowRightLong, FaCheck } from 'react-icons/fa6';
 import { GoLaw } from 'react-icons/go';
 import { IoCardOutline, IoMenu } from 'react-icons/io5';
-import { FiShield } from 'react-icons/fi';
+import { FiPaperclip, FiSend, FiShield } from 'react-icons/fi';
 import Dragger from 'antd/es/upload/Dragger';
 import { RxCross1 } from 'react-icons/rx';
-import { useGetMessageQuery } from '@/app/redux/Features/message/getMessage';
-import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import { useGetChatQueryQuery, useGetMessageQuery, useSendMessageMutation } from '@/app/redux/Features/message/getMessage';
+import { useGetSingleUserQuery, useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+import useUser from '@/hooks/useUser';
+import baseUrl from '@/app/redux/api/baseUrl';
+import UserMessages from '@/app/components/message/UserMessages';
+import SendMessage from '@/app/components/message/SendMessage';
 
 const Page = () => {
-    const params = useParams(); // Retrieve all route parameters
-    const userId = params?.userId; // Extract the `userId` parameter if it exists
-    const { data: user } = useGetUserQuery();
-    // const senderId = user?.user?._id ; 
-    const senderId = '67863c745a8b583ba21e3716';
-
-    console.log(senderId);
+    const [message, setMessage] = useState("");
+    const [files, setFiles] = useState([]);
+    const user = useUser()
+    const params = useParams(); // Get the parameters from the URL
+    const chatId = params?.chatId; // Extract the `userId` parameter if it exists
 
 
-    const { data: message, isLoading: isMessageLoading } = useGetMessageQuery({ resiverId: userId, senderId: senderId });
+    //get chat details
+    const { data: responseData } = useGetChatQueryQuery(chatId, {
+        skip: !chatId
+    });
+    const chatDetails = responseData?.data;
+    //get receiverId
+    const receiverId = chatDetails?.participants?.find(
+        (p) => p !== user?._id
+    );
 
+    //get receiver details
+    const { data: responseUserData } = useGetSingleUserQuery(receiverId, {
+        skip: !receiverId
+    });
+    const receiverDetails = responseUserData?.data;
 
-    console.log(message?.data.filter(message => message.receiverId === userId));
+    //get messages
+    const { data: responseMessageData, isLoading: isMessageLoading } = useGetMessageQuery(chatId, {
+        skip: !chatId
+    });
+    const messages = responseMessageData?.data?.results;
 
-
+    //send message 
+    const [sendMessage] = useSendMessageMutation()
 
     const [isAdjust, setIsAdjust] = useState(false);
     const handleIsAdjust = () => {
@@ -64,112 +84,51 @@ const Page = () => {
         // console.log(isSidebarShow);
     }
 
+    //send message handler
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("chatId", chatId);
+        formData.append("message", message);
+        formData.append("receiverId", receiverId);
+        formData.append("files", files);
 
+        if (message === "" && files.length === 0) {
+            return alert("You can't send empty message")
+        }
+
+        try {
+            const res = await sendMessage(formData).unwrap();
+            if (res.code === 200 && res.data) {
+                console.log("Send message response:", res);
+                setMessage("");
+                setFiles([]);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className=''>
 
             <div className='grid lg:grid-cols-4 '>
                 <div className='lg:col-span-3'>
-                    <MessageHeader userId={userId} />
+                    <MessageHeader receiverDetails={receiverDetails} />
 
 
+                    <div className='bg-slate-100 min-h-screen '>
 
-                    <div className='bg-slate-100 min-h-screen'>
-                        <div className='h-[78vh] overflow-y-auto p-5'>
+                        {/* user messages here */}
+                        <UserMessages user={user} receiverDetails={receiverDetails} messages={messages} />
 
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
-                                <div>
-                                    <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> How are You ?</p>
-                                    <p className='p-3 mt-3 bg-[#c7ffd8] w-3/4 font-medium rounded-tr-xl rounded-br-xl rounded-tl-xl'> Didn't I tell you not to put your phone on charge just because it's the weekend?</p>
-                                    <span className='text-xs font-semibold'>2:10 pm</span>
-                                </div>
-                            </div>
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
-                                        <Image className='max-w-32' src="/Images/about/message-user.png" alt="" />
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
-                                    </div>
-
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/message-user.png" alt="" />
-                                </div>
-                            </div>
-
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
-                                <div>
-                                    <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
-                                    <span className='text-xs font-semibold block'>2:10 pm</span>
-                                </div>
-                            </div>
-
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
-                                        <div>
-                                            <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
-                                        </div>
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
-                                    </div>
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
-
-                                </div>
-                            </div>
-
-                            <div className='flex gap-3 items-end'>
-                                <img className='w-10 h-10 rounded-full' src="/Images/about/mahmud.jpg" alt="" />
-                                <div>
-                                    <Image className='max-w-32' src="/Images/about/mahmud.jpg" alt="" />
-                                    <span className='text-xs font-semibold block'>2:10 pm</span>
-                                </div>
-                            </div>
-
-                            <div className='flex  items-end justify-end'>
-                                <div className='flex gap-3  items-end justify-end'>
-                                    <div className='w-3/4'>
-                                        <div>
-                                            <p className='p-3 mt-3 bg-primary  font-medium rounded-tl-xl rounded-bl-xl rounded-tr-xl'> 😀😀😀</p>
-                                        </div>
-                                        <span className='block text-right text-xs font-semibold'>2:00 pm</span>
-                                    </div>
-                                    <img className='w-10 h-10 rounded-full' src="/Images/about/user-profile-image.png" alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div className="mt-5">
-                            {/* Input field container */}
-                            <div className="flex items-center gap-3 border-t border-gray-300 pt-2 px-3">
-                                {/* File input */}
-                                <Upload >
-                                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                                </Upload>
-                                {/* Text input field */}
-                                <input
-                                    type="text"
-                                    name="text"
-                                    id="message-input"
-                                    placeholder="Type a message..."
-                                    className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-gray-700"
-                                />
-
-                                {/* Send button */}
-                                <button
-                                    className="p-3 bg-primary text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                >
-                                    Send
-                                </button>
-                            </div>
-                        </div>
+                        {/* message send input here */}
+                        <SendMessage files={files} setFiles={setFiles} message={message} setMessage={setMessage} handleSendMessage={handleSendMessage} />
 
                     </div>
-
-
-
                 </div>
+
+
 
 
                 <div className='lg:col-span-1 h-screen overflow-y-auto'>
@@ -461,74 +420,7 @@ const Page = () => {
 
             </div>
 
-            {/* Modal for Pay Now */}
-            <Modal
-                open={payModalVisible}
-                onOk={handlePayOk}
-                onCancel={handlePayCancel}
-                footer={false}
-            >
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold text-primary mb-10">
-                        Your Card
-                    </h2>
-                    <div className=''>
-                        <form className="text-left space-y-5">
-                            {/* Card Number */}
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">Card number</label>
-                                <input
-                                    type="text"
-                                    placeholder="1234 5678 9012 3456"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                />
-                            </div>
 
-                            {/* Expiration Date */}
-                            <div className="flex gap-3">
-                                <div className="flex-1">
-                                    <label className="block text-sm font-semibold mb-1">Expiration date</label>
-                                    <input
-                                        type="text"
-                                        placeholder="MM/YY"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-
-                                {/* CVC */}
-                                <div className="flex-1">
-                                    <label className="block text-sm font-semibold mb-1">CVC</label>
-                                    <input
-                                        type="text"
-                                        placeholder="123"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Terms Agreement */}
-                            <div className="flex items-start gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="terms"
-                                    className="w-4 h-4 accent-primary"
-                                />
-                                <label htmlFor="terms" className="text-sm text-gray-600">
-                                    By confirming, you agree to the <span className="text-primary font-semibold">Terms of Use</span> and <span className="text-primary font-semibold">Privacy Policy</span>.
-                                </label>
-                            </div>
-
-                            {/* Confirm Button */}
-                            <button
-                                type="button"
-                                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition flex items-center gap-2 justify-center"
-                            >
-                                <FiShield className='text-2xl' /> Confirm Pay
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </Modal>
         </div>
     );
 };

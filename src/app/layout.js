@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "./redux/provider";
 import Start from "./utils/Start.js";
+import { SocketProvider } from "@/context/SocketContext";
 
 
 
@@ -32,11 +33,13 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning suppressContentEditableWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Start />
-        <ReduxProvider>
-          
-          {children}
-        </ReduxProvider>
+        <SocketProvider>
+          <Start />
+          <ReduxProvider>
+
+            {children}
+          </ReduxProvider>
+        </SocketProvider>
       </body>
     </html>
   );

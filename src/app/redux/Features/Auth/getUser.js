@@ -19,7 +19,13 @@ const getUser = apiSlice.injectEndpoints({
             method: "GET",
             providesTags: ["updateUser"]
         }),
+        getSingleUser: builder.query({
+            query: (id) => ({
+                url: `/auth/get-user/${id}`,
+                method: "GET",
+            }),
+        }),
     }),
 });
 
-export const { useGetUserQuery } = getUser;
+export const { useGetUserQuery,useGetSingleUserQuery } = getUser;

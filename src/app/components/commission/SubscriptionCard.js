@@ -6,28 +6,28 @@ import i18n from '@/app/utils/i18';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaArrowRightLong, FaCheck } from 'react-icons/fa6';
+import { useCreateSubscriptionMutation } from '@/app/redux/Features/payment/subscription';
 
 const SubscriptionCard = () => {
     const { data: userData } = useGetUserQuery();
     const { t } = i18n;
-    const [payment] = usePaymentMutation();
+    const [payment] = useCreateSubscriptionMutation();
     const router = useRouter();
 
-    const handlePayment = async () => {
+    const user = userData?.user;
+    console.log(user);
+
+    const handlePayment = async (amount) => {
         if (!userData?.user) {
             toast.error('Please login first');
             return router.push('/login');
         }
-
         const data = {
-            amount: 200000,
+            amount: amount * 100,
             cobagProfit: 10,
             currency: "eur",
             paymentMethodId: "pm_card_visa",
-            isEightyPercent: true,
-            senderId: "6788e348a04e8c59a30681e3",
-            sellKgId: "679220598e6c39ff15badcea",
-            travellerId: "678f82bec40b40834c389dd9"
+            senderId: user?._id,
         }
 
         try {
@@ -75,7 +75,9 @@ const SubscriptionCard = () => {
                             </li>
                         </ul>
                         <div className='px-10'>
-                            <button onClick={handlePayment} className="w-4/5 mx-auto absolute bottom-5 left-0 right-0   bg-primary mt-10 text-white font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
+                            <button
+                                // onClick={handlePayment}
+                                className="w-4/5 mx-auto absolute bottom-5 left-0 right-0   bg-primary mt-10 text-white font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
                                 Choose this plan <FaArrowRightLong />
                             </button>
                         </div>
@@ -128,7 +130,7 @@ const SubscriptionCard = () => {
                                 <span>{t('CoBagSkyBadge')}</span>
                             </li>
                         </ul>
-                        <button onClick={handlePayment} className="w-4/5 mx-auto absolute bottom-5 left-0 right-0  mt-10 bg-[#2563eb]  text-white font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
+                        <button onClick={() => handlePayment(10)} className="w-4/5 mx-auto absolute bottom-5 left-0 right-0  mt-10 bg-[#2563eb]  text-white font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
                             {t('Subscribenow1')} <FaArrowRightLong />
                         </button>
                     </div>
@@ -181,7 +183,7 @@ const SubscriptionCard = () => {
                                 <span>{t('CoBagSkyBadge')}</span>
                             </li>
                         </ul>
-                        <button onClick={handlePayment} className="w-4/5 mx-auto absolute bottom-5 left-0 right-0   bg-gradient-to-l mt-10 from-[#C7FFD8] to-[#98DED9] text-primary font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
+                        <button onClick={() => handlePayment(15)} className="w-4/5 mx-auto absolute bottom-5 left-0 right-0   bg-gradient-to-l mt-10 from-[#C7FFD8] to-[#98DED9] text-primary font-semibold py-3 rounded-lg flex items-center gap-3 justify-center">
                             {t('Subscribenow1')} <FaArrowRightLong />
                         </button>
                     </div>

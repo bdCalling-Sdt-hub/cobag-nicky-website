@@ -9,6 +9,7 @@ import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 import { useRouter } from 'next/navigation';
 import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import toast, { Toaster } from 'react-hot-toast';
+import { useCreateSubscriptionMutation } from '@/app/redux/Features/payment/subscription';
 
 const CommissionHeader = () => {
     const { t } = i18n;
@@ -29,42 +30,33 @@ const CommissionHeader = () => {
 
     //==============  use Payment Mutation ==================
     const { data: userData } = useGetUserQuery();
-    const [payment] = usePaymentMutation();
+    const [payment] = useCreateSubscriptionMutation();
     const router = useRouter();
 
-    const handlePayment = async () => {
+    const user = userData?.user;
+    console.log(user);
 
+    const handlePayment = async (amount) => {
         if (!userData?.user) {
             toast.error('Please login first');
             return router.push('/login');
         }
-
-        // console.log("Payment confirmed");
         const data = {
-            amount: 200000,
+            amount: amount * 100,
             cobagProfit: 10,
             currency: "eur",
             paymentMethodId: "pm_card_visa",
-            isEightyPercent: true,
-            senderId: "6788e348a04e8c59a30681e3",
-            sellKgId: "679220598e6c39ff15badcea",
-            travellerId: "678f82bec40b40834c389dd9"
+            senderId: user?._id,
         }
 
-        // console.log(data);
-        // setIsModalOpen(false);
         try {
             const response = await payment(data).unwrap();
-
-            console.log(response?.url);
             if (response?.url) {
-                // Open the URL in a new tab
-                window.open(response?.url, '_blank');
+                window.open(response?.url, "_blank");
             }
         } catch (error) {
             console.log(error);
         }
-
     };
 
     return (
@@ -197,7 +189,7 @@ const CommissionHeader = () => {
                         {/* Confirm Button */}
                         <motion.button
                             type="button"
-                            onClick={handlePayment}
+                            onClick={() => handlePayment(10)}
                             whileInView={{ opacity: 1 }}  // Fade in the confirm button
                             initial={{ opacity: 0 }}
                             transition={{ duration: 1, delay: 2 }}

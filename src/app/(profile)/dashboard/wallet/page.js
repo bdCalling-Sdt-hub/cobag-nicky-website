@@ -8,6 +8,7 @@ import { FaSearch, FaFilter } from 'react-icons/fa';
 import { GoArrowDownRight } from 'react-icons/go';
 import { BsCreditCard } from 'react-icons/bs';
 import toast, { Toaster } from 'react-hot-toast';
+import { useWidthrawMutation } from '@/app/redux/Features/payment/widthraw';
 
 const WalletPage = () => {
     // States for Modal
@@ -17,18 +18,31 @@ const WalletPage = () => {
     const showWithdrawModal = () => setIsWithdrawModalOpen(true);
     const handleWithdrawCancel = () => setIsWithdrawModalOpen(false);
 
-    // Submit handler for withdraw modal
-    const handleWithdrawFinish = (values) => {
 
-        if (!values?.name) {
-            toast.error('Amount must be greater than 0!');
-            console.log('Withdraw Details:', values); // Log the form values
-            return setIsWithdrawModalOpen(true);
+    const [withdraw] = useWidthrawMutation();
+    // Submit handler for withdraw modal
+    const handleWithdrawFinish = async (values) => {
+
+        const formData = {
+            amount: values.amount,
+            accountNumber: values.bankCardNumber,
+            currency: "usd",
+            date: "2025-01-20T00:00:00.000Z"
         }
-        else {
-            toast.success('Funds withdrawn successfully!');
-            setIsWithdrawModalOpen(false); // Close modal after submission
+        try {
+            
+            const res = await withdraw(formData).unwrap();
+            console.log("Withdraw response:", res);
+            if (res?.code === 200) {
+                toast.success(res?.message);
+                setIsWithdrawModalOpen(false);
+            }
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.data?.message);
         }
+
     };
 
     return (
@@ -139,26 +153,7 @@ const WalletPage = () => {
             >
                 <h2 className="text-3xl font-semibold text-primary text-center">Withdraw Funds</h2>
                 <Form onSubmitCapture={handleWithdrawFinish} layout="vertical" className="mt-5" onFinish={handleWithdrawFinish}>
-                    {/* Name Field */}
-                    <Form.Item
-                        label="Name"
-                        name="name"
-                        rules={[{ required: true, message: 'Please enter your name!' }]}
-                    >
-                        <Input className="py-2" placeholder="Enter your name" />
-                    </Form.Item>
 
-                    {/* Email Field */}
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[
-                            { required: true, message: 'Please enter your email!' },
-                            { type: 'email', message: 'Please enter a valid email!' },
-                        ]}
-                    >
-                        <Input className="py-2" placeholder="Enter your email" />
-                    </Form.Item>
 
                     {/* Bank Card Number Field */}
                     <Form.Item
