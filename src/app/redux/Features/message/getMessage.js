@@ -145,7 +145,13 @@ const getMessage = apiSlice.injectEndpoints({
                 }
             },
         }),
-    }) 
+        getSellKgById: builder.query({
+            query: (id) => ({
+                url: `/sell-kg/read/${id}`,
+                method: "GET",
+            }),
+        }),
+    })
 });
 
-export const { useCreateSingleChatMutation, useGetChatsQuery, useGetMessageQuery, useGetChatQueryQuery, useSendMessageMutation } = getMessage;
+export const { useCreateSingleChatMutation, useGetChatsQuery, useGetMessageQuery, useGetChatQueryQuery, useSendMessageMutation , useGetSellKgByIdQuery } = getMessage;

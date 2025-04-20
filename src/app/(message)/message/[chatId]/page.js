@@ -1,9 +1,9 @@
 'use client';
 import MessageHeader from '@/app/components/message/MessageHeader';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { CloudUploadOutlined, InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Image, Input, InputNumber, Upload, Modal  } from 'antd';
+import { Button, Form, Image, Input, InputNumber, Upload, Modal } from 'antd';
 import { LuPlane, LuShield } from 'react-icons/lu';
 import { CiStar } from 'react-icons/ci';
 import { FaAngleDown, FaArrowRightLong, FaCheck } from 'react-icons/fa6';
@@ -12,12 +12,14 @@ import { IoCardOutline, IoMenu } from 'react-icons/io5';
 import { FiPaperclip, FiSend, FiShield } from 'react-icons/fi';
 import Dragger from 'antd/es/upload/Dragger';
 import { RxCross1 } from 'react-icons/rx';
-import { useGetChatQueryQuery, useGetMessageQuery, useSendMessageMutation } from '@/app/redux/Features/message/getMessage';
+import { useGetChatQueryQuery, useGetChatsQuery, useGetMessageQuery, useGetSellKgByIdQuery, useSendMessageMutation } from '@/app/redux/Features/message/getMessage';
 import { useGetSingleUserQuery, useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import useUser from '@/hooks/useUser';
 import baseUrl from '@/app/redux/api/baseUrl';
 import UserMessages from '@/app/components/message/UserMessages';
 import SendMessage from '@/app/components/message/SendMessage';
+import toast from 'react-hot-toast';
+import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 
 const Page = () => {
     const [message, setMessage] = useState("");
@@ -25,6 +27,8 @@ const Page = () => {
     const user = useUser()
     const params = useParams(); // Get the parameters from the URL
     const chatId = params?.chatId; // Extract the `userId` parameter if it exists
+
+    console.log(chatId);
 
 
     //get chat details
@@ -109,6 +113,61 @@ const Page = () => {
         }
     }
 
+    // ======================== sell kg details with payment details ======================
+
+    const { data: responseChatData } = useGetChatsQuery();
+    const allChats = responseChatData?.data?.results;
+    const filterData = allChats?.find((item) => item._id == chatId);
+
+
+    const { data: sellKgData } = useGetSellKgByIdQuery(filterData?.sellKgId);
+    const mainSellKg = sellKgData?.data;
+
+    //========= payment info  ========
+    const [payForOrder] = usePaymentMutation();
+    const router = useRouter();
+    const paymentForORder = async () => {
+
+        console.log({
+            amount: mainSellKg?.price,
+            currency: "usd",
+            paymentMethodId: "pm_card_visa",
+            sellKgId: mainSellKg?._id,
+            senderId: user?._id,
+            travellerId: mainSellKg?.user?._id,
+        });
+
+        try {
+
+            toast.success('Payment is processing');
+
+            const res = await payForOrder({
+                amount: Number(mainSellKg?.price + 10) * 100,
+                cobagProfit: 10,
+                currency: "usd",
+                paymentMethodId: "pm_card_visa",
+                isEightyPercent: true,
+                sellKgId: mainSellKg?._id,
+                senderId: user?._id,
+                travellerId: mainSellKg?.user?._id,
+            }).unwrap();
+
+            console.log(res);
+            if (res) {
+                // window.location.href = res?.data?.url;
+                return router.push(res?.url, '_blank');
+            }
+
+
+
+        } catch (error) {
+            console.error(error);
+            toast.error(error?.data?.message || 'An error occurred while sending the message.');
+        }
+
+
+    }
+
     return (
         <div className=''>
 
@@ -153,42 +212,42 @@ const Page = () => {
                             <div className='flex items-center text-sm gap-5 '>
                                 <span><LuPlane className='text-2xl font-semibold text-primary' /></span>
                                 <div className='flex items-center gap-5 font-semibold'>
-                                    <span>Paris CDG</span>
+                                    <span>{mainSellKg?.departureCity}</span>
                                     <span><FaArrowRightLong className='text-xl font-semibold text-primary' /></span>
-                                    <span>Brazzaville Maya-Maya</span>
+                                    <span>{mainSellKg?.arrivalCity}</span>
                                 </div>
                             </div>
                             <div className='text-sm text-gray-500 mt-2'>
-                                <span>15 Mars 2024 </span>
-                                <span>10:30 </span>
-                                <span>3kg</span>
+                                <span>{mainSellKg?.departureDate} </span>
+                                <span>{mainSellKg?.departureTime} </span>
+                                <span>{mainSellKg?.totalSpace}kg</span>
                             </div>
                             <div className='mt-5 flex items-center justify-end'>
                                 <div>
                                     <div>
                                         <div onClick={handleTotalCost} className='flex items-center justify-end gap-2 font-semibold text-gray-500 cursor-pointer'>
-                                            25.70€ <FaAngleDown />
+                                            {mainSellKg?.price} € <FaAngleDown />
                                         </div>
                                         {
                                             fileList &&
                                             <div>
                                                 <h2 className='font-semibold my-5'>Price Details:</h2>
                                                 <div className='flex items-center justify-between my-2'>
-                                                    <span className='text-gray-500'>Basic price ( 3 kg)</span>
-                                                    <span>21.00€</span>
+                                                    <span className='text-gray-500'>Basic price ( {mainSellKg?.totalSpace} kg)</span>
+                                                    <span>{mainSellKg?.price} €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500'>Commission (20%)</span>
-                                                    <span>21.00€</span>
+                                                    <span>{mainSellKg?.price / 20 * 100} €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500'>Fixed costs</span>
-                                                    <span>21.00€</span>
+                                                    <span>{(mainSellKg?.price / 20 * 100) + (mainSellKg?.price)}€</span>
                                                 </div>
                                                 <hr />
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500 font-semibold'>Total costs :</span>
-                                                    <span className='font-semibold'>21.00€</span>
+                                                    <span className='font-semibold'>{(mainSellKg?.price / 20 * 100) + (mainSellKg?.price)}€</span>
                                                 </div>
                                             </div>
                                         }
@@ -270,7 +329,7 @@ const Page = () => {
                         </div>
                         <div className='p-5'>
                             <div className='text-center'>
-                                <button className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' onClick={showPayModal}> <IoCardOutline />
+                                <button className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' onClick={paymentForORder}> <IoCardOutline />
                                     Pay Now</button>
                             </div>
                         </div>
@@ -291,21 +350,21 @@ const Page = () => {
                                 <div className='flex items-center text-sm gap-5 '>
                                     <span><LuPlane className='text-2xl font-semibold text-primary' /></span>
                                     <div className='flex items-center gap-5 font-semibold'>
-                                        <span>Paris CDG</span>
+                                        <span>{mainSellKg?.departureCity}</span>
                                         <span><FaArrowRightLong className='text-xl font-semibold text-primary' /></span>
-                                        <span>Brazzaville Maya-Maya</span>
+                                        <span>{mainSellKg?.arrivalCity}</span>
                                     </div>
                                 </div>
                                 <div className='text-sm text-gray-500 mt-2'>
-                                    <span>15 Mars 2024 </span>
-                                    <span>10:30 </span>
-                                    <span>3kg</span>
+                                    <span>{mainSellKg?.departureDate} </span>
+                                    <span>{mainSellKg?.departureTime} </span>
+                                    <span>{mainSellKg?.totalSpace}kg</span>
                                 </div>
                                 <div className='mt-5 flex items-center justify-end'>
                                     <div>
                                         <div>
                                             <div onClick={handleTotalCost} className='flex items-center justify-end gap-2 font-semibold text-gray-500 cursor-pointer'>
-                                                25.70€ <FaAngleDown />
+                                                {mainSellKg?.price} € <FaAngleDown />
                                             </div>
                                             {
                                                 fileList &&
@@ -408,7 +467,7 @@ const Page = () => {
                             </div>
                             <div className='p-5'>
                                 <div className='text-center'>
-                                    <button className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' onClick={showPayModal}> <IoCardOutline />
+                                    <button onClick={paymentForORder} className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' > <IoCardOutline />
                                         Pay Now</button>
                                 </div>
                             </div>

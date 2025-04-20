@@ -14,10 +14,10 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import useUser from '@/hooks/useUser';
 import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
+import { useCreateSingleChatMutation, useGetChatsQuery } from '@/app/redux/Features/message/getMessage';
 
 const AvailableRoutes = ({ searchData }) => {
 
-    console.log('searchData', searchData[0]);
 
     const { t } = i18n;
 
@@ -69,39 +69,64 @@ const AvailableRoutes = ({ searchData }) => {
 
     const router = useRouter();
     const user = useUser();
-    // console.log(user?.subscription === false);
     const [payment20Persent] = usePaymentMutation();
+
+    const [creatChat] = useCreateSingleChatMutation();
+ 
+
 
     const handleGoMessage = async (request) => {
 
-        console.log(request);
+
+
 
         const data = {
             amount: Number(request?.price / 100 * 20) * 100,
             cobagProfit: 10,
             currency: "eur",
             paymentMethodId: "pm_card_visa",
-            isEightyPercent: true,
+            isTwentyPercent: true,
             senderId: user?._id,
             sellKgId: request?._id,
-            travellerId: request?.userId?._id
+            travellerId: request?.user?._id
         }
+
 
         console.log(data);
 
 
 
-        if (user?.subscription === false) {
-            toast.error('Please login get subscription or 20% pay');
+        if (!user?.isTwentyPercent) {
 
+            toast.error('Please login get subscription or 20% pay');
             const res = await payment20Persent(data).unwrap();
-            console.log(res);
+            console.log('paymnent ', res);
+
             if (res) {
+
                 // window.location.href = res?.data?.url;
                 return router.push(res?.url);
             }
-
         }
+
+        const createChatData = {
+            receiverId: request?.user?._id,
+            sellKgId: request?._id
+        }
+
+        if (user?.isTwentyPercent === true) {
+
+            const res = await creatChat(createChatData).unwrap();
+            console.log('chat Data ', res?.data);
+            if (res?.code === 201) {
+
+                // window.location.href = res?.data?.url;
+                return router.push(`/message/${res?.data?._id}`);
+            }
+        }
+
+
+
         // toast.success('Message sent successfully');
     }
 
@@ -140,7 +165,7 @@ const AvailableRoutes = ({ searchData }) => {
                 </div>
             </div>
 
-            <section  ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
+            <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
                 {searchData.length > 0 ? (

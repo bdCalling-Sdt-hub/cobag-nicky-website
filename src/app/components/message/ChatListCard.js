@@ -92,8 +92,8 @@ const ChatListCard = ({ chat }) => {
       </div>
       <div className="w-full space-y-2">
         <div className="flex justify-between items-center gap-2 text-sm">
-          <h1 className="text-sm xl:text-lg font-medium">
-            {`${receiverDetails?.firstName} ${receiverDetails?.lastName}`}
+          <h1 className="text-sm xl:text-base font-medium">
+            {`${receiverDetails?.firstName} ${receiverDetails?.lastName} `}
           </h1>
           {createdAt && (
             <p className="text-[#999999] text-xs">

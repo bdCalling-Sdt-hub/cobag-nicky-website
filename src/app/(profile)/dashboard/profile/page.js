@@ -350,17 +350,17 @@ const Page = () => {
                     </div>
 
 
-                    {myWidthrawData?.reverse()?.slice(0, 3)?.map((item, index) => (
+                    {myWidthrawData?.slice(0, 3)?.map((item, index) => (
                         <div
                             key={index}
                             className="flex items-center justify-between bg-[#f6f6fb] my-5 p-5 rounded-md"
                         >
                             <div className="flex items-center gap-3">
-                                <div className={`${item?.sellKgId?._id == user?.id ? "bg-green-100" : "bg-red-100"} flex items-center justify-center w-14 h-14 rounded-full`}>
+                                <div className={`${item?.status == 'completed' ? "bg-green-100" : "bg-red-100"} flex items-center justify-center w-14 h-14 rounded-full`}>
                                     {
                                         item?.sellKgId?._id == user?.id ?
-                                            < GoArrowDownRight className="text-2xl text-green-500" /> :
-                                            <MdOutlineArrowOutward className="text-2xl text-red-500" />
+                                            <GoArrowDownRight className={`${item?.status == 'completed' ? "text-green-500" : "text-red-500"} text-2xl`} /> :
+                                            <MdOutlineArrowOutward className={`${item?.status == 'completed' ? "text-green-500" : "text-red-500"} text-2xl`} />
 
                                     }
                                 </div>
@@ -370,8 +370,8 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <h3 className={`${item?.sellKgId?._id == user?.id ? "text-green-600 text-xl font-semibold" : "text-red-600 text-xl font-semibold"}`}>+ {item?.amount}€</h3>
-                                <p className={`${item?.sellKgId?._id == user?.id ? "text-green-600" : "text-red-600"}`}>{item?.status}</p>
+                                <h3 className={`${item?.status == 'completed' ? "text-green-600 text-xl font-semibold" : "text-red-600 text-xl font-semibold"}`}>+ {item?.amount}€</h3>
+                                <p className={`${item?.status == 'completed' ? "text-green-600" : "text-red-600"}`}>{item?.status}</p>
                             </div>
                         </div>
                     ))}

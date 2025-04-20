@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { CiCalendar, CiCircleQuestion, CiLocationOn } from 'react-icons/ci';
-import { FaAngleDown, FaAngleUp, FaArrowRightLong, FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
+import { FaAngleDown, FaAngleUp, FaArrowRightLong, FaMapLocation, FaMapLocationDot, FaMinus, FaPlane, FaPlus, FaSpinner } from 'react-icons/fa6';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdInfo, MdOutlineDateRange, MdOutlineFileUpload, MdOutlineShoppingBag } from "react-icons/md";
 import { RiShoppingBag4Line } from "react-icons/ri";
@@ -239,6 +239,9 @@ const Page = () => {
         if (form.arrivalDate.value.length < 3) {
             return toast.error('Please enter a valid arrival date')
         }
+        if (form.destinationArea.value.length < 3) {
+            return toast.error('Please enter a valid destination area')
+        }
 
         const formData = {
             userId: userId,
@@ -260,8 +263,8 @@ const Page = () => {
             courierOptions: {
                 maxPurchaseAmount: calculet?.minimumPricePerTransaction
             },
+            destinationArea: form.destinationArea.value,
             price: calculet?.minimumPricePerTransaction * (luggageValue + baggageValue) || 0,
-
 
         }
 
@@ -366,7 +369,9 @@ const Page = () => {
         if (form.arrivalTime.value.length < 3) {
             return toast.error('Please enter a valid arrival time')
         }
-
+        if (form.destinationArea.value.length < 3) {
+            return toast.error('Please enter a valid destination area')
+        }
 
         const fromData = {
             userId: userId,
@@ -384,6 +389,7 @@ const Page = () => {
             arrivalTime: form.arrivalTime.value,
 
             availableToBeCourier: showAvailable ? true : false,
+            destinationArea: form.destinationArea.value,
 
             courierOptions: {
                 maxPurchaseAmount: form.maxpurchAmountAdvance.value || 0,
@@ -395,7 +401,7 @@ const Page = () => {
         setAllFormData(fromData)
 
         handleShowModal();
-        
+
 
 
 
@@ -717,6 +723,28 @@ const Page = () => {
                                             </label>
                                         </div> */}
 
+                                        {/* this field for  Destination airport/station  */}
+                                        <div className="w-full "> {/* Container for centering */}
+                                            <label className="font-semibold block text-[#474747] mb-2" htmlFor="destinationAirport">
+                                                Destination airport/station *
+                                            </label>
+                                            <div className="relative mt-2">
+                                                {/* Input field container */}
+                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                    {/* Map Location Icon */}
+                                                    <FaMapLocationDot className="text-2xl text-[#737373]" />
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    id="destinationArea"
+                                                    required
+                                                    name="destinationArea"
+                                                    placeholder="Destination airport/station"
+                                                    className="w-full pl-12 pr-4 py-2 border  rounded-md focus:outline-none  text-[#474747] placeholder-[#737373]"
+                                                />
+                                            </div>
+                                        </div>
+
 
                                         {/* Submit Button */}
                                         <div className="mt-6">
@@ -996,6 +1024,28 @@ const Page = () => {
                                                 </span>
                                             </label>
                                         </div> */}
+
+
+                                        <div className="w-full "> {/* Container for centering */}
+                                            <label className="font-semibold block text-[#474747] mb-2" htmlFor="destinationAirport">
+                                                Destination airport/station *
+                                            </label>
+                                            <div className="relative mt-2">
+                                                {/* Input field container */}
+                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                    {/* Map Location Icon */}
+                                                    <FaMapLocationDot className="text-2xl text-[#737373]" />
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    id="destinationArea"
+                                                    required
+                                                    name="destinationArea"
+                                                    placeholder="Destination airport/station"
+                                                    className="w-full pl-12 pr-4 py-2 border  rounded-md focus:outline-none  text-[#474747] placeholder-[#737373]"
+                                                />
+                                            </div>
+                                        </div>
 
 
                                         {/* Submit Button */}

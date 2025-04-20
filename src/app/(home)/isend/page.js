@@ -5,7 +5,7 @@ import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
-import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
+import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos'; 
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
 import { useRouter } from 'next/navigation';
@@ -30,6 +30,9 @@ const Page = () => {
     ]); // Track package data
 
     const { data: allVideo } = useGetAllVideoQuery()
+
+
+
     // console.log(allVideo?.data[0]);
 
 

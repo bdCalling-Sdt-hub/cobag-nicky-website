@@ -1,16 +1,21 @@
 'use client'
+import { useGetAllMediaQuery } from '@/app/redux/Features/allMedia/allmedia';
 import { useUserSignupMutation } from '@/app/redux/Features/Auth/signup';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from 'react-icons/ai';
 import { FaApple, FaFacebookF, FaGoogle } from 'react-icons/fa6';
+import { GrMultimedia } from 'react-icons/gr';
 
 const Page = () => {
 
     const router = useRouter()
 
     const [userSignup, { isLoading }] = useUserSignupMutation()
+    const { data: allSocialMedia } = useGetAllMediaQuery();
+    const socialMedia = allSocialMedia?.data;
+    console.log(socialMedia);
 
     const handleSignupUser = async (e) => {
 
@@ -21,19 +26,27 @@ const Page = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const phone = e.target.phoneNumber.value;
+        const howToKnow = e.target.howToKnow.value;
         const role = 'user';
 
-        const formData = { firstName, lastName, email, password, phone, role }
+        const formData = { firstName, lastName, email, password, phone, role, howToKnow }
         console.log(formData);
 
 
-        const res = await userSignup(formData).unwrap();
-        console.log(res);
-        if (res.success) {
-            localStorage.setItem('token', res.data?.token);
-            toast.success('User Register successfully !!')
-            console.log(res?.data?.data?._id);
-            router.push(`/document/${res.data?.data?._id}`)
+        try {
+
+            const res = await userSignup(formData).unwrap();
+            console.log(res);
+            if (res.success) {
+                localStorage.setItem('token', res.data?.token);
+                toast.success('User Register successfully !!')
+                console.log(res?.data?.data?._id);
+                router.push(`/document/${res.data?.data?._id}`)
+            }
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.data?.errorSources[0]?.message);
         }
 
 
@@ -103,6 +116,27 @@ const Page = () => {
                             <AiOutlineMail className="absolute left-3 top-[53px] transform -translate-y-1/2 text-gray-400 text-xl" />
                         </div>
 
+                        {/* add a new field for how to know this flatform */}
+                        <div className="relative">
+                            <label htmlFor="howToKnow" className="block text-sm font-semibold mb-2">How to Know This Platform</label>
+                            {/* <input
+                                type="text"
+                                id="howToKnow"
+                                name='howToKnow'
+                                placeholder="Enter your platform"
+                                className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                            /> */}
+                            <select name="howToKnow" id="howToKnow" className='w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary'>
+                                <option disabled selected value="Select Platform"> Select Platform</option>
+                                {
+                                    socialMedia?.map((item, index) => (
+                                        <option className='capitalize' key={index} value={item.name}>{item.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <GrMultimedia className="absolute left-3 top-[53px] transform -translate-y-1/2 text-gray-400 text-xl" />
+                        </div>
+
                         {/* Phone Number */}
                         <div className="relative">
                             <label htmlFor="phoneNumber" className="block text-sm font-semibold mb-2">Phone Number</label>
@@ -113,7 +147,7 @@ const Page = () => {
                                 placeholder="Enter your phone number"
                                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
-                            <AiOutlinePhone className="absolute left-3 top-[53px] transform -translate-y-1/2 text-gray-400 text-xl" />
+                            <AiOutlinePhone className="absolute rotate-90 left-3 top-[53px] transform -translate-y-1/2 text-gray-400 text-xl" />
                         </div>
 
                         {/* Password */}

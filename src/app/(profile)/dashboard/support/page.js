@@ -1,6 +1,7 @@
 'use client';
 import { useReportMessageMutation } from '@/app/redux/Features/ReportMessage/reportMessage';
 import i18n from '@/app/utils/i18';
+import useUser from '@/hooks/useUser';
 import { message } from 'antd';
 import React from 'react';
 import toast from 'react-hot-toast';
@@ -11,7 +12,7 @@ const Page = () => {
     const { t } = i18n;
 
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = useUser();
     console.log(user);
     const [supportMessage] = useReportMessageMutation();
 

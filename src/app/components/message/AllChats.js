@@ -8,14 +8,12 @@ import ChatListCard from './ChatListCard';
 const AllChats = ({ isAllUserMessage }) => {
     const { data: responseChatData } = useGetChatsQuery();
     const allChats = responseChatData?.data?.results;
-    
-    return (
-        <div className="">
-            {/* Logo */}
-            {/* <Link href="/dashboard/profile" className="border-b border-gray-400">
-                <img className="w-1/2 mx-auto py-5" src="/Images/logo.svg" alt="Logo" />
-            </Link> */}
 
+ 
+ 
+
+    return (
+        <div className=""> 
             {/* Header */}
             <div className="p-5 border-b border-gray-100 ">
                 <h2 className="font-semibold text-xl mb-5">Messages</h2>
