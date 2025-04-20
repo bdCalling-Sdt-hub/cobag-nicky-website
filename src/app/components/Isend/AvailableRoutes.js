@@ -10,6 +10,10 @@ import i18n from '@/app/utils/i18';
 import Link from 'next/link';
 import { IoShieldCheckmarkOutline } from 'react-icons/io5';
 import baseUrl from '@/app/redux/api/baseUrl';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import useUser from '@/hooks/useUser';
+import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 
 const AvailableRoutes = ({ searchData }) => {
 
@@ -63,6 +67,46 @@ const AvailableRoutes = ({ searchData }) => {
         }
     };
 
+    const router = useRouter();
+    const user = useUser();
+    // console.log(user?.subscription === false);
+    const [payment20Persent] = usePaymentMutation();
+
+    const handleGoMessage = async (request) => {
+
+        console.log(request);
+
+        const data = {
+            amount: Number(request?.price / 100 * 20) * 100,
+            cobagProfit: 10,
+            currency: "eur",
+            paymentMethodId: "pm_card_visa",
+            isEightyPercent: true,
+            senderId: user?._id,
+            sellKgId: request?._id,
+            travellerId: request?.userId?._id
+        }
+
+        console.log(data);
+
+
+
+        if (user?.subscription === false) {
+            toast.error('Please login get subscription or 20% pay');
+
+            const res = await payment20Persent(data).unwrap();
+            console.log(res);
+            if (res) {
+                // window.location.href = res?.data?.url;
+                return router.push(res?.url);
+            }
+
+        }
+        // toast.success('Message sent successfully');
+    }
+
+
+
     return (
         <div className='lg:py-20 py-10 bg-[#]'>
             <div className='lg:w-[80%] mx-auto mb-5 flex justify-center items-center gap-3'>
@@ -96,7 +140,7 @@ const AvailableRoutes = ({ searchData }) => {
                 </div>
             </div>
 
-            <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
+            <section  ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
                 {searchData.length > 0 ? (
@@ -172,8 +216,8 @@ const AvailableRoutes = ({ searchData }) => {
                                             <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
                                         </div>
                                         <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
-                                            <h2>Delivery by Thomas</h2>
-                                            <p><span className='font-semibold'>Today</span> 03/15/2024 at <span className='font-semibold'>10:00 PM</span></p>
+                                            <h2>Delivery by {item.user.firstName}</h2>
+                                            <p><span className='font-semibold'>Today</span> {item.arrivalDate} at <span className='font-semibold'>{item.arrivalTime}</span></p>
                                             <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
                                             </p>
                                         </div>
@@ -209,9 +253,9 @@ const AvailableRoutes = ({ searchData }) => {
                                             <CiStar /> View review
                                         </Link> */}
                                         <p className="text-right text-sm text-gray-500">Languages spoken: French, English</p>
-                                        <Link href={`/message/${item._id}`} className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
+                                        <button onClick={() => handleGoMessage(item)} className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
                                             <FiMessageSquare /> Contact
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -8,6 +8,7 @@ import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
 import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { BsCurrencyDollar } from 'react-icons/bs';
@@ -16,6 +17,8 @@ import { FaTrain } from 'react-icons/fa';
 import { FaMinus, FaP, FaPlus, FaSackDollar } from 'react-icons/fa6';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuBox, LuPlane } from 'react-icons/lu';
+
+
 
 const Page = () => {
 
@@ -154,6 +157,7 @@ const Page = () => {
     // ==================== Plane ========================
 
     const [searchItravelWithData, { isLoading }] = useSearchItravelMutation();
+    const router = useRouter();
 
     const handleSearchPlane = async (e) => {
         e.preventDefault();
@@ -176,6 +180,7 @@ const Page = () => {
             // console.log(response);
 
             if (response?.success) {
+                router.push(`/isend#showall`);
                 // console.log(response);
                 setAllSearchResutl(response?.data)
                 toast.success(`Search successfully !! See ${response?.data?.length} Item`);
@@ -252,6 +257,13 @@ const Page = () => {
 
 
             if (response?.success) {
+                // go to this section #showall show can i go here 
+
+                const showAllSection = document.getElementById('showall');
+                if (showAllSection) {
+                    // Smooth scroll to the section
+                    showAllSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
 
                 setAllSearchResutl(response?.data)
                 toast.success(`Search successfully !! See ${response?.data?.length} Item`);
@@ -830,10 +842,9 @@ const Page = () => {
             </div>
 
 
-
-
             <AvailableRoutes searchData={allSearchResutl} />
             <ITravelVideoSection />
+
             <ExcessBaggage />
             <PopularProducts />
 

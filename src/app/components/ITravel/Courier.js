@@ -1,14 +1,62 @@
 'use client';
+import baseUrl from '@/app/redux/api/baseUrl';
+import { useGetAllIshopQuery } from '@/app/redux/Features/Ishop/ishop';
+import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 import i18n from '@/app/utils/i18';
+import useUser from '@/hooks/useUser';
 import Aos from 'aos';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { CiChat1, CiLocationOn } from 'react-icons/ci';
+import toast from 'react-hot-toast';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { FiMessageSquare } from 'react-icons/fi';
 
 const Courier = () => {
     const { t } = i18n;
 
+    // Fetching data
+    const { data: getAllData } = useGetAllIshopQuery();
+    const postData = getAllData?.data?.filter(item => item.uploadImage?.length > 0);
+
+    const router = useRouter();
+    const user = useUser();
+    const [payment20Persent] = usePaymentMutation();
+
+    const handleContact = async (request) => {
+        const data = {
+            amount: Number(request?.PurchasePrice / 100 * 20) * 100,
+            cobagProfit: 10,
+            currency: "eur",
+            paymentMethodId: "pm_card_visa",
+            isEightyPercent: true,
+            senderId: user?._id,
+            sellKgId: request?._id,
+            travellerId: request?.userId?._id
+        }
+
+        if (user?.subscription === false) {
+            toast.error('Please login to get subscription or pay 20%');
+
+            const res = await payment20Persent(data).unwrap();
+            if (res) {
+                return router.push(res?.url);
+            }
+        }
+    };
+
+    // Pagination settings
+    const itemsPerPage = 4;  // Number of items per page
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Filter settings
+    const [cityPurchase, setCityPurchase] = useState('');
+    const [cityDelivery, setCityDelivery] = useState('');
+    const [minRating, setMinRating] = useState(4.5);
+    const [untilDate, setUntilDate] = useState('');
+    const [maxAmount, setMaxAmount] = useState('');
+
+    // Filtered data state
+    const [filteredData, setFilteredData] = useState(postData);
 
     useEffect(() => {
         Aos.init({
@@ -17,196 +65,99 @@ const Courier = () => {
         });
     }, []);
 
-    const purchaseData = [
-        {
-            image: 'link_to_image',
-            title: 'Exclusive Korean Skincare',
-            price: 150,
-            earnings: 27,
-            purchaseCity: 'Seoul',
-            deliveryCity: 'Paris',
-            deadline: '04/15/2024',
-            travelerName: 'Marie D.',
-            travelerRating: 4.8,
-            travelerMissions: '4.8 • 15 missions',
-            image: '/Images/NewSection/Products/beauty-of-joseon-ground-rice-and-honey-glow-mask-5.jpg',
-            userImage: '/Images/NewSection/usreImgae.avif'
-        },
-        {
-            image: 'link_to_image',
-            title: 'Nike Air Max Limited Edition',
-            price: 200,
-            earnings: 27,
-            purchaseCity: 'New York',
-            deliveryCity: 'Paris',
-            deadline: '04/20/2024',
-            travelerName: 'Thomas M.',
-            travelerRating: 4.9,
-            travelerMissions: '4.9 • 10 missions',
-            image: '/Images/NewSection/Products/Nike-Air-Max-Shoes-1.jpg',
-            userImage: '/Images/NewSection/photo-1500648767791-00dcc994a43e.avif'
-        },
-        {
-            image: 'link_to_image',
-            title: 'Cigarette Cartons',
-            price: 450,
-            earnings: 27,
-            purchaseCity: 'Luxembourg',
-            deliveryCity: 'Paris',
-            deadline: '04/25/2024',
-            travelerName: 'Sophie B.',
-            travelerRating: 4.7,
-            travelerMissions: '4.7 • 20 missions',
-            image: '/Images/NewSection/Products/cl-5645cecb7971bb340f4dad84-ph0.jpg',
-            userImage: '/Images/NewSection/photo-1438761681033-6461ffad8d80.avif'
-        },
-        {
-            image: 'link_to_image',
-            title: 'Exclusive Dubai Perfume',
-            price: 180,
-            earnings: 27,
-            purchaseCity: 'Dubai',
-            deliveryCity: 'Paris',
-            deadline: '04/18/2024',
-            travelerName: 'Luke P.',
-            travelerRating: 4.6,
-            travelerMissions: '4.6 • 15 missions',
-            image: '/Images/NewSection/Products/contes-de-parfums-dubai.webp',
-            userImage: '/Images/NewSection/photo-1472099645785-5658abf4ff4e.avif'
-        }
-    ];
+    const applyFilter = () => {
+        const filterResults = postData?.filter(item => {
+            const meetsCityPurchase = cityPurchase ? item?.departureCity.toLowerCase().includes(cityPurchase.toLowerCase()) : true;
+            const meetsCityDelivery = cityDelivery ? item?.arrivalCity.toLowerCase().includes(cityDelivery.toLowerCase()) : true;
+            const meetsMinRating = item?.userId?.travellerSuccessRate >= minRating;
+            const meetsUntilDate = untilDate ? new Date(item?.departureDate) <= new Date(untilDate) : true;
+            const meetsMaxAmount = maxAmount ? item?.PurchasePrice <= maxAmount : true;
 
-    // Pagination settings
-    const itemsPerPage = 3;  // Number of items per page
-    const [currentPage, setCurrentPage] = useState(1);
+            return meetsCityPurchase && meetsCityDelivery;
+        });
+
+        setFilteredData(filterResults);  // Update filtered data
+        console.log(filterResults);
+        setCurrentPage(1);  // Reset to page 1 after filter is applied
+    };
+
+    // If no filter is applied, use all items
+    const displayData = filteredData?.length > 0 ? filteredData : postData;
 
     // Calculate the start and end index based on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentItems = purchaseData.slice(startIndex, endIndex);
+    const currentItems = displayData?.slice(startIndex, endIndex);
+    const totalPages = Math?.ceil(displayData?.length / itemsPerPage);
 
-    // Calculate total pages
-    const totalPages = Math.ceil(purchaseData.length / itemsPerPage);
-
-    // Handle page change
     const goToPage = (page) => {
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
         }
     };
 
-    // States to track the filter values
-    const [cityPurchase, setCityPurchase] = useState('');
-    const [cityDelivery, setCityDelivery] = useState('');
-    const [minRating, setMinRating] = useState(4.5);  // default rating is 4.5
-    const [untilDate, setUntilDate] = useState('');
-    const [maxAmount, setMaxAmount] = useState('');
-
-    const handleRatingChange = (e) => {
-        setMinRating(e.target.value);
-    };
-
-    const handleDateChange = (e) => {
-        setUntilDate(e.target.value);
-    };
-
-    const handleAmountChange = (e) => {
-        setMaxAmount(e.target.value);
-    };
-
-
+    // Filter handlers
+    const handleRatingChange = (e) => setMinRating(e.target.value);
+    const handleDateChange = (e) => setUntilDate(e.target.value);
+    const handleAmountChange = (e) => setMaxAmount(e.target.value);
 
     return (
         <div className='bg-[#f6f6fb]'>
             <div className='lg:w-[80%] w-[90%] mx-auto py-10 md:py-20'>
-                <div>
-                    <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary '>What is it like to be a courier with Cobag?</h2>
+                <h2 className='text-center md:text-4xl text-3xl font-semibold text-primary'>
+                    What is it like to be a courier with Cobag?
+                </h2>
 
-                    <h3 className='text-center md:w-2/4 mx-auto mb-10 mt-3 md:text-xl '>As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users.
-                        Earn <span className='font-semibold text-primary'> at least €27 in earnings for each purchase mission .</span></h3>
+                <h3 className='text-center md:w-2/4 mx-auto mb-10 mt-3 md:text-xl'>
+                    As <span className='font-semibold text-primary'>a courier</span> , earn even more: use your travels to make purchases abroad for other CoBag users. Earn{' '}
+                    <span className='font-semibold text-primary'>at least €27 in earnings for each purchase mission.</span>
+                </h3>
 
-                    <h3 className='text-center md:w-2/4 mx-auto font-semibold text-3xl  text-primary'>How does it work?</h3>
-
-                    <div data-aos="fade-up" className='my-20'>
-
-                        <div className=''>
-
-                            <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 text-center'>
-                                <div className='hover:-mt-2 duration-500'>
-                                    <img className='w-full mx-auto' src="/Images/NewSection/form-1.png" alt="" />
-                                    <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>Add your journey
-
-                                    </h2>
-                                    <p className=''>Enter your destination and travel dates to discover purchase requests and be contacted by buyers interested in your trip.</p>
-                                </div>
-                                <div className='hover:-mt-2 duration-500'>
-                                    <img className='w-full mx-auto' src="/Images/NewSection/waiting.png" alt="" />
-                                    <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>Choose ads</h2>
-                                    <p className=' '>Select the purchases you are interested in or simply wait to be approached by buyers.</p>
-                                </div>
-                                <div className='hover:-mt-2 duration-500'>
-                                    <img className='w-full mx-auto' src="/Images/NewSection/shop.png" alt="" />
-                                    <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>Buy the product
-
-                                    </h2>
-                                    <p className=''>Once agreed upon, the buyer will pay via CoBag, and the payment will be retained. Purchase the item with your own money.</p>
-                                </div>
-                                <div className='hover:-mt-2 duration-500'>
-                                    <img className='w-full mx-auto' src="/Images/NewSection/money.png" alt="" />
-                                    <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>Deliver and get paid
-
-                                    </h2>
-                                    <p className=' '>Return the item upon your return to the airport or train station and enter the 4-digit delivery code: you will then receive your refund and your mission earnings immediately.</p>
-                                </div>
-                            </div>
-
-                            <button className='flex items-center justify-center gap-2 bg-primary text-white hover:scale-[1.1] duration-300 py-3 px-8 rounded-xl mx-auto  mt-10'>
-                                Suggest my route
-                            </button>
-                            {/* <div>
-                                            <button className='flex items-center justify-center gap-2 bg-primary text-white py-3 px-10 rounded-lg mx-auto'>Find my buyer <FaArrowRight /></button>
-                                        </div> */}
+                <div data-aos="fade-up" className='my-20'>
+                    <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-10 text-center'>
+                        {/* Sections for each step */}
+                        <div className='hover:-mt-2 duration-500'>
+                            <img className='w-full mx-auto' src="/Images/NewSection/form-1.png" alt="" />
+                            <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>
+                                Add your journey
+                            </h2>
+                            <p>Enter your destination and travel dates to discover purchase requests and be contacted by buyers interested in your trip.</p>
                         </div>
-
+                        <div className='hover:-mt-2 duration-500'>
+                            <img className='w-full mx-auto' src="/Images/NewSection/waiting.png" alt="" />
+                            <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>
+                                Choose ads
+                            </h2>
+                            <p>Select the purchases you are interested in or simply wait to be approached by buyers.</p>
+                        </div>
+                        <div className='hover:-mt-2 duration-500'>
+                            <img className='w-full mx-auto' src="/Images/NewSection/shop.png" alt="" />
+                            <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>
+                                Buy the product
+                            </h2>
+                            <p>Once agreed upon, the buyer will pay via CoBag, and the payment will be retained. Purchase the item with your own money.</p>
+                        </div>
+                        <div className='hover:-mt-2 duration-500'>
+                            <img className='w-full mx-auto' src="/Images/NewSection/money.png" alt="" />
+                            <h2 className='mt-5 flex items-center gap-2 justify-center font-semibold text-xl text-primary mb-3'>
+                                Deliver and get paid
+                            </h2>
+                            <p>Return the item upon your return to the airport or train station and enter the 4-digit delivery code: you will then receive your refund and your mission earnings immediately.</p>
+                        </div>
                     </div>
-
-
-
-
-
-
+                    <button className='flex items-center justify-center gap-2 bg-primary text-white hover:scale-[1.1] duration-300 py-3 px-8 rounded-xl mx-auto mt-10'>
+                        Suggest my route
+                    </button>
                 </div>
-
-
-
-
-                {/* <h2 className='md:text-4xl text-3xl font-semibold text-primary text-center'>{t('whatItsLikeCourierCobagTitle')}</h2>
-                <div className='grid lg:grid-cols-3 grid-cols-1 gap-5 mt-10' >
-                    <div data-aos="fade-up" data-aos-duration="300" className='bg-white p-10 rounded-xl flex flex-col justify-center items-center'>
-                        <img src="/Images/Itravel/Courier-2.png" alt="" />
-                        <h2 className='text-2xl font-normal my-5 text-primary text-center'>{t('DoubleYourWinnings564654')}</h2>
-                        <p className='text-ceneter'>{t('CourierEarnings564654')}</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-duration="500" className='bg-white p-10 rounded-xl flex flex-col justify-center items-center'>
-                        <img src="/Images/Itravel/Courier-3.png" alt="" />
-                        <h2 className='text-2xl font-normal my-5 text-primary text-center'>{t('SimpleAndDirectMission564654')}</h2>
-                        <p className='text-center'>{t('BuyAndDeliver564654')}</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-duration="800" className='bg-white p-10 rounded-xl flex flex-col justify-center items-center'>
-                        <img src="/Images/Itravel/Courier-1.png" alt="" />
-                        <h2 className='text-2xl font-normal my-5 text-primary text-center'>{t('MaximizeYourEarnings564654')}</h2>
-                        <p className='text-center'>{t('VATRecovery564654')}</p>
-                    </div>
-                </div> */}
             </div>
 
-            <div className='lg:w-[80%] w-[90%] mx-auto '>
-                <div className="bg-white shadow-lg rounded-lg p-8 border text-left">
+            {/* Filter Section */}
+            <section id='courier' className='lg:w-[80%] w-[90%] mx-auto'>
+                <div className="bg-white shadow-lg rounded-lg p-8 border text-left mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">Filter ads</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                        {/* City of purchase */}
-                        <div className=" space-y-2">
+                        <div className="space-y-2">
                             <span className="text-gray-600 block">City of purchase</span>
                             <input
                                 type="text"
@@ -217,8 +168,7 @@ const Courier = () => {
                             />
                         </div>
 
-                        {/* Delivery city */}
-                        <div className=" space-y-2">
+                        <div className="space-y-2">
                             <span className="text-gray-600 block">Delivery city</span>
                             <input
                                 type="text"
@@ -228,8 +178,8 @@ const Courier = () => {
                                 className="w-full px-4 py-2 border rounded-md text-gray-700"
                             />
                         </div>
-                        {/* Until date */}
-                        <div className=" space-y-2">
+
+                        <div className="space-y-2">
                             <span className="text-gray-600 block">Until</span>
                             <input
                                 type="date"
@@ -238,7 +188,8 @@ const Courier = () => {
                                 className="w-full px-4 py-2 border rounded-md text-gray-700"
                             />
                         </div>
-                        <div className=" space-y-2">
+
+                        <div className="space-y-2">
                             <span className="text-gray-600 block">Maximum amount to advance</span>
                             <input
                                 type="number"
@@ -249,8 +200,7 @@ const Courier = () => {
                             />
                         </div>
 
-                        {/* Minimum traveler rating */}
-                        <div className="items-center ">
+                        <div className="items-center">
                             <span className="text-gray-600 block">Minimum traveler rating</span>
                             <div className='flex items-center gap-3'>
                                 <input
@@ -265,56 +215,55 @@ const Courier = () => {
                                 <span className="text-gray-700 min-w-16">{minRating} <span className='text-2xl text-[#f3d423]'>★</span></span>
                             </div>
                         </div>
-
-
                     </div>
 
-
-
-                    {/* Apply Filter Button */}
                     <div className="flex justify-end">
-                        <button className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Apply Filter</button>
+                        <button onClick={applyFilter} className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
+                            Apply Filter
+                        </button>
                     </div>
                 </div>
 
+                {/* Items Display */}
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10'>
-                    {purchaseData.map((request, index) => (
-                        <div key={index} className='flex flex-col bg-white shadow-md rounded-lg overflow-hidden'>
-
-
-                            <div className='relative h-60'>
-                                <img src={request?.image} alt={request.title} className='w-full h-60 object-cover' />
-                                <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4'>
-                                    <h3 className='text-lg font-semibold mb-5 text-white'>{request.title}</h3>
-                                    <div className='flex items-center gap-3 justify-between'>
-                                        <p className='text-3xl text-white'>{request.price}€</p>
-                                        <p className='text-sm text-gray-100 bg-green-600 px-3 py-2 rounded-full'>Earnings: {request.earnings}€ or more</p>
+                    {currentItems?.map((request, index) => (
+                        <div key={index} className="flex flex-col bg-white shadow-md rounded-lg overflow-hidden">
+                            <div className="relative h-60">
+                                <img src={baseUrl + request?.uploadImage} alt={request.title} className="w-full h-60 object-cover" />
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                                    <h3 className="text-lg font-semibold mb-5 text-white">{request.title}</h3>
+                                    <div className="flex items-center gap-3 justify-between">
+                                        <p className="text-3xl text-white">{request.PurchasePrice}€</p>
+                                        <p className="text-sm text-gray-100 bg-green-600 px-3 py-2 rounded-full">
+                                            Earnings: {request.PurchasePrice / 10}€ or more
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div className='p-4'>
-                                {/* <h4 className='text-xl font-semibold'>{request.title}</h4>
-                                            <p className='text-lg text-gray-700'>{request.price}€</p>
-                                            <p className='text-sm text-gray-500'>Earnings: {request.earnings}€ or more</p>
-                                            */}
-                                <div className='flex justify-between '>
-                                    <div className=' text-left mt-2'>
-                                        <p className='text-sm text-gray-600'>Purchase in:  {request.purchaseCity}</p>
-                                        <p className='text-sm text-gray-600'>Delivery to:  {request.deliveryCity}</p>
+                            <div className="p-4">
+                                <div className="flex justify-between ">
+                                    <div className="text-left mt-2">
+                                        <p className="text-sm text-gray-600">Purchase in: {request.departureCity}</p>
+                                        <p className="text-sm text-gray-600">Delivery to: {request.arrivalCity}</p>
                                     </div>
-                                    <p className='mt-2 text-sm text-gray-600'>Deadline: {request.deadline}</p>
+                                    <p className="mt-2 text-sm text-gray-600">Deadline: {request.arrivalDate}</p>
                                 </div>
-                                <div className=' mt-3 flex items-center gap-2'>
-                                    <img className='w-10 h-10 rounded-full' src="/Images/NewSection/usreImgae.avif" alt="" />
-                                    <div className='text-left'>
-                                        <span className='mr-2'>{request.travelerName}</span> <br />
-                                        <span className='text-yellow-400'>{'★'}</span>
-                                        <span className='ml-2 text-gray-500 text-xs'>{request.travelerMissions}</span>
+                                <div className="mt-3 flex items-center gap-2">
+                                    <img className="w-10 h-10 rounded-full" src={baseUrl + request?.userId?.profileImage} alt="" />
+                                    <div className="text-left">
+                                        <span className="mr-2">
+                                            {request?.userId?.firstName + ' ' + request?.userId?.lastName}
+                                        </span>
+                                        <br />
+                                        <span className="text-yellow-400">★</span>
+                                        <span className="ml-2 text-gray-500 text-xs">
+                                            {request?.userId?.travellerSuccessRate}
+                                        </span>
                                     </div>
                                 </div>
-                                <button className='mt-4 px-6 w-full py-3 text-xl bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 '>
+                                <button
+                                    onClick={() => handleContact(request)}
+                                    className="mt-4 px-6 w-full py-3 text-xl bg-primary text-white rounded-lg hover:bg-primary-dark flex items-center justify-center gap-2 ">
                                     <FiMessageSquare />Contact
                                 </button>
                             </div>
@@ -324,31 +273,17 @@ const Courier = () => {
 
                 {/* Pagination */}
                 <div className='flex justify-center mt-8'>
-                    <button
-                        onClick={() => goToPage(currentPage - 1)}
-                        className='px-4 py-2  text-primary rounded-l-lg hover:bg-primary-dark'
-                        disabled={currentPage === 1}
-                    >
+                    <button onClick={() => goToPage(currentPage - 1)} className='px-4 py-2 text-primary rounded-l-lg hover:bg-primary-dark' disabled={currentPage === 1}>
                         <FaChevronLeft className='text-2xl' />
                     </button>
                     <span className='px-4 py-2 text-lg text-gray-700'>{`${currentPage} / ${totalPages}`}</span>
-                    <button
-                        onClick={() => goToPage(currentPage + 1)}
-                        className='px-4 py-2 text-primary rounded-r-lg hover:bg-primary-dark'
-                        disabled={currentPage === totalPages}
-                    >
-                        <FaChevronRight
-                            className='text-2xl' />
+                    <button onClick={() => goToPage(currentPage + 1)} className='px-4 py-2 text-primary rounded-r-lg hover:bg-primary-dark' disabled={currentPage === totalPages}>
+                        <FaChevronRight className='text-2xl' />
                     </button>
                 </div>
-
-            </div>
-
-
-
-
+            </section>
         </div>
     );
-}
+};
 
 export default Courier;

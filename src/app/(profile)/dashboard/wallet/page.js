@@ -8,7 +8,9 @@ import { FaSearch, FaFilter } from 'react-icons/fa';
 import { GoArrowDownRight } from 'react-icons/go';
 import { BsCreditCard } from 'react-icons/bs';
 import toast, { Toaster } from 'react-hot-toast';
-import { useWidthrawMutation } from '@/app/redux/Features/payment/widthraw';
+import { useGetAllTransactionQuery, useGetAllwidthrawQuery, useGetWidthrawQuery, useWidthrawMutation } from '@/app/redux/Features/payment/widthraw';
+import moment from 'moment';
+import useUser from '@/hooks/useUser';
 
 const WalletPage = () => {
     // States for Modal
@@ -19,7 +21,19 @@ const WalletPage = () => {
     const handleWithdrawCancel = () => setIsWithdrawModalOpen(false);
 
 
+    const user = useUser();
     const [withdraw] = useWidthrawMutation();
+    const { data: widthrawData } = useGetWidthrawQuery();
+    const { data: allWidthrawData } = useGetAllwidthrawQuery();
+    const myAllWidthrawData = allWidthrawData?.data[0];
+
+    const { data: transition } = useGetAllTransactionQuery();
+    const myWidthrawData = transition?.data;
+
+    
+    console.log(myWidthrawData);
+
+
     // Submit handler for withdraw modal
     const handleWithdrawFinish = async (values) => {
 
@@ -30,7 +44,7 @@ const WalletPage = () => {
             date: "2025-01-20T00:00:00.000Z"
         }
         try {
-            
+
             const res = await withdraw(formData).unwrap();
             console.log("Withdraw response:", res);
             if (res?.code === 200) {
@@ -68,7 +82,7 @@ const WalletPage = () => {
                             </div>
                             <div className="text-white">
                                 <p>Balance Available</p>
-                                <h2 className="text-3xl font-semibold mt-2">125.50€</h2>
+                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.withdrawAbleAmount} €</h2>
                             </div>
                         </div>
                         <hr className="bg-white h-[2px] my-5" />
@@ -80,7 +94,7 @@ const WalletPage = () => {
                             </div>
                             <div className="text-white">
                                 <p>Running Order</p>
-                                <h2 className="text-3xl font-semibold mt-2">75.30€</h2>
+                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.unWithdrawAbleAmountRunningOrder} €</h2>
                             </div>
                         </div>
                         <hr className="bg-white h-[2px] my-5" />
@@ -123,23 +137,28 @@ const WalletPage = () => {
                 </div>
 
                 {/* Recent Payments */}
-                {[...Array(5)].map((_, index) => (
+                {myWidthrawData?.map((item, index) => (
                     <div
                         key={index}
                         className="flex items-center justify-between bg-[#f6f6fb] my-5 p-5 rounded-md"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center justify-center w-14 h-14 bg-[#e0eee9] text-[#2b8f6c] rounded-full">
-                                <GoArrowDownRight className="text-2xl" />
+                            <div className={`${item?.sellKgId?._id == user?.id ? "bg-green-100" : "bg-red-100"} flex items-center justify-center w-14 h-14 rounded-full`}>
+                                {
+                                    item?.sellKgId?._id == user?.id ?
+                                        < GoArrowDownRight className="text-2xl text-green-500" /> :
+                                        <MdOutlineArrowOutward className="text-2xl text-red-500" />
+
+                                }
                             </div>
                             <div>
-                                <p className="font-semibold mb-2">Payment received from Marie D.</p>
-                                <span>2024-03-14</span>
+                                <p className="font-semibold mb-2"> {item?.sellKgId?._id == user?.id ? 'Payment received successfully' : 'Payment sent successfully'} </p>
+                                <span>{moment(item?.createdAt).format("YYYY-MM-DD")}</span>
                             </div>
                         </div>
                         <div className="text-right">
-                            <h3 className="text-[#2b8f6c] font-semibold text-xl mb-2">+ 125.50€</h3>
-                            <p className="text-[#2b8f6c]">Completed</p>
+                            <h3 className={`${item?.sellKgId?._id == user?.id ? "text-green-600 text-xl font-semibold" : "text-red-600 text-xl font-semibold"}`}>+ {item?.amount}€</h3>
+                            <p className={`${item?.sellKgId?._id == user?.id ? "text-green-600" : "text-red-600"}`}>{item?.status}</p>
                         </div>
                     </div>
                 ))}

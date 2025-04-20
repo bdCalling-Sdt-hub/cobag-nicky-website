@@ -3,23 +3,36 @@
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
 import CouriersAvailable from '@/app/components/Ishop/CouriersAvailable';
 import HowDoesWork from '../../components/Ishop/HowDoesWork';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
-import { IoAddCircleOutline, IoSearchOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
+import { IoAddCircleOutline, IoSearchOutline, IoShieldCheckmarkOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
-import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
+import { useSearchIShopMutation, useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaBox } from 'react-icons/fa6';
-import { IoMdCheckbox } from 'react-icons/io';
+import { FaBox, FaRegClock, FaStar } from 'react-icons/fa6';
+import { IoMdCheckbox, IoMdInformationCircle } from 'react-icons/io';
 import { CiImageOn } from "react-icons/ci";
+import { useCreateIshopMutation, useGetAllIshopQuery } from '@/app/redux/Features/Ishop/ishop';
+import { useGetAllPostQuery } from '@/app/redux/Features/Itravel/createPlane';
+import { useRouter } from 'next/navigation';
+import useUser from '@/hooks/useUser';
+import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
+import { MdVerifiedUser } from 'react-icons/md';
+import { FiMessageSquare } from 'react-icons/fi';
+import baseUrl from '@/app/redux/api/baseUrl';
+import { LuPlane } from 'react-icons/lu';
 
 
 
 const Page = () => {
 
     const { t } = i18n;
+
+    const { data: getAllData } = useGetAllIshopQuery();
+
+
 
     const [showFlexibleDate, setShowFlexibleDate] = useState(false); // State for Flexible Dates checkbox
     const [formValues, setFormValues] = useState({
@@ -38,18 +51,19 @@ const Page = () => {
         setFormValues({ ...formValues, [field]: value }); // Update form values dynamically
     };
 
-
-
-
-
     // ================ search ================
 
-    const [searchIshop, { isLoading }] = useSearchIShopMutation();
+    const [searchIshop, { isLoading }] = useSearchItravelMutation();
     const [searchTerm, setSearchTerm] = useState([]);
 
     // console.log(searchTerm);
 
+    const [postIshop] = useCreateIshopMutation();
 
+
+    const [allSearchResutl, setAllSearchResutl] = useState([]);
+
+    console.log('allSearchResutl', allSearchResutl);
 
 
     const handleSubmit = async (e) => {
@@ -69,30 +83,39 @@ const Page = () => {
 
 
         const formData = {
+            transportMode: 'all',
             departureCity,
             arrivalCity,
             departureDate,
             arrivalDate,
             maxpurchAmountAdvance,
         };
+        const fromDataPost = new FormData();
+        if (showFlexibleDate) {
 
-        const fromDataPostCourier = {
-            departureCity,
-            arrivalCity,
-            departureDate,
-            arrivalDate,
-            price: maxpurchAmountAdvance,
-            name,
-            weight: quantity,
-            image: form?.image?.files[0]
-        };
+            fromDataPost.append('departureCity', departureCity);
+            fromDataPost.append('arrivalCity', arrivalCity);
+            fromDataPost.append('departureDate', departureDate);
+            fromDataPost.append('arrivalDate', arrivalDate);
+            fromDataPost.append('PurchasePrice', maxpurchAmountAdvance);
+            fromDataPost.append('productName', name);
+            fromDataPost.append('quantity', quantity);
+            fromDataPost.append('uploadImage', form.image.files[0]);
+        }
 
-        console.log(fromDataPostCourier);
 
         try {
             if (!showFlexibleDate) {
                 const response = await searchIshop(formData).unwrap();
                 console.log(response);
+                if (response?.success) {
+                    setAllSearchResutl(response?.data)
+                    toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                }
+            }
+            else {
+                const response = await postIshop(fromDataPost).unwrap();
+                // console.log(response);
                 if (response?.success) {
                     setSearchTerm(response?.data)
                     toast.success(`Search successfully !! See ${response?.data?.length} Item`);
@@ -107,6 +130,52 @@ const Page = () => {
 
 
     };
+
+
+
+
+
+    // Create a reference to the section you want to scroll to
+    const routesSectionRef = useRef(null);
+
+
+    const router = useRouter();
+    const user = useUser();
+    // console.log(user?.subscription === false);
+    const [payment20Persent] = usePaymentMutation();
+
+    const handleGoMessage = async (request) => {
+
+        console.log(request);
+
+        const data = {
+            amount: Number(request?.price / 100 * 20) * 100,
+            cobagProfit: 10,
+            currency: "eur",
+            paymentMethodId: "pm_card_visa",
+            isEightyPercent: true,
+            senderId: user?._id,
+            sellKgId: request?._id,
+            travellerId: request?.userId?._id
+        }
+
+        console.log(data);
+
+
+
+        if (user?.subscription === false) {
+            toast.error('Please login get subscription or 20% pay');
+
+            const res = await payment20Persent(data).unwrap();
+            console.log(res);
+            if (res) {
+                // window.location.href = res?.data?.url;
+                return router.push(res?.url);
+            }
+
+        }
+        // toast.success('Message sent successfully');
+    }
 
     return (
         <div>
@@ -299,8 +368,137 @@ const Page = () => {
                 </div>
             </div>
 
+            <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
+                <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
+
+                {allSearchResutl.length > 0 ? (
+                    allSearchResutl.map((item, index) => (
+                        <div key={index} className="shadow-[0_0_15px_0_rgba(0,0,0,0.1)]   rounded-lg md:p-10 p-5 my-5">
+                            <div className="md:flex flex-wrap items-center justify-between">
+                                <div>
+                                    <div className="flex items-center text-primary gap-3 font-medium">
+                                        <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
+                                            {item.transportMode === 'plane' ? (
+                                                <LuPlane className="text-2xl" />
+                                            ) : (
+                                                <MdVerifiedUser className="text-2xl" />
+                                            )}
+                                        </div>
+                                        <h2 className="capitalize">
+                                            {item.transportType} {item.transportMode}
+
+                                        </h2>
+                                    </div>
+
+                                    <div>
+                                        <div className="flex gap-2 my-8">
+                                            <CiLocationOn className="text-2xl" />
+                                            <div>
+                                                <p>{item.departureCity}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="flex items-center gap-2 text-sm">
+                                                        <CiCalendar />
+                                                        {item.departureDate}
+                                                    </span>
+                                                    <span className="flex items-center gap-2 ml-5 text-sm">
+                                                        <FaRegClock />
+                                                        {item.departureTime}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-2 my-8">
+                                            <CiLocationOn className="text-2xl" />
+                                            <div>
+                                                <p>{item.arrivalCity}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="flex items-center gap-2 text-sm">
+                                                        <CiCalendar />
+                                                        {item.arrivalDate}
+                                                    </span>
+                                                    <span className="flex items-center gap-2 ml-5 text-sm">
+                                                        <FaRegClock />
+                                                        {item.arrivalTime}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div>
+                                    <div className="flex flex-col justify-end items-end text-gray-500">
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <span className="flex items-center gap-3">
+                                            <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
+                                            including insurance and protection
+
+                                        </span>
+
+                                    </div>
+                                    <div className='w-full mt-5'>
+                                        <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
+                                            <h3 className="font-semibold">Your shipment</h3>
+                                            <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
+                                        </div>
+                                        <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
+                                            <h2>Delivery by {item.user.firstName}</h2>
+                                            <p><span className='font-semibold'>Today</span> {item.arrivalDate} at <span className='font-semibold'>{item.arrivalTime}</span></p>
+                                            <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="flex flex-wrap justify-between gap-10 items-center my-5">
+
+
+                            </div>
+
+                            <div className="flex flex-wrap items-center md:justify-between gap-5">
+                                <div className="flex flex-wrap items-center gap-5">
+                                    <img className="w-14 rounded-full" src={baseUrl + item.user.profileImage} alt="" />
+                                    <div>
+                                        <h3 className="font-semibold text-primary">{item.user.firstName}</h3>
+                                        <div className="flex items-center flex-wrap gap-3">
+                                            <span className="flex items-center gap-3 text-gray-500">
+                                                {item.user.reviewAva}
+                                                <FaStar className="text-yellow-400" /> ({item.user.reviewInt} reviews)
+                                            </span>
+                                            <li className="list-disc text-gray-600 ml-5 mr-2">0 packages delivered</li>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="flex flex-wrap items-center justify-end gap-5">
+                                        {/* <Link href={`/ishop/${item._id}`} className="flex items-center gap-3 py-3 px-10 text-primary border-2 border-primary rounded-lg">
+                                            <CiStar /> View review
+                                        </Link> */}
+                                        <p className="text-right text-sm text-gray-500">Languages spoken: French, English</p>
+                                        <button onClick={() => handleGoMessage(item)} className="flex items-center gap-3 py-3 px-10 bg-primary text-white border-2 border-primary rounded-lg">
+                                            <FiMessageSquare /> Contact
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2>
+                    </div>
+                )}
+            </section>
+
+
             <VideoAndCard />
-            <CouriersAvailable searchIshopItem={searchTerm} />
+            <CouriersAvailable searchIshopItem={getAllData?.data} />
             <HowDoesWork />
             <PopularProducts />
 

@@ -39,7 +39,7 @@ const Header = () => {
     console.log(baseUrl + '' + data?.user?.profileImage);
 
     return (
-        <header className="fixed  top-0 py-10 left-0 w-full bg-white flex items-center justify-between px-5 xl:px-48 md:px-10  z-[99999] ">
+        <header className="fixed  top-0 py-10 left-0 w-full bg-white flex items-center justify-between px-5 xl:px-48 md:px-10  z-[99] ">
             {/* Navigation Links */}
             <ul className="hidden md:flex items-center gap-5 ">
                 <li className='font-semibold text-[#4d4d4d]'>{t('navWhatdoWYouWantTo')}</li>

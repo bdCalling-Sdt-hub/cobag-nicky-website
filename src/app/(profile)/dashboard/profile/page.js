@@ -20,6 +20,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 import baseUrl from '@/app/redux/api/baseUrl';
 import { useUpdateProfileMutation } from '@/app/redux/Features/Profile/updateProfile';
+import { useGetAllTransactionQuery, useGetAllwidthrawQuery } from '@/app/redux/Features/payment/widthraw';
+import moment from 'moment';
 
 
 const Page = () => {
@@ -230,6 +232,16 @@ const Page = () => {
     const toggleOldPasswordVisibility = () => setShowOldPassword((prev) => !prev);
 
 
+    const { data: allWidthrawData } = useGetAllwidthrawQuery();
+    const myAllWidthrawData = allWidthrawData?.data[0];
+
+    const { data: transition } = useGetAllTransactionQuery();
+    const myWidthrawData = transition?.data;
+
+
+    console.log(myWidthrawData);
+
+
     return (
         <div className='scroll-smooth'>
             <Toaster />
@@ -333,43 +345,37 @@ const Page = () => {
                         </div>
                         <div className='text-white'>
                             <p>{t('balanceAvailable')}</p>
-                            <h2 className='text-3xl font-semibold mt-2'>125.50€ </h2>
+                            <h2 className='text-3xl font-semibold mt-2'>{myAllWidthrawData?.withdrawAbleAmount} € </h2>
                         </div>
                     </div>
-                    <div>
-                        <h2 className='font-semibold text-primary'>{t('recentTransactions')}</h2>
-                        <div className='flex items-center justify-between gap-5 flex-wrap bg-[#f6f6fb] my-5 p-5 rounded-md'>
-                            <div className='flex items-center flex-wrap gap-3 '>
-                                <div className='flex items-center gap-2 w-14 h-14 bg-[#e0eee9] text-[#2b8f6c] justify-center rounded-full '>
-                                    <GoArrowDownRight className='text-2xl' />
-                                </div>
-                                <div>
-                                    <p className='font-semibold mb-2'>Payment received from Marie D.</p>
-                                    <span>2024-03-14</span>
-                                </div>
-                            </div>
-                            <div className='text-right'>
-                                <h3 className='text-[#2b8f6c] font-semibold text-xl mb-2'>+ 125.50€</h3>
-                                <p className='text-[#2b8f6c]'>Completed</p>
-                            </div>
-                        </div>
 
-                        <div className='flex items-center flex-wrap justify-between gap-5 bg-[#f6f6fb] my-5 p-5 rounded-md'>
-                            <div className='flex items-center flex-wrap gap-3 '>
-                                <div className='flex items-center gap-2 w-14 h-14 bg-[#f4e2e6] text-[#ff2353] justify-center rounded-full '>
-                                    <MdOutlineArrowOutward className='text-2xl' />
+
+                    {myWidthrawData?.reverse()?.slice(0, 3)?.map((item, index) => (
+                        <div
+                            key={index}
+                            className="flex items-center justify-between bg-[#f6f6fb] my-5 p-5 rounded-md"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className={`${item?.sellKgId?._id == user?.id ? "bg-green-100" : "bg-red-100"} flex items-center justify-center w-14 h-14 rounded-full`}>
+                                    {
+                                        item?.sellKgId?._id == user?.id ?
+                                            < GoArrowDownRight className="text-2xl text-green-500" /> :
+                                            <MdOutlineArrowOutward className="text-2xl text-red-500" />
+
+                                    }
                                 </div>
                                 <div>
-                                    <p className='font-semibold mb-2'>Payment received from Marie D.</p>
-                                    <span>2024-03-14</span>
+                                    <p className="font-semibold mb-2"> {item?.sellKgId?._id == user?.id ? 'Payment received successfully' : 'Payment sent successfully'} </p>
+                                    <span>{moment(item?.createdAt).format("YYYY-MM-DD")}</span>
                                 </div>
                             </div>
-                            <div className='text-right'>
-                                <h3 className='text-[#ff2353] font-semibold text-xl mb-2'>+ 125.50€</h3>
-                                <p className='text-[#ffcc23]'>On hold</p>
+                            <div className="text-right">
+                                <h3 className={`${item?.sellKgId?._id == user?.id ? "text-green-600 text-xl font-semibold" : "text-red-600 text-xl font-semibold"}`}>+ {item?.amount}€</h3>
+                                <p className={`${item?.sellKgId?._id == user?.id ? "text-green-600" : "text-red-600"}`}>{item?.status}</p>
                             </div>
                         </div>
-                    </div>
+                    ))}
+
                 </div>
             </section>
 

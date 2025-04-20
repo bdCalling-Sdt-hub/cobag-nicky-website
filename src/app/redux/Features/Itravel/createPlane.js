@@ -6,10 +6,17 @@ const createPlane = apiSlice.injectEndpoints({
       query: (formData) => ({
         url: `/sell-kg/create`,
         method: "POST",
-        body: formData ,
+        body: formData,
       }),
     }),
+    getAllPost: builder.query({
+      query: () => ({
+        url: `/sell-kg/get-all`,
+        method: "GET",
+      }),
+    }),
+
   }),
 });
 
-export const { useCreatePlaneMutation } = createPlane;
+export const { useCreatePlaneMutation , useGetAllPostQuery } = createPlane;

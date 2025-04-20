@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { CiCalendar, CiCircleQuestion, CiLocationOn } from 'react-icons/ci';
 import { FaAngleDown, FaAngleUp, FaArrowRightLong, FaMinus, FaPlus, FaSpinner } from 'react-icons/fa6';
 import { IoBagOutline } from 'react-icons/io5';
-import { MdInfo, MdOutlineFileUpload } from "react-icons/md";
+import { MdInfo, MdOutlineDateRange, MdOutlineFileUpload, MdOutlineShoppingBag } from "react-icons/md";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { BiDollar } from "react-icons/bi";
-import { FiMessageSquare } from 'react-icons/fi';
-import { message, Space, TimePicker } from 'antd';
-import { LuPlane } from 'react-icons/lu';
-import { PiTrainLight } from "react-icons/pi";
+import { FiCheck, FiMessageSquare } from 'react-icons/fi';
+import { message, Modal, Space, TimePicker } from 'antd';
+import { LuBox, LuPlane } from 'react-icons/lu';
+import { PiAirplaneTilt, PiTrainLight } from "react-icons/pi";
 import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
 import Courier from '@/app/components/ITravel/Courier';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
@@ -20,6 +20,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import { FaRegQuestionCircle } from 'react-icons/fa';
+import Link from 'next/link';
 
 
 
@@ -122,9 +123,103 @@ const Page = () => {
     const { data } = useGetUserQuery();
     const userId = data?.user?._id;
 
-    // console.log(data?.user);
+    {/* form submit conditaion modal  */ }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleShowModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // show modal after form submit 
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
+
+    const handleShowModal2 = () => {
+        setIsModalOpen2(true);
+    };
+
+    const handleCloseModal2 = () => {
+        setIsModalOpen2(false);
+        handleCloseModal();
+
+
+
+    };
+
+
+
 
     const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
+    const [allFormData, setAllFormData] = useState(null);
+
+
+
+    const submitAllForm = async () => {
+
+        if (activeTab === 1) {
+            console.log('plane');
+
+            try {
+                const res = await createPlane(allFormData).unwrap();
+                console.log(res);
+                if (res?.success) {
+                    // alert(res?.data)
+                    toast.success('Travel created successfully !!')
+                    //    alert('Travel created successfully !!')
+                    console.log(res?.data)
+                    // form.reset();
+                    // fileList1 = null;
+                    handleShowModal2();
+                }
+                else {
+                    // alert(res?.data?.message)
+                    console.log(res);
+                    toast.success('Travel created Faild !!')
+                }
+            } catch (error) {
+                console.log(error);
+                // toast.success('Travel created Faild Please Try Again !!')
+            }
+
+
+        }
+
+        if (activeTab === 2) {
+
+            try {
+                const res = await createPlane(allFormData).unwrap();
+                console.log(res);
+
+                if (res?.success) {
+                    // alert(res?.data)
+                    toast.success('Travel created successfully !!')
+                    //    alert('Travel created successfully !!')
+                    console.log(res?.data)
+                    // form.reset();
+                    // fileList2 = null;
+                    setFileList2(null);
+                    handleShowModal2();
+                }
+                else {
+                    // alert(res?.data?.message)
+                    console.log(res);
+                    toast.error('Travel created Faild !!')
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error('Travel created Faild Please Try Again !!')
+            }
+        }
+
+
+    }
+
+
+
+    // console.log(data?.user);
 
 
 
@@ -132,15 +227,6 @@ const Page = () => {
 
         e.preventDefault();
         const form = e.target;
-
-        // if(userId)
-
-        // if (!fileList1) {
-        //     return toast.error('Please upload your ticket')
-        // }
-        // if (!form.flightNumber) {
-        //     return toast.error('Please enter a valid flight number')
-        // }
         if (form.departureCity.value.length < 3) {
             return toast.error('Please enter a valid departure city')
         }
@@ -179,30 +265,11 @@ const Page = () => {
 
         }
 
+        setAllFormData(formData);
 
-        console.log(formData);
+        handleShowModal();
 
 
-        try {
-            const res = await createPlane(formData).unwrap();
-            console.log(res);
-            if (res?.success) {
-                // alert(res?.data)
-                toast.success('Travel created successfully !!')
-                //    alert('Travel created successfully !!')
-                console.log(res?.data)
-                // form.reset();
-                // fileList1 = null;
-            }
-            else {
-                // alert(res?.data?.message)
-                console.log(res);
-                toast.success('Travel created Faild !!')
-            }
-        } catch (error) {
-            console.log(error);
-            // toast.success('Travel created Faild Please Try Again !!')
-        }
 
         // Add your form submission logic here
     };
@@ -322,40 +389,20 @@ const Page = () => {
                 maxPurchaseAmount: form.maxpurchAmountAdvance.value || 0,
             }
 
-
-
         }
 
 
-        console.log(fromData);
+        setAllFormData(fromData)
+
+        handleShowModal();
+        
 
 
 
-
-        try {
-            const res = await createPlane(fromData).unwrap();
-            console.log(res);
-
-            if (res?.success) {
-                // alert(res?.data)
-                toast.success('Travel created successfully !!')
-                //    alert('Travel created successfully !!')
-                console.log(res?.data)
-                // form.reset();
-                // fileList2 = null;
-                setFileList2(null);
-            }
-            else {
-                // alert(res?.data?.message)
-                console.log(res);
-                toast.error('Travel created Faild !!')
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error('Travel created Faild Please Try Again !!')
-        }
 
     };
+
+
 
 
 
@@ -656,7 +703,7 @@ const Page = () => {
                                         </div>
 
 
-                                        <div>
+                                        {/* <div>
                                             <label htmlFor="available2" className="flex items-center gap-2 cursor-pointer">
                                                 <input  // Use onChange instead of onClick for checkboxes
                                                     className="w-5 h-5"
@@ -668,7 +715,7 @@ const Page = () => {
                                                     Also fill my return journey
                                                 </span>
                                             </label>
-                                        </div>
+                                        </div> */}
 
 
                                         {/* Submit Button */}
@@ -681,6 +728,9 @@ const Page = () => {
                                                 {isCreatePlaneLoading && <FaSpinner className="animate-spin ml-2" />}
                                             </button>
                                         </div>
+
+
+
                                     </form>
                                 </div>
                             )}
@@ -932,7 +982,7 @@ const Page = () => {
                                                 />
                                             </div>
                                         </div> */}
-
+                                        {/* 
                                         <div>
                                             <label htmlFor="available2" className="flex items-center gap-2 cursor-pointer">
                                                 <input  // Use onChange instead of onClick for checkboxes
@@ -945,7 +995,7 @@ const Page = () => {
                                                     Also fill my return journey
                                                 </span>
                                             </label>
-                                        </div>
+                                        </div> */}
 
 
                                         {/* Submit Button */}
@@ -966,15 +1016,98 @@ const Page = () => {
 
 
                     </div>
-                    <h2 className='md:text-xl cursor-pointer flex items-center justify-center gap-2 font-semibold text-center text-white mt-5'>View purchase request announcements <FaArrowRightLong />                    </h2>
+                    <Link href='#courier' className='md:text-xl cursor-pointer flex items-center justify-center gap-2 font-semibold text-center text-white mt-5'>View purchase request announcements <FaArrowRightLong />   </Link>
                 </div>
             </div>
 
+            {/* form submit conditaion modal  */}
+            <Modal
+                className="!z-[999]"   // Custom class for modal
+                open={isModalOpen}      // Tied to the modal visibility state
+                onCancel={handleCloseModal} // Custom close handler to set isModalOpen to false
+                footer={null}           // No footer buttons, you can add your custom footer if needed
+                width={500}             // Adjust modal width as per your requirement
+            >
+                <div className='p-8 !text-[16px] rounded-md shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)]'>
+                    <div className='mb-5'>
+                        <h2>Checking the contents of the package</h2>
+                        <p>
+                            To ensure safety and compliance, it is imperative to verify on-site that the content precisely matches the description, photos, and videos provided prior to the mission.
+                        </p>
+                    </div>
+
+                    <h3 className='mb-3'>Authorized products</h3>
+                    <ul className='mb-3' style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                        <li>&#10004; <span className='font-semibold'>Thin clothing</span> (excluding down jackets, shoes with thick soles, etc.)</li>
+                        <li>&#10004; <span className='font-semibold'>Computer and telephone accessories and products</span></li>
+                        <li>&#10004; <span className='font-semibold'>Books, magazines, and documents</span></li>
+                        <li>&#10004; <span className='font-semibold'>Cosmetic products</span> in compliant packaging</li>
+                        <li>&#10004; <span className='font-semibold'>Office supplies and stationery</span></li>
+                        <li>&#10004; <span className='font-semibold'>Food and beverage products  </span>in transparent non-perishable containers</li>
+                        <li>&#10004; <span className='font-semibold'>Sports and leisure goods</span></li>
+                    </ul>
+                    <p>Please ensure that the declared content meets these criteria and consult the guidelines or our customer service if in doubt.</p>
+
+                    {/* Modal footer with close button */}
+                    <button onClick={submitAllForm} className='w-full py-3 bg-[#161d6f] text-[#fff] rounded-lg' type="primary" size="large" style={{ marginTop: '20px' }}>
+                        I accept the conditions
+                    </button>
+                </div>
+            </Modal>
+
+            {/* show modal after form submit  */}
+            <Modal
+                className="!z-[999]" // Custom class for modal
+                open={isModalOpen2}    // Tied to modal visibility state
+                onCancel={handleCloseModal2} // Custom close handler
+                width={600}            // Adjust modal width as per your requirement
+                closeIcon={null}       // Hide the close icon
+                footer={null}          // No footer, as per the design
+                centered               // Center the modal on the screen
+            >
+                {/* Modal Content */}
+                <div className="bg-[#fff] rounded-lg p-6">
+                    <div className='flex items-center mx-auto justify-center w-12 h-12 bg-[#8ef8ae70] rounded-full text-[#2e8b4a70]'>
+                        <FiCheck className='text-3xl' />
+                    </div>
+                    {/* Title */}
+                    <div className="text-xl my-3 font-semibold text-center text-[#161d6f]">
+                        Your trip has been successfully recorded!
+                    </div>
+
+                    {/* Trip Details Section */}
+                    <div className="mt-4">
+                        <div className="text-sm text-gray-600">
+                            <strong>Trip summary</strong>
+                        </div>
+                        <div className="mt-2 text-sm text-gray-800">
+                            <div className='shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] p-2 rounded-lg flex gap-5 text-base my-3 items-center '> <PiAirplaneTilt className='text-3xl text-[#161d6f]' /><span>Flight: <br /> {allFormData?.departureCity} → {allFormData?.arrivalCity}</span></div>
+                            <div className='shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] p-2 rounded-lg flex gap-5 text-base items-center'><MdOutlineDateRange className='text-3xl text-[#161d6f]' /> <span className=''>Departure: <br /> {allFormData?.departureDate} at {allFormData?.departureTime}</span></div>
+                            <div className='shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] p-2 rounded-lg flex gap-5 text-base items-center'><LuBox className='text-3xl text-[#161d6f]' /> <span>Arrival: <br /> {allFormData?.arrivalDate} at {allFormData?.arrivalTime}</span></div>
+                            <div className="mt-2 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] p-2 rounded-lg flex gap-5 text-base items-center "><MdOutlineShoppingBag className='text-3xl text-[#161d6f]' /><span>Available space:  Hand luggage: {allFormData?.handLuggage}kg, <br /> Checked baggage: {allFormData?.checkedBaggage}kg</span></div>
+                            <p className='my-5 text-center'>Your trip is now visible to other CoBag users who may need your services. You will be notified as soon as a user contacts you.</p>
+                        </div>
+                    </div>
+
+                    {/* Close Button */}
+                    <div className="">
+                        <button
+                            onClick={handleCloseModal2}
+                            className="w-full py-3 bg-[#161d6f] text-white rounded-lg"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </Modal>
+
+
             <ITravelVideoSection />
             <HalfEmptyLuggage />
-            <Courier />
 
+            <Courier />
             <PopularProducts />
+
 
         </div>
     );
