@@ -36,6 +36,20 @@ const Page = () => {
         }
     };
 
+
+    const getCurrency = localStorage.getItem('currency');
+
+    const handleChangeCurrency = async (currency) => {
+        try {
+
+            localStorage.setItem('currency', currency);
+
+            window.location.reload();
+        } catch (err) {
+            console.error('Error setting currency:', err);
+        }
+    };
+
     return (
         <div>
             <div className="bg-white p-5 lg:w-3/4 mx-auto rounded-lg">
@@ -65,7 +79,7 @@ const Page = () => {
                     </div>
 
                     {/* Time Zone Selector */}
-                    <div className="relative w-full my-5">
+                    {/* <div className="relative w-full my-5">
                         <span className="font-semibold text-sm text-gray-400 block mb-2">{t('timeZone')}</span>
                         <div className="relative">
                             <select
@@ -80,19 +94,21 @@ const Page = () => {
                                 ▼
                             </span>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Currency Selector */}
                     <div className="relative w-full my-5">
                         <span className="font-semibold text-sm text-gray-400 block mb-2">{t('currency')}</span>
                         <div className="relative">
                             <select
+                                onChange={(e) => handleChangeCurrency(e.target.value)}
                                 name="currency"
                                 id="currency"
+                                value={getCurrency}
                                 className="w-full py-2 px-3 border border-gray-300 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                             >
-                                <option value="Euro">Euro</option>
-                                <option value="Dollar">Dollar</option>
+                                <option value="Euro">Euro €</option>
+                                <option value="Dollar">Dollar $</option>
                             </select>
                             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
                                 ▼

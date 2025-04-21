@@ -4,6 +4,7 @@ import { apiSlice } from "../../api/apiSlice";
 const socket = io("https://s8080.sobhoy.com");  // Connect to your socket server
 
 const getMessage = apiSlice.injectEndpoints({
+    overrideExisting: true,
     endpoints: (builder) => ({
         createSingleChat: builder.mutation({
             query: (data) => ({
@@ -64,11 +65,12 @@ const getMessage = apiSlice.injectEndpoints({
             ) {
                 try {
                     await cacheDataLoaded;
-
+                    console.log("Socket Here ", socket);
                     // Dynamically create the messageEvent using chatId
-                    const messageEvent = `new-message`; // arg is the chatId here
+                    const messageEvent = `new-message::${arg}`; // arg is the chatId here
 
                     const handleNewMessage = (newMessageData) => {
+                        console.log(newMessageData);
                         const newMessage = newMessageData?.data;
                         updateCachedData((draft) => {
                             if (!draft?.data?.results) return;
@@ -107,16 +109,16 @@ const getMessage = apiSlice.injectEndpoints({
                     }
                     const newMessage = responseData.data;
                     // 🔥 **Update Messages Cache**
-                    dispatch(
-                        getMessage.util.updateQueryData(
-                            "getMessage",
-                            messageData.chatId,
-                            (draft) => {
-                                if (!draft?.data?.results) return;
-                                draft.data?.results.push(newMessage);
-                            }
-                        )
-                    );
+                    // dispatch(
+                    //     getMessage.util.updateQueryData(
+                    //         "getMessage",
+                    //         messageData.chatId,
+                    //         (draft) => {
+                    //             if (!draft?.data?.results) return;
+                    //             draft.data?.results.push(newMessage);
+                    //         }
+                    //     )
+                    // );
 
                     // 🔥 **Update Chats Cache (Last Message)**
                     dispatch(
@@ -154,4 +156,4 @@ const getMessage = apiSlice.injectEndpoints({
     })
 });
 
-export const { useCreateSingleChatMutation, useGetChatsQuery, useGetMessageQuery, useGetChatQueryQuery, useSendMessageMutation , useGetSellKgByIdQuery } = getMessage;
+export const { useCreateSingleChatMutation, useGetChatsQuery, useGetMessageQuery, useGetChatQueryQuery, useSendMessageMutation, useGetSellKgByIdQuery } = getMessage;

@@ -30,12 +30,17 @@ const WalletPage = () => {
     const { data: transition } = useGetAllTransactionQuery();
     const myWidthrawData = transition?.data;
 
-    
+
     console.log(myWidthrawData);
 
 
     // Submit handler for withdraw modal
     const handleWithdrawFinish = async (values) => {
+
+        if (myAllWidthrawData?.withdrawAbleAmount < 1) {
+            setIsWithdrawModalOpen(false);
+            return toast.error('Your balance must be greater than 0!');
+        }
 
         const formData = {
             amount: values.amount,
@@ -46,22 +51,23 @@ const WalletPage = () => {
         try {
 
             const res = await withdraw(formData).unwrap();
-            console.log("Withdraw response:", res);
-            if (res?.code === 200) {
+
+            if (res?.statusCode === 201) {
                 toast.success(res?.message);
                 setIsWithdrawModalOpen(false);
+                values.resetFields();
             }
 
         } catch (error) {
-            console.log(error);
             toast.error(error?.data?.message);
+            console.log(error);
         }
 
     };
 
     return (
         <div className="container mx-auto lg:p-5 p-0">
-            <Toaster />
+            {/* <Toaster /> */}
             {/* Wallet Balance Section */}
             <section id="walletBalance" className="bg-white p-5 rounded-lg shadow-md mt-5">
                 <div className="flex items-center justify-between mb-5">

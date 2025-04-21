@@ -1,12 +1,16 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, Tag, Button, Modal, Input, message } from 'antd'
 import { FaArrowLeft } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
 import i18n from '@/app/utils/i18'
+import { useCompleteOrderMutation, useGetAllSenderOrderQuery, useGetAllTravellerOrderQuery } from '@/app/redux/Features/order/order'
+import baseUrl from '@/app/redux/api/baseUrl'
+import toast from 'react-hot-toast'
+import useUser from '@/hooks/useUser'
 
 const Page = () => {
-    const {t} = i18n
+    const { t } = i18n
     // Sample data for the table
     const initialData = [
         {
@@ -56,19 +60,35 @@ const Page = () => {
         },
     ]
 
-    const [data, setData] = useState(initialData)
+
+    const user = useUser();
+
+    console.log(user?.isTraveler);
+    const { data: getAllSenderOrder } = useGetAllSenderOrderQuery();
+    const senderOrder = getAllSenderOrder?.data;
+
+    const { data: getAllTravellerOrder } = useGetAllTravellerOrderQuery();
+    const travellerOrder = getAllTravellerOrder?.data;
+
+
+
+    const [data, setData] = useState([])
     const [selectedStatus, setSelectedStatus] = useState('') // For tracking selected filter
     const [isModalVisible, setIsModalVisible] = useState(false) // Modal visibility state
     const [secretCode, setSecretCode] = useState('') // To store the entered secret code
+
+    useEffect(() => {
+        setData(user?.isTraveler === 'true' ? senderOrder : travellerOrder)
+    }, [user?.isTraveler === 'true' ? senderOrder : travellerOrder])
 
     const handleFilterChange = (e) => {
         const status = e.target.value
         setSelectedStatus(status)
 
         if (status === '') {
-            setData(initialData) // Reset to all data if "All" is selected
+            setData(user?.isTraveler === 'true' ? senderOrder : travellerOrder) // Reset to all data if "All" is selected
         } else {
-            const filteredData = initialData.filter((item) => item.status === status)
+            const filteredData = user?.isTraveler === 'true' ? senderOrder.filter((item) => item.orderStatus === status) : travellerOrder.filter((item) => item.orderStatus === status)
             setData(filteredData)
         }
     }
@@ -76,9 +96,10 @@ const Page = () => {
     // Columns for the table
     const columns = [
         {
-            title: 'ID',
+            title: 'SL',
             dataIndex: 'id',
             key: 'id',
+            render: (text, record, index) => index + 1,
         },
         {
             title: 'User Name',
@@ -87,11 +108,11 @@ const Page = () => {
             render: (text, record) => (
                 <div className="flex items-center space-x-2">
                     <img
-                        src={record.userImage}
+                        src={baseUrl + record?.senderId?.profileImage}
                         alt="User"
                         style={{ width: '50px', borderRadius: '50%' }}
                     />
-                    <span>{text}</span>
+                    <span>{record?.senderId?.firstName}</span>
                 </div>
             ),
         },
@@ -111,50 +132,80 @@ const Page = () => {
             title: 'Weight (kg)',
             dataIndex: 'weight',
             key: 'weight',
-            render: (weight) => `${weight} kg`,
+            render: (text, record) => (
+                <p>
+                    {record?.sellKgId?.checkedBaggage}
+                </p>
+            ),
         },
         {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status) => {
-                let color
-                switch (status) {
-                    case 'In_progressing':
-                        color = 'blue'
-                        break
-                    case 'Delivered':
-                        color = 'green'
-                        break
-                    case 'Failed':
-                        color = 'red'
-                        break
+            render: (text, record) => {
+                let color;
+                const orderStatus = record?.orderStatus; // Get the status from the record
+
+                // Determine the color based on the orderStatus
+                switch (orderStatus) {
+                    case 'in_progress':
+                        color = 'yellow';
+                        break;
+                    case 'completed':
+                        color = 'blue';
+                        break;
                     default:
-                        color = 'gray'
+                        color = 'default'; // You can set a default color in case it's something unexpected
+                        break;
                 }
-                return <Tag color={color}>{status}</Tag>
-            },
-        },
-        {
-            title: 'Delivery Code',
-            dataIndex: 'deliveryCode',
-            key: 'deliveryCode',
+
+                // Return the Tag with the correct color
+                return <Tag color={color}>{orderStatus}</Tag>;
+            }
+
         },
         {
             title: 'Time',
             dataIndex: 'deliveryTime',
             key: 'deliveryTime',
+            render: (text, record) => (
+                <p>
+                    {record?.sellKgId?.departureTime}
+                </p>
+            ),
         },
         {
-            title: 'The Drop',
+            title: 'Pickup Location',
             dataIndex: 'drop',
             key: 'drop',
+            render: (text, record) => (
+                <p>
+                    {record?.sellKgId?.departureCity}
+                </p>
+            )
         },
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+            render: (text, record) => (
+                <p>
+                    {record?.sellKgId?.departureDate}
+                </p>
+            )
         },
+        // if (user?.isTraveler)
+        {
+            title: 'Delivery Code',
+            dataIndex: 'deliveryCode',
+            key: 'deliveryCode',
+            render: (text, record) => (
+                <p>
+                    {user?.isTraveler !== 'true' ? record?.orderSecret : '-'}
+                </p>
+            )
+        }
+        ,
         {
             title: 'Brief',
             dataIndex: 'brief',
@@ -178,19 +229,46 @@ const Page = () => {
         },
     ]
 
-    const handleApprove = (record) => {
-        // Show modal when "Approve" button is clicked
+    const handleApprove = () => {
+        // Show modal when "Approve" button is clicked 
         setIsModalVisible(true)
     }
 
-    const handleModalOk = () => {
+    const [orderComplete] = useCompleteOrderMutation()
+
+    const handleModalOk = async () => {
         // Validate secret code
-        if (secretCode === '12345') {
-            message.success('Package approved successfully!')
-            setIsModalVisible(false) // Close the modal
-        } else {
-            message.error('Invalid secret code!')
+
+        if (!secretCode) {
+            // console.log('Please enter a secret code');
+            return toast.error('Please enter a secret code')
         }
+
+        const formData = {
+            orderSecret: secretCode
+        }
+
+        try {
+
+            const res = await orderComplete(formData).unwrap()
+
+            console.log(res);
+            if (res?.statusCode === 200) {
+
+                toast.success('Order Delivered successfully !!')
+                setIsModalVisible(false)
+                setSecretCode('')
+
+            }
+
+
+
+        } catch (error) {
+
+        }
+
+
+
     }
 
     const handleModalCancel = () => {
@@ -207,9 +285,8 @@ const Page = () => {
                     className="w-48 py-3 px-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                     <option value="">All</option>
-                    <option value="In_progressing">In_progressing</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Failed">Failed</option>
+                    <option value="in_progress">In progressing</option>
+                    <option value="completed">Completed</option>
                 </select>
             </div>
 
@@ -232,7 +309,7 @@ const Page = () => {
             />
 
             {/* Modal for Approving Package */}
-            <Modal 
+            <Modal
                 visible={isModalVisible}
                 onOk={handleModalOk}
                 onCancel={handleModalCancel}

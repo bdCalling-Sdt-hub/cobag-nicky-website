@@ -20,7 +20,7 @@ export default function Layout({ children }) {
             </Head>
             <body>
                 <div className='flex h-screen overflow-hidden'>
-                    <div className={`${isAllUserMessage ? 'top-10' : 'top-20'} absolute  left-2 mr-2 z-50 xl:hidden block bg-white  rounded-md `}>
+                    <div className={`${isAllUserMessage ? 'top-5' : 'top-20'} absolute  left-2 mr-2 z-50 xl:hidden block bg-white  rounded-md `}>
                         <button onClick={handleShowAllUserMessage} className='p-2'>
                             {
                                 !isAllUserMessage ?

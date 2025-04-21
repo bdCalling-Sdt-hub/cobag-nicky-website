@@ -72,7 +72,7 @@ const AvailableRoutes = ({ searchData }) => {
     const [payment20Persent] = usePaymentMutation();
 
     const [creatChat] = useCreateSingleChatMutation();
- 
+
 
 
     const handleGoMessage = async (request) => {
@@ -114,7 +114,7 @@ const AvailableRoutes = ({ searchData }) => {
             sellKgId: request?._id
         }
 
-        if (user?.isTwentyPercent === true) {
+        if (user?.isTwentyPercent) {
 
             const res = await creatChat(createChatData).unwrap();
             console.log('chat Data ', res?.data);

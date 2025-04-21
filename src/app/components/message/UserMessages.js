@@ -1,146 +1,170 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Image } from 'antd';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'; // Import skeleton CSS
 import baseUrl from '@/app/redux/api/baseUrl';
 
 const UserMessages = ({ messages, user, receiverDetails }) => {
+    const messagesRef = useRef(null);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(moment()); // Update current time every 60 seconds
+        }, 60000); // Runs every 60 seconds
+
+        return () => clearInterval(interval); // Cleanup interval on unmount
+    }, []);
+
+    // Auto-scroll to bottom when new messages arrive
+    useEffect(() => {
+        setTimeout(() => {
+            // Select the messages container and scroll to the bottom
+            const messagesBox = document.querySelector(".messages-box");
+            if (messagesBox) {
+                messagesBox.scrollTop = messagesBox.scrollHeight; // Scroll to bottom
+            }
+
+            // Focus on the input field after scrolling
+            const inputField = document.getElementById(
+                "message-input"
+            )
+            if (inputField) {
+                inputField.focus();
+            }
+        }, 100); // Small delay ensures UI updates before scrolling
+    }, [messages]);
     return (
-        <div>
-            {/* Render message here */}
-            <div className="h-[78vh] overflow-y-auto p-5 space-y-5">
-                {messages?.map((message) => {
-                    const isMyMessage = message?.senderId === user?._id;
-                    const fileUrls = message?.content?.fileUrls || [];
+        <div ref={messagesRef} className="h-[78vh] overflow-y-auto p-5 space-y-5 messages-box">
+            {messages?.map((message) => {
+                const isMyMessage = message?.senderId === user?._id;
+                const fileUrls = message?.content?.fileUrls || [];
 
-                    return (
+                return (
+                    <div
+                        key={message._id}
+                        className={`flex ${isMyMessage ? "justify-end" : "justify-start"} items-end gap-3`}
+                    >
+                        {/* Sender/Receiver Image */}
+                        {!isMyMessage && receiverDetails?.profileImage && (
+                            <Image
+                                src={`${baseUrl}${receiverDetails?.profileImage}`}
+                                alt="profile"
+                                width={40}
+                                height={40}
+                                className="size-10 md:size-12 object-cover rounded-full flex-shrink-0"
+                                preview={false}
+                                loading="lazy"
+                            />
+                        )}
+
+                        {/* Message Content */}
                         <div
-                            key={message._id}
-                            className={`flex ${isMyMessage ? "justify-end" : "justify-start"} items-end gap-3`}
+                            className={`w-full max-w-[300px] md:max-w-[500px] flex flex-col ${isMyMessage ? "items-end" : "items-start"} flex-shrink-0`}
                         >
-                            {/* Sender/Receiver Image */}
-                            {!isMyMessage && receiverDetails?.profileImage && (
-                                <Image
-                                    src={`${baseUrl}${receiverDetails?.profileImage}`}
-                                    alt="profile"
-                                    width={40}
-                                    height={40}
-                                    className="size-10 md:size-12 object-cover rounded-full flex-shrink-0"
-                                    preview={false}
-                                    loading="lazy"
-                                />
-                            )}
-
-                            {/* Message Content */}
-                            <div
-                                className={`w-full max-w-[300px] md:max-w-[500px] flex flex-col ${isMyMessage ? "items-end" : "items-start"} flex-shrink-0`}
-                            >
-                                {/* Mixed Content */}
-                                {message?.content?.messageType === "mixed" && (
-                                    <div className={`flex flex-col gap-y-2 ${isMyMessage ? "flex-row-reverse" : ""}`}>
-                                        <div className="relative cursor-pointer">
-                                            <Image
-                                                src={`${baseUrl}${fileUrls[0]}`}
-                                                alt="image"
-                                                width={200}
-                                                height={200}
-                                                className="object-cover rounded-xl"
-                                                preview={false}
-                                                loading="lazy"
-                                                fallback={<Skeleton width={200} height={200} />}
-                                            />
-                                            {fileUrls.length >= 2 && (
-                                                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold rounded-xl">
-                                                    +{fileUrls.length - 1}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="flex flex-col justify-end">
-                                            <div
-                                                className={`p-3 rounded-xl text-sm max-w-xs ${isMyMessage ? "bg-[#615EF0] text-white" : "bg-[#F1F1F1] text-black"}`}
-                                            >
-                                                {message?.content?.text}
+                            {/* Mixed Content */}
+                            {message?.content?.messageType === "mixed" && (
+                                <div className={`flex flex-col gap-y-2 ${isMyMessage ? "flex-row-reverse" : ""}`}>
+                                    <div className="relative cursor-pointer">
+                                        <Image
+                                            src={`${baseUrl}${fileUrls[0]}`}
+                                            alt="image"
+                                            width={200}
+                                            height={200}
+                                            className="object-cover rounded-xl"
+                                            preview={false}
+                                            loading="lazy"
+                                            fallback={<Skeleton width={200} height={200} />}
+                                        />
+                                        {fileUrls.length >= 2 && (
+                                            <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold rounded-xl">
+                                                +{fileUrls.length - 1}
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
-                                )}
-
-                                {/* Text Message */}
-                                {message?.content?.messageType === "text" && (
-                                    <div className="w-full max-w-fit space-y-1 group">
+                                    <div className="flex flex-col justify-end">
                                         <div
-                                            className={`p-3 rounded-xl text-sm max-w-xs cursor-pointer ${isMyMessage ? "bg-[#161d6f] text-white" : "bg-[#c7ffd8] text-black"}`}
+                                            className={`p-3 rounded-xl text-sm max-w-xs ${isMyMessage ? "bg-[#615EF0] text-white" : "bg-[#F1F1F1] text-black"}`}
                                         >
                                             {message?.content?.text}
                                         </div>
                                     </div>
-                                )}
+                                </div>
+                            )}
 
-                                {/* Image Message */}
-                                {message?.content?.messageType === "image" && (
-                                    <div className="group">
-                                        <div className="relative cursor-pointer">
-                                            <Image
-                                                src={`${baseUrl}${fileUrls[0]}`}
-                                                alt="image"
-                                                width={200}
-                                                height={200}
-                                                className="rounded-xl"
-                                                preview={false}
-                                                loading="lazy"
-                                                fallback={<Skeleton width={200} height={200} />}
-                                            />
-                                            {fileUrls.length >= 2 && (
-                                                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold rounded-xl">
-                                                    +{fileUrls.length - 1}
-                                                </div>
-                                            )}
-                                        </div>
+                            {/* Text Message */}
+                            {message?.content?.messageType === "text" && (
+                                <div className="w-full max-w-fit space-y-1 group">
+                                    <div
+                                        className={`p-3 rounded-xl text-sm max-w-xs cursor-pointer ${isMyMessage ? "bg-[#161d6f] text-white" : "bg-[#c7ffd8] text-black"}`}
+                                    >
+                                        {message?.content?.text}
                                     </div>
-                                )}
+                                </div>
+                            )}
 
-                                {/* Audio Message */}
-                                {message?.content?.messageType === "audio" && (
-                                    <div>
-                                        <audio controls>
-                                            <source
-                                                src={`${baseUrl}${fileUrls[0]}`}
-                                                type="audio/mpeg"
-                                            />
-                                        </audio>
+                            {/* Image Message */}
+                            {message?.content?.messageType === "image" && (
+                                <div className="group">
+                                    <div className="relative cursor-pointer">
+                                        <Image
+                                            src={`${baseUrl}${fileUrls[0]}`}
+                                            alt="image"
+                                            width={200}
+                                            height={200}
+                                            className="rounded-xl"
+                                            preview={false}
+                                            loading="lazy"
+                                            fallback={<Skeleton width={200} height={200} />}
+                                        />
+                                        {fileUrls.length >= 2 && (
+                                            <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-bold rounded-xl">
+                                                +{fileUrls.length - 1}
+                                            </div>
+                                        )}
                                     </div>
-                                )}
+                                </div>
+                            )}
 
-                                {/* Video Message */}
-                                {message?.content?.messageType === "video" && (
-                                    <div>
-                                        <video controls width="250">
-                                            <source
-                                                src={`${baseUrl}${fileUrls[0]}`}
-                                                type="video/mp4"
-                                            />
-                                        </video>
-                                    </div>
-                                )}
+                            {/* Audio Message */}
+                            {message?.content?.messageType === "audio" && (
+                                <div>
+                                    <audio controls>
+                                        <source
+                                            src={`${baseUrl}${fileUrls[0]}`}
+                                            type="audio/mpeg"
+                                        />
+                                    </audio>
+                                </div>
+                            )}
 
-                                {/* Document Message */}
-                                {message?.content?.messageType === "document" && (
-                                    <div>
-                                        <a
-                                            href={`${baseUrl}${fileUrls[0]}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-blue-500 underline"
-                                        >
-                                            View Document
-                                        </a>
-                                    </div>
-                                )}
-                            </div>
+                            {/* Video Message */}
+                            {message?.content?.messageType === "video" && (
+                                <div>
+                                    <video controls width="250">
+                                        <source
+                                            src={`${baseUrl}${fileUrls[0]}`}
+                                            type="video/mp4"
+                                        />
+                                    </video>
+                                </div>
+                            )}
+
+                            {/* Document Message */}
+                            {message?.content?.messageType === "document" && (
+                                <div>
+                                    <a
+                                        href={`${baseUrl}${fileUrls[0]}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 underline"
+                                    >
+                                        View Document
+                                    </a>
+                                </div>
+                            )}
                         </div>
-                    );
-                })}
-            </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }

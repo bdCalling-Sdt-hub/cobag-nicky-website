@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useRouter } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { IoMenu } from "react-icons/io5";
 
 export default function Layout({ children }) {
@@ -45,6 +46,7 @@ export default function Layout({ children }) {
                 <title>Home Page</title>
             </Head>
             <body>
+                <Toaster />
                 <div className="flex flex-col md:flex-row items-start">
                     {/* Sidebar */}
                     <div
@@ -53,6 +55,7 @@ export default function Layout({ children }) {
                             } md:block w-72`}
                     >
                         <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+
                     </div>
 
                     {/* Main Content */}

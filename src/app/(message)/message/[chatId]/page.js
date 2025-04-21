@@ -98,13 +98,12 @@ const Page = () => {
         formData.append("files", files);
 
         if (message === "" && files.length === 0) {
-            return alert("You can't send empty message")
+            return
         }
 
         try {
             const res = await sendMessage(formData).unwrap();
             if (res.code === 200 && res.data) {
-                console.log("Send message response:", res);
                 setMessage("");
                 setFiles([]);
             }
@@ -126,31 +125,37 @@ const Page = () => {
     //========= payment info  ========
     const [payForOrder] = usePaymentMutation();
     const router = useRouter();
+
+    const [image, setImage] = useState([]); // State to hold images
+    const handleUploadChange = ({ fileList }) => {
+        // Update the state with the file list
+        setImage(fileList[0]); // fileList will be an array of uploaded files
+    };
+
+    console.log(image);
+
     const paymentForORder = async () => {
 
-        console.log({
-            amount: mainSellKg?.price,
-            currency: "usd",
-            paymentMethodId: "pm_card_visa",
-            sellKgId: mainSellKg?._id,
-            senderId: user?._id,
-            travellerId: mainSellKg?.user?._id,
-        });
+
 
         try {
 
             toast.success('Payment is processing');
 
-            const res = await payForOrder({
-                amount: Number(mainSellKg?.price + 10) * 100,
-                cobagProfit: 10,
-                currency: "usd",
-                paymentMethodId: "pm_card_visa",
-                isEightyPercent: true,
-                sellKgId: mainSellKg?._id,
-                senderId: user?._id,
-                travellerId: mainSellKg?.user?._id,
-            }).unwrap();
+            const formData = new FormData();
+            formData.append("amount", `${mainSellKg?.price}`);
+            formData.append("cobagProfit", mainSellKg?.cobagProfit);
+            formData.append("currency", "usd");
+            formData.append("paymentMethodId", "pm_card_visa");
+            formData.append("sellKgId", mainSellKg?._id);
+            formData.append("senderId", user?._id);
+            formData.append("travellerId", mainSellKg?.user?._id);
+            formData.append("packageImage", image);
+            if (image.length === 0) {
+                return alert('Please upload image');
+            }
+
+            const res = await payForOrder(formData).unwrap();
 
             console.log(res);
             if (res) {
@@ -163,6 +168,7 @@ const Page = () => {
         } catch (error) {
             console.error(error);
             toast.error(error?.data?.message || 'An error occurred while sending the message.');
+            alert('Please Check All is Correct');
         }
 
 
@@ -319,13 +325,17 @@ const Page = () => {
                             </div>
 
                         </div>
-                        <div className='p-5'>
-                            <Dragger >
+                        <div className="p-5">
+                            <Dragger
+                                onChange={handleUploadChange}
+                                multiple={false} // To allow multiple files to be uploaded
+                            >
                                 <p className="ant-upload-drag-icon">
                                     <CloudUploadOutlined />
                                 </p>
                                 <p className="ant-upload-text">Click to add photos/videos</p>
                             </Dragger>
+
                         </div>
                         <div className='p-5'>
                             <div className='text-center'>

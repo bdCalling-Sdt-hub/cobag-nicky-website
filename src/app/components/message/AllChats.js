@@ -4,19 +4,25 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 import ChatListCard from './ChatListCard';
+import { IoReturnUpBack } from 'react-icons/io5';
 
 const AllChats = ({ isAllUserMessage }) => {
     const { data: responseChatData } = useGetChatsQuery();
     const allChats = responseChatData?.data?.results;
 
- 
- 
+
+
 
     return (
-        <div className=""> 
+        <div className="">
             {/* Header */}
-            <div className="p-5 border-b border-gray-100 ">
-                <h2 className="font-semibold text-xl mb-5">Messages</h2>
+            <div className="sm:p-5 py-5 border-b border-gray-100 ">
+                <div className='flex items-center justify-between mb-5'>
+                    <Link href={'/dashboard/profile'} className='bg-primary px-2 py-1 rounded' >
+                        <IoReturnUpBack className='text-2xl text-white' />
+                    </Link>
+                    <h2 className="font-semibold text-xl "> Messages</h2>
+                </div>
                 {/* Search Input */}
                 <div className="relative">
                     <input

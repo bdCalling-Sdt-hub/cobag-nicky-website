@@ -96,8 +96,9 @@ const Sidebar = ({ setIsSidebarOpen }) => {
                     <RxCross2 className='text-2xl' />
                 </div>
                 <div>
-                    <Link href={'/dashboard/profile'}> <img className="w-40 mx-auto" src="/Images/Profile/black_logo.png" alt="Logo" /></Link>
+                    <Link href={'/'}> <img className="w-40 mx-auto" src="/Images/Profile/black_logo.png" alt="Logo" /></Link>
                 </div>
+                
                 <div className="my-20 ">
                     <div className='my-5'>
                         <div
