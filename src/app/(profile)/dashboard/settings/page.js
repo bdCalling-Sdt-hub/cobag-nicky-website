@@ -3,6 +3,7 @@ import { useGetLanguageQuery } from '@/app/redux/Features/language/getLanguage';
 import { useSetLanguageMutation } from '@/app/redux/Features/language/setLanguage';
 import i18n from '@/app/utils/i18';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { IoMdNotifications } from 'react-icons/io';
 import { IoEyeOutline } from 'react-icons/io5';
@@ -37,14 +38,19 @@ const Page = () => {
     };
 
 
-    const getCurrency = localStorage.getItem('currency');
+    const [currency, setCurrency] = useState('usd');
+
+    useEffect(() => {
+        const getCurrency = localStorage.getItem('currency');
+        setCurrency(getCurrency || 'usd');
+
+    }, []);
 
     const handleChangeCurrency = async (currency) => {
         try {
 
             localStorage.setItem('currency', currency);
-
-            window.location.reload();
+            await window.location.reload();
         } catch (err) {
             console.error('Error setting currency:', err);
         }
@@ -104,7 +110,7 @@ const Page = () => {
                                 onChange={(e) => handleChangeCurrency(e.target.value)}
                                 name="currency"
                                 id="currency"
-                                value={getCurrency}
+                                value={currency}
                                 className="w-full py-2 px-3 border border-gray-300 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                             >
                                 <option value="Euro">Euro €</option>

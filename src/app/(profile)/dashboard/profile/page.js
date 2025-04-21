@@ -345,7 +345,7 @@ const Page = () => {
                         </div>
                         <div className='text-white'>
                             <p>{t('balanceAvailable')}</p>
-                            <h2 className='text-3xl font-semibold mt-2'>{myAllWidthrawData?.withdrawAbleAmount} € </h2>
+                            <h2 className='text-3xl font-semibold mt-2'>{myAllWidthrawData?.withdrawAbleAmount || 0} € </h2>
                         </div>
                     </div>
 

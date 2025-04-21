@@ -4,7 +4,7 @@ import i18n from '@/app/utils/i18';
 import useUser from '@/hooks/useUser';
 import { message } from 'antd';
 import React from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { BsSend } from 'react-icons/bs';
 import { CiSquareQuestion } from 'react-icons/ci';
 
@@ -37,7 +37,7 @@ const Page = () => {
             console.log(res);
 
             if (res.success) {
-                message.success(res.message);
+                toast.success(res?.message);
                 form.reset();
             }
             else {
@@ -53,6 +53,7 @@ const Page = () => {
 
     return (
         <div>
+            <Toaster />
             <div className='p-5 bg-white lg:w-3/4 mx-auto rounded-lg'>
                 <div>
                     <h2 className='text-2xl font-semibold text-primary'>{t('sendAMessage')}</h2>

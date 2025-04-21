@@ -37,7 +37,7 @@ const WalletPage = () => {
     // Submit handler for withdraw modal
     const handleWithdrawFinish = async (values) => {
 
-        if (myAllWidthrawData?.withdrawAbleAmount < 1) {
+        if (myAllWidthrawData?.withdrawAbleAmount < 1 || !myAllWidthrawData?.withdrawAbleAmount) {
             setIsWithdrawModalOpen(false);
             return toast.error('Your balance must be greater than 0!');
         }
@@ -88,7 +88,7 @@ const WalletPage = () => {
                             </div>
                             <div className="text-white">
                                 <p>Balance Available</p>
-                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.withdrawAbleAmount} €</h2>
+                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.withdrawAbleAmount || 0} €</h2>
                             </div>
                         </div>
                         <hr className="bg-white h-[2px] my-5" />
@@ -100,7 +100,7 @@ const WalletPage = () => {
                             </div>
                             <div className="text-white">
                                 <p>Running Order</p>
-                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.unWithdrawAbleAmountRunningOrder} €</h2>
+                                <h2 className="text-3xl font-semibold mt-2">{myAllWidthrawData?.unWithdrawAbleAmountRunningOrder || 0} €</h2>
                             </div>
                         </div>
                         <hr className="bg-white h-[2px] my-5" />
