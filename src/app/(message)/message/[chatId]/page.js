@@ -184,7 +184,7 @@ const Page = () => {
 
 
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             toast.error(error?.data?.message || 'An error occurred while sending the message.');
             alert('Please Check All is Correct');
         }
