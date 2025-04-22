@@ -1,7 +1,7 @@
 'use client';
 import MessageHeader from '@/app/components/message/MessageHeader';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CloudUploadOutlined, InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Image, Input, InputNumber, Upload, Modal } from 'antd';
 import { LuPlane, LuShield } from 'react-icons/lu';
@@ -122,6 +122,8 @@ const Page = () => {
     const { data: sellKgData } = useGetSellKgByIdQuery(filterData?.sellKgId);
     const mainSellKg = sellKgData?.data;
 
+
+
     //========= payment info  ========
     const [payForOrder] = usePaymentMutation();
     const router = useRouter();
@@ -132,28 +134,44 @@ const Page = () => {
         setImage(fileList[0]); // fileList will be an array of uploaded files
     };
 
-    console.log(image);
+    const [currency, setCurrency] = useState('usd');
+    useEffect(() => {
+        const getcurrency = localStorage.getItem('currency');
+        setCurrency(getcurrency);
+    }, [currency]);
+
+    console.log(mainSellKg?._id, user?._id, mainSellKg?.user?._id);
 
     const paymentForORder = async () => {
+
+
+        // console.log(mainSellKg);
+        // console.log(user);
 
 
 
         try {
 
-            toast.success('Payment is processing');
 
             const formData = new FormData();
-            formData.append("amount", `${mainSellKg?.price}`);
-            formData.append("cobagProfit", mainSellKg?.cobagProfit);
-            formData.append("currency", "usd");
+            formData.append("amount", `${mainSellKg?.price * 100}`);
+            formData.append("cobagProfit", Number(mainSellKg?.price * 100 ) - mainSellKg?.price * 80);
+            formData.append("currency", currency !== 'Euro' ? 'usd' : "eur");
             formData.append("paymentMethodId", "pm_card_visa");
-            formData.append("sellKgId", mainSellKg?._id);
+            formData.append("isEightyPercent", true);
             formData.append("senderId", user?._id);
-            formData.append("travellerId", mainSellKg?.user?._id);
+            formData.append("sellKgId", mainSellKg?._id);
+            formData.append("travellerId", mainSellKg?.userId);
             formData.append("packageImage", image);
+
+
+
             if (image.length === 0) {
-                return alert('Please upload image');
+                return toast.error('Please upload image');
             }
+
+            toast.success('Payment is processing');
+
 
             const res = await payForOrder(formData).unwrap();
 
@@ -176,6 +194,8 @@ const Page = () => {
 
     return (
         <div className=''>
+
+
 
             <div className='grid lg:grid-cols-4 '>
                 <div className='lg:col-span-3'>
@@ -468,7 +488,9 @@ const Page = () => {
 
                             </div>
                             <div className='p-5'>
-                                <Dragger >
+                                <Dragger
+                                    onChange={handleUploadChange}
+                                >
                                     <p className="ant-upload-drag-icon">
                                         <CloudUploadOutlined />
                                     </p>

@@ -2,6 +2,7 @@
 import AllChats from '@/app/components/message/AllChats';
 import Head from 'next/head';
 import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { BiCloset } from 'react-icons/bi';
 import { LuMessageSquareMore } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
@@ -19,6 +20,7 @@ export default function Layout({ children }) {
                 <title>Message</title>
             </Head>
             <body>
+                <Toaster />
                 <div className='flex h-screen overflow-hidden'>
                     <div className={`${isAllUserMessage ? 'top-5' : 'top-20'} absolute  left-2 mr-2 z-50 xl:hidden block bg-white  rounded-md `}>
                         <button onClick={handleShowAllUserMessage} className='p-2'>

@@ -3,7 +3,7 @@
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
 import CouriersAvailable from '@/app/components/Ishop/CouriersAvailable';
 import HowDoesWork from '../../components/Ishop/HowDoesWork';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
 import { IoAddCircleOutline, IoSearchOutline, IoShieldCheckmarkOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
@@ -23,6 +23,8 @@ import { MdVerifiedUser } from 'react-icons/md';
 import { FiMessageSquare } from 'react-icons/fi';
 import baseUrl from '@/app/redux/api/baseUrl';
 import { LuPlane } from 'react-icons/lu';
+import { useGetSingleUserQuery } from '@/app/redux/Features/Auth/getUser';
+import { useCreateSingleChatMutation } from '@/app/redux/Features/message/getMessage';
 
 
 
@@ -144,36 +146,69 @@ const Page = () => {
     // console.log(user?.subscription === false);
     const [payment20Persent] = usePaymentMutation();
 
+    const [creatChat] = useCreateSingleChatMutation();
+
+
+    const [currency, setCurrency] = useState('usd');
+    useEffect(() => {
+        const getcurrency = localStorage.getItem('currency');
+        setCurrency(getcurrency);
+    }, [currency]);
+
+
+    const { data: userData } = useGetSingleUserQuery(user?._id);
+    const userDetails = userData?.data;
+
+
+
     const handleGoMessage = async (request) => {
 
-        console.log(request);
 
-        const data = {
-            amount: Number(request?.price / 100 * 20) * 100,
-            cobagProfit: 10,
-            currency: "eur",
-            paymentMethodId: "pm_card_visa",
-            isEightyPercent: true,
-            senderId: user?._id,
-            sellKgId: request?._id,
-            travellerId: request?.userId?._id
-        }
+        const formData = new FormData();
+        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
+        formData.append("cobagProfit", request?.cobagProfit);
+        formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
+        formData.append("paymentMethodId", "pm_card_visa");
+        formData.append("isTwentyPercent", 'true');
+        formData.append("senderId", user?._id);
+        formData.append("sellKgId", request?._id);
+        formData.append("travellerId", request?.user?._id);
 
-        console.log(data);
+        console.log(user);
 
 
+        if (!userDetails?.isTwentyPercent) {
 
-        if (user?.subscription === false) {
             toast.error('Please login get subscription or 20% pay');
+            const res = await payment20Persent(formData).unwrap();
+            console.log('paymnent ', res);
 
-            const res = await payment20Persent(data).unwrap();
-            console.log(res);
             if (res) {
+
                 // window.location.href = res?.data?.url;
                 return router.push(res?.url);
             }
-
         }
+
+        console.log(request?.user?._id);
+
+        const createChatData = {
+            receiverId: request?.user?._id,
+            sellKgId: request?._id
+        }
+
+        if (userDetails?.isTwentyPercent) {
+
+            const res = await creatChat(createChatData).unwrap();
+            console.log('chat Data ', res?.data);
+            if (res?.code === 201) {
+
+                // window.location.href = res?.data?.url;
+                return router.push(`/message/${res?.data?._id}`);
+            }
+        }
+
+
         // toast.success('Message sent successfully');
     }
 

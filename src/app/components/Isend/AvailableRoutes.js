@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LuPlane, LuShield } from 'react-icons/lu';
 import { IoIosNotificationsOutline, IoMdInformationCircle } from "react-icons/io";
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import useUser from '@/hooks/useUser';
 import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 import { useCreateSingleChatMutation, useGetChatsQuery } from '@/app/redux/Features/message/getMessage';
+import { useGetSingleUserQuery, useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
 
 const AvailableRoutes = ({ searchData }) => {
 
@@ -74,32 +75,40 @@ const AvailableRoutes = ({ searchData }) => {
     const [creatChat] = useCreateSingleChatMutation();
 
 
+    
+
+    const [currency, setCurrency] = useState('usd');
+    useEffect(() => {
+        const getcurrency = localStorage.getItem('currency');
+        setCurrency(getcurrency);
+    }, [currency]);
+
+
+    const { data: userData } = useGetSingleUserQuery(user?._id);
+    const userDetails = userData?.data;
+
+
 
     const handleGoMessage = async (request) => {
 
 
+        const formData = new FormData();
+        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
+        formData.append("cobagProfit", request?.cobagProfit);
+        formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
+        formData.append("paymentMethodId", "pm_card_visa");
+        formData.append("isTwentyPercent", 'true');
+        formData.append("senderId", user?._id);
+        formData.append("sellKgId", request?._id);
+        formData.append("travellerId", request?.user?._id);
+
+        console.log(user);
 
 
-        const data = {
-            amount: Number(request?.price / 100 * 20) * 100,
-            cobagProfit: 10,
-            currency: "eur",
-            paymentMethodId: "pm_card_visa",
-            isTwentyPercent: true,
-            senderId: user?._id,
-            sellKgId: request?._id,
-            travellerId: request?.user?._id
-        }
-
-
-        console.log(data);
-
-
-
-        if (!user?.isTwentyPercent) {
+        if (!userDetails?.isTwentyPercent) {
 
             toast.error('Please login get subscription or 20% pay');
-            const res = await payment20Persent(data).unwrap();
+            const res = await payment20Persent(formData).unwrap();
             console.log('paymnent ', res);
 
             if (res) {
@@ -109,12 +118,14 @@ const AvailableRoutes = ({ searchData }) => {
             }
         }
 
+        console.log(request?.user?._id);
+
         const createChatData = {
             receiverId: request?.user?._id,
             sellKgId: request?._id
         }
 
-        if (user?.isTwentyPercent) {
+        if (userDetails?.isTwentyPercent) {
 
             const res = await creatChat(createChatData).unwrap();
             console.log('chat Data ', res?.data);

@@ -81,6 +81,9 @@ const Page = () => {
         setData(user?.isTraveler === 'true' ? senderOrder : travellerOrder)
     }, [user?.isTraveler === 'true' ? senderOrder : travellerOrder])
 
+
+    console.log(senderOrder);
+
     const handleFilterChange = (e) => {
         const status = e.target.value
         setSelectedStatus(status)
@@ -108,11 +111,11 @@ const Page = () => {
             render: (text, record) => (
                 <div className="flex items-center space-x-2">
                     <img
-                        src={baseUrl + record?.senderId?.profileImage}
+                        src={baseUrl + user?.isTraveler === 'true' ? record?.travellerId?.profileImage : record?.isSender?.profileImage || 'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='}
                         alt="User"
                         style={{ width: '50px', borderRadius: '50%' }}
                     />
-                    <span>{record?.senderId?.firstName}</span>
+                    <span>{user?.isTraveler === 'true' ? record?.travellerId?.firstName : record?.isSender?.firstName}</span>
                 </div>
             ),
         },
@@ -134,7 +137,7 @@ const Page = () => {
             key: 'weight',
             render: (text, record) => (
                 <p>
-                    {record?.sellKgId?.checkedBaggage}
+                    {record?.sellKgId?.totalSpace}
                 </p>
             ),
         },
@@ -185,7 +188,7 @@ const Page = () => {
             )
         },
         {
-            title: 'Date',
+            title: 'Delivery Date',
             dataIndex: 'date',
             key: 'date',
             render: (text, record) => (
@@ -194,7 +197,6 @@ const Page = () => {
                 </p>
             )
         },
-        // if (user?.isTraveler)
         {
             title: 'Delivery Code',
             dataIndex: 'deliveryCode',
@@ -206,11 +208,6 @@ const Page = () => {
             )
         }
         ,
-        {
-            title: 'Brief',
-            dataIndex: 'brief',
-            key: 'brief',
-        },
         {
             title: 'Actions',
             key: 'actions',

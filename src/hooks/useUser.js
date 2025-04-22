@@ -5,6 +5,6 @@ import { useGetUserQuery } from "@/app/redux/Features/Auth/getUser";
 const useUser = () => {
     const { data } = useGetUserQuery();
     const user = data?.user;
-    return user || null
+    return user
 }
 export default useUser
