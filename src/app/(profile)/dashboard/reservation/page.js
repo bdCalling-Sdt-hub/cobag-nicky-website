@@ -169,7 +169,7 @@ const Page = () => {
                                         </div>
                                         <div>
                                             <div className="text-right mr-3 lg:mr-0 b-2">
-                                                <h2 className="text-2xl font-semibold text-primary">{reservation?.amount / 100} €</h2>
+                                                <h2 className="text-2xl font-semibold text-primary">{reservation?.amount} €</h2>
                                                 <div>
                                                     <span className="flex items-center gap-3 text-gray-500 my-2">
                                                         {/* <LuShield className="text-gray-500" />39.00 € including insurance and protection{' '} */}
@@ -209,20 +209,20 @@ const Page = () => {
                                         <div className="p-5">
                                             <div className="flex justify-between items-center gap-5 my-5">
                                                 <span>{t('basePrice')}</span>
-                                                <span className="font-semibold">{reservation?.amount / 100} €</span>
+                                                <span className="font-semibold">{reservation?.amount } €</span>
                                             </div>
                                             <div className="flex justify-between items-center gap-5 my-5">
                                                 <span>{t('commission')} 20%</span>
-                                                <span className="font-semibold">{(reservation?.amount / 100) / 100 * 20}€</span>
+                                                <span className="font-semibold">{(reservation?.amount ) / 100 * 20}€</span>
                                             </div>
                                             <div className="flex justify-between items-center gap-5 my-5">
                                                 <span>{t('fixedCosts')}</span>
-                                                <span className="font-semibold">{((reservation?.amount / 100) / 100 * 20) + (reservation?.amount / 100)}€</span>
+                                                <span className="font-semibold">{((reservation?.amount ) / 100 * 20) + (reservation?.amount)}€</span>
                                             </div>
                                             <hr className="my-3" />
                                             <div className="flex justify-between items-center gap-5 my-5 font-semibold">
                                                 <span>Total:</span>
-                                                <span className="">{((reservation?.amount / 100) / 100 * 20) + (reservation?.amount / 100)} €</span>
+                                                <span className="">{((reservation?.amount ) / 100 * 20) + (reservation?.amount)} €</span>
                                             </div>
                                             <div className="flex items-center justify-end text-gray-500 text-sm">
                                                 <span className="flex items-center gap-2 ">

@@ -258,15 +258,17 @@ const Page = () => {
 
             handLuggage: luggageValue || 0,
             checkedBaggage: baggageValue || 0,
-            availableToBeCourier: form.availableToBeCourier.value == true ? true : false,
-            maxpurchAmountAdvance: form.availableToBeCourier.value,
+            availableToBeCourier: showAvailable && form.availableToBeCourier.value == true ? true : false,
+            maxpurchAmountAdvance: showAvailable ? form.availableToBeCourier.value : 0,
             courierOptions: {
-                maxPurchaseAmount: calculet?.minimumPricePerTransaction
+                maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
             },
             destinationArea: form.destinationArea.value,
-            price: calculet?.minimumPricePerTransaction * (luggageValue + baggageValue) || 0,
+            price: defaultCruuent * (luggageValue + baggageValue),
 
         }
+
+        console.log(formData);
 
         setAllFormData(formData);
 
@@ -390,6 +392,7 @@ const Page = () => {
 
             availableToBeCourier: showAvailable ? true : false,
             destinationArea: form.destinationArea.value,
+            price:  form.maxpurchAmountAdvance.value,
 
             courierOptions: {
                 maxPurchaseAmount: form.maxpurchAmountAdvance.value || 0,
@@ -397,6 +400,8 @@ const Page = () => {
 
         }
 
+
+        console.log(fromData);
 
         setAllFormData(fromData)
 
@@ -407,9 +412,6 @@ const Page = () => {
 
 
     };
-
-
-
 
 
 

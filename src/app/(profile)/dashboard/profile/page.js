@@ -239,7 +239,8 @@ const Page = () => {
     const myWidthrawData = transition?.data;
 
 
-    console.log(myWidthrawData);
+
+
 
 
     return (
@@ -589,9 +590,11 @@ const Page = () => {
                 <div className='flex items-center justify-between'>
                     <h2 className='text-2xl font-semibold text-primary mb-5'>{t('ethanDocuments')}</h2>
                     <div className='flex items-center gap-2'>
-                        <span className='text-[#f0d53d] bg-[#f0d53d2f] font-semibold py-1 px-6 rounded-full'>
+                        <span className={`${!user?.isverified ? 'text-[#f0d53d] bg-[#f0d53d2f] font-semibold py-1 px-6 rounded-full' : 'text-[#35ce0f] bg-[#35ce0f52] font-semibold py-1 px-6 rounded-full'}`} >
                             {/* {t('verified')} */}
-                            Not verified
+                            {
+                                user?.isverified ? 'Verified' : 'Not verified'
+                            }
                         </span>
                         <button type='submit' className='bg-primary text-white py-2 px-5 rounded-lg flex items-center gap-3'>{t('send')} <BsSend /> </button>
                     </div>
@@ -707,7 +710,7 @@ const Page = () => {
                 </div>
 
 
-            </form>
+            </form >
 
             {/* <section id='preferences' className='my-5 p-5 bg-white rounded-lg'>
                 <h2 className='font-semibold text-2xl text-primary'>Preferences</h2>
@@ -756,7 +759,7 @@ const Page = () => {
                     </div>
                 </div>
             </section> */}
-        </div>
+        </div >
     );
 }
 

@@ -11,64 +11,16 @@ import useUser from '@/hooks/useUser'
 
 const Page = () => {
     const { t } = i18n
-    // Sample data for the table
-    const initialData = [
-        {
-            id: 1,
-            userName: 'John Doe',
-            userImage:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            weight: 5.5,
-            status: 'In_progressing',
-            deliveryCode: 'DEL12345',
-            deliveryTime: '10:30 AM',
-            drop: 'New York, USA',
-            date: '2025-01-14',
-            brief: 'Fragile package, handle with care.',
-        },
-        {
-            id: 2,
-            userName: 'Nerob',
-            userImage:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            weight: 10.2,
-            status: 'Delivered',
-            deliveryCode: 'DEL67890',
-            deliveryTime: '2:15 PM',
-            drop: 'Los Angeles, USA',
-            date: '2025-01-13',
-            brief: 'Contains electronic items.',
-        },
-        {
-            id: 3,
-            userName: 'Partner',
-            userImage:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            packagePhoto:
-                'https://res.cloudinary.com/nerob/image/upload/v1736698546/ForBdcolling/uuovt73ylqcnaizimunk.png',
-            weight: 2.8,
-            status: 'Failed',
-            deliveryCode: 'DEL54321',
-            deliveryTime: '11:00 AM',
-            drop: 'Chicago, USA',
-            date: '2025-01-12',
-            brief: 'Urgent delivery, return if not delivered.',
-        },
-    ]
-
 
     const user = useUser();
-
-    console.log(user?.isTraveler);
+    // console.log(user?.isTraveler);
     const { data: getAllSenderOrder } = useGetAllSenderOrderQuery();
     const senderOrder = getAllSenderOrder?.data;
 
     const { data: getAllTravellerOrder } = useGetAllTravellerOrderQuery();
     const travellerOrder = getAllTravellerOrder?.data;
+
+    console.log(travellerOrder);
 
 
 
@@ -111,11 +63,13 @@ const Page = () => {
             render: (text, record) => (
                 <div className="flex items-center space-x-2">
                     <img
-                        src={baseUrl + user?.isTraveler === 'true' ? record?.travellerId?.profileImage : record?.isSender?.profileImage || 'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='}
+                        src={baseUrl + user?.isTraveler === 'true' ? record?.travellerId?.profileImage : record?.senderId
+                            ?.profileImage || 'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='}
                         alt="User"
                         style={{ width: '50px', borderRadius: '50%' }}
                     />
-                    <span>{user?.isTraveler === 'true' ? record?.travellerId?.firstName : record?.isSender?.firstName}</span>
+                    <span>{user?.isTraveler === 'true' ? record?.travellerId?.firstName : record?.senderId
+?.firstName}</span>
                 </div>
             ),
         },

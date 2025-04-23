@@ -75,7 +75,7 @@ const AvailableRoutes = ({ searchData }) => {
     const [creatChat] = useCreateSingleChatMutation();
 
 
-    
+
 
     const [currency, setCurrency] = useState('usd');
     useEffect(() => {
@@ -93,7 +93,7 @@ const AvailableRoutes = ({ searchData }) => {
 
 
         const formData = new FormData();
-        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
+        formData.append("amount", `${Number(request?.maxpurchAmountAdvance * 100 - request?.maxpurchAmountAdvance * 80)}`);
         formData.append("cobagProfit", request?.cobagProfit);
         formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
         formData.append("paymentMethodId", "pm_card_visa");
@@ -141,6 +141,8 @@ const AvailableRoutes = ({ searchData }) => {
         // toast.success('Message sent successfully');
     }
 
+
+    console.log(searchData);
 
 
     return (
@@ -238,7 +240,7 @@ const AvailableRoutes = ({ searchData }) => {
                                 </div>
                                 <div>
                                     <div className="flex flex-col justify-end items-end text-gray-500">
-                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item?.maxpurchAmountAdvance}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
                                         <span className="flex items-center gap-3">
                                             <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
                                             including insurance and protection
