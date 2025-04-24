@@ -15,8 +15,14 @@ const createPlane = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllPlatform: builder.query({
+      query: () => ({
+        url: `/platform/read`,
+        method: "GET",
+      }),
+    }),
 
   }),
 });
 
-export const { useCreatePlaneMutation , useGetAllPostQuery } = createPlane;
+export const { useCreatePlaneMutation, useGetAllPostQuery  , useGetAllPlatformQuery} = createPlane;

@@ -60,14 +60,6 @@ const Header = () => {
                                 {t('NavbarItem1')}
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
-                                href={'/isend'}
-                            >
-                                {t('NavbarItem2')}
-                            </Link>
-                        </li>
 
                         <li>
                             <Link
@@ -85,6 +77,18 @@ const Header = () => {
                                 {t('NavbarItem3')}
                             </Link>
                         </li>
+
+
+
+                        <li>
+                            <Link
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                href={'/isend'}
+                            >
+                                {t('NavbarItem2')}
+                            </Link>
+                        </li>
+
 
                     </ul>
                 </li>

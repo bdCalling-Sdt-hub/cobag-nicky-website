@@ -15,7 +15,7 @@ import Courier from '@/app/components/ITravel/Courier';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
 import i18n from '@/app/utils/i18';
 import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
-import { useCreatePlaneMutation } from '@/app/redux/Features/Itravel/createPlane';
+import { useCreatePlaneMutation, useGetAllPlatformQuery } from '@/app/redux/Features/Itravel/createPlane';
 import toast, { Toaster } from 'react-hot-toast';
 import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
@@ -187,34 +187,6 @@ const Page = () => {
 
         }
 
-        if (activeTab === 2) {
-
-            try {
-                const res = await createPlane(allFormData).unwrap();
-                console.log(res);
-
-                if (res?.success) {
-                    // alert(res?.data)
-                    toast.success('Travel created successfully !!')
-                    //    alert('Travel created successfully !!')
-                    console.log(res?.data)
-                    // form.reset();
-                    // fileList2 = null;
-                    setFileList2(null);
-                    handleShowModal2();
-                }
-                else {
-                    // alert(res?.data?.message)
-                    console.log(res);
-                    toast.error('Travel created Faild !!')
-                }
-            } catch (error) {
-                console.log(error);
-                toast.error('Travel created Faild Please Try Again !!')
-            }
-        }
-
-
     }
 
 
@@ -340,7 +312,13 @@ const Page = () => {
 
 
 
-    console.log(smallVlaue, mediumVlaue, largeVlaue);
+    // console.log(smallVlaue, mediumVlaue, largeVlaue);
+
+    const { data: allPlatform } = useGetAllPlatformQuery()
+
+    const platform = allPlatform?.data[0]
+
+    console.log(platform?.train);
 
 
     const handleSubmitTrain = async (e) => {
@@ -382,7 +360,7 @@ const Page = () => {
             size: smallVlaue > 0 ? 'small' : mediumVlaue > 0 ? 'medium' : largeVlaue > 0 ? 'large' : null,
 
             // flightNumber: form.flightNumber.value,
-            totalSpace: smallVlaue > 0 && smallVlaue || mediumVlaue > 0 && mediumVlaue || largeVlaue > 0 && largeVlaue || 0,
+            totalSpace: smallVlaue + mediumVlaue + largeVlaue,
             departureCity: form.departureCity.value,
             arrivalCity: form.arrivalCity.value,
             departureDate: form.departureDate.value,
@@ -392,20 +370,31 @@ const Page = () => {
 
             availableToBeCourier: showAvailable ? true : false,
             destinationArea: form.destinationArea.value,
-            price:  form.maxpurchAmountAdvance.value,
+            price: (smallVlaue > 0 && smallVlaue * platform?.train?.small) + (mediumVlaue > 0 && mediumVlaue * platform?.train?.medium) + (largeVlaue > 0 && largeVlaue * platform?.train?.large),
 
             courierOptions: {
-                maxPurchaseAmount: form.maxpurchAmountAdvance.value || 0,
+                maxPurchaseAmount: showAvailable ? form.maxpurchAmountAdvance.value : 0 || 0,
             }
 
         }
 
 
         console.log(fromData);
-
-        setAllFormData(fromData)
-
-        handleShowModal();
+        try {
+            const res = await createPlane(fromData).unwrap();
+            console.log(res);
+            if (res?.success) {
+                toast.success('Travel created successfully !!')
+                console.log(res?.data)
+            }
+            else {
+                console.log(res);
+                toast.error('Travel created Faild !!')
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Travel created Faild Please Try Again !!')
+        }
 
 
 

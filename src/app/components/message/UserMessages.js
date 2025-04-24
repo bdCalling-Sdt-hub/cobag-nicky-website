@@ -32,6 +32,7 @@ const UserMessages = ({ messages, user, receiverDetails }) => {
             }
         }, 100); // Small delay ensures UI updates before scrolling
     }, [messages]);
+    
     return (
         <div ref={messagesRef} className="h-[78vh] overflow-y-auto p-5 space-y-5 messages-box">
             {messages?.map((message) => {

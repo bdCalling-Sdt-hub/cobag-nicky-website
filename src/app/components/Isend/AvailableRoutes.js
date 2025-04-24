@@ -93,7 +93,7 @@ const AvailableRoutes = ({ searchData }) => {
 
 
         const formData = new FormData();
-        formData.append("amount", `${Number(request?.maxpurchAmountAdvance * 100 - request?.maxpurchAmountAdvance * 80)}`);
+        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
         formData.append("cobagProfit", request?.cobagProfit);
         formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
         formData.append("paymentMethodId", "pm_card_visa");
@@ -159,24 +159,29 @@ const AvailableRoutes = ({ searchData }) => {
                 </a>
 
             </div>
-            <div className='md:w-[600px] mx-auto my-10 px-5 md:px-0'>
-                <div className=' grid md:grid-cols-2 gap-5'>
-                    <div>
-                        <img src="/Images/NewSection/available-routes.png" alt="" />
+
+            {
+                searchData.length < 1 &&
+                <div className='md:w-[600px] mx-auto my-10 px-5 md:px-0'>
+                    <div className=' grid md:grid-cols-2 gap-5'>
+                        <div>
+                            <img src="/Images/NewSection/available-routes.png" alt="" />
+                        </div>
+                        <div className='bg-gray-200 p-5 rounded-xl'>
+                            <h2 className='text-2xl font-semibold text-primary flex items-center gap-2 mb-5'><span className='text-4xl'>😋</span> Victim of its success</h2>
+                            <p>Oooh... Too bad, all the travelers have already sold their kilos for this destination. But don't worry! Sign up for the alert and be the first to know as soon as a new traveler offers their space.</p>
+                        </div>
                     </div>
-                    <div className='bg-gray-200 p-5 rounded-xl'>
-                        <h2 className='text-2xl font-semibold text-primary flex items-center gap-2 mb-5'><span className='text-4xl'>😋</span> Victim of its success</h2>
-                        <p>Oooh... Too bad, all the travelers have already sold their kilos for this destination. But don't worry! Sign up for the alert and be the first to know as soon as a new traveler offers their space.</p>
+                    <div className='mt-5'>
+                        <p className='text-base my-3 text-gray-600'>Receive an alert for new places available:</p>
+                        <div className='grid grid-cols-2 gap-5'>
+                            <input className='w-full p-3 rounded-lg border border-gray-300' type="email" placeholder='Enter your email' name="email" id="" />
+                            <button className='w-full p-3 rounded-lg bg-primary text-white flex items-center justify-center gap-2'><IoIosNotificationsOutline className='text-2xl' />Activate alert</button>
+                        </div>
                     </div>
                 </div>
-                <div className='mt-5'>
-                    <p className='text-base my-3 text-gray-600'>Receive an alert for new places available:</p>
-                    <div className='grid grid-cols-2 gap-5'>
-                        <input className='w-full p-3 rounded-lg border border-gray-300' type="email" placeholder='Enter your email' name="email" id="" />
-                        <button className='w-full p-3 rounded-lg bg-primary text-white flex items-center justify-center gap-2'><IoIosNotificationsOutline className='text-2xl' />Activate alert</button>
-                    </div>
-                </div>
-            </div>
+            }
+
 
             <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
@@ -240,7 +245,7 @@ const AvailableRoutes = ({ searchData }) => {
                                 </div>
                                 <div>
                                     <div className="flex flex-col justify-end items-end text-gray-500">
-                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item?.maxpurchAmountAdvance}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item?.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
                                         <span className="flex items-center gap-3">
                                             <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
                                             including insurance and protection

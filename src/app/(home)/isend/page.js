@@ -5,7 +5,7 @@ import Shipments from '@/app/components/Isend/Shipments';
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
-import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos'; 
+import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
 import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import i18n from '@/app/utils/i18';
 import { useRouter } from 'next/navigation';
@@ -176,6 +176,9 @@ const Page = () => {
             totalSpace: Number(form?.packageWeight?.value) || 0,
             arrivalDate: form?.flexibleDate?.value || '',
         };
+        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.totalSpace == '') {
+            return toast.error('All Fields are Required')
+        }
 
         try {
 
@@ -217,6 +220,10 @@ const Page = () => {
             arrivalDate: form?.flexibleDate?.value || '',
         };
 
+        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' ) {
+            return toast.error('All Fields are Required')
+        }
+
         try {
 
             const response = await searchItravelWithData(formData).unwrap();
@@ -253,6 +260,10 @@ const Page = () => {
             departureDate: form?.desiredDate?.value || '',
             arrivalDate: form?.flexibleDate?.value || '',
         };
+
+        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '') {
+            return toast.error('all fields are required')
+        }
 
         try {
 

@@ -105,6 +105,10 @@ const Page = () => {
             fromDataPost.append('uploadImage', form.image.files[0]);
         }
 
+        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.maxpurchAmountAdvance == '') {
+            return toast.error('All Fields are Required')
+        }
+
 
         try {
             if (!showFlexibleDate) {
@@ -117,10 +121,25 @@ const Page = () => {
             }
             else {
                 const response = await postIshop(fromDataPost).unwrap();
-                // console.log(response);
+                const response2 = await searchIshop(formData).unwrap();
+
+                //======== this is for search ===========
+                if (response2?.success) {
+                    setAllSearchResutl(response2?.data)
+                    toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
+                }
+                else if (!response2?.success) {
+                    toast.error('Faild to Search Try again')
+                }
+
+
+                //======== this is for post ===========
                 if (response?.success) {
                     setSearchTerm(response?.data)
-                    toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                    toast.success(`Post successfully `);
+                }
+                else if (!response?.success) {
+                    toast.error('Faild to Post Try again')
                 }
             }
 
@@ -132,7 +151,6 @@ const Page = () => {
 
 
     };
-
 
 
 
