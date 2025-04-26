@@ -234,40 +234,42 @@ const Page = () => {
             arrivalCity: form?.arrivalCity?.value || '',
             departureDate: form?.desiredDate?.value || '',
             arrivalDate: form?.flexibleDate?.value || '',
-            totalSpace: trainSmall > 0 && trainSmall || trainMedium > 0 && trainMedium || trainLarge > 0 && trainLarge,
+            totalSpace: (trainSmall > 0 ? trainSmall : 0) ||
+                (trainMedium > 0 ? trainMedium : 0) ||
+                (trainLarge > 0 ? trainLarge : 0),
+            Size: trainSmall > 0 ? 'small' :
+                trainMedium > 0 ? 'medium' :
+                    trainLarge > 0 ? 'large' : '',
         };
 
-        if (!formData?.departureCity && !formData?.arrivalCity && !formData?.departureDate && formData?.totalSpace < 1) {
-            return toast.error('All Fields are Required')
-        }
+        console.log(formData);
 
-        if (isTrainFlexible) {
-            if (formData?.arrivalDate == '') {
-                return toast.error('All Fields are Required')
-            }
+        // Validate all fields: ensure that all fields are filled or meet criteria
+        if (
+            formData?.departureCity.length < 3 ||  // departureCity must be at least 3 characters
+            !formData?.arrivalCity ||               // arrivalCity is required
+            !formData?.departureDate ||             // departureDate is required
+            formData?.totalSpace < 1 ||             // totalSpace must be greater than 0
+            (isTrainFlexible && !formData?.arrivalDate)  // arrivalDate is required for flexible trains
+        ) {
+            return toast.error('All fields are required');
         }
 
 
         try {
-
             const response = await searchItravelWithData(formData).unwrap();
             console.log(response);
 
             if (response?.success) {
-                console.log(response);
-                setAllSearchResutl(response?.data)
-                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                setAllSearchResutl(response?.data);
+                toast.success(`Search successful! See ${response?.data?.length} items`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
             }
         } catch (error) {
             console.log(error);
-            toast.error('Search failed !!');
+            toast.error('Search failed!');
         }
-
-
-
-
-    }
+    };
 
     // ==================== All ========================
 

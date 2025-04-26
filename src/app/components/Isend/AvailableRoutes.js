@@ -255,7 +255,8 @@ const AvailableRoutes = ({ searchData }) => {
                                     </div>
                                     <div className='w-full mt-5'>
                                         <div className="bg-[#eeeff8] py-5 md:w-96 w-full px-10 rounded-lg text-primary">
-                                            <h3 className="font-semibold">Your shipment</h3>
+                                            <h3 className="font-semibold capiralize"> {
+                                                item.transportMode === 'plane' ? 'Your Shipment' : item?.Size} </h3>
                                             <h2 className="text-2xl font-semibold">{item.totalSpace} kg</h2>
                                         </div>
                                         <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
