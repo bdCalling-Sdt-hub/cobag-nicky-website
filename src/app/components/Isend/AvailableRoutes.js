@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { LuPlane, LuShield } from 'react-icons/lu';
-import { IoIosNotificationsOutline, IoMdInformationCircle } from "react-icons/io";
+import { IoIosNotificationsOutline, IoMdInformationCircle, IoMdTrain } from "react-icons/io";
 import { CiCalendar, CiLocationOn, CiStar } from 'react-icons/ci';
 import { FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';  // Corrected the duplicate import
 import { MdVerifiedUser } from 'react-icons/md';
@@ -196,7 +196,7 @@ const AvailableRoutes = ({ searchData }) => {
                                             {item.transportMode === 'plane' ? (
                                                 <LuPlane className="text-2xl" />
                                             ) : (
-                                                <MdVerifiedUser className="text-2xl" />
+                                                <IoMdTrain className="text-2xl" />
                                             )}
                                         </div>
                                         <h2 className="capitalize">
@@ -261,7 +261,7 @@ const AvailableRoutes = ({ searchData }) => {
                                         <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
                                             <h2>Delivery by {item.user.firstName}</h2>
                                             <p><span className='font-semibold'>Today</span> {item.arrivalDate} at <span className='font-semibold'>{item.arrivalTime}</span></p>
-                                            <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
+                                            <p>In <span className='font-semibold'>{item?.destinationArea}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -306,7 +306,8 @@ const AvailableRoutes = ({ searchData }) => {
                     ))
                 ) : (
                     <div>
-                        <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2>
+                        {/* <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2> */}
+                        <img className='max-w-[250px]  mx-auto' src="/Images/searchnotfound.webp" alt="" />
                     </div>
                 )}
             </section>

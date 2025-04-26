@@ -11,7 +11,7 @@ import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
 
 const CouriersAvailable = ({ searchIshopItem }) => {
     // Either use filtered data from searchTerm or original data from searchIshopItem
-    const postData =  searchIshopItem?.filter(item => item?.uploadImage?.length > 0);
+    const postData = searchIshopItem?.filter(item => item?.uploadImage?.length > 0);
     console.log(postData);
 
     // console.log(searchTerm);
@@ -25,11 +25,11 @@ const CouriersAvailable = ({ searchIshopItem }) => {
     const handleContact = async (request) => {
 
         const data = {
-            amount: Number(request?.PurchasePrice / 100 * 20) * 100,
-            cobagProfit: 10,
+            amount: `${Number(request?.PurchasePrice / 100 * 20) * 100}`,
+            cobagProfit: `${request?.PurchasePrice / 100 * 20}`,
             currency: "eur",
             paymentMethodId: "pm_card_visa",
-            isEightyPercent: true,
+            isEightyPercent: 'true',
             senderId: user?._id,
             sellKgId: request?._id,
             travellerId: request?.userId?._id

@@ -230,8 +230,10 @@ const Page = () => {
 
             handLuggage: luggageValue || 0,
             checkedBaggage: baggageValue || 0,
-            availableToBeCourier: showAvailable && form.availableToBeCourier.value == true ? true : false,
+            availableToBeCourier: showAvailable ? true : false,
+
             maxpurchAmountAdvance: showAvailable ? form.availableToBeCourier.value : 0,
+
             courierOptions: {
                 maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
             },
@@ -240,7 +242,6 @@ const Page = () => {
 
         }
 
-        console.log(formData);
 
         setAllFormData(formData);
 
@@ -272,6 +273,9 @@ const Page = () => {
 
     const [smallVlaue, setSmallVlaue] = useState(0);
     const handleSmallIncress = () => {
+        if (largeVlaue > 0 || mediumVlaue > 0) {
+            return toast.error('You have already selected large or medium Vlaue')
+        }
         setSmallVlaue(smallVlaue + 1)
     }
     const handleSmallDecress = () => {
@@ -285,6 +289,9 @@ const Page = () => {
 
     const [mediumVlaue, setMediumVlaue] = useState(0);
     const handleMediumIncress = () => {
+        if (smallVlaue > 0 || largeVlaue > 0) {
+            return toast.error('You have already selected large or small Vlaue')
+        }
         setMediumVlaue(mediumVlaue + 1)
     }
     const handleMediumDecress = () => {
@@ -298,6 +305,9 @@ const Page = () => {
 
     const [largeVlaue, setLargeVlaue] = useState(0);
     const handleLargeIncress = () => {
+        if (smallVlaue > 0 || mediumVlaue > 0) {
+            return toast.error('You have already selected medium or small Vlaue')
+        }
         setLargeVlaue(largeVlaue + 1)
     }
     const handleLargeDecress = () => {
@@ -352,15 +362,15 @@ const Page = () => {
         if (form.destinationArea.value.length < 3) {
             return toast.error('Please enter a valid destination area')
         }
-
+        // enum: ['small', 'medium', 'large']
         const fromData = {
             userId: userId,
             transportMode: 'train',
             transportType: form.transportType.value,
-            size: smallVlaue > 0 ? 'small' : mediumVlaue > 0 ? 'medium' : largeVlaue > 0 ? 'large' : null,
+            Size: smallVlaue > 0 && 'small' || mediumVlaue > 0 && 'medium' || largeVlaue > 0 && 'large',
 
             // flightNumber: form.flightNumber.value,
-            totalSpace: smallVlaue + mediumVlaue + largeVlaue,
+            totalSpace: smallVlaue > 0 && smallVlaue || mediumVlaue > 0 && mediumVlaue || largeVlaue > 0 && largeVlaue,
             departureCity: form.departureCity.value,
             arrivalCity: form.arrivalCity.value,
             departureDate: form.departureDate.value,
@@ -386,6 +396,7 @@ const Page = () => {
             if (res?.success) {
                 toast.success('Travel created successfully !!')
                 console.log(res?.data)
+                form.reset();
             }
             else {
                 console.log(res);

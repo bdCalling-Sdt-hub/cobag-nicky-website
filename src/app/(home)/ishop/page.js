@@ -9,7 +9,7 @@ import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
 import { IoAddCircleOutline, IoSearchOutline, IoShieldCheckmarkOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
-import { useSearchIShopMutation, useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
+import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaBox, FaRegClock, FaStar } from 'react-icons/fa6';
 import { IoMdCheckbox, IoMdInformationCircle } from 'react-icons/io';
@@ -25,6 +25,7 @@ import baseUrl from '@/app/redux/api/baseUrl';
 import { LuPlane } from 'react-icons/lu';
 import { useGetSingleUserQuery } from '@/app/redux/Features/Auth/getUser';
 import { useCreateSingleChatMutation } from '@/app/redux/Features/message/getMessage';
+import { Spin } from 'antd';
 
 
 
@@ -55,12 +56,12 @@ const Page = () => {
 
     // ================ search ================
 
-    const [searchIshop, { isLoading }] = useSearchItravelMutation();
+    const [searchIshop, { isLoading }] = useSearchIShopMutation();
     const [searchTerm, setSearchTerm] = useState([]);
 
     // console.log(searchTerm);
 
-    const [postIshop] = useCreateIshopMutation();
+    const [postIshop, { isLoading: isPostLoading }] = useCreateIshopMutation();
 
 
     const [allSearchResutl, setAllSearchResutl] = useState([]);
@@ -85,7 +86,7 @@ const Page = () => {
 
 
         const formData = {
-            transportMode: 'all',
+            // transportMode: 'all',
             departureCity,
             arrivalCity,
             departureDate,
@@ -109,6 +110,9 @@ const Page = () => {
             return toast.error('All Fields are Required')
         }
 
+
+
+        console.log(formData);
 
         try {
             if (!showFlexibleDate) {
@@ -135,6 +139,7 @@ const Page = () => {
 
                 //======== this is for post ===========
                 if (response?.success) {
+                    console.log(response?.data);
                     setSearchTerm(response?.data)
                     toast.success(`Post successfully `);
                 }
@@ -183,7 +188,7 @@ const Page = () => {
 
 
         const formData = new FormData();
-        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
+        formData.append("amount", `${Number(request?.maxpurchAmountAdvance * 100 - request?.maxpurchAmountAdvance * 80)}`);
         formData.append("cobagProfit", request?.cobagProfit);
         formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
         formData.append("paymentMethodId", "pm_card_visa");
@@ -364,12 +369,12 @@ const Page = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Quantity (kg)</label>
+                                                <label className="block mb-2 mt-5 text-sm font-semibold text-[#474747]">Quantity </label>
                                                 <div className="relative  flex items-center">
                                                     <input
                                                         type="text"
                                                         name='quantity'
-                                                        placeholder="weight (kg)"
+                                                        placeholder="quantity"
                                                         className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
                                                     <span className="absolute left-3 text-gray-400">
@@ -413,6 +418,9 @@ const Page = () => {
                                     >
                                         <IoAddCircleOutline />
                                         Post Now
+                                        {
+                                            isPostLoading && <Spin />
+                                        }
                                     </button>
                             }
 
@@ -426,9 +434,11 @@ const Page = () => {
 
                 {allSearchResutl.length > 0 ? (
                     allSearchResutl.map((item, index) => (
-                        <div key={index} className="shadow-[0_0_15px_0_rgba(0,0,0,0.1)]   rounded-lg md:p-10 p-5 my-5">
+                        <div key={index} className="shadow-[0_0_15px_0_rgba(0,0,0,0.1)] relative rounded-lg md:p-10 p-5 my-5">
                             <div className="md:flex flex-wrap items-center justify-between">
+
                                 <div>
+                                    <span className='py-1 px-3 capitalize font-semibold rounded-lg absolute left-2 top-2 text-[#0b2f9f] bg-[#f6f6fb]'>courier</span>
                                     <div className="flex items-center text-primary gap-3 font-medium">
                                         <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
                                             {item.transportMode === 'plane' ? (
@@ -483,7 +493,7 @@ const Page = () => {
                                 </div>
                                 <div>
                                     <div className="flex flex-col justify-end items-end text-gray-500">
-                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.maxpurchAmountAdvance}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
                                         <span className="flex items-center gap-3">
                                             <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
                                             including insurance and protection
@@ -499,7 +509,7 @@ const Page = () => {
                                         <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
                                             <h2>Delivery by {item.user.firstName}</h2>
                                             <p><span className='font-semibold'>Today</span> {item.arrivalDate} at <span className='font-semibold'>{item.arrivalTime}</span></p>
-                                            <p>In <span className='font-semibold'>Brazzaville (Maya-Maya)</span>
+                                            <p>In <span className='font-semibold'>{item?.destinationArea}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -544,7 +554,9 @@ const Page = () => {
                     ))
                 ) : (
                     <div>
-                        <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2>
+                        {/* <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2> 
+                        */}
+                        <img className='max-w-[250px]  mx-auto' src="/Images/searchnotfound.webp" alt="" />
                     </div>
                 )}
             </section>

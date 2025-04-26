@@ -79,6 +79,9 @@ const Page = () => {
         setTrainSmall(trainSmall - 1)
     }
     const handlePlusTrainSmall = () => {
+        if (trainMedium > 0 || trainLarge > 0) {
+            return toast.error('You have already selected medium or large')
+        }
         setTrainSmall(trainSmall + 1)
     }
 
@@ -91,6 +94,9 @@ const Page = () => {
         setTrainMedium(trainMedium - 1)
     }
     const handlePlusTrainMedium = () => {
+        if (trainSmall > 0 || trainLarge > 0) {
+            return toast.error('You have already selected small or large')
+        }
         setTrainMedium(trainMedium + 1)
     }
 
@@ -103,6 +109,9 @@ const Page = () => {
         setTrainLarge(trainLarge - 1)
     }
     const handlePlusTrainLarge = () => {
+        if (trainSmall > 0 || trainMedium > 0) {
+            return toast.error('You have already selected small or medium')
+        }
         setTrainLarge(trainLarge + 1)
     }
 
@@ -176,8 +185,15 @@ const Page = () => {
             totalSpace: Number(form?.packageWeight?.value) || 0,
             arrivalDate: form?.flexibleDate?.value || '',
         };
-        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.totalSpace == '') {
+
+        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.totalSpace == '') {
             return toast.error('All Fields are Required')
+        }
+
+        if (showFlexibleDate) {
+            if (formData?.arrivalDate == '') {
+                return toast.error('All Fields are Required')
+            }
         }
 
         try {
@@ -218,11 +234,19 @@ const Page = () => {
             arrivalCity: form?.arrivalCity?.value || '',
             departureDate: form?.desiredDate?.value || '',
             arrivalDate: form?.flexibleDate?.value || '',
+            totalSpace: trainSmall > 0 && trainSmall || trainMedium > 0 && trainMedium || trainLarge > 0 && trainLarge,
         };
 
-        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' ) {
+        if (!formData?.departureCity && !formData?.arrivalCity && !formData?.departureDate && formData?.totalSpace < 1) {
             return toast.error('All Fields are Required')
         }
+
+        if (isTrainFlexible) {
+            if (formData?.arrivalDate == '') {
+                return toast.error('All Fields are Required')
+            }
+        }
+
 
         try {
 
@@ -259,36 +283,40 @@ const Page = () => {
             arrivalCity: form?.arrivalCity?.value || '',
             departureDate: form?.desiredDate?.value || '',
             arrivalDate: form?.flexibleDate?.value || '',
+            totalSpace: form?.packageWeight?.value ||
+                (allSmall > 0 ? allSmall :
+                    (allMedium > 0 ? allMedium :
+                        (allLarge > 0 ? allLarge : 0)))
         };
 
-        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '') {
-            return toast.error('all fields are required')
+        console.log(formData);
+
+        // Ensure all required fields are filled
+        if (!formData?.departureCity || !formData?.arrivalCity ||
+            !formData?.departureDate || !formData?.arrivalDate ||
+            formData?.totalSpace < 1) {
+            return toast.error('All fields are required');
         }
 
         try {
-
             const response = await searchItravelWithData(formData).unwrap();
 
-
             if (response?.success) {
-                // go to this section #showall show can i go here 
-
+                // Smooth scroll to the #showall section if available
                 const showAllSection = document.getElementById('showall');
                 if (showAllSection) {
-                    // Smooth scroll to the section
                     showAllSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
 
-                setAllSearchResutl(response?.data)
-                toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                setAllSearchResutl(response?.data);
+                toast.success(`Search successfully! See ${response?.data?.length} items`);
                 // router.push(`/itravel/${response?.data[0]?.id}`);
             }
         } catch (error) {
             console.log(error);
-            toast.error('Search failed !!');
+            toast.error('Search failed!');
         }
-
-    }
+    };
 
 
 
@@ -552,7 +580,7 @@ const Page = () => {
 
                         <div className='grid lg:grid-cols-3 gap-5'>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>Little</h3>
+                                <h3 className='text-xl font-semibold'>Small (S)</h3>
                                 <p className='mb-3 mt-1 text-xs '>Documents, small packages</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
@@ -565,7 +593,7 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>AVERAGE</h3>
+                                <h3 className='text-xl font-semibold'>Medium (M)</h3>
                                 <p className='mb-3 mt-1 text-xs '>Standard boxes</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
@@ -578,7 +606,7 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>Grand</h3>
+                                <h3 className='text-xl font-semibold'>Large (L)</h3>
                                 <p className='mb-3 mt-1 text-xs '>Lightweight suitcases</p>
                                 <div className='flex items-center justify-center gap-3'>
                                     <div onClick={handleMinusTrainLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
@@ -605,203 +633,7 @@ const Page = () => {
 
             ),
         },
-        {
-            title: 'All',
-            icon: <LuBox className="text-lg mr-2" />,
-            content: (
-                <form onSubmit={handleSearchAll} action="">
-                    <div className='grid grid-cols-2 gap-4'>
-                        {/* Departure City */}
-                        <div>
-                            <label className="block mb-2 font-semibold  text-[#474747]">{t('departureCityLabel45454')}</label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="text"
-                                    name='departureCity'
-                                    placeholder={t('departureCityPlaceholder45454')}
-                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                />
-                                <span className="absolute left-3 text-gray-400">
-                                    <CiLocationOn className="text-2xl" />
-                                </span>
-                            </div>
-                        </div>
 
-                        {/* Arrival City */}
-                        <div>
-                            <label className="block mb-2 font-semibold  text-[#474747]">{t('arrivalCityLabel45454')}</label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="text"
-                                    name='arrivalCity'
-                                    placeholder={t('arrivalCityPlaceholder45454')}
-                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                />
-                                <span className="absolute left-3 text-gray-400">
-                                    <CiLocationOn className="text-2xl" />
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="grid grid-cols-2 gap-4 my-5">
-                        {/* Desired Date */}
-                        <div>
-                            <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDateLabel45454')}</label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="date"
-                                    name='desiredDate'
-                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                />
-                                <span className="absolute left-3 text-gray-400">
-                                    <CiCalendar className="text-2xl" />
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="">
-                            <label className="mb-2 font-semibold  text-[#474747] flex items-center justify-end gap-2">
-                                <input
-                                    type="checkbox"
-                                    className="w-4 h-4 text-primary focus:ring-0"
-                                    onChange={handleTrainCheckboxChange} // Updated handler name
-                                />
-                                {t('flexibleDates454')}
-                            </label>
-
-                            {/* Conditionally Render Additional Field */}
-                            {isTrainFlexible && (
-                                <div className="">
-                                    <div className="relative flex items-center">
-                                        <input
-                                            type="date"
-                                            name='flexibleDate'
-                                            className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                        />
-                                        <span className="absolute left-3 text-gray-400">
-                                            <CiCalendar className="text-2xl" />
-                                        </span>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 my-5 ">
-                            <input
-                                type="checkbox"
-                                name="flexible"
-                                id={`flexible`}
-                            />
-                            <span>I would like to have my excess baggage transported</span>
-                        </label>
-                    </div>
-
-
-                    <div className="my-5">
-                        {/* Departure City */}
-                        <div>
-                            <label className="flex items-center justify-between mb-2 font-semibold  text-[#474747]">
-                                {t('packageWeightLabel454')}
-                                {/* <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
-                                    {t('addPackageButton454')}
-                                </button> */}
-                            </label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="text"
-                                    name='packageWeight'
-                                    placeholder={t('enterWeightPlaceholder454')}
-                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                />
-                                <span className="absolute left-3 text-gray-400">
-                                    <BsCurrencyDollar className="text-2xl" />
-                                </span>
-                            </div>
-                        </div>
-                        {/* {
-                            addNewAllPackageField > 0 && (
-                                [...Array(addNewAllPackageField)].map((_, index) => (
-                                    <div key={index} className="relative flex items-center mt-5">
-                                        <input
-                                            type="text"
-                                            placeholder="0"
-                                            className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
-                                        />
-                                        <span className="absolute left-3 text-gray-400">
-                                            <BsCurrencyDollar className="text-2xl" />
-                                        </span>
-                                    </div>
-                                ))
-                            )
-                        } */}
-                    </div>
-
-
-
-                    <div>
-                        <h2>Package size</h2>
-
-                        <div className='grid lg:grid-cols-3 gap-5'>
-                            <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>Little</h3>
-                                <p className='mb-3 mt-1 text-xs '>Documents, small packages</p>
-                                <div className='flex items-center justify-center gap-3'>
-                                    <div onClick={handleMinusAllSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaMinus />
-                                    </div>
-                                    <span>{allSmall}</span>
-                                    <div onClick={handlePlusAllSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaPlus />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>AVERAGE</h3>
-                                <p className='mb-3 mt-1 text-xs '>Standard boxes</p>
-                                <div className='flex items-center justify-center gap-3'>
-                                    <div onClick={handleMinusAllMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaMinus />
-                                    </div>
-                                    <span>{allMedium}</span>
-                                    <div onClick={handlePlusAllMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaPlus />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
-                                <h3 className='text-xl font-semibold'>Grand</h3>
-                                <p className='mb-3 mt-1 text-xs '>Lightweight suitcases</p>
-                                <div className='flex items-center justify-center gap-3'>
-                                    <div onClick={handleMinusAllLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaMinus />
-                                    </div>
-                                    <span>{allLarge}</span>
-                                    <div onClick={handlePlusAllLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
-                                        <FaPlus />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Arrival City */}
-
-
-                    <button
-                        type="submit"
-                        className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-3 w-full font-semibold"
-                    >
-                        <IoSearchOutline /> {t('searchForRoute454')}
-                    </button>
-
-                </form>
-            ),
-        },
     ];
 
     return (
@@ -835,7 +667,7 @@ const Page = () => {
                             {tabs.map((tab, index) => (
                                 <button
                                     key={index}
-                                    className={`flex items-center justify-center w-1/3 py-2 text-lg font-semibold rounded-md transition-colors ${activeTab === index
+                                    className={`flex items-center justify-center w-1/2 py-2 text-lg font-semibold rounded-md transition-colors ${activeTab === index
                                         ? 'bg-primary text-white'
                                         : 'bg-gray-200 text-gray-700'
                                         }`}
@@ -876,3 +708,202 @@ export default Page;
 
 
 // AvailableRoutes
+
+
+// {
+//     title: 'All',
+//     icon: <LuBox className="text-lg mr-2" />,
+//     content: (
+//         <form onSubmit={handleSearchAll} action="">
+//             <div className='grid grid-cols-2 gap-4'>
+//                 {/* Departure City */}
+//                 <div>
+//                     <label className="block mb-2 font-semibold  text-[#474747]">{t('departureCityLabel45454')}</label>
+//                     <div className="relative flex items-center">
+//                         <input
+//                             type="text"
+//                             name='departureCity'
+//                             placeholder={t('departureCityPlaceholder45454')}
+//                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                         />
+//                         <span className="absolute left-3 text-gray-400">
+//                             <CiLocationOn className="text-2xl" />
+//                         </span>
+//                     </div>
+//                 </div>
+
+//                 {/* Arrival City */}
+//                 <div>
+//                     <label className="block mb-2 font-semibold  text-[#474747]">{t('arrivalCityLabel45454')}</label>
+//                     <div className="relative flex items-center">
+//                         <input
+//                             type="text"
+//                             name='arrivalCity'
+//                             placeholder={t('arrivalCityPlaceholder45454')}
+//                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                         />
+//                         <span className="absolute left-3 text-gray-400">
+//                             <CiLocationOn className="text-2xl" />
+//                         </span>
+//                     </div>
+//                 </div>
+
+//             </div>
+
+
+//             <div className="grid grid-cols-2 gap-4 my-5">
+//                 {/* Desired Date */}
+//                 <div>
+//                     <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDateLabel45454')}</label>
+//                     <div className="relative flex items-center">
+//                         <input
+//                             type="date"
+//                             name='desiredDate'
+//                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                         />
+//                         <span className="absolute left-3 text-gray-400">
+//                             <CiCalendar className="text-2xl" />
+//                         </span>
+//                     </div>
+//                 </div>
+
+//                 <div className="">
+//                     <label className="mb-2 font-semibold  text-[#474747] flex items-center justify-end gap-2">
+//                         <input
+//                             type="checkbox"
+//                             className="w-4 h-4 text-primary focus:ring-0"
+//                             onChange={handleTrainCheckboxChange} // Updated handler name
+//                         />
+//                         {t('flexibleDates454')}
+//                     </label>
+
+//                     {/* Conditionally Render Additional Field */}
+//                     {isTrainFlexible && (
+//                         <div className="">
+//                             <div className="relative flex items-center">
+//                                 <input
+//                                     type="date"
+//                                     name='flexibleDate'
+//                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                                 />
+//                                 <span className="absolute left-3 text-gray-400">
+//                                     <CiCalendar className="text-2xl" />
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     )}
+//                 </div>
+//             </div>
+
+//             <div>
+//                 <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 my-5 ">
+//                     <input
+//                         type="checkbox"
+//                         name="flexible"
+//                         id={`flexible`}
+//                     />
+//                     <span>I would like to have my excess baggage transported</span>
+//                 </label>
+//             </div>
+
+
+//             <div className="my-5">
+//                 {/* Departure City */}
+//                 <div>
+//                     <label className="flex items-center justify-between mb-2 font-semibold  text-[#474747]">
+//                         {t('packageWeightLabel454')}
+//                         {/* <button onClick={handleAddNewAllPackageField} type='button' className='flex items-center gap-2 text-primary'><FaPlus />
+//                             {t('addPackageButton454')}
+//                         </button> */}
+//                     </label>
+//                     <div className="relative flex items-center">
+//                         <input
+//                             type="text"
+//                             name='packageWeight'
+//                             placeholder={t('enterWeightPlaceholder454')}
+//                             className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                         />
+//                         <span className="absolute left-3 text-gray-400">
+//                             <BsCurrencyDollar className="text-2xl" />
+//                         </span>
+//                     </div>
+//                 </div>
+//                 {/* {
+//                     addNewAllPackageField > 0 && (
+//                         [...Array(addNewAllPackageField)].map((_, index) => (
+//                             <div key={index} className="relative flex items-center mt-5">
+//                                 <input
+//                                     type="text"
+//                                     placeholder="0"
+//                                     className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+//                                 />
+//                                 <span className="absolute left-3 text-gray-400">
+//                                     <BsCurrencyDollar className="text-2xl" />
+//                                 </span>
+//                             </div>
+//                         ))
+//                     )
+//                 } */}
+//             </div>
+
+
+
+//             <div>
+//                 <h2>Package size</h2>
+
+//                 <div className='grid lg:grid-cols-3 gap-5'>
+//                     <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
+//                         <h3 className='text-xl font-semibold'>Little</h3>
+//                         <p className='mb-3 mt-1 text-xs '>Documents, small packages</p>
+//                         <div className='flex items-center justify-center gap-3'>
+//                             <div onClick={handleMinusAllSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaMinus />
+//                             </div>
+//                             <span>{allSmall}</span>
+//                             <div onClick={handlePlusAllSmall} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaPlus />
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
+//                         <h3 className='text-xl font-semibold'>AVERAGE</h3>
+//                         <p className='mb-3 mt-1 text-xs '>Standard boxes</p>
+//                         <div className='flex items-center justify-center gap-3'>
+//                             <div onClick={handleMinusAllMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaMinus />
+//                             </div>
+//                             <span>{allMedium}</span>
+//                             <div onClick={handlePlusAllMedium} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaPlus />
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div className='bg-[#d5d4d4] p-5 rounded-lg text-center'>
+//                         <h3 className='text-xl font-semibold'>Grand</h3>
+//                         <p className='mb-3 mt-1 text-xs '>Lightweight suitcases</p>
+//                         <div className='flex items-center justify-center gap-3'>
+//                             <div onClick={handleMinusAllLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaMinus />
+//                             </div>
+//                             <span>{allLarge}</span>
+//                             <div onClick={handlePlusAllLarge} className='w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center cursor-pointer'>
+//                                 <FaPlus />
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+
+//             {/* Arrival City */}
+
+
+//             <button
+//                 type="submit"
+//                 className="bg-gradient-to-r from-[#98DED9] to-[#C7FFD8] text-primary px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-3 w-full font-semibold"
+//             >
+//                 <IoSearchOutline /> {t('searchForRoute454')}
+//             </button>
+
+//         </form>
+//     ),
+// },
