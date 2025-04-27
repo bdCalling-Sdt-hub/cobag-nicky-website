@@ -154,8 +154,8 @@ const Page = () => {
 
 
             const formData = new FormData();
-            formData.append("amount", `${mainSellKg?.maxpurchAmountAdvance * 100}`);
-            formData.append("cobagProfit", Number(mainSellKg?.maxpurchAmountAdvance * 100) - mainSellKg?.maxpurchAmountAdvance * 80);
+            formData.append("amount", `${mainSellKg?.price * 100}`);
+            formData.append("cobagProfit", Number(mainSellKg?.price * 100) - mainSellKg?.price * 80);
             formData.append("currency", currency !== 'Euro' ? 'usd' : "eur");
             formData.append("paymentMethodId", "pm_card_visa");
             formData.append("isEightyPercent", true);
@@ -166,7 +166,7 @@ const Page = () => {
             console.log(mainSellKg?.price);
 
 
-            if (mainSellKg?.maxpurchAmountAdvance < 1 || !mainSellKg?.maxpurchAmountAdvance) {
+            if (mainSellKg?.price < 1 || !mainSellKg?.price) {
                 return toast.error('Your price is less than 1');
             }
 
@@ -256,28 +256,28 @@ const Page = () => {
                                 <div>
                                     <div>
                                         <div onClick={handleTotalCost} className='flex items-center justify-end gap-2 font-semibold text-gray-500 cursor-pointer'>
-                                            {mainSellKg?.maxpurchAmountAdvance} € <FaAngleDown />
+                                            {mainSellKg?.price} € <FaAngleDown />
                                         </div>
                                         {
                                             fileList &&
                                             <div>
                                                 <h2 className='font-semibold my-5'>Price Details:</h2>
                                                 <div className='flex items-center justify-between my-2'>
-                                                    <span className='text-gray-500'>Basic price ( {mainSellKg?.totalSpace} kg)</span>
-                                                    <span>{mainSellKg?.maxpurchAmountAdvance} €</span>
+                                                    <span className='text-gray-500'>Basic price ({mainSellKg?.totalSpace} kg)</span>
+                                                    <span>{mainSellKg?.price - (mainSellKg?.price * 0.2)} €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500'>Commission (20%)</span>
-                                                    <span>{(mainSellKg?.maxpurchAmountAdvance / 20)} €</span>
+                                                    <span>{(mainSellKg?.price * 0.2).toFixed(2)} €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500'>Fixed costs</span>
-                                                    <span>{(mainSellKg?.maxpurchAmountAdvance / 20 ) + (mainSellKg?.maxpurchAmountAdvance)}€</span>
+                                                    <span>{(mainSellKg?.price)}€</span>
                                                 </div>
                                                 <hr />
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500 font-semibold'>Total costs :</span>
-                                                    <span className='font-semibold'>{(mainSellKg?.maxpurchAmountAdvance / 20 ) + (mainSellKg?.maxpurchAmountAdvance)}€</span>
+                                                    <span className='font-semibold'>{(mainSellKg?.price)}€</span>
                                                 </div>
                                             </div>
                                         }
@@ -405,21 +405,21 @@ const Page = () => {
                                                 <div>
                                                     <h2 className='font-semibold my-5'>Price Details:</h2>
                                                     <div className='flex items-center justify-between my-2'>
-                                                        <span className='text-gray-500'>Basic price ( 3 kg)</span>
-                                                        <span>21.00€</span>
+                                                        <span className='text-gray-500'>Basic price ({mainSellKg?.totalSpace} kg)</span>
+                                                        <span>{mainSellKg?.price - (mainSellKg?.price * 0.2)} €</span>
                                                     </div>
                                                     <div className='flex items-center justify-between my-2'>
                                                         <span className='text-gray-500'>Commission (20%)</span>
-                                                        <span>21.00€</span>
+                                                        <span>{(mainSellKg?.price * 0.2).toFixed(2)} €</span>
                                                     </div>
                                                     <div className='flex items-center justify-between my-2'>
                                                         <span className='text-gray-500'>Fixed costs</span>
-                                                        <span>21.00€</span>
+                                                        <span>{(mainSellKg?.price)}€</span>
                                                     </div>
                                                     <hr />
                                                     <div className='flex items-center justify-between my-2'>
                                                         <span className='text-gray-500 font-semibold'>Total costs :</span>
-                                                        <span className='font-semibold'>21.00€</span>
+                                                        <span className='font-semibold'>{(mainSellKg?.price)}€</span>
                                                     </div>
                                                 </div>
                                             }

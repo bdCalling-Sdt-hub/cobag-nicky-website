@@ -154,6 +154,8 @@ const Page = () => {
 
     const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
     const [allFormData, setAllFormData] = useState(null);
+    const { data: planeData } = useGetAllCalculationDataQuery();
+    console.log(planeData?.data[0]?.missionPrice);
 
 
 
@@ -238,10 +240,11 @@ const Page = () => {
                 maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
             },
             destinationArea: form.destinationArea.value,
-            price: defaultCruuent * (luggageValue + baggageValue),
+            price: (planeData?.data[0]?.missionPrice) + (defaultCruuent * (luggageValue + baggageValue)) + (defaultCruuent * (luggageValue + baggageValue) * 0.2),
 
         }
 
+        console.log(formData);
 
         setAllFormData(formData);
 
@@ -325,9 +328,7 @@ const Page = () => {
     // console.log(smallVlaue, mediumVlaue, largeVlaue);
 
     const { data: allPlatform } = useGetAllPlatformQuery()
-
     const platform = allPlatform?.data[0]
-
     console.log(platform?.train);
 
 
@@ -363,6 +364,14 @@ const Page = () => {
             return toast.error('Please enter a valid destination area')
         }
         // enum: ['small', 'medium', 'large']
+
+        const sizePrice =
+            (smallVlaue > 0 ? smallVlaue * platform?.train?.small : 0) +
+            (mediumVlaue > 0 ? mediumVlaue * platform?.train?.medium : 0) +
+            (largeVlaue > 0 ? largeVlaue * platform?.train?.large : 0);
+
+        const missionPrice = planeData?.data[0]?.missionPrice || 0;
+
         const fromData = {
             userId: userId,
             transportMode: 'train',
@@ -380,16 +389,23 @@ const Page = () => {
 
             availableToBeCourier: showAvailable ? true : false,
             destinationArea: form.destinationArea.value,
-            price: (smallVlaue > 0 && smallVlaue * platform?.train?.small) + (mediumVlaue > 0 && mediumVlaue * platform?.train?.medium) + (largeVlaue > 0 && largeVlaue * platform?.train?.large),
+
+
+            price: sizePrice + missionPrice + (sizePrice + missionPrice) * 0.2,
+
 
             courierOptions: {
-                maxPurchaseAmount: showAvailable ? form.maxpurchAmountAdvance.value : 0 || 0,
+                maxPurchaseAmount: showAvailable ? form.maxpurchAmountAdvance.value : 0 ,
             }
 
         }
 
+        setAllFormData(fromData);
+
 
         console.log(fromData);
+
+        // return
         try {
             const res = await createPlane(fromData).unwrap();
             console.log(res);
@@ -397,6 +413,7 @@ const Page = () => {
                 toast.success('Travel created successfully !!')
                 console.log(res?.data)
                 form.reset();
+                handleShowModal2();
             }
             else {
                 console.log(res);
