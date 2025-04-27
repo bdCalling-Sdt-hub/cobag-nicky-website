@@ -240,7 +240,9 @@ const Page = () => {
                 maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
             },
             destinationArea: form.destinationArea.value,
-            price: (planeData?.data[0]?.missionPrice) + (defaultCruuent * (luggageValue + baggageValue)) + (defaultCruuent * (luggageValue + baggageValue) * 0.2),
+            price: (planeData?.data[0]?.missionPrice)
+                + (defaultCruuent * (luggageValue + baggageValue))
+                + ((defaultCruuent * (luggageValue + baggageValue) + planeData?.data[0]?.missionPrice ) * 0.2),
 
         }
 
@@ -395,7 +397,7 @@ const Page = () => {
 
 
             courierOptions: {
-                maxPurchaseAmount: showAvailable ? form.maxpurchAmountAdvance.value : 0 ,
+                maxPurchaseAmount: showAvailable ? form.maxpurchAmountAdvance.value : 0,
             }
 
         }

@@ -95,12 +95,12 @@ const Header = () => {
             </ul>
 
             <div className="flex items-center gap-3  md:hidden ">
-                <Link
+                {/* <Link
                     href={'/commission'}
                     className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-3 rounded-full font-semibold  border"
                 >
                     {t('NavCommission')}
-                </Link>
+                </Link> */}
 
 
                 {
@@ -140,7 +140,7 @@ const Header = () => {
             </div>
 
             {/* Logo Section (Always Visible) */}
-            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-36 -ml-10 cursor-pointer">
+            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-[400px] -ml-10 cursor-pointer">
                 <Image
                     src="/Images/NewSection/cobag-logo.png"
                     alt="Company Logo"
@@ -156,12 +156,12 @@ const Header = () => {
 
             {/* User Icon Section (Always Visible) */}
             <div className="md:flex items-center gap-3  hidden ">
-                <Link
+                {/* <Link
                     href={'/commission'}
                     className="hidden md:block bg-gradient-to-r text-white from-[#2F387F] to-[#C6FADB] px-6 py-2 rounded-full font-semibold  border"
                 >
                     {t('NavCommission')}
-                </Link>
+                </Link> */}
 
 
                 {
