@@ -9,10 +9,10 @@ import { CiCalendar, CiDollar, CiLocationOn, CiUser } from 'react-icons/ci';
 import { IoAddCircleOutline, IoSearchOutline, IoShieldCheckmarkOutline } from 'react-icons/io5'; // Corrected import for IoSearchOutline
 import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
-import { useSearchIShopMutation } from '@/app/redux/Features/Search/searchItravel';
+import { useSearchIShopMutation, useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaBox, FaRegClock, FaStar } from 'react-icons/fa6';
-import { IoMdCheckbox, IoMdInformationCircle } from 'react-icons/io';
+import { IoMdCheckbox, IoMdInformationCircle, IoMdInformationCircleOutline, IoMdTrain } from 'react-icons/io';
 import { CiImageOn } from "react-icons/ci";
 import { useCreateIshopMutation, useGetAllIshopQuery } from '@/app/redux/Features/Ishop/ishop';
 import { useGetAllPostQuery } from '@/app/redux/Features/Itravel/createPlane';
@@ -25,7 +25,7 @@ import baseUrl from '@/app/redux/api/baseUrl';
 import { LuPlane } from 'react-icons/lu';
 import { useGetSingleUserQuery } from '@/app/redux/Features/Auth/getUser';
 import { useCreateSingleChatMutation } from '@/app/redux/Features/message/getMessage';
-import { Spin } from 'antd';
+import { Spin, Tooltip } from 'antd';
 
 
 
@@ -34,6 +34,14 @@ const Page = () => {
     const { t } = i18n;
 
     const { data: getAllData } = useGetAllIshopQuery();
+
+    console.log(getAllData);
+
+    const [selectedOption, setSelectedOption] = useState(null); // State to manage the selected radio button
+
+    const handleRadioChange = (e) => {
+        setSelectedOption(e.target.value); // Update the selected option
+    };
 
 
 
@@ -56,7 +64,7 @@ const Page = () => {
 
     // ================ search ================
 
-    const [searchIshop, { isLoading }] = useSearchIShopMutation();
+    const [searchIshop, { isLoading }] = useSearchItravelMutation();
     const [searchTerm, setSearchTerm] = useState([]);
 
     // console.log(searchTerm);
@@ -72,6 +80,12 @@ const Page = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // console.log('sdlkjfhhsdf', selectedOption);
+
+        if (!selectedOption) {
+            return toast.error('Please Select a Option');
+        }
+
         const form = e.target;
         const departureCity = form?.departureCity?.value || '';
         const arrivalCity = form?.arrivalCity?.value || '';
@@ -84,14 +98,13 @@ const Page = () => {
         const weight = Number(form?.weight?.value) || 0;
 
 
-
         const formData = {
-            // transportMode: 'all',
+            transportMode: 'all',
             departureCity,
             arrivalCity,
             departureDate,
             arrivalDate,
-            maxpurchAmountAdvance,
+            price: maxpurchAmountAdvance,
         };
         const fromDataPost = new FormData();
         if (showFlexibleDate) {
@@ -126,6 +139,9 @@ const Page = () => {
             else {
                 const response = await postIshop(fromDataPost).unwrap();
                 const response2 = await searchIshop(formData).unwrap();
+
+
+                console.log(response);
 
                 //======== this is for search ===========
                 if (response2?.success) {
@@ -188,7 +204,7 @@ const Page = () => {
 
 
         const formData = new FormData();
-        formData.append("amount", `${Number(request?.maxpurchAmountAdvance * 100 - request?.maxpurchAmountAdvance * 80)}`);
+        formData.append("amount", `${Number(5 * 100)}`);
         formData.append("cobagProfit", request?.cobagProfit);
         formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
         formData.append("paymentMethodId", "pm_card_visa");
@@ -199,10 +215,9 @@ const Page = () => {
 
         console.log(user);
 
-
         if (!userDetails?.isTwentyPercent) {
 
-            toast.error('Please login get subscription or 20% pay');
+            toast.error('Please pay 5$ for Sucure All Transection');
             const res = await payment20Persent(formData).unwrap();
             console.log('paymnent ', res);
 
@@ -243,14 +258,106 @@ const Page = () => {
                     <div className='bg-[#000d1a8a] min-h-[90vh] md:py-32 py-20'>
                         <div className='lg:w-2/4 mx-auto text-center'>
                             <h1 className='md:text-4xl text-3xl font-semibold text-white'>
-                                {t('worldPurchasesInYourBasket5454')}
+                                {/* {t('worldPurchasesInYourBasket5454')} */}
+                                The world's purchases in your shopping cart
                             </h1>
                             <p className='text-white lg:text-xl lg:mt-5 mt-3'>
                                 {/* {t('whatYouCantFindAtHome5454')} */}
-                                What you can't find at home, our courier travelers will bring it to you! The world has never been so close
+                                {/* What you can't find at home, our courier travelers will bring it to you! The world has never been so close */}
+                                At local price, no customs fees, instant delivery within hours
                             </p>
                         </div>
                         <form className="lg:w-2/4 w-11/12 mx-auto mt-10 bg-[#ffffffab] backdrop-blur-lg lg:p-10 p-5 rounded-lg" onSubmit={handleSubmit}>
+                            <div className='mb-5'>
+                                <h2 className='md:text-3xl text-2xl font-semibold text-primary'>Find a traveler for:</h2>
+
+                                <div className="space-y-4 my-5">
+                                    {/* Radio Button 1 */}
+                                    <div className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            id="radio1"
+                                            value="1"
+                                            className="h-4 w-4"
+                                            checked={selectedOption === '1'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        <label htmlFor="radio1" className=" text-sm cursor-pointer">Buying abroad for myself</label>
+                                        <Tooltip title="Tip: Compare prices for your item in countries around the world. Then find a traveler in that country to buy the item at the local price, with no customs fees and instant delivery.">
+                                            <span className="text-blue-500 cursor-pointer">
+                                                <IoMdInformationCircleOutline />
+                                            </span>
+                                        </Tooltip>
+                                    </div>
+
+                                    {/* Radio Button 2 */}
+                                    <div className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            id="radio2"
+                                            value="2"
+                                            className="h-4 w-4"
+                                            checked={selectedOption === '2'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        <label htmlFor="radio2" className=" text-sm cursor-pointer">Buy and send to a loved one abroad</label>
+                                        <Tooltip title="Tip: Compare prices for your item in countries around the world. Then find a traveler in that country to buy the item at the local price, with no customs fees and instant delivery.">
+                                            <span className="text-blue-500 cursor-pointer">
+                                                <IoMdInformationCircleOutline />
+                                            </span>
+                                        </Tooltip>
+                                    </div>
+
+                                    {/* Radio Button 3 */}
+                                    <div className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            id="radio3"
+                                            value="3"
+                                            className="h-4 w-4"
+                                            checked={selectedOption === '3'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        <label htmlFor="radio3" className=" text-sm cursor-pointer">Send documents abroad (passport, birth certificate, etc.)</label>
+
+                                    </div>
+
+                                    {/* Radio Button 4 */}
+                                    <div className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            id="radio4"
+                                            value="4"
+                                            className="h-4 w-4"
+                                            checked={selectedOption === '4'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        <label htmlFor="radio4" className=" text-sm cursor-pointer">Receiving documents from abroad (passport, birth certificate, etc.)</label>
+
+                                    </div>
+
+                                    {/* Radio Button 5 */}
+                                    <div className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            id="radio5"
+                                            value="5"
+                                            className="h-4 w-4"
+                                            checked={selectedOption === '5'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        <label htmlFor="radio5" className=" text-sm cursor-pointer">Share my excess baggage on the same flight</label>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
                             <div className="mb-5">
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
@@ -338,7 +445,7 @@ const Page = () => {
                                 </div>
                                 <div>
 
-                                    <label id="flexibleDate" className="flex items-center gap-2 mt-10 font-semibold  text-[#474747]">
+                                    <label id="flexibleDate" className="flex items-center gap-5 border-2 p-2 rounded-md border-[#b0e6e8] mt-10 font-semibold  text-[#474747]">
                                         <input
                                             type="checkbox"
                                             checked={showFlexibleDate}
@@ -347,7 +454,11 @@ const Page = () => {
                                             className="w-4 h-4 text-primary focus:ring-0"
                                         />
                                         {/* {t('flexibleDates454')} */}
-                                        I want to Post
+                                        <div>
+                                            <h2 className='text-sm font-semibold'>I also want to post my ad and be contacted by a traveler</h2>
+                                            <p className='text-xs font-normal'>By checking, you also post an ad visible to travelers and can be contacted, while continuing your search</p>
+                                        </div>
+
                                     </label>
 
 
@@ -363,9 +474,6 @@ const Page = () => {
                                                         placeholder="Product name"
                                                         className="w-full py-2 px-2 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
-                                                    {/* <span className="absolute left-3 text-gray-400">
-                                                        <IoMdCheckbox className="text-2xl" />
-                                                    </span> */}
                                                 </div>
                                             </div>
                                             <div>
@@ -375,11 +483,11 @@ const Page = () => {
                                                         type="text"
                                                         name='quantity'
                                                         placeholder="quantity"
-                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                        className="w-full py-2 px-2 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
-                                                    <span className="absolute left-3 text-gray-400">
+                                                    {/* <span className="absolute left-3 text-gray-400">
                                                         <FaBox className="text-xl" />
-                                                    </span>
+                                                    </span> */}
                                                 </div>
                                             </div>
                                             <div>
@@ -391,9 +499,6 @@ const Page = () => {
                                                         name='image'
                                                         className="w-full py-2 px-2 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                                     />
-                                                    {/* <span className="absolute left-3 text-gray-400">
-                                                        <CiImageOn className="text-2xl" />
-                                                    </span> */}
                                                 </div>
                                             </div>
                                         </div>
@@ -438,18 +543,17 @@ const Page = () => {
                             <div className="md:flex flex-wrap items-center justify-between">
 
                                 <div>
-                                    <span className='py-1 px-3 capitalize font-semibold rounded-lg absolute left-2 top-2 text-[#0b2f9f] bg-[#f6f6fb]'>courier</span>
+                                    {/* <span className='py-1 px-3 capitalize font-semibold rounded-lg absolute left-2 top-2 text-[#0b2f9f] bg-[#f6f6fb]'>courier</span> */}
                                     <div className="flex items-center text-primary gap-3 font-medium">
                                         <div className="w-14 h-14 bg-[#f6f6fb] text-primary flex items-center justify-center rounded-lg">
                                             {item.transportMode === 'plane' ? (
                                                 <LuPlane className="text-2xl" />
                                             ) : (
-                                                <MdVerifiedUser className="text-2xl" />
+                                                <IoMdTrain className="text-2xl" />
                                             )}
                                         </div>
                                         <h2 className="capitalize">
                                             {item.transportType} {item.transportMode}
-
                                         </h2>
                                     </div>
 
@@ -493,7 +597,7 @@ const Page = () => {
                                 </div>
                                 <div>
                                     <div className="flex flex-col justify-end items-end text-gray-500">
-                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.maxpurchAmountAdvance}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
                                         <span className="flex items-center gap-3">
                                             <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
                                             including insurance and protection

@@ -93,7 +93,7 @@ const AvailableRoutes = ({ searchData }) => {
 
 
         const formData = new FormData();
-        formData.append("amount", `${Number(request?.price * 100 - request?.price * 80)}`);
+        formData.append("amount", `${Number(5 * 100)}`);
         formData.append("cobagProfit", request?.cobagProfit);
         formData.append("currency", currency !== 'Euro' ? 'usd' : 'eur' || 'usd');
         formData.append("paymentMethodId", "pm_card_visa");
@@ -107,7 +107,7 @@ const AvailableRoutes = ({ searchData }) => {
 
         if (!userDetails?.isTwentyPercent) {
 
-            toast.error('Please login get subscription or 20% pay');
+            toast.error('Please pay 5$ for Sucure All Transection');
             const res = await payment20Persent(formData).unwrap();
             console.log('paymnent ', res);
 

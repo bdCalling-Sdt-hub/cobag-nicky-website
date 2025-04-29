@@ -25,7 +25,7 @@ i18n
           'Discoverourservices': 'Discover our services',
           "NavbarItem1": "I want to resell my kilos or be a courier",
           "NavbarItem2": "I want to send a parcel",
-          "NavbarItem3": "I want to have my excess baggage transported",
+          "NavbarItem3": "I want to Find a traveler",
           "NavbarItem4": "I want to buy abroad",
           'NavCommission': '0% Commission',
           'NavSubscribe': 'Subscribe',

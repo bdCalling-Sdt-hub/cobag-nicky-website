@@ -113,8 +113,8 @@ const Page = () => {
                                 value={currency}
                                 className="w-full py-2 px-3 border border-gray-300 rounded-lg bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                             >
-                                <option value="Euro">Euro €</option>
                                 <option value="Dollar">Dollar $</option>
+                                <option value="Euro">Euro €</option>
                             </select>
                             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
                                 ▼

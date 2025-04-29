@@ -20,6 +20,7 @@ import UserMessages from '@/app/components/message/UserMessages';
 import SendMessage from '@/app/components/message/SendMessage';
 import toast from 'react-hot-toast';
 import { usePaymentMutation } from '@/app/redux/Features/payment/createPayment';
+import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
 
 const Page = () => {
     const [message, setMessage] = useState("");
@@ -142,6 +143,9 @@ const Page = () => {
 
     console.log(mainSellKg?._id, user?._id, mainSellKg?.user?._id);
 
+    const { data: planeData } = useGetAllCalculationDataQuery();
+    console.log(planeData?.data[0]?.missionPrice);
+
     const paymentForORder = async () => {
 
 
@@ -196,6 +200,8 @@ const Page = () => {
 
     }
 
+    console.log(mainSellKg);
+
     return (
         <div className=''>
 
@@ -248,11 +254,11 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='text-sm text-gray-500 mt-2'>
-                                <span>{mainSellKg?.departureDate} </span>
-                                <span>{mainSellKg?.departureTime} </span>
-                                <span>{mainSellKg?.totalSpace}kg</span>
+                                <span>{mainSellKg?.departureDate} - </span>
+                                <span>{mainSellKg?.departureTime} -  </span>
+                                <span>{mainSellKg?.totalSpace} kg</span>
                             </div>
-                            <div className='mt-5 flex items-center justify-end'>
+                            <div className=''>
                                 <div>
                                     <div>
                                         <div onClick={handleTotalCost} className='flex items-center justify-end gap-2 font-semibold text-gray-500 cursor-pointer'>
@@ -372,7 +378,7 @@ const Page = () => {
                     {/* need api intregation in here */}
                     {
                         isSidebarShow &&
-                        <div className='w-2/3 z-[999] absolute top-20 pb-20 right-0 h-screen bg-white overflow-y-auto'>
+                        <div className='  z-[999] absolute top-20 pb-20 right-0 h-screen bg-white overflow-y-auto'>
                             <div className='bg-white p-6 border-b border-gray-200'>
                                 <div className='flex items-center gap-2'>
                                     <LuShield className='text-xl text-green-600' />
@@ -380,7 +386,7 @@ const Page = () => {
                                 </div>
                                 <p className='text-sm text-gray-500 mt-2'>Verified Traveler • Expert</p>
                             </div>
-                            <div className='bg-gray-100 p-5'>
+                            <div className='bg-gray-100 p-5  '>
                                 <div className='flex items-center text-sm gap-5 '>
                                     <span><LuPlane className='text-2xl font-semibold text-primary' /></span>
                                     <div className='flex items-center gap-5 font-semibold'>
@@ -394,10 +400,10 @@ const Page = () => {
                                     <span>{mainSellKg?.departureTime} </span>
                                     <span>{mainSellKg?.totalSpace}kg</span>
                                 </div>
-                                <div className='mt-5 flex items-center justify-end'>
+                                <div className='mt-5 flex items-center w-full'>
                                     <div>
                                         <div>
-                                            <div onClick={handleTotalCost} className='flex items-center justify-end gap-2 font-semibold text-gray-500 cursor-pointer'>
+                                            <div onClick={handleTotalCost} className='flex items-center justify-between gap-2 font-semibold text-gray-500 cursor-pointer'>
                                                 {mainSellKg?.price} € <FaAngleDown />
                                             </div>
                                             {
@@ -405,8 +411,12 @@ const Page = () => {
                                                 <div>
                                                     <h2 className='font-semibold my-5'>Price Details:</h2>
                                                     <div className='flex items-center justify-between my-2'>
+                                                        <span className='text-gray-500'>Perches Mission</span>
+                                                        <span>{planeData?.data[0]?.missionPrice} €</span>
+                                                    </div>
+                                                    <div className='flex items-center justify-between my-2'>
                                                         <span className='text-gray-500'>Basic price ({mainSellKg?.totalSpace} kg)</span>
-                                                        <span>{mainSellKg?.price - (mainSellKg?.price * 0.2)} €</span>
+                                                        <span>{mainSellKg?.price - planeData?.data[0]?.missionPrice} €</span>
                                                     </div>
                                                     <div className='flex items-center justify-between my-2'>
                                                         <span className='text-gray-500'>Commission (20%)</span>

@@ -25,7 +25,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
     const handleContact = async (request) => {
 
         const data = {
-            amount: `${Number(request?.PurchasePrice / 100 * 20) * 100}`,
+            amount: `${Number(5 * 100)}`,
             cobagProfit: `${request?.PurchasePrice / 100 * 20}`,
             currency: "eur",
             paymentMethodId: "pm_card_visa",
@@ -40,7 +40,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
 
 
         if (user?.subscription === false) {
-            toast.error('Please login get subscription or 20% pay');
+            toast.error('Please pay 5$ for Sucure All Transection');
 
             const res = await payment20Persent(data).unwrap();
             console.log(res);

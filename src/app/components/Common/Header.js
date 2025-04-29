@@ -61,14 +61,14 @@ const Header = () => {
                             </Link>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <Link
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
                                 href={'/isend'}
                             >
                                 {t('NavbarItem4')}
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
                             <Link
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
@@ -79,7 +79,7 @@ const Header = () => {
                         </li>
 
 
-
+                        {/* 
                         <li>
                             <Link
                                 className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
@@ -87,7 +87,7 @@ const Header = () => {
                             >
                                 {t('NavbarItem2')}
                             </Link>
-                        </li>
+                        </li> */}
 
 
                     </ul>
@@ -210,7 +210,7 @@ const Header = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`md:hidden absolute top-24 right-0 w-full bg-white shadow-lg py-4 px-5 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`md:hidden absolute top-28 right-0 w-full bg-white shadow-lg py-4 px-5 transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
                 style={{ height: '100vh' }}
             >
@@ -235,13 +235,13 @@ const Header = () => {
 
                 {/* Mobile User Section */}
                 <div className="mt-10 flex flex-col items-center gap-3">
-                    <Link
+                    {/* <Link
                         href={'/commission'}
                         onClick={() => setIsMenuOpen(false)}
                         className="bg-gradient-to-r text-white from-[#2F387F] to-[#C7FFD8] w-full text-center py-2 rounded-full font-semibold  border"
                     >
                         0% Commission
-                    </Link>
+                    </Link> */}
 
                     {/* <Image
                         src="/Images/header-user.svg"
