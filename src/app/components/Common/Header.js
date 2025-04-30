@@ -216,10 +216,10 @@ const Header = () => {
             >
                 <ul className="space-y-4">
                     {[
-                        { path: '/itravel', label: 'I want to sell my kilos' },
-                        { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
-                        { path: '/ishop', label: 'I want to have my excess baggage transported' },
-                        { path: '/isend', label: 'I want to send a parcel' },
+                        { path: '/itravel', label: t('NavbarItem1') },
+                        // { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
+                        { path: '/ishop', label: t('NavbarItem3') },
+                        // { path: '/isend', label: 'I want to send a parcel' },
                     ].map((item, index) => (
                         <li key={index}>
                             <Link

@@ -37,7 +37,7 @@ const Page = () => {
 
     console.log(getAllData);
 
-    const [selectedOption, setSelectedOption] = useState(null); // State to manage the selected radio button
+    const [selectedOption, setSelectedOption] = useState('1'); // State to manage the selected radio button
 
     const handleRadioChange = (e) => {
         setSelectedOption(e.target.value); // Update the selected option
@@ -119,8 +119,8 @@ const Page = () => {
             fromDataPost.append('uploadImage', form.image.files[0]);
         }
 
-        if (formData?.departureCity == '' || formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.maxpurchAmountAdvance == '') {
-            return toast.error('All Fields are Required')
+        if (formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.maxpurchAmountAdvance == '') {
+            return toast.error(formData?.arrivalCity == '' ? 'Please Input a Deliver City' : formData?.arrivalDate == '' ? 'Please Select a Date' : 'Please Enter a Price');
         }
 
 
@@ -236,7 +236,7 @@ const Page = () => {
         }
 
         if (userDetails?.isTwentyPercent) {
-
+            
             const res = await creatChat(createChatData).unwrap();
             console.log('chat Data ', res?.data);
             if (res?.code === 201) {
@@ -249,6 +249,9 @@ const Page = () => {
 
         // toast.success('Message sent successfully');
     }
+
+
+    const [isAnywhere, setIsAnywhere] = useState(false);
 
     return (
         <div>
@@ -279,6 +282,7 @@ const Page = () => {
                                             name="category"
                                             id="radio1"
                                             value="1"
+                                            defaultChecked
                                             className="h-4 w-4"
                                             checked={selectedOption === '1'}
                                             onChange={handleRadioChange}
@@ -362,23 +366,41 @@ const Page = () => {
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('cityOfPurchase5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('cityOfPurchase5454')} <sup className='text-blue-500'><small>( Optional )</small></sup></label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
-                                                name='departureCity'
-                                                placeholder={t('enterDepartureCity5454')}
-                                                className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                name="departureCity"
+                                                placeholder={t('enterDepartureCity5454')} // Your translation function
+                                                className={`w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0 ${isAnywhere ? 'bg-gray-200' : ''}`}
+                                                disabled={isAnywhere} // This disables the input when isAnywhere is true
                                             />
+
                                             <span className="absolute left-3 text-gray-400">
                                                 <CiLocationOn className="text-2xl" />
                                             </span>
+                                        </div>
+                                        <div>
+                                            <label className='flex items-center gap-2 mt-1' htmlFor="checkbox40">
+                                                <input
+                                                    onChange={() => setIsAnywhere(!isAnywhere)}
+                                                    type="checkbox" name="" id="checkbox40" />
+                                                <span className='flex items-center gap-2'>Anywhere
+                                                    <Tooltip title="Tip: You can choose to send your item from anywhere in the world.">
+                                                        <span className="text-blue-500 cursor-pointer">
+                                                            <IoMdInformationCircleOutline />
+                                                        </span>
+                                                    </Tooltip>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
 
                                     {/* Arrival City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('deliveryCity5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('deliveryCity5454')}
+                                            <sup className='text-red-500'> *</sup>
+                                        </label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
@@ -396,7 +418,9 @@ const Page = () => {
                                 <div className="grid grid-cols-2 items-start gap-4 my-5">
                                     {/* Desired Date */}
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDate5454')}</label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDate5454')}
+                                            <sup className='text-red-500'> *</sup>
+                                        </label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="date"
@@ -413,6 +437,7 @@ const Page = () => {
                                     <div>
                                         <label className="block mb-2 font-semibold  text-[#474747]">
                                             Flexible Dates
+                                            <sup className='text-red-500'> *</sup>
                                         </label>
                                         <div className="">
                                             <div className="relative flex items-center">
@@ -430,7 +455,9 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}</label>
+                                    <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}
+                                        <sup className='text-red-500'> *</sup>
+                                    </label>
                                     <div className="relative flex items-center">
                                         <input
                                             type="number"

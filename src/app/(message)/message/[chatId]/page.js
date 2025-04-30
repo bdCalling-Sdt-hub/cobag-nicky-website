@@ -29,7 +29,7 @@ const Page = () => {
     const params = useParams(); // Get the parameters from the URL
     const chatId = params?.chatId; // Extract the `userId` parameter if it exists
 
-    console.log(chatId);
+
 
 
     //get chat details
@@ -89,6 +89,7 @@ const Page = () => {
         // console.log(isSidebarShow);
     }
 
+
     //send message handler
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -97,6 +98,8 @@ const Page = () => {
         formData.append("message", message);
         formData.append("receiverId", receiverId);
         formData.append("files", files);
+        formData.append("sellKgId", mainSellKg?._id);
+
 
         if (message === "" && files.length === 0) {
             return
@@ -122,6 +125,9 @@ const Page = () => {
 
     const { data: sellKgData } = useGetSellKgByIdQuery(filterData?.sellKgId);
     const mainSellKg = sellKgData?.data;
+    
+    console.log(user);
+    console.log(mainSellKg);
 
 
 
@@ -141,7 +147,7 @@ const Page = () => {
         setCurrency(getcurrency);
     }, [currency]);
 
-    console.log(mainSellKg?._id, user?._id, mainSellKg?.user?._id);
+    console.log(mainSellKg?.isOrderComfirmed);
 
     const { data: planeData } = useGetAllCalculationDataQuery();
     console.log(planeData?.data[0]?.missionPrice);
@@ -200,7 +206,6 @@ const Page = () => {
 
     }
 
-    console.log(mainSellKg);
 
     return (
         <div className=''>
@@ -294,85 +299,54 @@ const Page = () => {
                             </div>
                         </div>
                         <div className='p-5'>
-                            <button onClick={handleIsAdjust} className='flex items-center justify-center gap-3 my-5 text-primary font-semibold'><GoLaw className='text-2xl font-semibold' /> Adjust</button>
-
-
                             {
-                                isAdjust && <form action="" className="max-w-2xl mx-auto bg-gray-50 my-5">
-                                    <div className="flex items-end gap-3 mb-4">
-                                        <label className="block ">
-                                            <span className='text-sm'>Weight</span>
-                                            <input
-                                                type="number"
-                                                id="weight"
-                                                name="weight"
-                                                placeholder="Enter weight"
-                                                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        </label>
-                                        <button
-                                            type="button"
-                                            className="ml-3 min-w-32 px-4 py-2 bg-primary text-white rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        >
-                                            To Validate
-                                        </button>
-                                    </div>
-
-                                    <div className="mb-4">
-                                        <label className="block mb-2 text-sm">Brief Description:</label>
-                                        <input
-                                            type="text"
-                                            id="description"
-                                            name="description"
-                                            placeholder="Enter brief description"
-                                            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        />
-                                    </div>
-
-                                    <div className="mb-4">
-                                        <label className="block mb-2 text-sm">Declared Value:</label>
-                                        <input
-                                            type="text"
-                                            id="declared-value"
-                                            name="declared-value"
-                                            placeholder="Enter declared value"
-                                            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        />
-                                    </div>
-
-                                </form>
+                                !mainSellKg?.isOrderComfirmed &&
+                                <div >
+                                    <h2 className='font-semibold'>Additional options</h2>
+                                    <label htmlFor="chakcbox1" className='block mt-2'>
+                                        <input type="checkbox" name="chakcbox1" id="chakcbox1" />
+                                        <span className='ml-2  blcok'>Hand delivery</span>
+                                    </label>
+                                    <label htmlFor="chakcbox2" className='block mt-2'>
+                                        <input type="checkbox" name="chakcbox2" id="chakcbox2" />
+                                        <span className='ml-2  blcok'>Secure locker (+5€)</span>
+                                    </label>
+                                </div>
                             }
-                            <div >
-                                <h2 className='font-semibold'>Additional options</h2>
-                                <label htmlFor="chakcbox1" className='block mt-2'>
-                                    <input type="checkbox" name="chakcbox1" id="chakcbox1" />
-                                    <span className='ml-2  blcok'>Hand delivery</span>
-                                </label>
-                                <label htmlFor="chakcbox2" className='block mt-2'>
-                                    <input type="checkbox" name="chakcbox2" id="chakcbox2" />
-                                    <span className='ml-2  blcok'>Secure locker (+5€)</span>
-                                </label>
-                            </div>
 
                         </div>
-                        <div className="p-5">
-                            <Dragger
-                                onChange={handleUploadChange}
-                                multiple={false} // To allow multiple files to be uploaded
-                            >
-                                <p className="ant-upload-drag-icon">
-                                    <CloudUploadOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click to add photos/videos</p>
-                            </Dragger>
+                        {
+                            !mainSellKg?.isOrderComfirmed &&
+                            <div className="p-5">
+                                <Dragger
+                                    onChange={handleUploadChange}
+                                    multiple={false} // To allow multiple files to be uploaded
+                                >
+                                    <p className="ant-upload-drag-icon">
+                                        <CloudUploadOutlined />
+                                    </p>
+                                    <p className="ant-upload-text">Click to add photos/videos</p>
+                                </Dragger>
 
-                        </div>
-                        <div className='p-5'>
-                            <div className='text-center'>
-                                <button className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' onClick={paymentForORder}> <IoCardOutline />
-                                    Pay Now</button>
                             </div>
-                        </div>
+                        }
+                        {
+                            !mainSellKg?.isOrderComfirmed &&
+                            <div className='p-5'>
+                                <div className='text-center'>
+                                    <button className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' onClick={paymentForORder}> <IoCardOutline />
+                                        Pay Now</button>
+                                </div>
+                            </div>
+                        }
+                        {
+                            mainSellKg?.isOrderComfirmed &&
+                            <div className='p-5'>
+                                <div className='text-center'>
+                                    <span className='text-2xl font-semibold text-green-500'>Order Confirmed</span>
+                                </div>
+                            </div>
+                        }
                     </div>
 
                     {/* need api intregation in here */}
@@ -440,83 +414,53 @@ const Page = () => {
                                 </div>
                             </div>
                             <div className='p-5'>
-                                <button onClick={handleIsAdjust} className='flex items-center justify-center gap-3 my-5 text-primary font-semibold'><GoLaw className='text-2xl font-semibold' /> Adjust</button>
-
-
                                 {
-                                    isAdjust && <form action="" className="max-w-2xl mx-auto bg-gray-50 my-5">
-                                        <div className="flex items-end gap-3 mb-4">
-                                            <label className="block ">
-                                                <span className='text-sm'>Weight</span>
-                                                <input
-                                                    type="number"
-                                                    id="weight"
-                                                    name="weight"
-                                                    placeholder="Enter weight"
-                                                    className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                />
-                                            </label>
-                                            <button
-                                                type="button"
-                                                className="ml-3 min-w-32 px-4 py-2 bg-primary text-white rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            >
-                                                To Validate
-                                            </button>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="block mb-2 text-sm">Brief Description:</label>
-                                            <input
-                                                type="text"
-                                                id="description"
-                                                name="description"
-                                                placeholder="Enter brief description"
-                                                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="block mb-2 text-sm">Declared Value:</label>
-                                            <input
-                                                type="text"
-                                                id="declared-value"
-                                                name="declared-value"
-                                                placeholder="Enter declared value"
-                                                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        </div>
-
-                                    </form>
+                                    !mainSellKg?.isOrderComfirmed &&
+                                    <div >
+                                        <h2 className='font-semibold'>Additional options</h2>
+                                        <label htmlFor="chakcbox1" className='block mt-2'>
+                                            <input type="checkbox" name="chakcbox1" id="chakcbox1" />
+                                            <span className='ml-2  blcok'>Hand delivery</span>
+                                        </label>
+                                        <label htmlFor="chakcbox2" className='block mt-2'>
+                                            <input type="checkbox" name="chakcbox2" id="chakcbox2" />
+                                            <span className='ml-2  blcok'>Secure locker (+5€)</span>
+                                        </label>
+                                    </div>
                                 }
-                                <div >
-                                    <h2 className='font-semibold'>Additional options</h2>
-                                    <label htmlFor="chakcbox1" className='block mt-2'>
-                                        <input type="checkbox" name="chakcbox1" id="chakcbox1" />
-                                        <span className='ml-2  blcok'>Hand delivery</span>
-                                    </label>
-                                    <label htmlFor="chakcbox2" className='block mt-2'>
-                                        <input type="checkbox" name="chakcbox2" id="chakcbox2" />
-                                        <span className='ml-2  blcok'>Secure locker (+5€)</span>
-                                    </label>
-                                </div>
 
                             </div>
-                            <div className='p-5'>
-                                <Dragger
-                                    onChange={handleUploadChange}
-                                >
-                                    <p className="ant-upload-drag-icon">
-                                        <CloudUploadOutlined />
-                                    </p>
-                                    <p className="ant-upload-text">Click to add photos/videos</p>
-                                </Dragger>
-                            </div>
-                            <div className='p-5'>
-                                <div className='text-center'>
-                                    <button onClick={paymentForORder} className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' > <IoCardOutline />
-                                        Pay Now</button>
+                            {
+                                !mainSellKg?.isOrderComfirmed &&
+                                <div className='p-5'>
+                                    <Dragger
+                                        onChange={handleUploadChange}
+                                    >
+                                        <p className="ant-upload-drag-icon">
+                                            <CloudUploadOutlined />
+                                        </p>
+                                        <p className="ant-upload-text">Click to add photos/videos</p>
+                                    </Dragger>
                                 </div>
-                            </div>
+                            }
+                            {
+                                !mainSellKg?.isOrderComfirmed &&
+                                <div className='p-5'>
+                                    <div className='text-center'>
+                                        <button onClick={paymentForORder} className='flex items-center justify-center gap-3 bg-green-600 text-purple-50 mb-2 py-2 w-full rounded-lg' > <IoCardOutline />
+                                            Pay Now</button>
+                                    </div>
+                                </div>
+                            }
+
+                            {
+                                mainSellKg?.isOrderComfirmed &&
+                                <div className='p-5'>
+                                    <div className='text-center'>
+                                        <span className='text-2xl font-semibold text-green-500'>Order Confirmed</span>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     }
 

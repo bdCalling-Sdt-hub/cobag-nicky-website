@@ -19,7 +19,7 @@ const CouriersAvailable = ({ searchIshopItem }) => {
 
     const router = useRouter();
     const user = useUser();
-    // console.log(user?.subscription === false);
+    // console.log();
     const [payment20Persent] = usePaymentMutation();
 
     const handleContact = async (request) => {
@@ -34,12 +34,8 @@ const CouriersAvailable = ({ searchIshopItem }) => {
             sellKgId: request?._id,
             travellerId: request?.userId?._id
         }
-
         console.log(data);
-
-
-
-        if (user?.subscription === false) {
+        if (user?.isTwentyPercent === false) {
             toast.error('Please pay 5$ for Sucure All Transection');
 
             const res = await payment20Persent(data).unwrap();
@@ -50,6 +46,9 @@ const CouriersAvailable = ({ searchIshopItem }) => {
             }
 
         }
+
+        
+
         // toast.success('Message sent successfully');
     }
 
