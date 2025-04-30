@@ -125,7 +125,7 @@ const Page = () => {
 
     const { data: sellKgData } = useGetSellKgByIdQuery(filterData?.sellKgId);
     const mainSellKg = sellKgData?.data;
-    
+
     console.log(user);
     console.log(mainSellKg);
 
