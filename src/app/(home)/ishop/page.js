@@ -1,7 +1,7 @@
 'use client';
 
 import VideoAndCard from '@/app/components/Isend/VideoAndCard';
-import CouriersAvailable from '@/app/components/Ishop/CouriersAvailable';
+import CouriersAvailable from '../../components/Ishop/CouriersAvailable';
 import HowDoesWork from '../../components/Ishop/HowDoesWork';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
@@ -11,8 +11,8 @@ import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
 import { useSearchIShopMutation, useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaBox, FaRegClock, FaStar } from 'react-icons/fa6';
-import { IoMdCheckbox, IoMdInformationCircle, IoMdInformationCircleOutline, IoMdTrain } from 'react-icons/io';
+import { FaBox, FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
+import { IoIosNotificationsOutline, IoMdCheckbox, IoMdInformationCircle, IoMdInformationCircleOutline, IoMdTrain } from 'react-icons/io';
 import { CiImageOn } from "react-icons/ci";
 import { useCreateIshopMutation, useGetAllIshopQuery } from '@/app/redux/Features/Ishop/ishop';
 import { useGetAllPostQuery } from '@/app/redux/Features/Itravel/createPlane';
@@ -236,7 +236,7 @@ const Page = () => {
         }
 
         if (userDetails?.isTwentyPercent) {
-            
+
             const res = await creatChat(createChatData).unwrap();
             console.log('chat Data ', res?.data);
             if (res?.code === 201) {
@@ -252,6 +252,20 @@ const Page = () => {
 
 
     const [isAnywhere, setIsAnywhere] = useState(false);
+
+
+    const [isNotification, setIsNotification] = useState(false);
+    const handleNotificationShowHide2 = () => {
+        setIsNotification(prev => !prev);
+
+        // Scroll to the section smoothly
+        if (routesSectionRef.current) {
+            routesSectionRef.current.scrollIntoView({
+                behavior: 'smooth', // Smooth scroll
+                block: 'start' // Scroll to the top of the section
+            });
+        }
+    };
 
     return (
         <div>
@@ -561,6 +575,44 @@ const Page = () => {
                 </div>
             </div>
 
+
+
+            {
+                allSearchResutl.length < 1 &&
+                <div className='my-10'>
+                    <div className='lg:w-[80%] mx-auto mb-5 flex justify-center items-center gap-3'>
+                        <p className='text-base font-semibold text-gray-600'>Be alerted</p>
+                        <a href="#routes" onClick={handleNotificationShowHide2}>
+                            {
+                                isNotification ?
+                                    <FaToggleOff className='text-4xl cursor-pointer text-primary' />
+                                    :
+                                    <FaToggleOn className='text-4xl cursor-pointer text-primary' />
+                            }
+                        </a>
+
+                    </div>
+                    <div className='md:w-[600px] mx-auto my-10 px-5 md:px-0'>
+                        <div className=' grid md:grid-cols-2 gap-5'>
+                            <div>
+                                <img src="/Images/NewSection/available-routes.png" alt="" />
+                            </div>
+                            <div className='bg-gray-200 p-5 rounded-xl'>
+                                <h2 className='text-2xl font-semibold text-primary flex items-center gap-2 mb-5'><span className='text-4xl'>😋</span> Victim of its success</h2>
+                                <p>Oooh... Too bad, all the travelers have already sold their kilos for this destination. But don't worry! Sign up for the alert and be the first to know as soon as a new traveler offers their space.</p>
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <p className='text-base my-3 text-gray-600'>Receive an alert for new places available:</p>
+                            <div className='grid grid-cols-2 gap-5'>
+                                <input className='w-full p-3 rounded-lg border border-gray-300' type="email" placeholder='Enter your email' name="email" id="" />
+                                <button className='w-full p-3 rounded-lg bg-primary text-white flex items-center justify-center gap-2'><IoIosNotificationsOutline className='text-2xl' />Activate alert</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
             <section ref={routesSectionRef} id="routes" className="lg:w-[60%] w-[95%] mx-auto py-10">
                 <h2 className="text-2xl font-semibold text-primary mt-10">Available routes</h2>
 
@@ -687,7 +739,7 @@ const Page = () => {
                     <div>
                         {/* <h2 className="text-center text-2xl font-semibold text-red-500 my-20">No Search Data Found !!</h2> 
                         */}
-                        <img className='max-w-[250px]  mx-auto' src="/Images/searchnotfound.webp" alt="" />
+                        {/* <img className='max-w-[250px]  mx-auto' src="/Images/searchnotfound.webp" alt="" /> */}
                     </div>
                 )}
             </section>

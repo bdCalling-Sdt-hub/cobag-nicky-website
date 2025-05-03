@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { FaArrowRight, FaChevronRight } from 'react-icons/fa6';
 import { IoMenu } from "react-icons/io5";
+import { MdContentPasteSearch } from 'react-icons/md';
+import { PiAirplaneTiltThin } from 'react-icons/pi';
 import { RxCross2 } from "react-icons/rx";
 
 const Header = () => {
@@ -44,20 +46,20 @@ const Header = () => {
             <ul className="hidden md:flex items-center gap-5 ">
                 <li className='font-semibold text-[#4d4d4d]'>{t('navWhatdoWYouWantTo')}</li>
                 <li className="relative group cursor-pointer ">
-                    <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-10 py-3 px-4  m rounded-full navbar-item-hover z-[9999]'>
+                    <span className='font-semibold text-primary group-hover:bg-primary duration-500 group-hover:text-white flex items-center gap-10 py-4 px-4  m rounded-full navbar-item-hover z-[9999]'>
                         <FaChevronRight className='group-hover:hidden text-white z-[9999] ' />
                         <FaArrowRight className='hidden group-hover:block text-white z-[9999] ' />
-                        {t('Discoverourservices')}
+                        {/* {t('Discoverourservices')} */}
                     </span>
                     <ul className="absolute hidden group-hover:block top-12 left-0 bg-white shadow-md rounded-md min-w-96">
 
                         <li >
                             <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
                                 href={'/itravel'}
                             >
                                 {/* I want to travel abroad */}
-                                {t('NavbarItem1')}
+                                <PiAirplaneTiltThin className='text-xl' /> {t('NavbarItem1')}
                             </Link>
                         </li>
 
@@ -71,10 +73,10 @@ const Header = () => {
                         </li> */}
                         <li>
                             <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block `}
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-1`}
                                 href={'/ishop'}
                             >
-                                {t('NavbarItem3')}
+                                <MdContentPasteSearch className='text-xl' />{t('NavbarItem3')}
                             </Link>
                         </li>
 
@@ -216,18 +218,18 @@ const Header = () => {
             >
                 <ul className="space-y-4">
                     {[
-                        { path: '/itravel', label: t('NavbarItem1') },
+                        { path: '/itravel', label: t('NavbarItem1'), icon: <PiAirplaneTiltThin className='text-xl' /> },
                         // { path: '/isend', label: 'I want to buy abroad' },  // Updated unique path
-                        { path: '/ishop', label: t('NavbarItem3') },
+                        { path: '/ishop', label: t('NavbarItem3'), icon: <MdContentPasteSearch className='text-xl' /> },
                         // { path: '/isend', label: 'I want to send a parcel' },
                     ].map((item, index) => (
                         <li key={index}>
                             <Link
-                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 block ${isActive(item.path) ? '' : 'text-black'}`}
+                                className={`font-medium hover:font-semibold hover:bg-slate-200 min-w-48 hover:text-primary py-3 px-5 flex items-center gap-2 ${isActive(item.path) ? '' : 'text-black'}`}
                                 href={item.path}
                                 onClick={() => setIsMenuOpen(false)}
                             >
-                                {item.label}
+                                {item.icon}{item.label}
                             </Link>
                         </li>
                     ))}

@@ -1,9 +1,9 @@
 'use client';
 
-import { useOtpVerifyMutation } from '@/app/redux/Features/Auth/verifyotp';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useOtpVerifyMutation } from '../../redux/Features/Auth/verifyotp';
 
 const Page = () => {
 

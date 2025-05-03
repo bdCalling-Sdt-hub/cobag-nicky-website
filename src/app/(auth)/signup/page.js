@@ -41,7 +41,8 @@ const Page = () => {
                 localStorage.setItem('token', res.data?.token);
                 toast.success('User Register successfully !!')
                 console.log(res?.data?.data?._id);
-                router.push(`/document/${res.data?.data?._id}`)
+                // router.push(`/document/${res.data?.data?._id}`)
+                router.push(`/emailverify`)
             }
 
         } catch (error) {
