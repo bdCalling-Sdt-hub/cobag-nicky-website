@@ -155,7 +155,7 @@ const Page = () => {
     const [createPlane, { isLoading: isCreatePlaneLoading }] = useCreatePlaneMutation();
     const [allFormData, setAllFormData] = useState(null);
     const { data: planeData } = useGetAllCalculationDataQuery();
-    console.log(planeData?.data[0]?.missionPrice);
+
 
 
 
@@ -240,9 +240,9 @@ const Page = () => {
                 maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
             },
             destinationArea: form.destinationArea.value,
-            price: (planeData?.data[0]?.missionPrice)
+            price: 15
                 + (defaultCruuent * (luggageValue + baggageValue))
-                + ((defaultCruuent * (luggageValue + baggageValue) + planeData?.data[0]?.missionPrice ) * 0.2),
+                + ((defaultCruuent * (luggageValue + baggageValue) + 15) * 0.2),
 
         }
 
@@ -372,8 +372,6 @@ const Page = () => {
             (mediumVlaue > 0 ? mediumVlaue * platform?.train?.medium : 0) +
             (largeVlaue > 0 ? largeVlaue * platform?.train?.large : 0);
 
-        const missionPrice = planeData?.data[0]?.missionPrice || 0;
-
         const fromData = {
             userId: userId,
             transportMode: 'train',
@@ -393,7 +391,7 @@ const Page = () => {
             destinationArea: form.destinationArea.value,
 
 
-            price: sizePrice + missionPrice + (sizePrice + missionPrice) * 0.2,
+            price: sizePrice + 15 + (sizePrice + 15) * 0.2,
 
 
             courierOptions: {

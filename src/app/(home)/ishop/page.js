@@ -11,7 +11,7 @@ import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import i18n from '@/app/utils/i18';
 import { useSearchIShopMutation, useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaBox, FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
+import { FaBox, FaEuroSign, FaRegClock, FaStar, FaToggleOff, FaToggleOn } from 'react-icons/fa6';
 import { IoIosNotificationsOutline, IoMdCheckbox, IoMdInformationCircle, IoMdInformationCircleOutline, IoMdTrain } from 'react-icons/io';
 import { CiImageOn } from "react-icons/ci";
 import { useCreateIshopMutation, useGetAllIshopQuery } from '@/app/redux/Features/Ishop/ishop';
@@ -26,6 +26,7 @@ import { LuPlane } from 'react-icons/lu';
 import { useGetSingleUserQuery } from '@/app/redux/Features/Auth/getUser';
 import { useCreateSingleChatMutation } from '@/app/redux/Features/message/getMessage';
 import { Spin, Tooltip } from 'antd';
+import moment from 'moment';
 
 
 
@@ -35,12 +36,17 @@ const Page = () => {
 
     const { data: getAllData } = useGetAllIshopQuery();
 
-    console.log(getAllData);
+    // console.log(getAllData);
 
     const [selectedOption, setSelectedOption] = useState('1'); // State to manage the selected radio button
 
     const handleRadioChange = (e) => {
         setSelectedOption(e.target.value); // Update the selected option
+    };
+
+    const [isFlexible, setIsFlexible] = useState(false);
+    const handleFlexibleCheckboxChange = (e) => {
+        setIsFlexible(e.target.checked); // Update state when checkbox is toggled
     };
 
 
@@ -74,105 +80,174 @@ const Page = () => {
 
     const [allSearchResutl, setAllSearchResutl] = useState([]);
 
-    console.log('allSearchResutl', allSearchResutl);
+    // console.log('allSearchResutl', allSearchResutl);
+
+    const [ishopAllData] = useSearchIShopMutation();
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // console.log('sdlkjfhhsdf', selectedOption);
-
-        if (!selectedOption) {
-            return toast.error('Please Select a Option');
-        }
-
         const form = e.target;
         const departureCity = form?.departureCity?.value || '';
         const arrivalCity = form?.arrivalCity?.value || '';
         const departureDate = form?.desiredDate?.value || '';
         const arrivalDate = form?.desiredFlexibleDate?.value || ''; // Add this line
         const maxpurchAmountAdvance = Number(form?.desiredPrice?.value) || 0; // Add this line
-
+        const packageWeight = Number(form?.packageWeight?.value) || 0;
         const name = form?.name?.value || '';
         const quantity = Number(form?.quantity?.value) || 0;
-        const weight = Number(form?.weight?.value) || 0;
-
-
-        const formData = {
-            transportMode: 'all',
-            departureCity,
-            arrivalCity,
-            departureDate,
-            arrivalDate,
-            price: maxpurchAmountAdvance,
-        };
-        const fromDataPost = new FormData();
-        if (showFlexibleDate) {
-
-            fromDataPost.append('departureCity', departureCity);
-            fromDataPost.append('arrivalCity', arrivalCity);
-            fromDataPost.append('departureDate', departureDate);
-            fromDataPost.append('arrivalDate', arrivalDate);
-            fromDataPost.append('PurchasePrice', maxpurchAmountAdvance);
-            fromDataPost.append('productName', name);
-            fromDataPost.append('quantity', quantity);
-            fromDataPost.append('uploadImage', form.image.files[0]);
-        }
-
-        if (formData?.arrivalCity == '' || formData?.departureDate == '' || formData?.arrivalDate == '' || formData?.maxpurchAmountAdvance == '') {
-            return toast.error(formData?.arrivalCity == '' ? 'Please Input a Deliver City' : formData?.arrivalDate == '' ? 'Please Select a Date' : 'Please Enter a Price');
-        }
+        const weight = Number(form?.weight?.value);
 
 
 
-        console.log(formData);
+        if (selectedOption === '1' || selectedOption == '2') {
 
-        try {
-            if (!showFlexibleDate) {
-                const response = await searchIshop(formData).unwrap();
-                console.log(response);
-                if (response?.success) {
-                    setAllSearchResutl(response?.data)
-                    toast.success(`Search successfully !! See ${response?.data?.length} Item`);
-                }
+
+            const formData = {
+                transportMode: 'all',
+                departureCity,
+                arrivalCity,
+                departureDate,
+                arrivalDate,
+                price: maxpurchAmountAdvance,
+                totalSpace: packageWeight,
+            };
+
+            // console.log(formData);
+
+
+            const fromDataPost = new FormData();
+            if (showFlexibleDate) {
+                fromDataPost.append('departureCity', departureCity);
+                fromDataPost.append('arrivalCity', arrivalCity);
+                fromDataPost.append('departureDate', departureDate);
+                fromDataPost.append('arrivalDate', arrivalDate);
+                fromDataPost.append('PurchasePrice', maxpurchAmountAdvance);
+                fromDataPost.append('productName', name);
+                fromDataPost.append('quantity', quantity);
+                fromDataPost.append('uploadImage', form.image.files[0]);
             }
-            else {
-                const response = await postIshop(fromDataPost).unwrap();
-                const response2 = await searchIshop(formData).unwrap();
 
+            if (departureDate === '' || arrivalDate === '' || maxpurchAmountAdvance === 0 || packageWeight === 0) {
+                // Determine which specific field is missing and show the corresponding error message
 
-                console.log(response);
-
-                //======== this is for search ===========
-                if (response2?.success) {
-                    setAllSearchResutl(response2?.data)
-                    toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
+                if (arrivalCity === '') {
+                    return toast.error('Please input a deliver city.');
                 }
-                else if (!response2?.success) {
-                    toast.error('Faild to Search Try again')
+                if (departureDate === '') {
+                    return toast.error('Please select a departure date.');
                 }
 
-
-                //======== this is for post ===========
-                if (response?.success) {
-                    console.log(response?.data);
-                    setSearchTerm(response?.data)
-                    toast.success(`Post successfully `);
+                if (maxpurchAmountAdvance === 0) {
+                    return toast.error('Please enter a price.');
                 }
-                else if (!response?.success) {
-                    toast.error('Faild to Post Try again')
+                if (packageWeight === 0) {
+                    return toast.error('Please enter the package weight.');
                 }
             }
 
 
-        } catch (error) {
-            console.log(error);
+            try {
+                if (!showFlexibleDate) {
+                    const response = await searchIshop(formData).unwrap();
+                    console.log(response);
+                    if (response?.success) {
+                        setAllSearchResutl(response?.data)
+                        toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                    }
+                }
+                else {
+                    const response = await postIshop(fromDataPost).unwrap();
+                    const response2 = await searchIshop(formData).unwrap();
+
+
+                    console.log(response);
+
+                    //======== this is for search ===========
+                    if (response2?.success) {
+                        setAllSearchResutl(response2?.data)
+                        toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
+                    }
+                    else if (!response2?.success) {
+                        toast.error('Faild to Search Try again')
+                    }
+
+
+                    //======== this is for post ===========
+                    if (response?.success) {
+                        console.log(response?.data);
+                        setSearchTerm(response?.data)
+                        toast.success(`Post successfully `);
+                    }
+                    else if (!response?.success) {
+                        toast.error('Faild to Post Try again')
+                    }
+                }
+
+
+            } catch (error) {
+                console.log(error);
+            }
         }
+        if (selectedOption == '3' || selectedOption == '4' || selectedOption == '5') {
+            const formData = {
+                departureCity,
+                arrivalCity,
+                departureDate,
+                arrivalDate,
+                totalSpace: packageWeight,
+            };
 
 
+            if (!packageWeight) {
+                return toast.error('Please enter the package weight.');
+            }
 
-    };
 
+            console.log(formData);
+
+            try {
+                if (!showFlexibleDate) {
+                    const response = await ishopAllData(formData).unwrap();
+                    console.log(response);
+                    if (response?.success) {
+                        setAllSearchResutl(response?.data)
+                        toast.success(`Search successfully !! See ${response?.data?.length} Item`);
+                    }
+                }
+                else {
+
+                    const response = await postIshop(fromDataPost).unwrap();
+                    const response2 = await ishopAllData(formData).unwrap();
+
+                    console.log(response);
+
+                    //======== this is for search ===========
+                    if (response2?.success) {
+                        setAllSearchResutl(response2?.data)
+                        toast.success(`Search successfully !! See ${response2?.data?.length} Item`);
+                    }
+                    else if (!response2?.success) {
+                        toast.error('Faild to Search Try again')
+                    }
+
+
+                    //======== this is for post ===========
+                    if (response?.success) {
+                        console.log(response?.data);
+                        setSearchTerm(response?.data)
+                        toast.success(`Post successfully `);
+                    }
+                    else if (!response?.success) {
+                        toast.error('Faild to Post Try again')
+                    }
+
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 
 
 
@@ -340,6 +415,11 @@ const Page = () => {
                                             onChange={handleRadioChange}
                                         />
                                         <label htmlFor="radio3" className=" text-sm cursor-pointer">Send documents abroad (passport, birth certificate, etc.)</label>
+                                        <Tooltip title="Passport, driver's license, birth certificate, etc. Give your documents to a traveler upon departure at the airport or train station.">
+                                            <span className="text-blue-500 cursor-pointer">
+                                                <IoMdInformationCircleOutline />
+                                            </span>
+                                        </Tooltip>
 
                                     </div>
 
@@ -355,7 +435,11 @@ const Page = () => {
                                             onChange={handleRadioChange}
                                         />
                                         <label htmlFor="radio4" className=" text-sm cursor-pointer">Receiving documents from abroad (passport, birth certificate, etc.)</label>
-
+                                        <Tooltip title="Passport, driver's license, birth certificate, etc. A relative will give your documents to a traveler at the airport or train station, who will bring them back to you.">
+                                            <span className="text-blue-500 cursor-pointer">
+                                                <IoMdInformationCircleOutline />
+                                            </span>
+                                        </Tooltip>
                                     </div>
 
                                     {/* Radio Button 5 */}
@@ -370,6 +454,11 @@ const Page = () => {
                                             onChange={handleRadioChange}
                                         />
                                         <label htmlFor="radio5" className=" text-sm cursor-pointer">Share my excess baggage on the same flight</label>
+                                        <Tooltip title="Find a traveler on the same flight as you who has room in their suitcase to help you carry your excess baggage at a lower cost">
+                                            <span className="text-blue-500 cursor-pointer">
+                                                <IoMdInformationCircleOutline />
+                                            </span>
+                                        </Tooltip>
 
                                     </div>
                                 </div>
@@ -380,7 +469,14 @@ const Page = () => {
                                 <div className="grid lg:grid-cols-2 gap-4">
                                     {/* Departure City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('cityOfPurchase5454')} <sup className='text-blue-500'><small>( Optional )</small></sup></label>
+                                        <label className="block mb-2 font-semibold  text-[#474747]">
+                                            {/* {t('cityOfPurchase5454')}  */}
+
+                                            {
+                                                selectedOption == '1' || selectedOption == '2' ? "City where the item was purchased" : "City of departure of documents"
+                                            }
+
+                                            <sup className='text-blue-500'><small> ( Optional )</small></sup></label>
                                         <div className="relative flex items-center">
                                             <input
                                                 type="text"
@@ -412,7 +508,9 @@ const Page = () => {
 
                                     {/* Arrival City */}
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">{t('deliveryCity5454')}
+                                        <label className="block mb-2 font-semibold  text-[#474747]">
+                                            {/* {t('deliveryCity5454')} */}
+                                            Desired delivery date
                                             <sup className='text-red-500'> *</sup>
                                         </label>
                                         <div className="relative flex items-center">
@@ -429,7 +527,7 @@ const Page = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 items-start gap-4 my-5">
+                                <div className="grid md:grid-cols-2 items-start gap-4 my-5">
                                     {/* Desired Date */}
                                     <div>
                                         <label className="block mb-2 font-semibold  text-[#474747]">{t('desiredDate5454')}
@@ -448,43 +546,93 @@ const Page = () => {
                                     </div>
 
                                     {/* Checkbox for Flexible Dates */}
+
+
+
                                     <div>
-                                        <label className="block mb-2 font-semibold  text-[#474747]">
-                                            Flexible Dates
-                                            <sup className='text-red-500'> *</sup>
-                                        </label>
-                                        <div className="">
-                                            <div className="relative flex items-center">
+
+                                        <div className="flex items-center justify-between">
+                                            {
+                                                isFlexible &&
+                                                <label className="block mb-2 font-semibold  text-[#474747]">
+                                                    Flexible Dates
+                                                    <sup className='text-red-500'> *</sup>
+                                                </label>
+                                            }
+
+                                            <label htmlFor={`flexible`} className="flex font-semibold  text-[#474747] text-sm items-center gap-2 mb-2">
                                                 <input
-                                                    type="date"
-                                                    name='desiredFlexibleDate'
-                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                    type="checkbox"
+                                                    name="flexible"
+                                                    id={`flexible`}
+                                                    onChange={handleFlexibleCheckboxChange}
                                                 />
-                                                <span className="absolute left-3 text-gray-400">
-                                                    <CiCalendar className="text-2xl" />
-                                                </span>
-                                            </div>
+                                                <span>Flexible Dates</span>
+                                            </label>
                                         </div>
+                                        {
+                                            isFlexible &&
+                                            <div className="">
+                                                <div className="relative flex items-center">
+                                                    <input
+                                                        type="date"
+                                                        name='desiredFlexibleDate'
+                                                        className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                    />
+                                                    <span className="absolute left-3 text-gray-400">
+                                                        <CiCalendar className="text-2xl" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        }
 
                                     </div>
                                 </div>
-                                <div>
-                                    <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}
+
+                                {
+                                    selectedOption == '1' || selectedOption == '2' ?
+
+                                        <div>
+                                            <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}
+                                                <sup className='text-red-500'> *</sup>
+                                            </label>
+                                            <div className="relative flex items-center">
+                                                <input
+                                                    type="text"
+                                                    name='desiredPrice'
+                                                    placeholder={`Enter Your Price`}
+                                                    className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                                />
+                                                <span className="absolute left-3 text-gray-400">
+                                                    <FaEuroSign className="text-xl" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        : ''
+                                }
+
+
+                                <div className='my-5'>
+                                    <label className="block mb-2 font-semibold  text-[#474747]">
+                                        {
+                                            selectedOption == '1' || selectedOption == '2' ? 'Item weight (kg)' : 'Weight of documents (kg)'
+                                        }
                                         <sup className='text-red-500'> *</sup>
                                     </label>
                                     <div className="relative flex items-center">
                                         <input
                                             type="number"
-                                            name='desiredPrice'
-                                            placeholder={`Enter Your Price`}
-                                            className="w-full py-2 px-10 border rounded bg-gray-100 focus:outline-none focus:ring-0"
+                                            name='packageWeight'
+                                            placeholder={`0`}
+                                            className="w-full py-2 pl-3 border rounded bg-gray-100 focus:outline-none focus:ring-0"
                                         />
-                                        <span className="absolute left-3 text-gray-400">
-                                            <BsCurrencyDollar className="text-2xl" />
-                                        </span>
                                     </div>
                                 </div>
+
+
                                 <div>
+
+
 
                                     <label id="flexibleDate" className="flex items-center gap-5 border-2 p-2 rounded-md border-[#b0e6e8] mt-10 font-semibold  text-[#474747]">
                                         <input
@@ -676,11 +824,26 @@ const Page = () => {
                                 </div>
                                 <div>
                                     <div className="flex flex-col justify-end items-end text-gray-500">
-                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€ <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" /></h3>
+                                        <h3 className="text-3xl font-semibold text-primary mb-3 flex items-center  gap-3">{item.price}€
+                                            <div className='group relative'>
+                                                <IoMdInformationCircle className="text-gray-500 text-xl cursor-pointer" />
+                                                <span className='shadow-[0_0_15px_0_rgba(0,0,0,0.1)] font-medium w-[200px] group-hover:opacity-100 opacity-0 absolute top-10 right-0 transform  bg-white text-gray-600 text-sm py-1 px-2 rounded-lg hidden group-hover:block'>
+                                                    <h2 className='font-semibold mb-2'>Price details :</h2>
+
+                                                    <span className='font-semibold'> 15 € </span> Mission fee<br />
+                                                    <span className='font-semibold'>{(item?.price - 15).toFixed(2)} €</span> Total Weight Price with 20% Commision
+                                                    <hr className='block my-1' />
+                                                    <span>Total Price :
+                                                        <span className='font-semibold'> {item?.price} €</span>
+                                                    </span>
+                                                </span>
+                                            </div>
+
+
+                                        </h3>
                                         <span className="flex items-center gap-3">
                                             <IoShieldCheckmarkOutline className="text-green-500 capitalize" />
                                             including insurance and protection
-
                                         </span>
 
                                     </div>
@@ -691,7 +854,16 @@ const Page = () => {
                                         </div>
                                         <div className='my-5 bg-[#F2FEF8] py-5 md:w-96 w-full md:px-10 px-5 rounded-lg text-primary text-sm'>
                                             <h2>Delivery by {item.user.firstName}</h2>
-                                            <p><span className='font-semibold'>Today</span> {item.arrivalDate} at <span className='font-semibold'>{item.arrivalTime}</span></p>
+
+                                            <p>
+                                                <span className="font-semibold">
+                                                    In {moment(item.arrivalDate).diff(moment(item.departureDate), 'days')} days on
+                                                </span>{' '}
+                                                {item.arrivalDate} at{' '}
+                                                <span className="font-semibold">{item.arrivalTime}</span>
+                                            </p>
+
+
                                             <p>In <span className='font-semibold'>{item?.destinationArea}</span>
                                             </p>
                                         </div>

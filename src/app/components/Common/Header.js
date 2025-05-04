@@ -142,7 +142,7 @@ const Header = () => {
             </div>
 
             {/* Logo Section (Always Visible) */}
-            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-[400px] -ml-10 cursor-pointer">
+            <Link href={'/'} className="w-[100px] md:w-[120px] block xl:-ml-[200px] -ml-7 cursor-pointer">
                 <Image
                     src="/Images/NewSection/cobag-logo.png"
                     alt="Company Logo"
