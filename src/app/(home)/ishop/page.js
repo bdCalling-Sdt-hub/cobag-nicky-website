@@ -857,7 +857,7 @@ const Page = () => {
 
                                             <p>
                                                 <span className="font-semibold">
-                                                    In {moment(item.arrivalDate).diff(moment(item.departureDate), 'days')} days on
+                                                    In {moment(item.arrivalDate).diff(moment(item.departureDate), 'days')} days on 
                                                 </span>{' '}
                                                 {item.arrivalDate} at{' '}
                                                 <span className="font-semibold">{item.arrivalTime}</span>
