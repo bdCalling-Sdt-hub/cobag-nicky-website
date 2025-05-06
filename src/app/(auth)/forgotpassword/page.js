@@ -1,11 +1,12 @@
 'use client'
-import { useForgotpasswordMutation } from '@/app/redux/Features/Auth/forgetpassword';
+// import { useForgotpasswordMutation } from '@/app/redux/Features/Auth/forgetpassword';
 import { useRouter } from 'next/navigation';
 
 
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineMail } from 'react-icons/ai';
+import { useForgotpasswordMutation } from '../../redux/Features/Auth/forgetpassword';
 
 const Page = () => {
 

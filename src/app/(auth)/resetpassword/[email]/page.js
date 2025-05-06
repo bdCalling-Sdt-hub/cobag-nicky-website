@@ -144,12 +144,13 @@
 // export default ResetPasswordPage;
 
 'use client';
-import baseUrl from '@/app/redux/api/baseUrl';
-import { useResetPasswordMutation } from '@/app/redux/Features/Auth/resetpassword';
+// import baseUrl from '@/app/redux/api/baseUrl';
+// import { useResetPasswordMutation } from '@/app/redux/Features/Auth/resetpassword';
 import { useParams, useRouter } from 'next/navigation';  // Correct import for App Directory
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import baseUrl from '../../../redux/api/baseUrl';
 
 const ResetPasswordPage = () => {
     const router = useRouter();

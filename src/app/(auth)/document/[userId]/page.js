@@ -8,7 +8,8 @@ import { GoInfo } from 'react-icons/go';
 import { LuFileText } from 'react-icons/lu';
 import toast, { Toaster } from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation'; // Assuming this is used correctly to get the userId
-import { useSubmitDocumentMutation } from '@/app/redux/Features/Auth/submitDocument'; // Assuming the mutation is correctly set up
+import { useSubmitDocumentMutation } from '../../../redux/Features/Auth/submitDocument';
+// import { useSubmitDocumentMutation } from '@/app/redux/Features/Auth/submitDocument'; // Assuming the mutation is correctly set up
 
 const Page = () => {
     const router = useRouter();

@@ -128,7 +128,7 @@ const Page = () => {
                 fromDataPost.append('uploadImage', form.image.files[0]);
             }
 
-            if (departureDate === '' || arrivalDate === '' || maxpurchAmountAdvance === 0 || packageWeight === 0) {
+            if (departureDate === '' || arrivalDate === '' || packageWeight === 0) {
                 // Determine which specific field is missing and show the corresponding error message
 
                 if (arrivalCity === '') {
@@ -138,9 +138,7 @@ const Page = () => {
                     return toast.error('Please select a departure date.');
                 }
 
-                if (maxpurchAmountAdvance === 0) {
-                    return toast.error('Please enter a price.');
-                }
+
                 if (packageWeight === 0) {
                     return toast.error('Please enter the package weight.');
                 }
@@ -341,6 +339,9 @@ const Page = () => {
             });
         }
     };
+
+
+    console.log(allSearchResutl);
 
     return (
         <div>
@@ -831,10 +832,18 @@ const Page = () => {
                                                     <h2 className='font-semibold mb-2'>Price details :</h2>
 
                                                     <span className='font-semibold'> 15 € </span> Mission fee<br />
-                                                    <span className='font-semibold'>{(item?.price - 15).toFixed(2)} €</span> Total Weight Price with 20% Commision
+                                                    <span className='font-semibold'>{(item?.totalSpace * item?.pricePerKilo).toFixed(2)} €</span> Price {item?.totalSpace} KG * {item?.pricePerKilo} €/KG
+
+                                                    <span className='font-semibold'> {(item?.price - (Number(item?.totalSpace * item?.pricePerKilo) + 15)).toFixed(2)}
+                                                        Commision 20%
+                                                    </span>
+
                                                     <hr className='block my-1' />
+
+
+
                                                     <span>Total Price :
-                                                        <span className='font-semibold'> {item?.price} €</span>
+                                                        <span className='font-semibold'> {(item?.price).toFixed(2)}  €</span>
                                                     </span>
                                                 </span>
                                             </div>
@@ -857,10 +866,24 @@ const Page = () => {
 
                                             <p>
                                                 <span className="font-semibold">
-                                                    In {moment(item.arrivalDate).diff(moment(item.departureDate), 'days')} days on 
-                                                </span>{' '}
-                                                {item.arrivalDate} at{' '}
-                                                <span className="font-semibold">{item.arrivalTime}</span>
+                                                    {(() => {
+                                                        const arrival = moment(item.arrivalDate).startOf('day');
+                                                        
+                                                        const today = moment().startOf('day');
+                                                        const tomorrow = moment().add(1, 'day').startOf('day');
+
+                                                        if (arrival.isSame(today)) {
+                                                            return "Today";
+                                                        } else if (arrival.isSame(tomorrow)) {
+                                                            return "Tomorrow";
+                                                        } else {
+                                                            const daysDiff = moment(item.arrivalDate).diff(moment(item.departureDate), 'days');
+                                                            return `In ${daysDiff} ${Math.abs(daysDiff) === 1 ? "day" : "days"} on ${arrival.format("MMM D, YYYY")}`;
+                                                        }
+                                                    })()}
+                                                </span>
+
+
                                             </p>
 
 

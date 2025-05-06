@@ -1,8 +1,10 @@
 'use client';
-import AboutHero from '@/app/components/About/AboutHero';
-import AboutStory from '@/app/components/About/AboutStory';
+// import AboutHero from '@/app/components/About/AboutHero';
+// import AboutStory from '@/app/components/About/AboutStory';
 import React, { useEffect } from 'react';
 import AOS from 'aos';
+import AboutHero from '../../components/About/AboutHero';
+import AboutStory from '../../components/About/AboutStory';
 
 const Page = () => {
     useEffect(() => {

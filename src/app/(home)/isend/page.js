@@ -1,13 +1,15 @@
 'use client';
-import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
-import ExcessBaggage from '@/app/components/Isend/ExcessBaggage';
-import Shipments from '@/app/components/Isend/Shipments';
-import VideoAndCard from '@/app/components/Isend/VideoAndCard';
-import PopularProducts from '@/app/components/Ishop/PopularProducts';
-import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
-import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
-import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
-import i18n from '@/app/utils/i18';
+// import AvailableRoutes from '@/app/components/Isend/AvailableRoutes';
+// import ExcessBaggage from '@/app/components/Isend/ExcessBaggage';
+// import Shipments from '@/app/components/Isend/Shipments';
+// import VideoAndCard from '@/app/components/Isend/VideoAndCard';
+// import PopularProducts from '@/app/components/Ishop/PopularProducts';
+// import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
+// import { useGetAllVideoQuery } from '@/app/redux/Features/AllVideos/getAllVideos';
+// import { useSearchItravelMutation } from '@/app/redux/Features/Search/searchItravel';
+
+
+// import i18n from '@/app/utils/i18';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -17,6 +19,13 @@ import { FaTrain } from 'react-icons/fa';
 import { FaMinus, FaP, FaPlus, FaSackDollar } from 'react-icons/fa6';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuBox, LuPlane } from 'react-icons/lu';
+import AvailableRoutes from '../../components/Isend/AvailableRoutes';
+import ITravelVideoSection from '../../components/ITravel/ITravelVideoSection';
+import PopularProducts from '../../components/Ishop/PopularProducts';
+import ExcessBaggage from '../../components/Isend/ExcessBaggage';
+import { useGetAllVideoQuery } from '../../redux/Features/AllVideos/getAllVideos';
+import { useSearchItravelMutation } from '../../redux/Features/Search/searchItravel';
+import i18n from '../../utils/i18';
 
 
 

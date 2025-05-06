@@ -1,12 +1,14 @@
 'use client'
-import { useGetAllMediaQuery } from '@/app/redux/Features/allMedia/allmedia';
-import { useUserSignupMutation } from '@/app/redux/Features/Auth/signup';
+// import { useGetAllMediaQuery } from '@/app/redux/Features/allMedia/allmedia';
+// import { useUserSignupMutation } from '@/app/redux/Features/Auth/signup';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from 'react-icons/ai';
 import { FaApple, FaFacebookF, FaGoogle } from 'react-icons/fa6';
 import { GrMultimedia } from 'react-icons/gr';
+import { useUserSignupMutation } from '../../redux/Features/Auth/signup';
+import { useGetAllMediaQuery } from '../../redux/Features/allMedia/allmedia';
 
 const Page = () => {
 

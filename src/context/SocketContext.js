@@ -1,5 +1,6 @@
 'use client';
-import { socketUrl } from "@/config/config";
+// import { socketUrl } from "@/config/config";
+import { socketUrl } from "../config/config";
 import { createContext, useContext, useEffect } from "react";
 import { io } from "socket.io-client";
 

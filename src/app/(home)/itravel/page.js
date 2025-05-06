@@ -10,17 +10,27 @@ import { FiCheck, FiMessageSquare } from 'react-icons/fi';
 import { message, Modal, Space, TimePicker } from 'antd';
 import { LuBox, LuPlane } from 'react-icons/lu';
 import { PiAirplaneTilt, PiTrainLight } from "react-icons/pi";
-import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
-import Courier from '@/app/components/ITravel/Courier';
-import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
-import i18n from '@/app/utils/i18';
-import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
-import { useCreatePlaneMutation, useGetAllPlatformQuery } from '@/app/redux/Features/Itravel/createPlane';
+
+// import HalfEmptyLuggage from '@/app/components/ITravel/HalfEmptyLuggage';
+// import Courier from '@/app/components/ITravel/Courier';
+// import ITravelVideoSection from '@/app/components/ITravel/ITravelVideoSection';
+// import i18n from '@/app/utils/i18';
+// import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+// import { useCreatePlaneMutation, useGetAllPlatformQuery } from '@/app/redux/Features/Itravel/createPlane';
+// import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
+// import PopularProducts from '@/app/components/Ishop/PopularProducts';
+
 import toast, { Toaster } from 'react-hot-toast';
-import { useGetAllCalculationDataQuery } from '@/app/redux/Features/calculation/getCalculationData';
-import PopularProducts from '@/app/components/Ishop/PopularProducts';
 import { FaRegQuestionCircle } from 'react-icons/fa';
 import Link from 'next/link';
+import HalfEmptyLuggage from '../../components/ITravel/HalfEmptyLuggage';
+import ITravelVideoSection from '../../components/ITravel/ITravelVideoSection';
+import Courier from '../../components/ITravel/Courier';
+import PopularProducts from '../../components/Ishop/PopularProducts';
+import i18n from '../../utils/i18';
+import { useGetUserQuery } from '../../redux/Features/Auth/getUser';
+import { useCreatePlaneMutation, useGetAllPlatformQuery } from '../../redux/Features/Itravel/createPlane';
+import { useGetAllCalculationDataQuery } from '../../redux/Features/calculation/getCalculationData';
 
 
 
@@ -232,9 +242,9 @@ const Page = () => {
 
             handLuggage: luggageValue || 0,
             checkedBaggage: baggageValue || 0,
-            availableToBeCourier: showAvailable ? true : false,
 
-            maxpurchAmountAdvance: showAvailable ? form.availableToBeCourier.value : 0,
+            maxpurchAmountAdvance: form.availableToBeCourier.value,
+            pricePerKilo: defaultCruuent,
 
             courierOptions: {
                 maxPurchaseAmount: showAvailable ? calculet?.minimumPricePerTransaction : 0
@@ -242,7 +252,7 @@ const Page = () => {
             destinationArea: form.destinationArea.value,
             price: 15
                 + (defaultCruuent * (luggageValue + baggageValue))
-                + ((defaultCruuent * (luggageValue + baggageValue) + 15) * 0.2),
+                + ((defaultCruuent * (luggageValue + baggageValue)) * 0.2),
 
         }
 
@@ -692,7 +702,7 @@ const Page = () => {
 
                                         <div>
                                             {/* Checkbox with Label */}
-                                            <label htmlFor="available" className="flex items-center gap-2 cursor-pointer">
+                                            {/* <label htmlFor="available" className="flex items-center gap-2 cursor-pointer">
                                                 <input
                                                     onChange={handleAvailable} // Use onChange instead of onClick for checkboxes
                                                     className="w-5 h-5"
@@ -702,29 +712,29 @@ const Page = () => {
                                                 />
                                                 <span className="flex items-center gap-1 font-semibold text-[#474747]">
                                                     {t('AvailableToBeACourier')} <FaRegQuestionCircle className='font-semibold' />
-                                                    {/* <MdInfo /> */}
                                                 </span>
-                                            </label>
+                                            </label> */}
+                                            {/* <MdInfo /> */}
 
                                             {/* Conditional Content */}
-                                            {showAvailable && (
-                                                <div className="mt-2 bg-white p-5 rounded-lg">
-                                                    <p className='text-[#393939] font-medium'>{t('MaximumPurchaseAmountYouAreWillingToAdvance')}</p>
-                                                    <div className="relative mt-2">
-                                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                                            {/* Icon */}
-                                                            <BiDollar className='text-2xl text-[#737373]' />
-                                                        </div>
-                                                        <input
-                                                            type="number"
-                                                            name='availableToBeCourier'
-                                                            placeholder={t('EnterTheAmount')}
-                                                            className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                                                        />
+
+                                            <div className="mt-2 bg-white p-5 rounded-lg">
+                                                <p className='text-[#393939] font-medium'>{t('MaximumPurchaseAmountYouAreWillingToAdvance')}</p>
+                                                <div className="relative mt-2">
+                                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        {/* Icon */}
+                                                        <BiDollar className='text-2xl text-[#737373]' />
                                                     </div>
-                                                    <span className='text-[#737373] text-xs mt-1'>{t('ThisAmountWillBeVisibleToPotentialBuyers')}</span>
+                                                    <input
+                                                        type="number"
+                                                        name='availableToBeCourier'
+                                                        placeholder={t('EnterTheAmount')}
+                                                        className="mt-1 pl-10 block w-full border text-[#737373] border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                                    />
                                                 </div>
-                                            )}
+                                                <span className='text-[#737373] text-xs mt-1'>{t('ThisAmountWillBeVisibleToPotentialBuyers')}</span>
+                                            </div>
+                                            {/* )} */}
                                         </div>
 
 
@@ -769,7 +779,7 @@ const Page = () => {
                                         <div className="mt-6">
                                             <button
                                                 type="submit"
-                                                className="w-full bg-primary text-white py-3 rounded-md font-semibold transition"
+                                                className="w-full flex items-center justify-center bg-primary text-white py-3 rounded-md font-semibold transition"
                                             >
                                                 {t('PublishRoute')}
                                                 {isCreatePlaneLoading && <FaSpinner className="animate-spin ml-2" />}
@@ -1118,8 +1128,9 @@ const Page = () => {
                     <p>Please ensure that the declared content meets these criteria and consult the guidelines or our customer service if in doubt.</p>
 
                     {/* Modal footer with close button */}
-                    <button onClick={submitAllForm} className='w-full py-3 bg-[#161d6f] text-[#fff] rounded-lg' type="primary" size="large" style={{ marginTop: '20px' }}>
+                    <button onClick={submitAllForm} className='w-full flex items-center justify-center py-3 bg-[#161d6f] text-[#fff] rounded-lg' type="primary" size="large" style={{ marginTop: '20px' }}>
                         I accept the conditions
+                        {isCreatePlaneLoading && <FaSpinner className="animate-spin ml-2" />}
                     </button>
                 </div>
             </Modal>

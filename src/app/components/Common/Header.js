@@ -1,7 +1,7 @@
 'use client'; // Ensure this is a client-side component
-import baseUrl from '@/app/redux/api/baseUrl';
-import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
-import i18n from '@/app/utils/i18';
+// import baseUrl from '@/app/redux/api/baseUrl';
+// import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+// import i18n from '@/app/utils/i18';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,6 +11,9 @@ import { IoMenu } from "react-icons/io5";
 import { MdContentPasteSearch } from 'react-icons/md';
 import { PiAirplaneTiltThin } from 'react-icons/pi';
 import { RxCross2 } from "react-icons/rx";
+import baseUrl from '../../redux/api/baseUrl';
+import { useGetUserQuery } from '../../redux/Features/Auth/getUser';
+import i18n from '../../utils/i18';
 
 const Header = () => {
 

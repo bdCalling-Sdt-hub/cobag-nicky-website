@@ -1,6 +1,6 @@
 'use client';
-import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
-import { useUserloginMutation } from '@/app/redux/Features/Auth/login';
+// import { useGetUserQuery } from '@/app/redux/Features/Auth/getUser';
+// import { useUserloginMutation } from '@/app/redux/Features/Auth/login';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
@@ -8,6 +8,8 @@ import { FaApple, FaFacebookF, FaGoogle } from 'react-icons/fa6';
 import { FiEye, FiEyeOff } from 'react-icons/fi';  // Import eye icons for show/hide password
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useGetUserQuery } from '../../redux/Features/Auth/getUser';
+import { useUserloginMutation } from '../../redux/Features/Auth/login';
 
 const Page = () => {
 
