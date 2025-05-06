@@ -109,7 +109,7 @@ const Page = () => {
                 arrivalCity,
                 departureDate,
                 arrivalDate,
-                price: maxpurchAmountAdvance,
+                // price: maxpurchAmountAdvance,
                 totalSpace: packageWeight,
             };
 
@@ -868,7 +868,7 @@ const Page = () => {
                                                 <span className="font-semibold">
                                                     {(() => {
                                                         const arrival = moment(item.arrivalDate).startOf('day');
-                                                        
+
                                                         const today = moment().startOf('day');
                                                         const tomorrow = moment().add(1, 'day').startOf('day');
 
