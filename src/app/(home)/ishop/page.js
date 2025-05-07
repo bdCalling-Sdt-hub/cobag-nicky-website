@@ -595,7 +595,7 @@ const Page = () => {
 
                                         <div>
                                             <label className="block mb-2 font-semibold  text-[#474747]">{t('Estimatedpurchaseprice')}
-                                                <sup className='text-red-500'> *</sup>
+                                                {/* <sup className='text-red-500'> *</sup> */}
                                             </label>
                                             <div className="relative flex items-center">
                                                 <input
@@ -834,7 +834,9 @@ const Page = () => {
                                                     <span className='font-semibold'> 15 € </span> Mission fee<br />
                                                     <span className='font-semibold'>{(item?.totalSpace * item?.pricePerKilo).toFixed(2)} €</span> Price {item?.totalSpace} KG * {item?.pricePerKilo} €/KG
 
-                                                    <span className='font-semibold'> {(item?.price - (Number(item?.totalSpace * item?.pricePerKilo) + 15)).toFixed(2)}
+                                                    <span className='font-semibold'> 
+                                                        {(item?.price - (Number(item?.totalSpace * item?.pricePerKilo) + 15)).toFixed(2)}
+
                                                         Commision 20%
                                                     </span>
 

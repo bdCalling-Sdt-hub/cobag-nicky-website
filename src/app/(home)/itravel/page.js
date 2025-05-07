@@ -400,8 +400,10 @@ const Page = () => {
             availableToBeCourier: showAvailable ? true : false,
             destinationArea: form.destinationArea.value,
 
+            pricePerKilo: sizePrice,
 
-            price: sizePrice + 15 + (sizePrice + 15) * 0.2,
+
+            price: sizePrice + 15 + (sizePrice * 0.2),
 
 
             courierOptions: {

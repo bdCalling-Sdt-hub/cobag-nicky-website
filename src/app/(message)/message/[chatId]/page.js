@@ -8,7 +8,7 @@ import { LuPlane, LuShield } from 'react-icons/lu';
 import { CiStar } from 'react-icons/ci';
 import { FaAngleDown, FaArrowRightLong, FaCheck } from 'react-icons/fa6';
 import { GoLaw } from 'react-icons/go';
-import { IoCardOutline, IoMenu } from 'react-icons/io5';
+import { IoCardOutline, IoInformationCircleOutline, IoMenu } from 'react-icons/io5';
 import { FiPaperclip, FiSend, FiShield } from 'react-icons/fi';
 import Dragger from 'antd/es/upload/Dragger';
 import { RxCross1 } from 'react-icons/rx';
@@ -164,7 +164,7 @@ const Page = () => {
 
 
             const formData = new FormData();
-            formData.append("amount", `${mainSellKg?.price * 100}`);
+            formData.append("amount", `${(mainSellKg?.price * 100) - (5 * 100)}`);
             formData.append("cobagProfit", Number(mainSellKg?.price * 100) - mainSellKg?.price * 80);
             formData.append("currency", currency !== 'Euro' ? 'usd' : "eur");
             formData.append("paymentMethodId", "pm_card_visa");
@@ -206,6 +206,13 @@ const Page = () => {
 
     }
 
+
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    // Function to handle button click and change state
+    const handleSelectOption = (option) => {
+        setSelectedOption(option);
+    };
 
     return (
         <div className=''>
@@ -272,49 +279,110 @@ const Page = () => {
                                         {
                                             fileList &&
                                             <div>
-                                                <h2 className='font-semibold my-5'>Price Details:</h2>
+                                                <h2 className='font-semibold text-sm '>Price Details:</h2>
+                                                <hr className='my-3' />
                                                 <div className='flex items-center justify-between my-2'>
-                                                    <span className='text-gray-500'>Basic price ({mainSellKg?.totalSpace} kg)</span>
-                                                    <span>{mainSellKg?.price - (mainSellKg?.price * 0.2)} €</span>
+                                                    <span className='text-gray-500 font-semibold text-sm'>Traveler mission</span>
+                                                    <span>15 €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
-                                                    <span className='text-gray-500'>Commission (20%)</span>
-                                                    <span>{(mainSellKg?.price * 0.2).toFixed(2)} €</span>
+                                                    <span className='text-gray-500 font-semibold text-sm'>Basic price ({mainSellKg?.totalSpace} kg)</span>
+                                                    <span>{mainSellKg?.totalSpace * mainSellKg?.pricePerKilo} €</span>
                                                 </div>
                                                 <div className='flex items-center justify-between my-2'>
-                                                    <span className='text-gray-500'>Fixed costs</span>
-                                                    <span>{(mainSellKg?.price)}€</span>
+                                                    <span className='text-gray-500 font-semibold text-sm'>Commission (20%)</span>
+                                                    <span>  {(mainSellKg?.price - (Number(mainSellKg?.totalSpace * mainSellKg?.pricePerKilo) + 15)).toFixed(2)} €</span>
                                                 </div>
                                                 <hr />
                                                 <div className='flex items-center justify-between my-2'>
                                                     <span className='text-gray-500 font-semibold'>Total costs :</span>
                                                     <span className='font-semibold'>{(mainSellKg?.price)}€</span>
                                                 </div>
+                                                <div className='flex items-center justify-between my-2'>
+                                                    <span className='text-gray-500 font-semibold text-sm'>Initial deposit already paid <br />
+                                                        <span className='text-gray-400 text-xs font-normal'>(Refundable if no agreement is reached)</span></span>
+                                                    <span> -5 €</span>
+                                                </div>
+                                                <hr />
+                                                <div className='flex items-center justify-between my-2'>
+                                                    <span className='text-gray-500 font-semibold'>Total to pay :</span>
+                                                    <span className='font-semibold'>{(mainSellKg?.price) - 5}€</span>
+                                                </div>
                                             </div>
                                         }
 
                                     </div>
-                                    <p className='text-xs text-gray-500'>Price including insurance and commissions</p>
                                 </div>
                             </div>
                         </div>
-                        <div className='p-5'>
-                            {
-                                !mainSellKg?.isOrderComfirmed &&
-                                <div >
-                                    <h2 className='font-semibold'>Additional options</h2>
-                                    <label htmlFor="chakcbox1" className='block mt-2'>
-                                        <input type="checkbox" name="chakcbox1" id="chakcbox1" />
-                                        <span className='ml-2  blcok'>Hand delivery</span>
-                                    </label>
-                                    <label htmlFor="chakcbox2" className='block mt-2'>
-                                        <input type="checkbox" name="chakcbox2" id="chakcbox2" />
-                                        <span className='ml-2  blcok'>Secure locker (+5€)</span>
-                                    </label>
-                                </div>
-                            }
+                        <div className='p-5 bg-gray-50 rounded-lg m-1'>
+                            {/* Check for mainSellKg object if order is not confirmed */}
+                            {!mainSellKg?.isOrderComfirmed && (
+                                <div>
+                                    {/* Title for Additional Options */}
+                                    <h2 className='font-semibold text-primary flex items-center gap-1'><IoInformationCircleOutline className='text-xl' />Purchase already paid online?</h2>
 
+                                    {/* Purchase already paid online? - Yes/No buttons */}
+                                    <div className="mb-4">
+                                        <div className='mt-1'>
+                                            <button
+                                                className={`px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${selectedOption === 'yes' ? 'bg-primary text-white' : 'bg-white text-primary border border-primary'
+                                                    }`}
+                                                onClick={() => handleSelectOption('yes')}
+                                            >
+                                                Yes
+                                            </button>
+                                            <button
+                                                className={`px-4 py-2 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${selectedOption === 'no' ? 'bg-primary text-white' : 'bg-white text-primary border border-primary'
+                                                    }`}
+                                                onClick={() => handleSelectOption('no')}
+                                            >
+                                                No
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Estimated Product Price */}
+                                    <p className='font-semibold text-sm mb-1'>Estimated product price</p>
+                                    <div className="flex items-center mb-4">
+                                        <input
+                                            type="number"
+                                            placeholder="Enter estimated price"
+                                            className="border border-gray-300 px-4 py-2 rounded-l-md focus:ring-2 focus:ring-blue-300 w-64"
+                                        />
+                                        <button className="bg-primary text-white px-4 py-2 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-300">Confirm</button>
+                                    </div>
+
+                                    {/* Delivery Options */}
+                                    <div>
+                                        <h3 className="font-semibold text-lg mb-2">Delivery options</h3>
+
+                                        <div className="flex items-center mb-2">
+                                            <input
+                                                type="checkbox"
+                                                id="handDelivery"
+                                                name="handDelivery"
+                                                className="h-5 w-5 border-gray-300 rounded focus:ring-blue-300"
+                                            />
+                                            <label htmlFor="handDelivery" className="ml-2 text-sm">Hand delivery</label>
+                                        </div>
+
+                                        <div className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                id="secureLocker"
+                                                name="secureLocker"
+                                                className="h-5 w-5 border-gray-300 rounded focus:ring-blue-300"
+                                            />
+                                            <label htmlFor="secureLocker" className="ml-2 text-sm">Secure locker (+10€)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
+
+
+
                         {
                             !mainSellKg?.isOrderComfirmed &&
                             <div className="p-5">
@@ -343,7 +411,7 @@ const Page = () => {
                             mainSellKg?.isOrderComfirmed &&
                             <div className='p-5'>
                                 <div className='text-center'>
-                                    <span className='text-2xl font-semibold text-green-500'>Order Confirmed</span>
+                                    <span className='text-2xl font-semibold text-green-500'>This Order is Booked</span>
                                 </div>
                             </div>
                         }
